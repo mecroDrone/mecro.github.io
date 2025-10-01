@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MECRO — Tecnología que impulsa</title>
+  <meta name="description" content="MECRO: kits educativos con ESP32, drones y cursos de electrónica aplicada." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0c14;
+      --bg2:#151729;
+      --accent:#8a2be2; /* violeta MECRO */
+      --accent2:#ff7a59; /* naranja suave */
+      --text:#f3f4f6;
+      --muted:#a5a9b6;
+      --card:#121326;
+      --radius:16px;
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text); background:
+        radial-gradient(1200px 600px at 10% 10%, #1b1e3a 0%, transparent 60%),
+        radial-gradient(1000px 500px at 90% 30%, #1a1030 0%, transparent 65%),
+        linear-gradient(180deg, var(--bg) 0%, #0a0b13 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1100px, 92vw); margin:0 auto}
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(11,12,20,.7); backdrop-filter: blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.3px}
+    .brand .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: conic-gradient(from 210deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 30px rgba(138,43,226,.5);
+    }
+    .menu{display:flex; gap:22px; font-weight:600}
+    .menu a{color:var(--muted)}
+    .menu a:hover{color:var(--text)}
+    .cta{
+      padding:10px 14px; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:white; font-weight:700; box-shadow: var(--shadow);
+    }
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center; padding:72px 0 40px}
+    .kicker{color:var(--muted); font-weight:600; letter-spacing:.16em; text-transform:uppercase}
+    h1{margin:.2em 0 .4em; font-size:clamp(34px, 4.5vw, 54px); line-height:1.05}
+    .grad{background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .lead{color:#cdd0db; font-size:1.05rem}
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius); padding:22px; box-shadow: var(--shadow)
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 24px}
+    .chip{border:1px solid rgba(255,255,255,.12); color:#cfd3e3; padding:8px 12px; border-radius:999px; font-weight:600; font-size:.92rem}
+    .hero img{width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.08)}
+
+    /* Sections */
+    section{padding:56px 0}
+    .section-title{font-size:1.6rem; margin:0 0 18px}
+    .grid{display:grid; gap:18px; grid-template-columns:repeat(3,1fr)}
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius);
+      padding:18px; transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{transform:translateY(-4px); border-color:rgba(255,255,255,.14); box-shadow: var(--shadow)}
+    .card h3{margin:.2em 0 .3em; font-size:1.05rem}
+    .card p{margin:0; color:var(--muted); font-size:.95rem}
+    .tag{display:inline-block; margin-top:10px; padding:6px 10px; border-radius:999px; background:rgba(138,43,226,.15); color:#e5d6ff; font-weight:700; font-size:.78rem}
+
+    /* Footer */
+    footer{padding:38px 0 80px; color:var(--muted); border-top:1px solid rgba(255,255,255,.06)}
+
+    /* WhatsApp Floating Button */
+    .wa-float{
+      position:fixed; z-index:60; right:18px; bottom:18px; width:56px; height:56px; border-radius:50%;
+      display:grid; place-items:center; box-shadow: var(--shadow);
+      background:#25D366; color:#fff; font-weight:800; font-size:26px;
+    }
+    .wa-float:hover{filter:brightness(1.05)}
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr; padding:48px 0 10px}
+      .grid{grid-template-columns:1fr; gap:14px}
+      .menu{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <a href="#"><span>MECRO</span></a>
+        </div>
+        <div class="menu" role="navigation" aria-label="Principal">
+          <a href="#about">Nosotros</a>
+          <a href="#projects">Proyectos</a>
+          <a href="#courses">Cursos</a>
+          <a href="#contact" class="cta">Contacto</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <div>
+        <div class="kicker">Tecnología que impulsa</div>
+        <h1>Kit de iniciación con <span class="grad">ESP32</span> y fundamentos de drones</h1>
+        <p class="lead">
+          Aprende electrónica, PWM, sensores, filtros y control PID con proyectos guiados.
+          Simulaciones en Wokwi y código en ESP-IDF v5.5 listo para producción.
+        </p>
+        <div class="chips">
+          <span class="chip">ESP-IDF v5.5</span>
+          <span class="chip">FreeRTOS</span>
+          <span class="chip">PID</span>
+          <span class="chip">Comunicaciones UDP/TCP</span>
+          <span class="chip">Obsidian Docs</span>
+        </div>
+        <a href="#projects" class="cta">Ver proyectos</a>
+      </div>
+
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1280&auto=format&fit=crop" alt="Ilustración de desarrollo embebido y drones">
+        <p style="color:var(--muted); margin-top:10px">
+          Construye mientras aprendes: del LEDC PWM al controlador de vuelo. Todo paso a paso.
+        </p>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Proyectos del kit</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Lectura LDR + umbral</h3>
+          <p>ADC one-shot y curva de transferencia. Umbral con histéresis y anti-rebote sin <code>delay()</code>.</p>
+          <span class="tag">ESP-IDF</span>
+        </article>
+        <article class="card">
+          <h3>LEDC PWM + Buzzer</h3>
+          <p>Frecuencia, duty y barridos controlados por potenciómetro. Visualización en osciloscopio.</p>
+          <span class="tag">PWM</span>
+        </article>
+        <article class="card">
+          <h3>Filtro EMA & FIR</h3>
+          <p>Suavizado de señal y tiempo de establecimiento. Comparativa en serie temporal.</p>
+          <span class="tag">Filtros</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="courses">
+      <h2 class="section-title">Cursos y talleres</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Comunicación Wi-Fi con ESP32 (UDP/TCP)</h3>
+          <p>Topologías P2P y P2MP, sockets y pruebas con Wireshark. Incluye ejemplos.</p>
+          <span class="tag">Redes</span>
+        </article>
+        <article class="card">
+          <h3>Control PID para actuadores</h3>
+          <p>Modelado discreto, sintonía ZN y validación en lazo cerrado con disturbios.</p>
+          <span class="tag">Control</span>
+        </article>
+        <article class="card">
+          <h3>De kit a dron funcional</h3>
+          <p>De sensores y fusión básica a integración con Pixhawk/ArduPilot.</p>
+          <span class="tag">UAV</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">Sobre MECRO</h2>
+      <p class="lead">
+        Diseñamos kits y contenidos para enseñar ingeniería real. Nuestro objetivo:
+        que termines con un dron volando y un producto educativo vendible.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contacto</h2>
+      <p class="lead">¿Dudas o colaboraciones? Escríbenos por WhatsApp o correo.</p>
+      <div class="chips">
+        <a class="chip" href="mailto:hola@mecro.pe">hola@mecro.pe</a>
+        <a class="chip" href="https://wa.me/51999999999" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="chip" href="https://github.com/tu-usuario" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> MECRO — Tecnología que impulsa
+    </div>
+  </footer>
+
+  <!-- Botón flotante WhatsApp (cambia el número) -->
+  <a class="wa-float" href="https://wa.me/51999999999?text=Hola%20MECRO,%20quiero%20info%20del%20kit%20ESP32" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener">⌕</a>
+
+  <script>
+    // Año dinámico
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
