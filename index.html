@@ -173,7 +173,7 @@
         <!-- LOGO + NOMBRE -->
         <a href="#" class="flex items-center gap-3">
           <!-- Logo MECRO: SUBE ESTE ARCHIVO COMO assets/logo-mecro.png -->
-          <img src="assets/logo-mecro.png"
+          <img src="assets/logo-mecro.jpg"
                alt="Logo MECRO"
                class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] object-cover bg-[var(--mecro-bg-dark)]" />
           <div class="leading-tight">
@@ -277,40 +277,44 @@
         </div>
 
         <!-- Lado tarjetas -->
-        <div class="relative">
-          <div class="hero-card-shell aspect-[4/3]">
-            <div class="hero-inner-grid">
+              <div class="relative">
+                <div class="hero-card-shell aspect-[4/3]">
+                  <div class="hero-inner-grid">
 
-              <div class="hero-small-card">
-                <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Kit ESP32 Pro</h3>
-                <p class="text-xs text-dim">Interrupciones • FreeRTOS • Timers</p>
-                <!-- Imagen de producto: SUBE COMO assets/kit-esp32-pro.jpg -->
-                <div class="hero-img-placeholder">
-                  <span>kit-esp32-pro.jpg</span>
+                    <!-- Tarjeta 1: Kit ESP32 Pro -->
+                    <div class="hero-small-card">
+                      <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Kit ESP32 Pro</h3>
+                      <p class="text-xs text-dim">Proyectos prácticos</p>
+                      <!-- Imagen del producto -->
+                      <img src="assets/kit-esp32-pro.png"
+                          alt="Kit ESP32 Pro"
+                          class="hero-img-placeholder object-cover" />
+                    </div>
+
+                    <!-- Tarjeta 2: Curso UAV/VTOL -->
+                    <div class="hero-small-card">
+                      <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Cursos ESP32</h3>
+                      <p class="text-xs text-dim">Desde básico hasta avanzado</p>
+                      <!-- Imagen del curso -->
+                      <img src="assets/curso-vtol.png"
+                          alt="Curso UAV/VTOL"
+                          class="hero-img-placeholder object-cover" />
+                    </div>
+
+                    <!-- Tarjeta 3: Proyecto destacado -->
+                    <div class="hero-wide-card">
+                      <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Proyecto destacado</h3>
+                      <p class="text-xs text-dim">Balance-bar con PID, ESP32 + PIC18F4550 + ESC</p>
+                      <!-- Imagen del proyecto -->
+                      <img src="assets/proyecto-balancebar.jpg"
+                          alt="Proyecto destacado"
+                          class="hero-wide-img object-cover" />
+                    </div>
+
+                  </div>
                 </div>
               </div>
 
-              <div class="hero-small-card">
-                <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Curso UAV/VTOL</h3>
-                <p class="text-xs text-dim">Aero • Control • Pixhawk</p>
-                <!-- Portada del curso: SUBE COMO assets/curso-vtol.jpg -->
-                <div class="hero-img-placeholder">
-                  <span>curso-vtol.jpg</span>
-                </div>
-              </div>
-
-              <div class="hero-wide-card">
-                <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Proyecto destacado</h3>
-                <p class="text-xs text-dim">Balance-bar con PID, ESP32 + PIC18F4550 + ESC</p>
-                <!-- Foto o frame del proyecto PID: SUBE COMO assets/proyecto-balancebar.jpg -->
-                <div class="hero-wide-img">
-                  <span>proyecto-balancebar.jpg</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>
