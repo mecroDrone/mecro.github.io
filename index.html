@@ -9,13 +9,15 @@
   <meta property="og:title" content="MECRO — Tecnología que impulsa" />
   <meta property="og:description" content="Kits educativos con ESP32, cursos de drones y proyectos de I+D en sistemas embebidos." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og-image.jpg" />
-
-  <meta name="theme-color" content="#0a0d10" />
-  <link rel="icon" href="assets/favicon.png" />
+  
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>" />
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Iconos Phosphor (ligeros y modernos) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <style>
     :root {
@@ -25,113 +27,83 @@
       --mecro-text-main: #f5f6f7;        /* texto principal */
       --mecro-text-dim: #9ca3ad;         /* texto secundario */
       --mecro-accent: #3a5241;           /* verde del logo */
+      --mecro-accent-hover: #4a6652;     /* verde un poco más claro para hover */
       --mecro-accent-soft: #2c3a30;      /* verde profundo para fondos */
       --mecro-accent-ring: rgba(58,82,65,.5); /* borde verde traslúcido */
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--mecro-bg-dark);
       color: var(--mecro-text-main);
     }
 
+    /* Utilidades personalizadas */
     .text-dim { color: var(--mecro-text-dim); }
+    .text-accent { color: var(--mecro-accent); transition: color 0.2s; }
+    .text-accent:hover { color: #6e9e7a; }
 
     .card-surface {
       background-color: var(--mecro-bg-card);
       border: 1px solid var(--mecro-line);
       border-radius: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .card-surface:hover {
+      border-color: var(--mecro-accent-ring);
+      transform: translateY(-2px);
     }
 
     .btn-outline-accent {
-      border-radius:0.75rem;
-      padding:0.5rem 1rem;
-      border:1px solid var(--mecro-accent-ring);
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--mecro-accent-ring);
       color: var(--mecro-text-main);
       background-color: rgba(0,0,0,0);
+      transition: all 0.2s;
     }
     .btn-outline-accent:hover {
       background-color: var(--mecro-accent-soft);
       border-color: var(--mecro-accent);
     }
 
+    .btn-solid-accent {
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--mecro-accent);
+      color: #fff;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    .btn-solid-accent:hover {
+      background-color: var(--mecro-accent-hover);
+    }
+
     header.nav-blur {
       backdrop-filter: blur(12px);
-      background-color: rgba(10,13,16,.7);
+      background-color: rgba(10,13,16,.85);
     }
 
-    /* Tarjetitas métricas del hero */
-    .metric-card {
-      background-color: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 1rem;
+    /* Estilos para el Modal */
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
     }
-
-    /* Bloque derecho del hero (las 3 tarjetas) */
-    .hero-card-shell {
-      border-radius: 1.5rem;
-      background: radial-gradient(circle at 20% 20%, rgba(58,82,65,0.2) 0%, rgba(0,0,0,0) 70%);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 0.75rem;
+    
+    /* Scrollbar personalizada para el modal si es muy largo */
+    .custom-scroll::-webkit-scrollbar {
+      width: 8px;
     }
-    .hero-inner-grid {
-      background-color: #0f1417;
-      border-radius: 1rem;
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 1rem;
-      height: 100%;
+    .custom-scroll::-webkit-scrollbar-track {
+      background: var(--mecro-bg-dark); 
     }
-    .hero-small-card {
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: radial-gradient(circle at 0% 100%, rgba(58,82,65,.15) 0%, rgba(0,0,0,0) 70%);
-      padding: 1rem;
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: var(--mecro-line); 
+      border-radius: 4px;
     }
-    .hero-img-placeholder {
-      border-radius: 0.5rem;
-      background: radial-gradient(circle at 50% 20%, rgba(58,82,65,.2) 0%, rgba(0,0,0,0) 70%);
-      border: 1px solid rgba(255,255,255,0.08);
-      height: 6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .8rem;
-      color: var(--mecro-text-main);
-    }
-    .hero-wide-card {
-      grid-column: span 2 / span 2;
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: radial-gradient(circle at 0% 100%, rgba(58,82,65,.1) 0%, rgba(0,0,0,0) 70%);
-      padding: 1rem;
-    }
-    .hero-wide-img {
-      border-radius: 0.5rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      height: 7rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--mecro-text-main);
-      font-size: .8rem;
-    }
-
-    /* Sección Equipo fondo */
-    .team-section-bg {
-      background-color: rgba(44,58,48,.3);
-      border-top: 1px solid var(--mecro-line);
-      border-bottom: 1px solid var(--mecro-line);
-    }
-
-    /* Enlaces verdes */
-    .text-accent {
-      color: var(--mecro-accent);
-    }
-    .text-accent:hover {
-      text-decoration: underline;
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: var(--mecro-accent); 
     }
 
     /* Inputs del formulario */
@@ -139,475 +111,687 @@
       width: 100%;
       border-radius: 0.75rem;
       background-color: #0f1417;
-      padding: 0.5rem 0.75rem;
+      padding: 0.75rem;
       border: 1px solid rgba(255,255,255,0.07);
       outline: none;
       color: var(--mecro-text-main);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .contact-input:focus {
       border-color: var(--mecro-accent);
       box-shadow: 0 0 0 2px rgba(58,82,65,.4);
     }
-
-    .contact-button {
-      display: inline-flex;
-      justify-content: center;
-      border-radius: 0.75rem;
-      background-color: var(--mecro-accent);
-      padding: 0.5rem 1rem;
-      font-weight: 600;
-      color: var(--mecro-bg-dark);
-    }
-    .contact-button:hover {
-      filter: brightness(1.1);
-    }
   </style>
 </head>
 
-<body>
-  <!-- Header -->
-  <header class="sticky top-0 z-50 nav-blur border-b border-[var(--mecro-line)]">
+<body class="flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 nav-blur border-b border-[var(--mecro-line)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
 
-        <!-- LOGO + NOMBRE -->
-        <a href="#" class="flex items-center gap-3">
-          <!-- Logo MECRO: SUBE ESTE ARCHIVO COMO assets/logo-mecro.png -->
-          <img src="assets/logo-mecro.jpg"
-               alt="Logo MECRO"
-               class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] object-cover bg-[var(--mecro-bg-dark)]" />
+        <!-- LOGO -->
+        <a href="#" class="flex items-center gap-3 group">
+          <!-- Placeholder de logo -->
+          <div class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] bg-[var(--mecro-bg-dark)] flex items-center justify-center text-lg">
+            🚁
+          </div>
           <div class="leading-tight">
-            <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)]">MECRO</span>
+            <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)] group-hover:text-[var(--mecro-accent)] transition-colors">MECRO</span>
             <span class="block text-xs text-dim -mt-0.5">Tecnología que impulsa</span>
           </div>
         </a>
 
         <!-- NAV DESKTOP -->
-        <nav class="hidden md:flex items-center gap-6 text-sm text-[var(--mecro-text-main)]">
-          <a href="#servicios" class="hover:text-[var(--mecro-accent)]">Servicios</a>
-          <a href="#kits" class="hover:text-[var(--mecro-accent)]">Kits ESP32</a>
-          <a href="#proyectos" class="hover:text-[var(--mecro-accent)]">Proyectos</a>
-          <a href="#equipo" class="hover:text-[var(--mecro-accent)]">Equipo</a>
-          <a href="#about" class="hover:text-[var(--mecro-accent)]">Quiénes somos</a>
-          <a href="#contacto" class="hover:text-[var(--mecro-accent)]">Contacto</a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--mecro-text-main)]">
+          <a href="#servicios" class="hover:text-[var(--mecro-accent)] transition-colors">Servicios</a>
+          <a href="#kits" class="hover:text-[var(--mecro-accent)] transition-colors">Kits ESP32</a>
+          <a href="#proyectos" class="hover:text-[var(--mecro-accent)] transition-colors">Proyectos</a>
+          <a href="#equipo" class="hover:text-[var(--mecro-accent)] transition-colors">Equipo</a>
+          <a href="#about" class="hover:text-[var(--mecro-accent)] transition-colors">Quiénes somos</a>
+          <a href="#contacto" class="hover:text-[var(--mecro-accent)] transition-colors">Contacto</a>
           <a href="#contacto" class="ml-2 btn-outline-accent">Empezar</a>
         </nav>
 
-        <!-- NAV MÓVIL BOTÓN -->
-        <button id="menuBtn" class="md:hidden inline-flex items-center gap-2 rounded-xl ring-1 ring-[var(--mecro-line)] px-3 py-2 text-[var(--mecro-text-main)]">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <span>Menú</span>
+        <!-- BOTÓN MENÚ MÓVIL -->
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-gray-400 hover:bg-[var(--mecro-line)] hover:text-white focus:outline-none">
+          <i class="ph ph-list text-2xl"></i>
         </button>
       </div>
     </div>
 
-    <!-- NAV MÓVIL MENU -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-[var(--mecro-line)] bg-[var(--mecro-bg-dark)]">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col gap-3 text-sm text-[var(--mecro-text-main)]">
-        <a href="#servicios" class="hover:text-[var(--mecro-accent)]">Servicios</a>
-        <a href="#kits" class="hover:text-[var(--mecro-accent)]">Kits ESP32</a>
-        <a href="#proyectos" class="hover:text-[var(--mecro-accent)]">Proyectos</a>
-        <a href="#equipo" class="hover:text-[var(--mecro-accent)]">Equipo</a>
-        <a href="#about" class="hover:text-[var(--mecro-accent)]">Quiénes somos</a>
-        <a href="#contacto" class="hover:text-[var(--mecro-accent)]">Contacto</a>
+    <!-- MENÚ MÓVIL (Hidden by default) -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-[var(--mecro-line)] bg-[var(--mecro-bg-dark)] absolute w-full left-0 z-50">
+      <div class="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-2 text-base font-medium">
+        <a href="#servicios" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Servicios</a>
+        <a href="#kits" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Kits ESP32</a>
+        <a href="#proyectos" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Proyectos</a>
+        <a href="#equipo" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Equipo</a>
+        <a href="#about" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Quiénes somos</a>
+        <a href="#contacto" class="block rounded-md px-3 py-2 text-[var(--mecro-accent)]">Contacto</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative isolate">
+  <!-- HERO SECTION -->
+  <section class="relative isolate pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
     <!-- Glow de fondo -->
-    <div class="absolute inset-0 -z-10 opacity-30" style="
-      background:
-        radial-gradient(80% 60% at 70% 10%, rgba(58,82,65,0.5), transparent 60%),
-        radial-gradient(60% 40% at 20% 80%, rgba(0,0,0,0.6), transparent 60%);
-    "></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[1000px] h-[500px] opacity-20" style="background: radial-gradient(circle, rgba(58,82,65,1) 0%, rgba(0,0,0,0) 70%);"></div>
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-      <div class="grid lg:grid-cols-2 gap-10 items-center">
-        <!-- Lado texto -->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Texto Hero -->
         <div>
-          <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight text-[var(--mecro-text-main)]">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-[var(--mecro-text-main)]">
             Educación y I+D en
-            <span class="text-[var(--mecro-accent)]">drones</span>,
-            <span class="text-[var(--mecro-accent)]">ESP32</span>
-            y sistemas embebidos
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--mecro-accent)] to-green-400">drones</span>,
+            ESP32 y sistemas embebidos
           </h1>
 
-          <p class="mt-4 text-dim max-w-prose">
+          <p class="mt-6 text-lg text-dim max-w-prose">
             Formamos a la próxima generación de ingenieros con proyectos reales:
             kits educativos con ESP32, cursos de UAVs/VTOLs y soluciones a medida
             en electrónica y control.
           </p>
 
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="#kits"
-               class="btn-outline-accent">
-              Ver Kits
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#kits" class="btn-solid-accent text-center">
+              Ver Kits Educativos
             </a>
-
-            <a href="#contacto"
-               class="btn-outline-accent">
+            <a href="#contacto" class="btn-outline-accent text-center">
               Solicitar asesoría
             </a>
           </div>
 
-          <dl class="mt-8 grid grid-cols-3 gap-4 text-center">
-            <div class="metric-card p-4">
-              <dt class="text-xs text-dim">Cursos</dt>
-              <dd class="text-2xl font-bold text-[var(--mecro-text-main)]">
-                10+ <span class="text-sm font-normal text-dim">(ESP32, UAVs)</span>
-              </dd>
+          <!-- Métricas -->
+          <dl class="mt-10 grid grid-cols-3 gap-4 text-center border-t border-[var(--mecro-line)] pt-8">
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-dim">Cursos</dt>
+              <dd class="text-3xl font-bold text-[var(--mecro-text-main)]">10+</dd>
             </div>
-
-            <div class="metric-card p-4">
-              <dt class="text-xs text-dim">Proyectos</dt>
-              <dd class="text-2xl font-bold text-[var(--mecro-text-main)]">
-                25+ <span class="text-sm font-normal text-dim">reales</span>
-              </dd>
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-dim">Proyectos</dt>
+              <dd class="text-3xl font-bold text-[var(--mecro-text-main)]">20+</dd>
             </div>
-
-            <div class="metric-card p-4">
-              <dt class="text-xs text-dim">Comunidad</dt>
-              <dd class="text-2xl font-bold text-[var(--mecro-text-main)]">
-                1K+ <span class="text-sm font-normal text-dim">estudiantes</span>
-              </dd>
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-dim">Alumnos</dt>
+              <dd class="text-3xl font-bold text-[var(--mecro-text-main)]">1K+</dd>
             </div>
           </dl>
         </div>
 
-        <!-- Lado tarjetas -->
-              <div class="relative">
-                <div class="hero-card-shell aspect-[4/3]">
-                  <div class="hero-inner-grid">
-
-                    <!-- Tarjeta 1: Kit ESP32 Pro -->
-                    <div class="hero-small-card">
-                      <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Kit ESP32 Pro</h3>
-                      <p class="text-xs text-dim">Proyectos prácticos</p>
-                      <!-- Imagen del producto -->
-                      <img src="assets/kit-esp32-pro.png"
-                          alt="Kit ESP32 Pro"
-                          class="hero-img-placeholder object-cover" />
-                    </div>
-
-                    <!-- Tarjeta 2: Curso UAV/VTOL -->
-                    <div class="hero-small-card">
-                      <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Cursos ESP32</h3>
-                      <p class="text-xs text-dim">Desde básico hasta avanzado</p>
-                      <!-- Imagen del curso -->
-                      <img src="assets/curso-vtol.png"
-                          alt="Curso UAV/VTOL"
-                          class="hero-img-placeholder object-cover" />
-                    </div>
-
-                    <!-- Tarjeta 3: Proyecto destacado -->
-                    <div class="hero-wide-card">
-                      <h3 class="text-sm font-semibold text-[var(--mecro-text-main)]">Proyecto destacado</h3>
-                      <p class="text-xs text-dim">Balance-bar con PID, ESP32 + PIC18F4550 + ESC</p>
-                      <!-- Imagen del proyecto -->
-                      <img src="assets/proyecto-balancebar.jpg"
-                          alt="Proyecto destacado"
-                          class="hero-wide-img object-cover" />
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
+        <!-- Visual Hero (Grid de tarjetas decorativas) -->
+        <div class="relative hidden lg:block">
+          <div class="grid grid-cols-2 gap-4 p-4 bg-[#0f1417]/50 rounded-2xl border border-[var(--mecro-line)] backdrop-blur-sm">
+            <!-- Card 1 -->
+            <div class="col-span-2 h-48 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 relative overflow-hidden group">
+               <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+               <!-- Imagen simulada con fondo -->
+               <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506947411487-a56738267384?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity"></div>
+               <div class="relative z-20 h-full flex flex-col justify-end">
+                 <span class="text-xs font-bold text-[var(--mecro-accent)] uppercase">Destacado</span>
+                 <h3 class="text-xl font-bold">Drones VTOL</h3>
+                 <p class="text-sm text-gray-300">Estabilización PID avanzada</p>
+               </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="h-40 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 flex flex-col justify-between hover:border-[var(--mecro-accent)] transition-colors">
+               <i class="ph ph-cpu text-4xl text-[var(--mecro-accent)]"></i>
+               <div>
+                 <h4 class="font-semibold">ESP32 IoT</h4>
+                 <p class="text-xs text-dim">Control remoto WiFi</p>
+               </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="h-40 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 flex flex-col justify-between hover:border-[var(--mecro-accent)] transition-colors">
+               <i class="ph ph-circuitry text-4xl text-[var(--mecro-accent)]"></i>
+               <div>
+                 <h4 class="font-semibold">PCB Design</h4>
+                 <p class="text-xs text-dim">Altium & KiCad</p>
+               </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
   </section>
 
-  <!-- Servicios -->
-  <section id="servicios" class="py-16">
+  <!-- SERVICIOS -->
+  <section id="servicios" class="py-16 border-t border-[var(--mecro-line)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Servicios</h2>
-      <p class="mt-2 text-dim max-w-prose">
-        Combinamos enseñanza práctica con desarrollo de soluciones reales en aeronáutica,
-        electrónica y software embebido.
-      </p>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Cursos & Talleres</h3>
-          <p class="mt-2 text-sm text-dim">
-            ESP32 (ESP-IDF), Arduino, controladores PID/MPC, fundamentos de UAV/VTOL y Pixhawk.
-          </p>
-        </div>
-
-        <div class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Kits educativos</h3>
-          <p class="mt-2 text-sm text-dim">
-            Kits con enfoque ingenieril: interrupciones, timers, FreeRTOS, detección de flancos, ADC one-shot.
-          </p>
-        </div>
-
-        <div class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">I+D y consultoría</h3>
-          <p class="mt-2 text-sm text-dim">
-            Prototipado rápido, integración de sensores/actuadores, diseño de control y documentación técnica.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kits -->
-  <section id="kits" class="py-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between">
-        <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Kits con ESP32</h2>
-        <a href="#contacto" class="hidden sm:inline-flex text-sm text-accent">Cotizar</a>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <article class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Kit MECRO Base</h3>
-          <p class="mt-1 text-xs text-dim">GPIO • interrupciones • millis()</p>
-          <ul class="mt-3 text-sm list-disc list-inside text-[var(--mecro-text-main)]">
-            <li>Botonera + antirebote sin delay</li>
-            <li>LEDs + PWM con timers</li>
-            <li>Sensor básico (LDR en ADC1)</li>
-          </ul>
-        </article>
-
-        <article class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Kit MECRO Pro</h3>
-          <p class="mt-1 text-xs text-dim">FreeRTOS • colas • timers</p>
-          <ul class="mt-3 text-sm list-disc list-inside text-[var(--mecro-text-main)]">
-            <li>Multitarea con FreeRTOS</li>
-            <li>Drivers I²C/SPI (MPU-6050, OLED)</li>
-            <li>ADC one-shot v5.x</li>
-          </ul>
-        </article>
-
-        <article class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Kit UAV/VTOL</h3>
-          <p class="mt-1 text-xs text-dim">IMU • control PID • ESC</p>
-          <ul class="mt-3 text-sm list-disc list-inside text-[var(--mecro-text-main)]">
-            <li>Lectura IMU + fusión sensorial</li>
-            <li>PID básico y tuning</li>
-            <li>Control de ESCs</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proyectos -->
-  <section id="proyectos" class="py-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between">
-        <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Proyectos</h2>
-        <a href="#contacto" class="hidden sm:inline-flex text-sm text-accent">Proponer colaboración</a>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Balance-bar PID</h3>
-          <p class="mt-1 text-xs text-dim">ESP32 + PIC18F4550 + ESC + LCD 20×4</p>
-          <p class="mt-3 text-sm text-[var(--mecro-text-main)]">
-            Sistema de estabilización en tiempo real con UART y control de motores brushless.
-          </p>
-        </div>
-
-        <div class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Smart Glasses</h3>
-          <p class="mt-1 text-xs text-dim">ESP32 + GPS + ultrasonido + app</p>
-          <p class="mt-3 text-sm text-[var(--mecro-text-main)]">
-            Asistencia a la navegación con alertas hápticas/sonoras y botón de emergencia.
-          </p>
-        </div>
-
-        <div class="card-surface p-6">
-          <h3 class="font-semibold text-[var(--mecro-text-main)]">Inspección textil</h3>
-          <p class="mt-1 text-xs text-dim">Raspberry Pi + YOLOv8 + conveyor</p>
-          <p class="mt-3 text-sm text-[var(--mecro-text-main)]">
-            Detección de defectos con visión por computadora y control de motor paso a paso.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Equipo -->
-  <section id="equipo" class="py-16 team-section-bg">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Equipo</h2>
-      <p class="mt-2 text-dim max-w-prose text-sm">
-        Las personas que están empujando MECRO. Ingeniería real, cero humo.
-      </p>
-
-      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-
-        <!-- Miembro 1 -->
-        <div class="card-surface p-6 text-center">
-          <!-- FOTO: SUBE COMO assets/team-gerard.jpg -->
-          <img src="assets/team-gerard.jpg"
-               alt="Gerard Quispe"
-               class="mx-auto h-20 w-20 rounded-full border border-[var(--mecro-accent-ring)] object-cover bg-[var(--mecro-bg-dark)]" />
-          <h3 class="mt-4 font-semibold text-[var(--mecro-text-main)]">Gerard Quispe</h3>
-          <p class="text-xs text-accent font-medium">Fundador · Aviónica / Control</p>
-          <p class="mt-2 text-xs text-dim">
-            Sistemas embebidos, UAV/VTOL, control PID/MPC, integración Pixhawk.
-          </p>
-        </div>
-
-        <!-- Miembro 2 -->
-        <div class="card-surface p-6 text-center">
-          <!-- FOTO: SUBE COMO assets/team-colab2.jpg -->
-          <img src="assets/team-colab2.jpg"
-               alt="Johan Zamudio"
-               class="mx-auto h-20 w-20 rounded-full border border-[var(--mecro-accent-ring)] object-cover bg-[var(--mecro-bg-dark)]" />
-          <h3 class="mt-4 font-semibold text-[var(--mecro-text-main)]">Johan Zamudio</h3>
-          <p class="text-xs text-accent font-medium">Electrónica de potencia</p>
-          <p class="mt-2 text-xs text-dim">
-            Diseño de drivers, ESCs, fuentes reguladas, gestión de energía.
-          </p>
-        </div>
-
-        <!-- Miembro 3 -->
-        <div class="card-surface p-6 text-center">
-          <!-- FOTO: SUBE COMO assets/team-colab3.jpg -->
-          <img src="assets/team-colab3.jpg"
-               alt="Moshe Igreda"
-               class="mx-auto h-20 w-20 rounded-full border border-[var(--mecro-accent-ring)] object-cover bg-[var(--mecro-bg-dark)]" />
-          <h3 class="mt-4 font-semibold text-[var(--mecro-text-main)]">Moshe Igreda</h3>
-          <p class="text-xs text-accent font-medium">Software / Visión</p>
-          <p class="mt-2 text-xs text-dim">
-            Visión por computadora, IA para inspección industrial, pipelines en Raspberry Pi.
-          </p>
-        </div>
-
-        <!-- Miembro 4 -->
-        <div class="card-surface p-6 text-center">
-          <!-- FOTO: SUBE COMO assets/team-colab4.jpg -->
-          <img src="assets/team-colab4.jpg"
-               alt="Alvaro Lopez"
-               class="mx-auto h-20 w-20 rounded-full border border-[var(--mecro-accent-ring)] object-cover bg-[var(--mecro-bg-dark)]" />
-          <h3 class="mt-4 font-semibold text-[var(--mecro-text-main)]">Alvaro Lopez</h3>
-          <p class="text-xs text-accent font-medium">Educación tecnológica</p>
-          <p class="mt-2 text-xs text-dim">
-            Diseño de talleres inclusivos y kits educativos accesibles con ESP32.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- About / Quiénes somos -->
-  <section id="about" class="py-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-start">
-      <div>
-        <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Quiénes somos</h2>
-        <p class="mt-4 text-[var(--mecro-text-main)] text-base leading-relaxed">
-          MECRO es un laboratorio pequeño pero terco. Hacemos dos cosas al mismo tiempo:
-          enseñamos electrónica y control como ingenieros de verdad, y construimos prototipos
-          que vuelan, miden, estabilizan o inspeccionan. Nuestro objetivo es formar gente que
-          pueda resolver problemas físicos con hardware real y no solo simular en PowerPoint.
-        </p>
-        <p class="mt-4 text-dim text-sm leading-relaxed">
-          Trabajamos con ESP32 (ESP-IDF), Pixhawk, control PID/MPC, FreeRTOS,
-          buses como UART/I²C/SPI, visión por computadora y sistemas embebidos
-          críticos para UAVs, robótica ligera y automatización.
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Nuestros Servicios</h2>
+        <p class="mt-4 text-dim">
+          Combinamos enseñanza práctica con desarrollo de soluciones reales en aeronáutica,
+          electrónica y software embebido.
         </p>
       </div>
 
-      <div class="card-surface p-6 text-sm leading-relaxed text-[var(--mecro-text-main)]">
-        <p class="font-semibold text-accent uppercase text-xs tracking-wide">Misión</p>
-        <p class="mt-1 text-[var(--mecro-text-main)]">
-          Tecnología que impulsa. Queremos que más jóvenes puedan construir sistemas inteligentes,
-          con criterio técnico serio, incluso sin laboratorios caros.
-        </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Servicio 1 -->
+        <div class="card-surface p-8">
+          <div class="w-12 h-12 rounded-lg bg-[var(--mecro-accent-soft)] flex items-center justify-center mb-4 text-[var(--mecro-accent)]">
+            <i class="ph ph-graduation-cap text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Cursos & Talleres</h3>
+          <p class="text-sm text-dim leading-relaxed">
+            ESP32 (ESP-IDF), Arduino, controladores PID/MPC, fundamentos de UAV/VTOL y Pixhawk. Aprende haciendo.
+          </p>
+        </div>
 
-        <p class="mt-6 font-semibold text-accent uppercase text-xs tracking-wide">Lo que creemos</p>
-        <ul class="mt-1 space-y-2 text-dim list-disc list-inside">
-          <li>Aprender electrónica no es conectar LEDs con delay, es entender por qué vibra un motor brushless.</li>
-          <li>La teoría sí importa, pero tiene que tocar hardware.</li>
-          <li>La accesibilidad importa: educación tecnológica también para chicos con limitaciones motoras o visuales.</li>
-        </ul>
+        <!-- Servicio 2 -->
+        <div class="card-surface p-8">
+          <div class="w-12 h-12 rounded-lg bg-[var(--mecro-accent-soft)] flex items-center justify-center mb-4 text-[var(--mecro-accent)]">
+            <i class="ph ph-package text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Kits Educativos</h3>
+          <p class="text-sm text-dim leading-relaxed">
+            Hardware diseñado para aprender: interrupciones, timers, FreeRTOS, detección de flancos, ADC one-shot.
+          </p>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="card-surface p-8">
+          <div class="w-12 h-12 rounded-lg bg-[var(--mecro-accent-soft)] flex items-center justify-center mb-4 text-[var(--mecro-accent)]">
+            <i class="ph ph-rocket-launch text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">I+D y Consultoría</h3>
+          <p class="text-sm text-dim leading-relaxed">
+            Prototipado rápido, integración de sensores, diseño de control y documentación técnica para empresas.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contenido -->
-  <section id="contenido" class="py-16">
+  <!-- KITS ESP32 -->
+  <section id="kits" class="py-16 bg-[#0f1417]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Contenido técnico</h2>
-      <p class="mt-2 text-dim max-w-prose">
-        Tutoriales y demostraciones sobre drones, control y ESP32. Síguenos para ver clases cortas y proyectos paso a paso.
-      </p>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-6 text-sm">
-        <a href="https://www.youtube.com/" target="_blank" class="card-surface p-6 hover:brightness-125 text-[var(--mecro-text-main)]">YouTube</a>
-        <a href="https://www.tiktok.com/" target="_blank" class="card-surface p-6 hover:brightness-125 text-[var(--mecro-text-main)]">TikTok</a>
-        <a href="https://www.instagram.com/" target="_blank" class="card-surface p-6 hover:brightness-125 text-[var(--mecro-text-main)]">Instagram</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contacto -->
-  <section id="contacto" class="py-16">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-10 items-start">
+      <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
-          <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Contacto</h2>
-          <p class="mt-2 text-dim">¿Quieres un taller para tu colegio/universidad o cotizar un kit? Escríbenos.</p>
-          <ul class="mt-6 space-y-2 text-[var(--mecro-text-main)]">
-            <li><span class="text-dim">Email:</span> <a class="text-accent" href="mailto:hola@mecro.pe">hola@mecro.pe</a></li>
-            <li><span class="text-dim">WhatsApp:</span> <a class="text-accent" href="https://wa.me/51999999999" target="_blank">+51 999 999 999</a></li>
-            <li><span class="text-dim">LinkedIn:</span> <a class="text-accent" href="https://www.linkedin.com/" target="_blank">Perfil</a></li>
+          <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Kits con ESP32</h2>
+          <p class="text-dim mt-1">Hardware listo para programar y experimentar.</p>
+        </div>
+        <a href="#contacto" class="btn-outline-accent self-start md:self-auto">Solicitar Cotización</a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Kit 1 -->
+        <article class="card-surface p-6 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Básico</div>
+          <h3 class="text-xl font-semibold text-[var(--mecro-text-main)]">Kit MECRO Base</h3>
+          <p class="mt-1 text-sm text-[var(--mecro-accent)]">GPIO • Interrupciones</p>
+          <ul class="mt-4 text-sm text-dim space-y-2">
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Botonera + antirebote</li>
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> LEDs + PWM con timers</li>
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Sensor LDR (ADC1)</li>
           </ul>
+        </article>
+
+        <!-- Kit 2 -->
+        <article class="card-surface p-6 relative overflow-hidden border-[var(--mecro-accent)] border-opacity-50">
+          <div class="absolute top-0 right-0 bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Recomendado</div>
+          <h3 class="text-xl font-semibold text-[var(--mecro-text-main)]">Kit MECRO Pro</h3>
+          <p class="mt-1 text-sm text-[var(--mecro-accent)]">FreeRTOS • Colas</p>
+          <ul class="mt-4 text-sm text-dim space-y-2">
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Multitarea FreeRTOS</li>
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Drivers I²C/SPI (OLED)</li>
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> ADC one-shot calibrado</li>
+          </ul>
+        </article>
+
+        <!-- Kit 3 -->
+        <article class="card-surface p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Avanzado</div>
+          <h3 class="text-xl font-semibold text-[var(--mecro-text-main)]">Kit UAV/VTOL</h3>
+          <p class="mt-1 text-sm text-[var(--mecro-accent)]">IMU • Control PID</p>
+          <ul class="mt-4 text-sm text-dim space-y-2">
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Fusión sensorial IMU</li>
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Tuning PID en tiempo real</li>
+            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Control preciso de ESCs</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS (DINÁMICO CON JS) -->
+  <section id="proyectos" class="py-16 border-t border-[var(--mecro-line)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">Explora nuestros Proyectos</h2>
+          <p class="mt-2 text-dim">Ingeniería aplicada, código abierto y documentación completa.</p>
+        </div>
+        <!-- Filtros simples (Visuales por ahora) -->
+        <div class="flex gap-2">
+          <span class="px-3 py-1 rounded-full bg-[var(--mecro-accent-soft)] text-xs text-white border border-[var(--mecro-accent)]">Todos</span>
+          <span class="px-3 py-1 rounded-full bg-[var(--mecro-bg-card)] text-xs text-dim border border-[var(--mecro-line)]">Drones</span>
+          <span class="px-3 py-1 rounded-full bg-[var(--mecro-bg-card)] text-xs text-dim border border-[var(--mecro-line)]">IoT</span>
+        </div>
+      </div>
+
+      <!-- Grid Contenedor de Proyectos -->
+      <div id="projectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Aquí se inyectan las tarjetas vía JS -->
+      </div>
+
+      <!-- Botón Cargar Más -->
+      <div class="mt-10 text-center">
+        <button id="loadMoreBtn" class="btn-outline-accent px-8 py-3">
+          Ver todos los proyectos
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo" class="py-16 bg-[#0f1417]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Nuestro Equipo</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Gerard -->
+        <div class="group text-center">
+          <div class="relative inline-block mb-4">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--mecro-accent)] p-1">
+              <img src="https://ui-avatars.com/api/?name=Gerard+Quispe&background=3a5241&color=fff" alt="Gerard" class="w-full h-full rounded-full object-cover">
+            </div>
+          </div>
+          <h3 class="font-bold text-lg">Gerard Quispe</h3>
+          <p class="text-[var(--mecro-accent)] text-sm font-medium mb-2">Fundador & Lead Engineer</p>
+          <p class="text-xs text-dim px-4">Especialista en Aviónica, Control PID y visión artificial para drones.</p>
         </div>
 
-        <form class="card-surface p-6" action="https://formspree.io/f/YOUR_ID" method="POST">
-          <div class="grid gap-4 text-[var(--mecro-text-main)] text-sm">
-            <label class="text-sm">
-              Nombre
-              <input class="contact-input mt-1" type="text" name="name" required>
-            </label>
+        <!-- Johan -->
+        <div class="group text-center">
+          <div class="relative inline-block mb-4">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--mecro-line)] p-1 group-hover:border-[var(--mecro-accent)] transition-colors">
+              <img src="https://ui-avatars.com/api/?name=Johan+Zamudio&background=161a1d&color=fff" alt="Johan" class="w-full h-full rounded-full object-cover">
+            </div>
+          </div>
+          <h3 class="font-bold text-lg">Johan Zamudio</h3>
+          <p class="text-[var(--mecro-accent)] text-sm font-medium mb-2">Electrónica de Potencia</p>
+          <p class="text-xs text-dim px-4">Diseño de ESCs, gestión de baterías y fuentes conmutadas.</p>
+        </div>
 
-            <label class="text-sm">
-              Email
-              <input class="contact-input mt-1" type="email" name="email" required>
-            </label>
+        <!-- Moshe -->
+        <div class="group text-center">
+          <div class="relative inline-block mb-4">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--mecro-line)] p-1 group-hover:border-[var(--mecro-accent)] transition-colors">
+              <img src="https://ui-avatars.com/api/?name=Moshe+Igreda&background=161a1d&color=fff" alt="Moshe" class="w-full h-full rounded-full object-cover">
+            </div>
+          </div>
+          <h3 class="font-bold text-lg">Moshe Igreda</h3>
+          <p class="text-[var(--mecro-accent)] text-sm font-medium mb-2">Computer Vision</p>
+          <p class="text-xs text-dim px-4">Implementación de YOLO, OpenCV y procesamiento en Raspberry Pi.</p>
+        </div>
 
-            <label class="text-sm">
-              Mensaje
-              <textarea class="contact-input mt-1" name="message" rows="4" required></textarea>
-            </label>
+        <!-- Alvaro -->
+        <div class="group text-center">
+          <div class="relative inline-block mb-4">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--mecro-line)] p-1 group-hover:border-[var(--mecro-accent)] transition-colors">
+              <img src="https://ui-avatars.com/api/?name=Alvaro+Lopez&background=161a1d&color=fff" alt="Alvaro" class="w-full h-full rounded-full object-cover">
+            </div>
+          </div>
+          <h3 class="font-bold text-lg">Alvaro Lopez</h3>
+          <p class="text-[var(--mecro-accent)] text-sm font-medium mb-2">Educación Tech</p>
+          <p class="text-xs text-dim px-4">Diseño instruccional, kits accesibles y talleres inclusivos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <button class="contact-button" type="submit">Enviar</button>
-            <p class="text-xs text-dim">
-              *Este formulario usa Formspree (gratis). Reemplaza <code>YOUR_ID</code> con tu endpoint.
-            </p>
+  <!-- SOBRE NOSOTROS -->
+  <section id="about" class="py-16 border-t border-[var(--mecro-line)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-bold mb-6">Quiénes somos</h2>
+        <div class="prose prose-invert text-dim">
+          <p class="mb-4">
+            MECRO es un laboratorio pequeño pero terco. Nacimos de la pasión por entender cómo funcionan las cosas en lugar de solo usarlas.
+          </p>
+          <p class="mb-4">
+            Hacemos dos cosas al mismo tiempo: enseñamos electrónica y control como ingenieros de verdad, y construimos prototipos que vuelan, miden, estabilizan o inspeccionan.
+          </p>
+          <p>
+            Creemos que aprender electrónica no es conectar LEDs con delay, es entender por qué vibra un motor brushless y cómo corregirlo con matemáticas aplicadas.
+          </p>
+        </div>
+      </div>
+      <div class="card-surface p-8 relative">
+        <i class="ph ph-quotes text-6xl absolute top-4 right-4 text-[var(--mecro-accent)] opacity-20"></i>
+        <p class="text-lg font-medium italic text-[var(--mecro-text-main)]">
+          "Mi sueño es tener un negocio de tecnología donde lo simple y lo funcional se encuentren. Viajar, construir drones y enseñar a otros a hacerlo."
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--mecro-accent)] flex items-center justify-center text-white font-bold">G</div>
+          <div>
+            <p class="text-sm font-bold text-white">Gerard</p>
+            <p class="text-xs text-dim">Fundador MECRO</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="py-16 bg-[#0f1417]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Info -->
+        <div>
+          <h2 class="text-3xl font-bold mb-4">Hablemos</h2>
+          <p class="text-dim mb-8">¿Quieres un taller para tu colegio/universidad, cotizar un kit o proponer un desarrollo? Estamos listos.</p>
+          
+          <div class="space-y-4">
+            <a href="mailto:hola@mecro.pe" class="flex items-center gap-4 p-4 card-surface hover:border-[var(--mecro-accent)] transition-colors">
+              <i class="ph ph-envelope-simple text-2xl text-[var(--mecro-accent)]"></i>
+              <span>hola@mecro.pe</span>
+            </a>
+            <a href="https://wa.me/51999999999" target="_blank" class="flex items-center gap-4 p-4 card-surface hover:border-[var(--mecro-accent)] transition-colors">
+              <i class="ph ph-whatsapp-logo text-2xl text-[var(--mecro-accent)]"></i>
+              <span>+51 999 999 999</span>
+            </a>
+            <div class="flex gap-4 mt-6">
+               <a href="#" class="w-10 h-10 rounded-full bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] flex items-center justify-center hover:text-[var(--mecro-accent)] hover:border-[var(--mecro-accent)] transition-all"><i class="ph ph-youtube-logo text-xl"></i></a>
+               <a href="#" class="w-10 h-10 rounded-full bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] flex items-center justify-center hover:text-[var(--mecro-accent)] hover:border-[var(--mecro-accent)] transition-all"><i class="ph ph-instagram-logo text-xl"></i></a>
+               <a href="#" class="w-10 h-10 rounded-full bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] flex items-center justify-center hover:text-[var(--mecro-accent)] hover:border-[var(--mecro-accent)] transition-all"><i class="ph ph-linkedin-logo text-xl"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <form class="card-surface p-8" action="https://formspree.io/f/TU_ID_AQUI" method="POST">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 text-dim">Nombre</label>
+              <input type="text" name="name" class="contact-input" required placeholder="Tu nombre">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-dim">Email</label>
+              <input type="email" name="email" class="contact-input" required placeholder="tucorreo@ejemplo.com">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-dim">Mensaje</label>
+              <textarea name="message" rows="4" class="contact-input" required placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+            </div>
+            <button type="submit" class="w-full btn-solid-accent py-3 mt-2">Enviar Mensaje</button>
           </div>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-10 border-t border-[var(--mecro-line)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-sm text-dim flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>© <span id="year"></span> MECRO. Tecnología que impulsa.</p>
-      <div class="flex items-center gap-6">
-        <a href="#" class="hover:text-[var(--mecro-text-main)]">Política de privacidad</a>
-        <a href="#" class="hover:text-[var(--mecro-text-main)]">Términos</a>
+  <!-- FOOTER -->
+  <footer class="py-8 border-t border-[var(--mecro-line)] mt-auto bg-[var(--mecro-bg-dark)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-dim">
+      <p>© <span id="year"></span> MECRO. Hecho en Perú 🇵🇪.</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white">Privacidad</a>
+        <a href="#" class="hover:text-white">Términos</a>
       </div>
     </div>
   </footer>
 
+  <!-- MODAL DE PROYECTO -->
+  <div id="projectModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center px-4">
+    <!-- Contenedor del modal -->
+    <div class="bg-[#161a1d] w-full max-w-3xl rounded-2xl border border-[var(--mecro-line)] shadow-2xl transform transition-all max-h-[90vh] flex flex-col relative">
+      
+      <!-- Botón cerrar -->
+      <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 bg-black/20 rounded-full p-1">
+        <i class="ph ph-x text-2xl"></i>
+      </button>
+
+      <!-- Header del Modal (Imagen) -->
+      <div class="h-48 sm:h-64 bg-[var(--mecro-bg-dark)] relative overflow-hidden rounded-t-2xl flex-shrink-0">
+         <img id="modalImage" src="" alt="Proyecto" class="w-full h-full object-cover opacity-80">
+         <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#161a1d] to-transparent h-20"></div>
+         <div class="absolute bottom-4 left-6 right-6">
+           <span id="modalTag" class="text-xs font-bold bg-[var(--mecro-accent)] text-white px-2 py-1 rounded mb-2 inline-block">Etiqueta</span>
+           <h3 id="modalTitle" class="text-2xl sm:text-3xl font-bold text-white leading-tight">Título del Proyecto</h3>
+         </div>
+      </div>
+
+      <!-- Contenido scrolleable -->
+      <div class="p-6 overflow-y-auto custom-scroll">
+        <p id="modalDesc" class="text-gray-300 text-sm leading-relaxed mb-6">
+          Descripción detallada del proyecto...
+        </p>
+
+        <!-- Sección Links (Drive / YouTube) -->
+        <div class="grid sm:grid-cols-2 gap-4 mb-6">
+           <a id="modalYoutubeBtn" href="#" target="_blank" class="flex items-center justify-center gap-2 p-3 rounded-lg bg-red-900/30 text-red-400 border border-red-900/50 hover:bg-red-900/50 transition-colors">
+             <i class="ph ph-youtube-logo text-xl"></i>
+             Ver en YouTube
+           </a>
+           <a id="modalDriveBtn" href="#" target="_blank" class="flex items-center justify-center gap-2 p-3 rounded-lg bg-blue-900/30 text-blue-400 border border-blue-900/50 hover:bg-blue-900/50 transition-colors">
+             <i class="ph ph-file-pdf text-xl"></i>
+             Documentación (Drive)
+           </a>
+        </div>
+
+        <!-- Iframe de YouTube (Opcional, se llena dinámicamente) -->
+        <div class="aspect-video w-full rounded-lg overflow-hidden bg-black border border-[var(--mecro-line)]">
+          <iframe id="modalIframe" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SCRIPTS LÓGICA -->
   <script>
-    // año en footer
+    /* ==========================================
+       1. DATOS DE LOS 20 PROYECTOS
+       ========================================== */
+    const projectsData = [
+      {
+        id: 1,
+        title: "Balance-bar PID con ESP32",
+        desc: "Implementación de un sistema de control PID clásico para estabilizar una barra en un solo eje. Se utiliza un giroscopio MPU6050 y comunicación UART para telemetría en tiempo real.",
+        tag: "Control",
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
+        youtubeId: "dQw4w9WgXcQ", // Ejemplo ID
+        driveUrl: "#"
+      },
+      {
+        id: 2,
+        title: "Smart Glasses para Invidentes",
+        desc: "Gafas asistivas que utilizan sensores ultrasónicos y un ESP32 para detectar obstáculos. Envía alertas sonoras y vibratorias, e incluye un módulo GPS SIM800L para emergencias.",
+        tag: "IoT / Salud",
+        image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=800&auto=format&fit=crop",
+        youtubeId: "dQw4w9WgXcQ",
+        driveUrl: "#"
+      },
+      {
+        id: 3,
+        title: "Inspección Textil con YOLOv8",
+        desc: "Sistema de visión por computadora usando Raspberry Pi 4 y una cámara HQ. Detecta defectos en telas en una banda transportadora y detiene el motor NEMA 17 automáticamente.",
+        tag: "Visión Artificial",
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+        youtubeId: "",
+        driveUrl: "#"
+      },
+      {
+        id: 4,
+        title: "Dron de Carreras FPV",
+        desc: "Ensamblaje y configuración de un dron de 5 pulgadas. Uso de Betaflight, configuración de ESCs BLHeli_32 y transmisión de video analógica 5.8GHz.",
+        tag: "Drones",
+        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=800&auto=format&fit=crop",
+        youtubeId: "",
+        driveUrl: "#"
+      },
+      {
+        id: 5,
+        title: "Estación Meteorológica LoRaWAN",
+        desc: "Nodo sensor remoto alimentado por panel solar. Envía datos de temperatura, humedad y presión a un Gateway LoRaWAN a kilómetros de distancia.",
+        tag: "IoT",
+        image: "https://images.unsplash.com/photo-1590856029826-c7b731432bf3?q=80&w=800&auto=format&fit=crop",
+        youtubeId: "",
+        driveUrl: "#"
+      },
+      {
+        id: 6,
+        title: "Brazo Robótico 4DOF",
+        desc: "Control cinemático inverso de un brazo robótico impreso en 3D. Controlado mediante una interfaz web servida desde el propio ESP32.",
+        tag: "Robótica",
+        image: "https://images.unsplash.com/photo-1561144257-e32e8efc6c4f?q=80&w=800&auto=format&fit=crop",
+        youtubeId: "",
+        driveUrl: "#"
+      },
+      // ... Agregando más para llegar a 20 simulados ...
+      { id: 7, title: "Radar de Velocidad Doppler", desc: "Uso del módulo HB100 para medir velocidad de objetos.", tag: "Sensores", image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 8, title: "Serradura Biométrica", desc: "Sensor de huella AS608 conectado a ESP32 y solenoide.", tag: "Domótica", image: "https://images.unsplash.com/photo-1558002038-1091a16617ce?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 9, title: "Plotter CNC con DVD drives", desc: "Reciclaje de lectoras de DVD para crear un mini CNC plotter.", tag: "CNC", image: "https://images.unsplash.com/photo-1574625193510-646172a33204?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 10, title: "Invernadero Automatizado", desc: "Control de riego y ventilación basado en humedad del suelo.", tag: "AgroTech", image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 11, title: "Seguidor de Línea PID", desc: "Robot velocista para competencias con arreglo de sensores QTR.", tag: "Robótica", image: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 12, title: "Cubo LED 8x8x8", desc: "Multiplexado avanzado para controlar 512 LEDs.", tag: "Electrónica", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 13, title: "VTOL Ala Fija", desc: "Diseño de mecanismo de transición para vuelo vertical a horizontal.", tag: "Drones", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 14, title: "Reloj Binario", desc: "PCB artístico con RTC DS3231 y registro de desplazamiento.", tag: "PCB", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 15, title: "Dispensador de Comida IoT", desc: "Controlado por Telegram Bot para mascotas.", tag: "IoT", image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 16, title: "Levitador Magnético", desc: "Control PID analógico con sensor Hall y electroimán.", tag: "Física", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 17, title: "Radio Definida por Software", desc: "Exploración del espectro RF con RTL-SDR.", tag: "Telecom", image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 18, title: "Medidor de Energía Wifi", desc: "Sensor de corriente no invasivo SCT-013 y dashboard web.", tag: "Energía", image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 19, title: "Rover Marciano Impreso 3D", desc: "Sistema de suspensión Rocker-Bogie funcional.", tag: "Robótica", image: "https://images.unsplash.com/photo-1614728853913-3e7478d77d07?w=800", youtubeId: "", driveUrl: "#" },
+      { id: 20, title: "Controladora de Vuelo Propia", desc: "PCB personalizado con STM32F405 y giroscopio MPU6000.", tag: "Avanzado", image: "https://images.unsplash.com/photo-1555664424-778a69022365?w=800", youtubeId: "", driveUrl: "#" },
+    ];
+
+    /* ==========================================
+       2. LÓGICA DE RENDERIZADO
+       ========================================== */
+    const grid = document.getElementById('projectsGrid');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    let itemsToShow = 6; // Cuántos mostrar al inicio
+
+    function renderProjects() {
+      grid.innerHTML = ''; // Limpiar
+      // Cortar el array según itemsToShow
+      const visibleProjects = projectsData.slice(0, itemsToShow);
+
+      visibleProjects.forEach(project => {
+        // Crear tarjeta HTML
+        const card = document.createElement('div');
+        card.className = 'card-surface flex flex-col h-full group cursor-pointer overflow-hidden';
+        card.onclick = () => openModal(project);
+
+        card.innerHTML = `
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded border border-white/10 z-10">
+              ${project.tag}
+            </div>
+            <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+          </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-bold text-[var(--mecro-text-main)] mb-2 line-clamp-1">${project.title}</h3>
+            <p class="text-sm text-dim line-clamp-3 mb-4 flex-grow">
+              ${project.desc}
+            </p>
+            <div class="pt-4 border-t border-[var(--mecro-line)] flex items-center text-[var(--mecro-accent)] font-medium text-sm group-hover:underline">
+              Ver detalles <i class="ph ph-arrow-right ml-2"></i>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Ocultar botón si ya mostramos todos
+      if (itemsToShow >= projectsData.length) {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+
+    // Evento botón "Ver más"
+    loadMoreBtn.addEventListener('click', () => {
+      itemsToShow = projectsData.length; // Mostrar todos
+      renderProjects();
+    });
+
+    // Render inicial
+    renderProjects();
+
+    /* ==========================================
+       3. LÓGICA DEL MODAL
+       ========================================== */
+    const modal = document.getElementById('projectModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    // Elementos dentro del modal
+    const mTitle = document.getElementById('modalTitle');
+    const mDesc = document.getElementById('modalDesc');
+    const mTag = document.getElementById('modalTag');
+    const mImg = document.getElementById('modalImage');
+    const mYoutubeBtn = document.getElementById('modalYoutubeBtn');
+    const mDriveBtn = document.getElementById('modalDriveBtn');
+    const mIframe = document.getElementById('modalIframe');
+
+    function openModal(project) {
+      // Llenar datos
+      mTitle.textContent = project.title;
+      mDesc.textContent = project.desc;
+      mTag.textContent = project.tag;
+      mImg.src = project.image;
+      
+      // Links simulados (si estuvieran vacíos en la data, podrías ocultarlos)
+      mYoutubeBtn.href = project.youtubeId ? `https://youtube.com/watch?v=${project.youtubeId}` : '#';
+      mDriveBtn.href = project.driveUrl;
+
+      // Iframe
+      if(project.youtubeId) {
+        mIframe.parentElement.style.display = 'block';
+        mIframe.src = `https://www.youtube.com/embed/${project.youtubeId}`;
+      } else {
+        mIframe.parentElement.style.display = 'none';
+      }
+
+      // Mostrar modal
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Evitar scroll fondo
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      mIframe.src = ''; // Parar video
+      document.body.style.overflow = 'auto'; // Restaurar scroll
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    // Cerrar al dar clic fuera del contenido
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    // Cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    /* ==========================================
+       4. LÓGICA GENERAL Y MENÚ MÓVIL
+       ========================================== */
     document.getElementById('year').textContent = new Date().getFullYear();
-    // menú móvil
+
     const btn = document.getElementById('menuBtn');
     const menu = document.getElementById('mobileMenu');
+    const mobileLinks = menu.querySelectorAll('a');
+
     btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    // Cierre automático del menú móvil
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (!menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+        }
+      });
+    });
+
   </script>
 </body>
 </html>
