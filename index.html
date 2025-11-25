@@ -318,43 +318,36 @@
         <a href="#contacto" class="btn-outline-accent self-start md:self-auto">Solicitar Cotización</a>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- Kit 1 -->
-        <article class="card-surface p-6 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Básico</div>
-          <h3 class="text-xl font-semibold text-[var(--mecro-text-main)]">Kit MECRO Base</h3>
-          <p class="mt-1 text-sm text-[var(--mecro-accent)]">GPIO • Interrupciones</p>
-          <ul class="mt-4 text-sm text-dim space-y-2">
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Botonera + antirebote</li>
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> LEDs + PWM con timers</li>
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Sensor LDR (ADC1)</li>
-          </ul>
-        </article>
+      <div class="mt-8">
+        <a href="kits.html" class="group relative block rounded-2xl overflow-hidden border border-[var(--mecro-line)] hover:border-[var(--mecro-accent)] transition-all duration-300">
+          <div class="grid md:grid-cols-2 bg-[var(--mecro-bg-card)]">
+            <div class="h-64 md:h-auto bg-[var(--mecro-bg-dark)] relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1603732551658-5fabbafa84eb?auto=format&fit=crop&w=800" alt="Kit Mecro ESP32" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-[var(--mecro-bg-card)] to-transparent md:bg-gradient-to-r"></div>
+            </div>
+            <div class="p-8 flex flex-col justify-center">
+              <div class="inline-block bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded mb-4">
+                El Inicio de Todo
+              </div>
+              <h3 class="text-3xl font-bold text-[var(--mecro-text-main)] mb-4">Kit MECRO Base (ESP32)</h3>
+              <p class="text-dim mb-6 text-lg">
+                No es solo una caja de componentes. Es un sistema de aprendizaje completo con 20 proyectos progresivos, desde encender un LED hasta crear un Mouse Aéreo giroscópico.
+              </p>
+              
+              <ul class="grid grid-cols-2 gap-y-2 text-sm text-dim mb-8">
+                <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Cerebro ESP32 (WiFi/BT)</li>
+                <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Sensor MPU6050 (Drones)</li>
+                <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Pantalla OLED</li>
+                <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Motores y Servos</li>
+              </ul>
 
-        <!-- Kit 2 -->
-        <article class="card-surface p-6 relative overflow-hidden border-[var(--mecro-accent)] border-opacity-50">
-          <div class="absolute top-0 right-0 bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Recomendado</div>
-          <h3 class="text-xl font-semibold text-[var(--mecro-text-main)]">Kit MECRO Pro</h3>
-          <p class="mt-1 text-sm text-[var(--mecro-accent)]">FreeRTOS • Colas</p>
-          <ul class="mt-4 text-sm text-dim space-y-2">
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Multitarea FreeRTOS</li>
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Drivers I²C/SPI (OLED)</li>
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> ADC one-shot calibrado</li>
-          </ul>
-        </article>
-
-        <!-- Kit 3 -->
-        <article class="card-surface p-6 relative overflow-hidden">
-          <div class="absolute top-0 right-0 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Avanzado</div>
-          <h3 class="text-xl font-semibold text-[var(--mecro-text-main)]">Kit UAV/VTOL</h3>
-          <p class="mt-1 text-sm text-[var(--mecro-accent)]">IMU • Control PID</p>
-          <ul class="mt-4 text-sm text-dim space-y-2">
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Fusión sensorial IMU</li>
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Tuning PID en tiempo real</li>
-            <li class="flex items-center gap-2"><i class="ph ph-check text-[var(--mecro-accent)]"></i> Control preciso de ESCs</li>
-          </ul>
-        </article>
-      </div>
+              <div class="flex items-center text-[var(--mecro-accent)] font-bold group-hover:underline">
+                Ver los 20 Proyectos incluidos <i class="ph ph-arrow-right ml-2"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>>
     </div>
   </section>
 
@@ -592,83 +585,29 @@
     /* ==========================================
     1. DATOS DE LOS PROYECTOS (ACTUALIZADO MECRO)
     ========================================== */
+ /* ==========================================
+    1. DATOS DE LOS PROYECTOS (SOLO PORTAFOLIO AVANZADO)
+    ========================================== */
  const projectsData = [
-   // --- PROYECTOS DE TU PORTAFOLIO (NIVEL ALTO) ---
    {
      id: 1,
      title: "Estabilizador PID (Balance-Bar)",
-     desc: "El corazón de un drone. Sistema de control de lazo cerrado usando el MPU6050 del kit y un ESP32. Mantiene una barra en equilibrio perfecto corrigiendo la posición de los motores en microsegundos.",
-     tag: "Control / Drones",
-     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800", // Cambiar por foto real tuya luego
+     desc: "El corazón de un drone. Sistema de control de lazo cerrado usando un giroscopio MPU6050 y un ESP32 externo (no incluido en el kit base). Mantiene una barra en equilibrio perfecto corrigiendo motores en microsegundos.",
+     tag: "I+D / Control Avanzado",
+     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800", 
      youtubeId: "", 
      driveUrl: "https://github.com/tu-usuario/mecro/tree/main/proyectos-avanzados/balance-pid" 
    },
    {
      id: 2,
      title: "Visión Artificial con YOLOv8",
-     desc: "Detección de objetos en tiempo real. Integramos una cámara con procesamiento externo (PC/Raspberry) que se comunica con el ESP32 para actuar físicamente (clasificación de residuos, inspección).",
-     tag: "I.A. / Visión",
+     desc: "Detección de objetos en tiempo real. Procesamiento externo pesado (PC/Raspberry Pi) que se comunica con el microcontrolador para actuar físicamente en el entorno.",
+     tag: "I+D / Inteligencia Artificial",
      image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=800",
      youtubeId: "",
      driveUrl: "#"
-   },
-   
-   // --- PROYECTOS QUE SE HACEN CON EL KIT MECRO (LOS QUE VENDEN EL KIT) ---
-   {
-     id: 3,
-     title: "Mando de Drone WiFi (ESP-NOW)",
-     desc: "Construye tu propio control remoto universal. Usando los Joysticks y el ESP32 del Kit Mecro, creamos un transmisor de baja latencia para controlar robots o drones.",
-     tag: "Kit Mecro: Nivel 4",
-     image: "https://images.unsplash.com/photo-1551749005-6af244c9b9cb?auto=format&fit=crop&w=800",
-     youtubeId: "",
-     driveUrl: "https://github.com/tu-usuario/mecro/tree/main/kit-mecro-esp32/04_Nivel_Experto_Drones"
-   },
-   {
-     id: 4,
-     title: "Radar de Rastreo OLED",
-     desc: "Sistema de defensa visual. El servo mueve el sensor ultrasónico 180° y mapea los obstáculos en la pantalla OLED en tiempo real, estilo radar militar.",
-     tag: "Kit Mecro: Nivel 3",
-     image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=800",
-     youtubeId: "",
-     driveUrl: "#"
-   },
-   {
-     id: 5,
-     title: "Cámara de Seguridad Robótica",
-     desc: "Uso del Motor Paso a Paso para movimiento preciso. La base gira la cámara (o sensor) grado por grado, controlada desde una interfaz web o el control IR.",
-     tag: "Kit Mecro: Nivel 3",
-     image: "https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=800",
-     youtubeId: "",
-     driveUrl: "#"
-   },
-   {
-     id: 6,
-     title: "Mouse Aéreo (Giroscópico)",
-     desc: "¡Magia con el MPU6050! Mueve tu mano en el aire y controla el cursor de tu computadora vía Bluetooth. Ideal para presentaciones o Smart TVs.",
-     tag: "Kit Mecro: Nivel 4",
-     image: "https://images.unsplash.com/photo-1614035602483-5f0967396a6f?auto=format&fit=crop&w=800",
-     youtubeId: "",
-     driveUrl: "#"
-   },
-   {
-     id: 7,
-     title: "Estación Climática IoT",
-     desc: "Monitoreo ambiental remoto. El ESP32 lee el DHT11 y envía los datos a la nube (Blynk/ThingSpeak) para ver gráficas en tu celular desde cualquier lugar.",
-     tag: "Kit Mecro: Nivel 2",
-     image: "https://images.unsplash.com/photo-1590856029826-c7b731432bf3?auto=format&fit=crop&w=800",
-     youtubeId: "",
-     driveUrl: "#"
-   },
-   {
-     id: 8,
-     title: "El Auto Fantástico (74HC595)",
-     desc: "Aprende a multiplicar tus pines. Usamos el registro de desplazamiento para controlar muchos LEDs con solo 3 cables, creando secuencias de luces avanzadas.",
-     tag: "Kit Mecro: Nivel 1",
-     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800",
-     youtubeId: "",
-     driveUrl: "#"
    }
- ];
+    ];
 
     /* ==========================================
        2. LÓGICA DE RENDERIZADO
