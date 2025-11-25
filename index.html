@@ -589,77 +589,86 @@
     /* ==========================================
        1. DATOS DE LOS 20 PROYECTOS
        ========================================== */
-    const projectsData = [
-      {
-        id: 1,
-        title: "Balance-bar PID con ESP32",
-        desc: "Implementación de un sistema de control PID clásico para estabilizar una barra en un solo eje. Se utiliza un giroscopio MPU6050 y comunicación UART para telemetría en tiempo real.",
-        tag: "Control",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
-        youtubeId: "dQw4w9WgXcQ", // Ejemplo ID
-        driveUrl: "#"
-      },
-      {
-        id: 2,
-        title: "Smart Glasses para Invidentes",
-        desc: "Gafas asistivas que utilizan sensores ultrasónicos y un ESP32 para detectar obstáculos. Envía alertas sonoras y vibratorias, e incluye un módulo GPS SIM800L para emergencias.",
-        tag: "IoT / Salud",
-        image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=800&auto=format&fit=crop",
-        youtubeId: "dQw4w9WgXcQ",
-        driveUrl: "#"
-      },
-      {
-        id: 3,
-        title: "Inspección Textil con YOLOv8",
-        desc: "Sistema de visión por computadora usando Raspberry Pi 4 y una cámara HQ. Detecta defectos en telas en una banda transportadora y detiene el motor NEMA 17 automáticamente.",
-        tag: "Visión Artificial",
-        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
-        youtubeId: "",
-        driveUrl: "#"
-      },
-      {
-        id: 4,
-        title: "Dron de Carreras FPV",
-        desc: "Ensamblaje y configuración de un dron de 5 pulgadas. Uso de Betaflight, configuración de ESCs BLHeli_32 y transmisión de video analógica 5.8GHz.",
-        tag: "Drones",
-        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=800&auto=format&fit=crop",
-        youtubeId: "",
-        driveUrl: "#"
-      },
-      {
-        id: 5,
-        title: "Estación Meteorológica LoRaWAN",
-        desc: "Nodo sensor remoto alimentado por panel solar. Envía datos de temperatura, humedad y presión a un Gateway LoRaWAN a kilómetros de distancia.",
-        tag: "IoT",
-        image: "https://images.unsplash.com/photo-1590856029826-c7b731432bf3?q=80&w=800&auto=format&fit=crop",
-        youtubeId: "",
-        driveUrl: "#"
-      },
-      {
-        id: 6,
-        title: "Brazo Robótico 4DOF",
-        desc: "Control cinemático inverso de un brazo robótico impreso en 3D. Controlado mediante una interfaz web servida desde el propio ESP32.",
-        tag: "Robótica",
-        image: "https://images.unsplash.com/photo-1561144257-e32e8efc6c4f?q=80&w=800&auto=format&fit=crop",
-        youtubeId: "",
-        driveUrl: "#"
-      },
-      // ... Agregando más para llegar a 20 simulados ...
-      { id: 7, title: "Radar de Velocidad Doppler", desc: "Uso del módulo HB100 para medir velocidad de objetos.", tag: "Sensores", image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 8, title: "Serradura Biométrica", desc: "Sensor de huella AS608 conectado a ESP32 y solenoide.", tag: "Domótica", image: "https://images.unsplash.com/photo-1558002038-1091a16617ce?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 9, title: "Plotter CNC con DVD drives", desc: "Reciclaje de lectoras de DVD para crear un mini CNC plotter.", tag: "CNC", image: "https://images.unsplash.com/photo-1574625193510-646172a33204?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 10, title: "Invernadero Automatizado", desc: "Control de riego y ventilación basado en humedad del suelo.", tag: "AgroTech", image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 11, title: "Seguidor de Línea PID", desc: "Robot velocista para competencias con arreglo de sensores QTR.", tag: "Robótica", image: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 12, title: "Cubo LED 8x8x8", desc: "Multiplexado avanzado para controlar 512 LEDs.", tag: "Electrónica", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 13, title: "VTOL Ala Fija", desc: "Diseño de mecanismo de transición para vuelo vertical a horizontal.", tag: "Drones", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 14, title: "Reloj Binario", desc: "PCB artístico con RTC DS3231 y registro de desplazamiento.", tag: "PCB", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 15, title: "Dispensador de Comida IoT", desc: "Controlado por Telegram Bot para mascotas.", tag: "IoT", image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 16, title: "Levitador Magnético", desc: "Control PID analógico con sensor Hall y electroimán.", tag: "Física", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 17, title: "Radio Definida por Software", desc: "Exploración del espectro RF con RTL-SDR.", tag: "Telecom", image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 18, title: "Medidor de Energía Wifi", desc: "Sensor de corriente no invasivo SCT-013 y dashboard web.", tag: "Energía", image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 19, title: "Rover Marciano Impreso 3D", desc: "Sistema de suspensión Rocker-Bogie funcional.", tag: "Robótica", image: "https://images.unsplash.com/photo-1614728853913-3e7478d77d07?w=800", youtubeId: "", driveUrl: "#" },
-      { id: 20, title: "Controladora de Vuelo Propia", desc: "PCB personalizado con STM32F405 y giroscopio MPU6000.", tag: "Avanzado", image: "https://images.unsplash.com/photo-1555664424-778a69022365?w=800", youtubeId: "", driveUrl: "#" },
-    ];
+    /* ==========================================
+    1. DATOS DE LOS PROYECTOS (ACTUALIZADO MECRO)
+    ========================================== */
+ const projectsData = [
+   // --- PROYECTOS DE TU PORTAFOLIO (NIVEL ALTO) ---
+   {
+     id: 1,
+     title: "Estabilizador PID (Balance-Bar)",
+     desc: "El corazón de un drone. Sistema de control de lazo cerrado usando el MPU6050 del kit y un ESP32. Mantiene una barra en equilibrio perfecto corrigiendo la posición de los motores en microsegundos.",
+     tag: "Control / Drones",
+     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800", // Cambiar por foto real tuya luego
+     youtubeId: "", 
+     driveUrl: "https://github.com/tu-usuario/mecro/tree/main/proyectos-avanzados/balance-pid" 
+   },
+   {
+     id: 2,
+     title: "Visión Artificial con YOLOv8",
+     desc: "Detección de objetos en tiempo real. Integramos una cámara con procesamiento externo (PC/Raspberry) que se comunica con el ESP32 para actuar físicamente (clasificación de residuos, inspección).",
+     tag: "I.A. / Visión",
+     image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "#"
+   },
+   
+   // --- PROYECTOS QUE SE HACEN CON EL KIT MECRO (LOS QUE VENDEN EL KIT) ---
+   {
+     id: 3,
+     title: "Mando de Drone WiFi (ESP-NOW)",
+     desc: "Construye tu propio control remoto universal. Usando los Joysticks y el ESP32 del Kit Mecro, creamos un transmisor de baja latencia para controlar robots o drones.",
+     tag: "Kit Mecro: Nivel 4",
+     image: "https://images.unsplash.com/photo-1551749005-6af244c9b9cb?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "https://github.com/tu-usuario/mecro/tree/main/kit-mecro-esp32/04_Nivel_Experto_Drones"
+   },
+   {
+     id: 4,
+     title: "Radar de Rastreo OLED",
+     desc: "Sistema de defensa visual. El servo mueve el sensor ultrasónico 180° y mapea los obstáculos en la pantalla OLED en tiempo real, estilo radar militar.",
+     tag: "Kit Mecro: Nivel 3",
+     image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "#"
+   },
+   {
+     id: 5,
+     title: "Cámara de Seguridad Robótica",
+     desc: "Uso del Motor Paso a Paso para movimiento preciso. La base gira la cámara (o sensor) grado por grado, controlada desde una interfaz web o el control IR.",
+     tag: "Kit Mecro: Nivel 3",
+     image: "https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "#"
+   },
+   {
+     id: 6,
+     title: "Mouse Aéreo (Giroscópico)",
+     desc: "¡Magia con el MPU6050! Mueve tu mano en el aire y controla el cursor de tu computadora vía Bluetooth. Ideal para presentaciones o Smart TVs.",
+     tag: "Kit Mecro: Nivel 4",
+     image: "https://images.unsplash.com/photo-1614035602483-5f0967396a6f?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "#"
+   },
+   {
+     id: 7,
+     title: "Estación Climática IoT",
+     desc: "Monitoreo ambiental remoto. El ESP32 lee el DHT11 y envía los datos a la nube (Blynk/ThingSpeak) para ver gráficas en tu celular desde cualquier lugar.",
+     tag: "Kit Mecro: Nivel 2",
+     image: "https://images.unsplash.com/photo-1590856029826-c7b731432bf3?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "#"
+   },
+   {
+     id: 8,
+     title: "El Auto Fantástico (74HC595)",
+     desc: "Aprende a multiplicar tus pines. Usamos el registro de desplazamiento para controlar muchos LEDs con solo 3 cables, creando secuencias de luces avanzadas.",
+     tag: "Kit Mecro: Nivel 1",
+     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800",
+     youtubeId: "",
+     driveUrl: "#"
+   }
+ ];
 
     /* ==========================================
        2. LÓGICA DE RENDERIZADO
