@@ -2335,6 +2335,927 @@ void loop() {
 }`,
             sim: ""
         },
+         14: {
+            title: "14. Ascensor de 3 Pisos",
+            level: "Nivel 3: Robótica",
+            desc: "Simulación completa de un ascensor usando un motor Stepper para posicionamiento preciso y botones de llamada. Introducción al Control de Posición Absoluta y Máquinas de Estados.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p14c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Máquina de Estados Finita (FSM)</h3><p class="text-xs text-[var(--text-dim)]">Lógica Secuencial</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p14c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un ascensor no puede estar "subiendo" y "parado" a la vez. Definimos estados claros: <code>IDLE</code> (Esperando), <code>MOVING_UP</code>, <code>MOVING_DOWN</code>. Las transiciones dependen de los sensores (botones) y la posición actual.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p14c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Control de Posición Absoluta</h3><p class="text-xs text-[var(--text-dim)]">De Pisos a Pasos</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p14c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">En lugar de decir "gira 5 segundos", le decimos al motor "ve al paso 4096". Mapeamos la realidad física a coordenadas digitales:<br>- Piso 1 = Paso 0<br>- Piso 2 = Paso 2048 (1 vuelta)<br>- Piso 3 = Paso 4096 (2 vueltas)</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué un ascensor real necesita un sensor en el primer piso?</p>
+                       <div id="ans14-1" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Para hacer "Homing".</strong><br>Al encenderse, el microcontrolador NO sabe dónde está la cabina (la memoria RAM se borra). El ascensor debe bajar lentamente hasta tocar un sensor (Endstop) para establecer el "Cero Absoluto".</div>
+                       <button onclick="document.getElementById('ans14-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Qué pasa si cortamos la energía del motor cuando llega al piso?</p>
+                       <div id="ans14-2" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>La cabina se cae.</strong><br>La gravedad es constante. Los motores paso a paso deben mantener una corriente mínima (Holding Torque) incluso estando parados para bloquear el eje y sostener la carga.</div>
+                       <button onclick="document.getElementById('ans14-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive14')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3><p class="text-xs text-[var(--text-dim)]">Cinemática y Seguridad</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive14" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. Conversión Rotacional a Lineal</h4><p>En un ascensor, el motor gira una polea que mueve una correa. La relación es: <br><code>Distancia = Pasos * (DiametroPolea * PI / PasosPorVuelta)</code>. <br>Si conoces el diámetro de tu polea impresa en 3D, puedes programar en milímetros en lugar de pasos.</p><h4>2. Perfiles de Aceleración</h4><p>No puedes pasar de 0 a 1000 RPM instantáneamente. La inercia de la cabina haría que el motor pierda pasos o la correa patine. Un buen código implementa aceleración trapezoidal (Ramp Up -> Velocidad Constante -> Ramp Down).</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: ULN2003 (Pines 19,18,5,17) + 3 Botones (Piso 1, 2, 3) a GND]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-orange-400 font-mono font-bold text-xs">GPIO 19,18,5,17</div><div class="text-[10px] text-[var(--text-dim)]">Driver ULN2003</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 4, 16, 15</div><div class="text-[10px] text-[var(--text-dim)]">Botones Piso 1, 2, 3</div></div>
+                </div></div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 14: ASCENSOR DE 3 PISOS
+ * Objetivo: Máquina de Estados y Posicionamiento Absoluto
+ * Librería: Stepper.h
+ */
+#include <Stepper.h>
+
+const int PASOS_VUELTA = 2048;
+Stepper motor(PASOS_VUELTA, 19, 5, 18, 17);
+
+// Definición de Pisos (en Pasos absolutos desde el 0)
+const int PISO_1 = 0;
+const int PISO_2 = 2048; // 1 Vuelta completa arriba
+const int PISO_3 = 4096; // 2 Vueltas completas arriba
+
+// Botones (Input Pullup)
+const int BTN_1 = 4;
+const int BTN_2 = 16;
+const int BTN_3 = 15;
+
+int posicionActual = 0; // Guardamos dónde estamos (simulado)
+
+void setup() {
+  Serial.begin(115200);
+  motor.setSpeed(10); // 10 RPM
+  
+  pinMode(BTN_1, INPUT_PULLUP);
+  pinMode(BTN_2, INPUT_PULLUP);
+  pinMode(BTN_3, INPUT_PULLUP);
+  
+  Serial.println("Ascensor Listo en Piso 1 (Home)");
+}
+
+void moverA(int destino, String nombrePiso) {
+  if (posicionActual == destino) return; // Ya estamos ahí
+  
+  Serial.print("Moviendo a "); Serial.println(nombrePiso);
+  
+  // Calcular diferencia
+  int pasosAMover = destino - posicionActual;
+  
+  // Mover el motor (La librería bloquea hasta terminar)
+  motor.step(pasosAMover);
+  
+  // Actualizar posición mental
+  posicionActual = destino;
+  Serial.println("-> Llegada confirmada.");
+}
+
+void loop() {
+  if (digitalRead(BTN_1) == LOW) {
+    moverA(PISO_1, "Piso 1");
+  } 
+  else if (digitalRead(BTN_2) == LOW) {
+    moverA(PISO_2, "Piso 2");
+  } 
+  else if (digitalRead(BTN_3) == LOW) {
+    moverA(PISO_3, "Piso 3");
+  }
+}`,
+            sim: ""
+        },
+        15: {
+            title: "15. Control de Motor Industrial",
+            level: "Nivel 3: Robótica",
+            desc: "Control de velocidad y sentido de giro de un motor DC utilizando un Puente H (L293D). Introducción al control de potencia bidireccional.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p15c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Topología Puente H</h3><p class="text-xs text-[var(--text-dim)]">Inversión de Polaridad</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p15c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un motor DC gira según la polaridad (+/-). Para invertir el giro sin cambiar cables manualmente, usamos 4 interruptores en forma de 'H'. Si cierras la diagonal 1-4, gira horario. Si cierras 2-3, gira antihorario. <strong>NUNCA</strong> cierres 1-3 o 2-4 a la vez (Shoot-through), o harás un cortocircuito.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p15c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">El Chip L293D</h3><p class="text-xs text-[var(--text-dim)]">Doble Puente H Integrado</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p15c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El L293D es un chip legendario que contiene dos Puentes H completos. Lo especial es que tiene pines separados para la alimentación lógica ($V_{cc1} = 3.3V/5V$) y la alimentación de potencia ($V_{cc2} = 5V-36V$). Esto protege al ESP32 del ruido eléctrico de los motores.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué el L293D se calienta tanto?</p>
+                       <div id="ans15-1" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Transistores Bipolares.</strong><br>El L293D usa tecnología antigua BJT. Tiene una caída de voltaje interna de casi 1.5V-2V. Si pasan 600mA, disipa $P = 2V \times 0.6A = 1.2W$ de calor puro. En drones modernos usamos MOSFETs (DRV8833/TB6612FNG) que son mucho más eficientes.</div>
+                       <button onclick="document.getElementById('ans15-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">Si aplico PWM al pin Enable, ¿qué controlo?</p>
+                       <div id="ans15-2" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>La Velocidad.</strong><br>El pin Enable activa o desactiva el puente completo. Si lo "encendemos y apagamos" muy rápido (PWM), el motor recibe energía promedio, variando su velocidad. Los pines Input 1 y 2 solo deciden la dirección.</div>
+                       <button onclick="document.getElementById('ans15-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive15')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3><p class="text-xs text-[var(--text-dim)]">Control de Motores y Ruido</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive15" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. Diodos de Protección (Clamp Diodes)</h4><p>El sufijo 'D' en L293D significa que tiene diodos internos. Cuando el motor frena, actúa como generador. Los diodos derivan esa corriente inversa a la fuente de alimentación, protegiendo los transistores. Si usas un chip L293 (sin D), debes ponerlos tú externamente.</p><h4>2. Frecuencia PWM Óptima</h4><p>Si la frecuencia PWM es muy baja (< 100Hz), el motor vibra. Si es muy alta (> 20kHz), los transistores del L293D no pueden conmutar tan rápido y se calientan excesivamente (Pérdidas de Conmutación). Para este driver, 1kHz a 5kHz es el punto dulce.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: L293D con Motor, Potenciómetro y Switch]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones L293D</p>
+                <div class="grid grid-cols-2 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 26</div><div class="text-[10px] text-[var(--text-dim)]">Pin 1 (Enable 1) - PWM</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 25</div><div class="text-[10px] text-[var(--text-dim)]">Pin 2 (Input 1)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 33</div><div class="text-[10px] text-[var(--text-dim)]">Pin 7 (Input 2)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">Fuente Externa</div><div class="text-[10px] text-[var(--text-dim)]">Pin 8 (Vcc2 Motores)</div></div>
+                </div>
+                <div class="p-3 bg-red-900/10 border border-red-900/30 rounded text-xs text-red-300 text-left"><strong>Pines de Control:</strong> Potenciómetro en GPIO 14 (Velocidad) y Switch en GPIO 27 (Dirección). Recuerda unir todas las Tierras (GND).</div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 15: CONTROL DE MOTOR INDUSTRIAL
+ * Objetivo: Puente H, Control Bidireccional y PWM
+ * Hardware: ESP32, L293D, Motor DC, Potenciómetro, Switch
+ */
+
+// Pines L293D
+const int PIN_ENABLE = 26; // PWM Velocidad
+const int PIN_IN1 = 25;    // Dirección A
+const int PIN_IN2 = 33;    // Dirección B
+
+// Pines de Control
+const int PIN_POT = 14;    // Potenciómetro
+const int PIN_SW = 27;     // Switch Dirección
+
+// Configuración PWM
+const int CANAL_PWM = 0;
+const int FREC_PWM = 5000; // 5kHz (Ideal para L293D)
+const int RESOLUCION = 8;  // 8 bits (0-255)
+
+void setup() {
+  Serial.begin(115200);
+  
+  pinMode(PIN_IN1, OUTPUT);
+  pinMode(PIN_IN2, OUTPUT);
+  pinMode(PIN_SW, INPUT_PULLUP);
+  
+  // Configurar PWM en el pin Enable
+  ledcSetup(CANAL_PWM, FREC_PWM, RESOLUCION);
+  ledcAttachPin(PIN_ENABLE, CANAL_PWM);
+  
+  Serial.println("Control de Motor Industrial Iniciado");
+}
+
+void loop() {
+  // 1. Leer Velocidad (Potenciómetro)
+  int lecturaPot = analogRead(PIN_POT); // 0-4095
+  int velocidadPWM = map(lecturaPot, 0, 4095, 0, 255); // Escalar a 8 bits
+  
+  // Aplicar velocidad (Zona muerta para evitar zumbidos a baja potencia)
+  if (velocidadPWM < 20) velocidadPWM = 0;
+  ledcWrite(CANAL_PWM, velocidadPWM);
+  
+  // 2. Leer Dirección (Switch)
+  bool direccion = digitalRead(PIN_SW);
+  
+  if (direccion == HIGH) {
+    // Giro Horario (CW)
+    digitalWrite(PIN_IN1, HIGH);
+    digitalWrite(PIN_IN2, LOW);
+    Serial.print("DIR: Horario | ");
+  } else {
+    // Giro Anti-horario (CCW)
+    digitalWrite(PIN_IN1, LOW);
+    digitalWrite(PIN_IN2, HIGH);
+    Serial.print("DIR: Anti-Horario | ");
+  }
+  
+  Serial.print("PWM: ");
+  Serial.println(velocidadPWM);
+  
+  delay(100);
+}`,
+            sim: ""
+        },
+         16: {
+            title: "16. Nivel de Burbuja Digital",
+            level: "Nivel 4: Drones & IoT ⭐",
+            desc: "Construcción de un inclinómetro digital usando el acelerómetro MPU6050 y una pantalla OLED. Fundamental para entender cómo se estabiliza un dron.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p16c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">¿Qué es una IMU?</h3><p class="text-xs text-[var(--text-dim)]">Unidad de Medición Inercial</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p16c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El MPU6050 es el corazón de cualquier controlador de vuelo moderno. Contiene dos sensores: 1) <strong>Acelerómetro:</strong> Mide fuerzas lineales (incluida la gravedad). Nos dice dónde está "abajo". 2) <strong>Giroscopio:</strong> Mide la velocidad de rotación. Nos dice qué tan rápido estamos girando.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p16c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Vector de Gravedad</h3><p class="text-xs text-[var(--text-dim)]">Calculando el Ángulo</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p16c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Si el sensor está quieto, la única fuerza que siente es la gravedad (1G hacia abajo). Si inclinamos el sensor, la gravedad se reparte entre los ejes X, Y y Z. Usando trigonometría, podemos recuperar el ángulo de inclinación.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">Si agito el sensor violentamente, ¿el nivel funciona?</p>
+                       <div id="ans16-1" class="hidden mt-3 p-3 bg-purple-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>No bien.</strong><br>El acelerómetro no distingue entre gravedad y movimiento (fuerza inercial). Si sacudes el sensor, la "burbuja" saltará por todas partes. Para corregir esto en drones, fusionamos los datos con el giroscopio.</div>
+                       <button onclick="document.getElementById('ans16-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Qué función matemática me da el ángulo correcto en 360 grados?</p>
+                       <div id="ans16-2" class="hidden mt-3 p-3 bg-purple-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>atan2(y, x).</strong><br>La función arco-tangente normal <code>atan()</code> solo funciona de -90 a 90 grados. <code>atan2</code> usa los signos de ambos ejes para determinar el cuadrante correcto y dar una respuesta completa de -180 a 180 grados.</div>
+                       <button onclick="document.getElementById('ans16-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive16')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3><p class="text-xs text-[var(--text-dim)]">Tecnología MEMS</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive16" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. ¿Qué es MEMS?</h4><p>Micro-Electro-Mechanical Systems. Dentro del chip MPU6050 hay estructuras mecánicas microscópicas de silicio que se mueven físicamente. Son como diapasones diminutos. El movimiento cambia la capacitancia entre placas, y eso se convierte en señal eléctrica.</p><h4>2. El Bus I2C Compartido</h4><p>En este proyecto conectamos DOS dispositivos al mismo bus I2C (pines 21 y 22): el MPU6050 y la pantalla OLED. Esto es posible porque cada uno tiene una dirección única (Address). El MPU suele ser 0x68 y la OLED 0x3C. El código llama a cada uno por su nombre.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: ESP32 + MPU6050 + OLED (Todos en paralelo I2C)]</div>
+                <p class="mb-4 text-white font-bold">Bus I2C (Conexión Paralela)</p>
+                <div class="grid grid-cols-3 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GPIO 21 (SDA)</div><div class="text-[10px] text-[var(--text-dim)]">A SDA de MPU y OLED</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GPIO 22 (SCL)</div><div class="text-[10px] text-[var(--text-dim)]">A SCL de MPU y OLED</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">3.3V</div><div class="text-[10px] text-[var(--text-dim)]">VCC Ambos Módulos</div></div>
+                </div></div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 16: NIVEL DE BURBUJA DIGITAL
+ * Objetivo: Lectura de IMU (Acelerómetro) y visualización gráfica
+ * Hardware: ESP32, MPU6050, OLED SSD1306
+ * Librerías: Adafruit MPU6050, Adafruit Unified Sensor, Adafruit SSD1306
+ */
+
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_SSD1306.h>
+#include <Wire.h>
+
+Adafruit_MPU6050 mpu;
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
+
+void setup() {
+  Serial.begin(115200);
+
+  // Iniciar OLED
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("Fallo OLED");
+    for(;;);
+  }
+
+  // Iniciar MPU6050
+  if (!mpu.begin()) {
+    Serial.println("Fallo MPU6050");
+    while (1);
+  }
+  
+  // Configuración del sensor para estabilidad
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+  display.setCursor(20,20);
+  display.print("Calibrando...");
+  display.display();
+  delay(1000);
+}
+
+void loop() {
+  /* Obtener nuevos eventos del sensor */
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  // a.acceleration.x, .y, .z tienen los valores en m/s^2
+  
+  // Mapear aceleración a coordenadas de pantalla (128x64)
+  // El rango típico de inclinación suave es -5 a 5 m/s^2
+  // Centro de pantalla: 64, 32
+  
+  int x_pos = map((int)(a.acceleration.y * 10), -50, 50, 0, 128); // Invertir ejes según orientación
+  int y_pos = map((int)(a.acceleration.x * 10), -50, 50, 0, 64);
+  
+  // Limitar bordes (Constrain)
+  if(x_pos < 5) x_pos = 5;
+  if(x_pos > 123) x_pos = 123;
+  if(y_pos < 5) y_pos = 5;
+  if(y_pos > 59) y_pos = 59;
+
+  // Dibujar Nivel
+  display.clearDisplay();
+  
+  // Dibujar Diana (Centro)
+  display.drawCircle(64, 32, 10, WHITE);
+  display.drawLine(64, 28, 64, 36, WHITE); // Cruz
+  display.drawLine(60, 32, 68, 32, WHITE);
+  
+  // Dibujar "Burbuja" (Círculo lleno)
+  // Nota: Una burbuja real va HACIA ARRIBA (contrario a gravedad). 
+  // El acelerómetro mide fuerza, así que hay que ajustar la lógica.
+  // Aquí dibujamos la "bolita" cayendo hacia la inclinación.
+  display.fillCircle(x_pos, y_pos, 4, WHITE);
+  
+  // Datos numéricos
+  display.setCursor(0,0);
+  display.print("X:"); display.print(a.acceleration.x, 1);
+  display.setCursor(64,0);
+  display.print("Y:"); display.print(a.acceleration.y, 1);
+  
+  display.display();
+  delay(50); // 20 FPS
+}`,
+            sim: ""
+        },
+        17: {
+            title: "17. Mando de Vuelo (Flight Controller)",
+            level: "Nivel 4: Drones & IoT ⭐",
+            desc: "Simulación del cerebro de un dron. Integra la lectura del Joystick (Input del Piloto) con el MPU6050 (Estabilización) para calcular la potencia de los 4 motores usando un algoritmo de mezcla (Mixer).",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p17c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-green-900/20 text-green-400 flex items-center justify-center border border-green-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">El Algoritmo PID</h3><p class="text-xs text-[var(--text-dim)]">Control de Lazo Cerrado</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p17c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El dron nunca está perfectamente estable. El viento lo empuja (Error). El PID calcula la corrección:<br><strong>P (Proporcional):</strong> "¡Error ahora!" Reacción inmediata.<br><strong>I (Integral):</strong> "¡Error pasado!" Corrige acumulaciones (viento constante).<br><strong>D (Derivativo):</strong> "¡Error futuro!" Frena cambios bruscos para evitar oscilaciones.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p17c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-green-900/20 text-green-400 flex items-center justify-center border border-green-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">El Mixer (Mezclador)</h3><p class="text-xs text-[var(--text-dim)]">Matemática de 4 Rotores</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p17c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un dron no tiene un motor para "ir adelante". Usa los 4 motores combinados. El Mixer traduce comandos (Pitch, Roll, Yaw, Throttle) a potencia de motor:<br><code>Motor1 = Throttle + Pitch - Roll + Yaw</code><br>Si quieres bajar la nariz (Pitch), los motores traseros aceleran y los delanteros frenan.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">Si el dron oscila muy rápido ("shaking"), ¿qué valor del PID está mal?</p>
+                       <div id="ans17-1" class="hidden mt-3 p-3 bg-green-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>La P (Proporcional) es muy alta.</strong><br>El sistema está sobre-corrigiendo. Ve un error pequeño y aplica tanta fuerza que se pasa al otro lado, creando un bucle de oscilación de alta frecuencia.</div>
+                       <button onclick="document.getElementById('ans17-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué el acelerador (Throttle) no pasa por el PID?</p>
+                       <div id="ans17-2" class="hidden mt-3 p-3 bg-green-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Porque es Lazo Abierto.</strong><br>El piloto decide la altura base. El PID solo se encarga de la <i>estabilidad</i> (rotación). El Throttle es la base sobre la que el PID suma o resta correcciones.</div>
+                       <button onclick="document.getElementById('ans17-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive17')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3><p class="text-xs text-[var(--text-dim)]">Looptime y Latencia</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive17" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. Looptime Crítico</h4><p>Un dron de carreras corre su bucle PID a 8kHz (8000 veces por segundo). El ESP32 puede manejar fácilmente 1kHz a 4kHz. Si el bucle es lento (< 250Hz), el dron caerá porque la corrección física llega tarde respecto a la realidad.</p><h4>2. Dato Curioso: Origen Naval</h4><p>El control PID no nació con los drones. Fue desarrollado en 1922 por Nicolas Minorsky para el <strong>gobierno de barcos</strong> de la Marina de EE.UU. Observó cómo los timoneles corregían el rumbo y lo tradujo a matemáticas. ¡Tu dron usa tecnología de acorazados!</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: Joystick XY (34/35) + MPU6050 (21/22)]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 34</div><div class="text-[10px] text-[var(--text-dim)]">Joystick VRx (Pitch)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 35</div><div class="text-[10px] text-[var(--text-dim)]">Joystick VRy (Roll)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GPIO 21/22</div><div class="text-[10px] text-[var(--text-dim)]">MPU6050 SDA/SCL</div></div>
+                </div></div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 17: MANDO DE VUELO (FLIGHT CONTROLLER)
+ * Objetivo: Lectura de piloto + Sensores + Algoritmo Mixer
+ * Hardware: ESP32, Joystick, MPU6050
+ * Librerías: Adafruit MPU6050
+ */
+
+#include <Adafruit_MPU6050.h>
+#include <Wire.h>
+
+Adafruit_MPU6050 mpu;
+
+// Pines Joystick
+const int PIN_ROLL = 35;  // Eje X
+const int PIN_PITCH = 34; // Eje Y
+
+// Variables de Control
+int rc_roll = 1500;
+int rc_pitch = 1500;
+int rc_throttle = 1000; // Acelerador fijo para simulación
+
+// Variables PID (Simplificado P-Controller)
+float kp = 2.0; // Ganancia Proporcional
+float error_roll = 0;
+float error_pitch = 0;
+
+void setup() {
+  Serial.begin(115200);
+  
+  if (!mpu.begin()) {
+    Serial.println("Fallo MPU6050");
+    while (1);
+  }
+  
+  // Configurar rangos para vuelo deportivo
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+  
+  Serial.println("--- MECRO FC ARMED ---");
+}
+
+void loop() {
+  // 1. LEER INPUT DEL PILOTO (Joystick)
+  // Convertir ADC (0-4095) a Estándar RC (1000-2000)
+  // 1500 es el centro (stick suelto)
+  rc_roll = map(analogRead(PIN_ROLL), 0, 4095, 1000, 2000);
+  rc_pitch = map(analogRead(PIN_PITCH), 0, 4095, 1000, 2000);
+  
+  // 2. LEER REALIDAD (Sensores)
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+  
+  // Convertir aceleración a ángulo aproximado (simplificado)
+  float angulo_roll_real = a.acceleration.y * 5.0; // aprox
+  float angulo_pitch_real = a.acceleration.x * 5.0;
+
+  // 3. CALCULAR ERROR (Setpoint - Realidad)
+  // El piloto pide inclinación (ej. Roll=1800 -> +30 grados)
+  // Convertir RC (1000-2000) a Grados (-45 a +45)
+  float setpoint_roll = map(rc_roll, 1000, 2000, -45, 45);
+  float setpoint_pitch = map(rc_pitch, 1000, 2000, -45, 45);
+  
+  error_roll = setpoint_roll - angulo_roll_real;
+  error_pitch = setpoint_pitch - angulo_pitch_real;
+  
+  // 4. CALCULAR CORRECCIÓN (PID - Solo P)
+  float pid_roll = error_roll * kp;
+  float pid_pitch = error_pitch * kp;
+  
+  // 5. MIXER (Mezclador de Motores Quad X)
+  // M1 (Front L) | M2 (Front R)
+  // M4 (Back L)  | M3 (Back R)
+  
+  // Aumentamos throttle base para ver valores
+  rc_throttle = 1300; 
+  
+  int m1 = rc_throttle + pid_pitch + pid_roll;
+  int m2 = rc_throttle + pid_pitch - pid_roll;
+  int m3 = rc_throttle - pid_pitch - pid_roll;
+  int m4 = rc_throttle - pid_pitch + pid_roll;
+  
+  // Limitar valores a rango físico de ESC (1000-2000)
+  m1 = constrain(m1, 1000, 2000);
+  m2 = constrain(m2, 1000, 2000);
+  m3 = constrain(m3, 1000, 2000);
+  m4 = constrain(m4, 1000, 2000);
+  
+  // 6. SALIDA TELEMETRÍA (Serial Plotter)
+  // Ideal para ver en el IDE de Arduino
+  Serial.print("SetRoll:"); Serial.print(setpoint_roll);
+  Serial.print(" RealRoll:"); Serial.print(angulo_roll_real);
+  Serial.print(" M1:"); Serial.print(m1);
+  Serial.print(" M2:"); Serial.println(m2);
+  
+  delay(10); // Loop a 100Hz aprox
+}`,
+            sim: ""
+        },
+        18: {
+            title: "18. Mouse Aéreo (Air Mouse)",
+            level: "Nivel 4: Drones & IoT ⭐",
+            desc: "Controla el cursor de tu computadora moviendo el kit en el aire. Utilizamos el giroscopio del MPU6050 y el protocolo Bluetooth HID del ESP32 para emular un mouse físico sin necesidad de drivers.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p18c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Bluetooth HID</h3><p class="text-xs text-[var(--text-dim)]">Human Interface Device</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p18c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El ESP32 tiene Bluetooth Low Energy (BLE). Gracias al perfil HID, puede presentarse ante cualquier PC o celular como un "Mouse Genérico". El sistema operativo lo reconoce automáticamente y no necesitas instalar ningún software extra.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p18c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Cinemática del Puntero</h3><p class="text-xs text-[var(--text-dim)]">Giroscopio vs Acelerómetro</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p18c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">A diferencia del nivel de burbuja (que usa inclinación absoluta), un mouse aéreo se siente mejor usando <strong>Velocidad Angular</strong>. El giroscopio nos dice cuántos "grados por segundo" estamos girando. Mapeamos esa velocidad a "píxeles por actualización". Si dejas de girar, el cursor se detiene, incluso si el mando está inclinado.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué el cursor se mueve solo a veces (Drift)?</p>
+                       <div id="ans18-1" class="hidden mt-3 p-3 bg-blue-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Error de Offset (Bias).</strong><br>Los sensores MEMS no son perfectos. Incluso quietos, pueden reportar una rotación de 0.5 grados/seg. El código debe "tarar" (calibrar) el sensor al inicio restando este valor promedio.</div>
+                       <button onclick="document.getElementById('ans18-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué usamos el Giroscopio y no el Acelerómetro?</p>
+                       <div id="ans18-2" class="hidden mt-3 p-3 bg-blue-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Experiencia de Usuario.</strong><br>El acelerómetro detecta "abajo". Si lo usas para el mouse, tendrías que mantener la mano inclinada incómodamente para mover el cursor. El giroscopio responde al "gesto" de movimiento, como un puntero láser, lo cual es más natural.</div>
+                       <button onclick="document.getElementById('ans18-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive18')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Interfaz</h3><p class="text-xs text-[var(--text-dim)]">Deadzone y Usabilidad</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive18" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. Zona Muerta (Deadzone)</h4><p>El pulso humano nunca es perfectamente estable. Siempre hay micro-movimientos (temblores). Si enviamos todos los datos del giroscopio, el cursor "vibrará" cuando intentes hacer clic en un icono pequeño. Programamos una <code>DEADZONE</code>: si la rotación es menor a X grados/segundo, la ignoramos. Es un filtro de ruido por software.</p><h4>2. Report Descriptor</h4><p>Para que Windows sepa que somos un mouse, el protocolo HID envía un "Descriptor". Es una tabla binaria que define: "Tengo 2 botones, un eje X y un eje Y". Si configuras mal este descriptor, el dispositivo puede aparecer como un teclado o un joystick.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: MPU6050 (21/22) + 2 Botones (15/4)]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GPIO 21/22</div><div class="text-[10px] text-[var(--text-dim)]">MPU6050 I2C</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 15</div><div class="text-[10px] text-[var(--text-dim)]">Clic Izquierdo</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 4</div><div class="text-[10px] text-[var(--text-dim)]">Clic Derecho</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">3.3V</div><div class="text-[10px] text-[var(--text-dim)]">VCC MPU</div></div>
+                </div></div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 18: MOUSE AÉREO (AIR MOUSE)
+ * Objetivo: Bluetooth HID, Giroscopio y Filtrado
+ * Librerías: BleMouse, Adafruit MPU6050
+ * NOTA: Requiere instalar 'ESP32 BLE Mouse' de T-vK
+ */
+
+#include <BleMouse.h>
+#include <Adafruit_MPU6050.h>
+#include <Wire.h>
+
+BleMouse bleMouse("MECRO Air Mouse", "MECRO Inc", 100);
+Adafruit_MPU6050 mpu;
+
+// Pines Botones
+#define PIN_LEFT_CLICK 15
+#define PIN_RIGHT_CLICK 4
+
+// Configuración de Sensibilidad
+const float SENSITIVITY = 15.0; // Multiplicador de velocidad
+const float DEADZONE = 0.1;     // Rad/s mínimos para mover
+
+void setup() {
+  Serial.begin(115200);
+  
+  pinMode(PIN_LEFT_CLICK, INPUT_PULLUP);
+  pinMode(PIN_RIGHT_CLICK, INPUT_PULLUP);
+
+  if (!mpu.begin()) {
+    Serial.println("Fallo MPU6050");
+    while (1);
+  }
+  
+  // Rango de Giroscopio: 500 grados/segundo es suficiente para manos humanas
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+
+  Serial.println("Iniciando Bluetooth...");
+  bleMouse.begin();
+}
+
+void loop() {
+  if (bleMouse.isConnected()) {
+    
+    // 1. LEER GIROSCOPIO
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
+    
+    // g.gyro.z (Yaw) mueve el mouse en X (Horizontal)
+    // g.gyro.y (Pitch) mueve el mouse en Y (Vertical) - Ajustar según orientación
+    float gyroX = g.gyro.z; 
+    float gyroY = g.gyro.y; // Puede requerir signo negativo
+    
+    // 2. APLICAR DEADZONE (Zona Muerta)
+    if (abs(gyroX) < DEADZONE) gyroX = 0;
+    if (abs(gyroY) < DEADZONE) gyroY = 0;
+    
+    // 3. CALCULAR MOVIMIENTO (Píxeles)
+    // Invertimos signos según la orientación física del chip
+    int moveX = -(gyroX * SENSITIVITY); 
+    int moveY = -(gyroY * SENSITIVITY);
+    
+    // Mover solo si hay datos significativos
+    if (moveX != 0 || moveY != 0) {
+      bleMouse.move(moveX, moveY);
+    }
+    
+    // 4. BOTONES (CLICS)
+    // Lógica inversa (LOW = Presionado)
+    if (digitalRead(PIN_LEFT_CLICK) == LOW) {
+      if (!bleMouse.isPressed(MOUSE_LEFT)) bleMouse.press(MOUSE_LEFT);
+    } else {
+      if (bleMouse.isPressed(MOUSE_LEFT)) bleMouse.release(MOUSE_LEFT);
+    }
+    
+    if (digitalRead(PIN_RIGHT_CLICK) == LOW) {
+      if (!bleMouse.isPressed(MOUSE_RIGHT)) bleMouse.press(MOUSE_RIGHT);
+    } else {
+      if (bleMouse.isPressed(MOUSE_RIGHT)) bleMouse.release(MOUSE_RIGHT);
+    }
+    
+    delay(10); // Fluidez de movimiento (100Hz)
+  }
+}`,
+            sim: "" 
+        },
+
+        19: {
+            title: "19. Riego WiFi IoT",
+            level: "Nivel 4: Drones & IoT",
+            desc: "Convierte el ESP32 en un Servidor Web para monitorear plantas remotamente. Aprenderemos sobre sensores de humedad capacitivos, el stack TCP/IP y cómo controlar cargas de potencia (bomba de agua) a través de Internet.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p19c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Física de Suelos</h3><p class="text-xs text-[var(--text-dim)]">Permitividad Dieléctrica</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p19c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">¿Cómo sabe el sensor que hay agua sin tocarla? Usamos <strong>Sensores Capacitivos</strong>. El agua tiene una constante dieléctrica muy alta ($k \approx 80$) comparada con el aire ($k \approx 1$) o la tierra seca. El sensor mide el cambio en la capacidad del suelo para almacenar un campo eléctrico. Más agua = Mayor Capacitancia.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p19c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Servidor Web Embebido</h3><p class="text-xs text-[var(--text-dim)]">HTTP sobre TCP/IP</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p19c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El ESP32 tiene una radio WiFi de 2.4GHz. En este proyecto, configuramos el chip en modo <strong>STA (Station)</strong> para que se conecte a tu Router. Luego, levantamos un servidor en el puerto 80 que responde con código HTML cada vez que entras a su dirección IP desde el navegador de tu celular.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué NO usar sensores resistivos (las dos puntas de metal)?</p>
+                       <div id="ans19-1" class="hidden mt-3 p-3 bg-blue-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Corrosión Galvánica (Electrólisis).</strong><br>Al pasar corriente DC por la tierra húmeda, los electrodos se disuelven químicamente en cuestión de semanas. Los sensores capacitivos están aislados con pintura epóxica y duran años.</div>
+                       <button onclick="document.getElementById('ans19-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué la bomba de agua necesita un Relé y no un Transistor directo?</p>
+                       <div id="ans19-2" class="hidden mt-3 p-3 bg-blue-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Aislamiento Total.</strong><br>El agua y la electricidad no se llevan bien. Un relé aísla mecánicamente el circuito de control (3.3V) del de potencia. Si la bomba falla y hace corto, el ESP32 está a salvo al otro lado del electroimán.</div>
+                       <button onclick="document.getElementById('ans19-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive19')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería IoT</h3><p class="text-xs text-[var(--text-dim)]">Calibración y Lógica Inversa</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive19" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. Mapeo Inverso</h4><p>Curiosamente, la mayoría de sensores capacitivos analógicos dan un valor ALTO de voltaje (cerca de 3000) cuando están secos y BAJO (cerca de 1200) cuando están en agua. Esto es contraintuitivo. El código debe invertir esta lógica matemáticamente (usando <code>map</code> invertido) para mostrar "0% a 100%" correctamente al usuario.</p><h4>2. Seguridad en Riego</h4><p>En sistemas reales, nunca confiamos solo en el sensor. Si el sensor falla y marca "0% humedad" siempre, la bomba no puede quedarse encendida eternamente o inundará la casa. Implementamos "Timeouts": La bomba solo puede estar encendida máximo 10 segundos, y luego debe descansar obligatoriamente.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: Sensor Humedad (GPIO 34), Relé (GPIO 26) para Bomba]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 34</div><div class="text-[10px] text-[var(--text-dim)]">Sensor Humedad (Analog)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 26</div><div class="text-[10px] text-[var(--text-dim)]">Relé (Bomba de Agua)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">3.3V</div><div class="text-[10px] text-[var(--text-dim)]">VCC Sensor</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">5V (Vin)</div><div class="text-[10px] text-[var(--text-dim)]">VCC Relé</div></div>
+                </div></div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 19: RIEGO WIFI IOT
+ * Objetivo: Servidor Web, Lectura Analógica Capacitiva y Control de Relé
+ * Hardware: ESP32, Sensor Humedad Suelo Capacitivo v1.2, Módulo Relé
+ */
+
+#include <WiFi.h>
+#include <WebServer.h>
+
+// --- CREDENCIALES WIFI ---
+const char* ssid = "TU_WIFI_NOMBRE";
+const char* password = "TU_WIFI_PASSWORD";
+
+// --- DEFINICIONES DE HARDWARE ---
+const int PIN_SENSOR = 34; // Entrada Analógica
+const int PIN_RELE = 26;   // Salida Digital (Bomba)
+
+// --- CALIBRACIÓN (IMPORTANTE) ---
+// Valores experimentales: Sumergir en agua para MIN, secar al aire para MAX
+const int AIRE_VAL = 3200; // Valor seco
+const int AGUA_VAL = 1300; // Valor mojado
+
+WebServer server(80);
+
+// --- CÓDIGO HTML DEL DASHBOARD ---
+// Guardamos la página web en una variable de texto
+String getHTML(int humedad, String estado) {
+  String html = "<!DOCTYPE html><html><head>";
+  html += "<meta name='viewport' content='width=device-width, initial-scale=1'>";
+  html += "<style>body{font-family:sans-serif;text-align:center;background:#1a1a1a;color:white;}";
+  html += ".card{background:#2d2d2d;padding:20px;margin:20px auto;max-width:300px;border-radius:10px;}";
+  html += "h1{color:#4ade80;} .val{font-size:3rem;font-weight:bold;}</style>";
+  html += "<meta http-equiv='refresh' content='5'>"; // Refrescar cada 5s
+  html += "</head><body>";
+  html += "<h1>MECRO GARDEN IOT</h1>";
+  html += "<div class='card'><p>Humedad del Suelo</p>";
+  html += "<div class='val'>" + String(humedad) + "%</div>";
+  html += "<p>Estado Bomba: <strong>" + estado + "</strong></p></div>";
+  html += "</body></html>";
+  return html;
+}
+
+void handleRoot() {
+  int raw = analogRead(PIN_SENSOR);
+  
+  // Mapear valor inverso (Menos voltaje = Más humedad en capacitivos)
+  int porcentaje = map(raw, AIRE_VAL, AGUA_VAL, 0, 100);
+  porcentaje = constrain(porcentaje, 0, 100); // Limitar a 0-100%
+  
+  String estadoBomba = (digitalRead(PIN_RELE) == HIGH) ? "ENCENDIDA" : "APAGADA";
+  
+  server.send(200, "text/html", getHTML(porcentaje, estadoBomba));
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PIN_RELE, OUTPUT);
+  digitalWrite(PIN_RELE, LOW); // Apagar bomba al inicio
+
+  // Conexión WiFi
+  Serial.print("Conectando a WiFi");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  
+  Serial.println("");
+  Serial.println("WiFi Conectado.");
+  Serial.print("IP del Servidor: ");
+  Serial.println(WiFi.localIP()); // ¡Entra aquí con tu navegador!
+
+  // Rutas del Servidor
+  server.on("/", handleRoot);
+  server.begin();
+}
+
+void loop() {
+  server.handleClient(); // Manejar peticiones web
+  
+  // Lógica de Riego Automático (Opcional)
+  int raw = analogRead(PIN_SENSOR);
+  int humedad = map(raw, AIRE_VAL, AGUA_VAL, 0, 100);
+  
+  // Si está muy seco (<20%), encender bomba
+  // Nota: En producción, usaríamos millis() para no regar por horas si el sensor falla
+  if (humedad < 20) {
+     digitalWrite(PIN_RELE, HIGH);
+  } else if (humedad > 60) {
+     digitalWrite(PIN_RELE, LOW);
+  }
+}`,
+            sim: "" 
+        },
+
+        20: {
+            title: "20. Reloj Atómico NTP",
+            level: "Nivel 4: Drones & IoT ⭐",
+            desc: "Obtén la hora exacta conectando tu ESP32 a relojes atómicos internacionales vía WiFi. Uso del protocolo NTP y displays TM1637 para un reloj que nunca se atrasa.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p20c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Protocolo NTP</h3><p class="text-xs text-[var(--text-dim)]">Network Time Protocol</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p20c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Para saber la hora, el ESP32 envía un paquete UDP diminuto a un servidor global (como <code>pool.ntp.org</code>). Este servidor está sincronizado con relojes atómicos de cesio. El servidor devuelve una "marca de tiempo" (Timestamp) precisa.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p20c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Tiempo Unix (Epoch)</h3><p class="text-xs text-[var(--text-dim)]">Segundos desde 1970</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p20c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Las computadoras no entienden "10 de Diciembre de 2025". Solo cuentan segundos. El <strong>Tiempo Unix</strong> es el número de segundos que han pasado desde el 1 de enero de 1970 a las 00:00:00 UTC. El ESP32 recibe este número gigante y la librería <code>time.h</code> lo traduce a horas y minutos legibles.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Qué pasa con el reloj si se corta el WiFi?</p>
+                       <div id="ans20-1" class="hidden mt-3 p-3 bg-purple-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Sigue funcionando (con Deriva).</strong><br>Una vez sincronizado, el ESP32 usa su propio oscilador interno para contar segundos. Sin embargo, sin Internet, perderá precisión (algunos segundos por día) porque los cristales baratos no son perfectos (Drift).</div>
+                       <button onclick="document.getElementById('ans20-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué usamos UDP y no TCP para la hora?</p>
+                       <div id="ans20-2" class="hidden mt-3 p-3 bg-purple-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Velocidad y Latencia.</strong><br>TCP requiere "apretón de manos" (handshake) y reintentos, lo que añade retraso desconocido. UDP es "disparar y olvidar". En sincronización de tiempo, preferimos perder un paquete que recibir uno viejo con retraso.</div>
+                       <button onclick="document.getElementById('ans20-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive20')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Redes</h3><p class="text-xs text-[var(--text-dim)]">Stratum y Año 2038</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive20" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><h4>1. Jerarquía Stratum</h4><p>La red NTP es jerárquica. Stratum 0 son los relojes atómicos físicos (Cesio, Rubidio o GPS). Stratum 1 son servidores conectados directamente a ellos. Nosotros (el ESP32) somos Stratum 3 o 4. Cada nivel añade un pequeño error de milisegundos, pero es despreciable para uso humano.</p><h4>2. El Problema del Año 2038</h4><p>El Tiempo Unix se almacena tradicionalmente en una variable de 32 bits con signo. Su valor máximo es 2,147,483,647. Ese segundo exacto ocurrirá el 19 de enero de 2038. Un segundo después, los relojes de 32 bits se desbordarán a -2,147,483,648 (año 1901). El ESP32 moderno usa 64 bits para evitar este apocalipsis digital.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: Display TM1637 (CLK=18, DIO=19) + ESP32]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 18</div><div class="text-[10px] text-[var(--text-dim)]">TM1637 CLK</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 19</div><div class="text-[10px] text-[var(--text-dim)]">TM1637 DIO</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">3.3V / 5V</div><div class="text-[10px] text-[var(--text-dim)]">VCC Display</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GND</div><div class="text-[10px] text-[var(--text-dim)]">Tierra Común</div></div>
+                </div></div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 20: RELOJ ATÓMICO NTP
+ * Objetivo: Sincronización de tiempo vía Internet (WiFi)
+ * Hardware: ESP32, Display TM1637
+ * Librerías: TM1637Display, WiFi.h, time.h
+ */
+
+#include <WiFi.h>
+#include "time.h"
+#include <TM1637Display.h>
+
+// --- CONFIGURACIÓN DE RED ---
+const char* ssid     = "TU_WIFI_NOMBRE";
+const char* password = "TU_WIFI_PASSWORD";
+
+// --- CONFIGURACIÓN NTP (Perú: UTC-5) ---
+const char* ntpServer = "pool.ntp.org";
+const long  gmtOffset_sec = -18000;   // UTC -5 * 3600
+const int   daylightOffset_sec = 0;   // Sin horario de verano
+
+// --- DISPLAY ---
+const int CLK = 18;
+const int DIO = 19;
+TM1637Display display(CLK, DIO);
+
+void setup() {
+  Serial.begin(115200);
+  display.setBrightness(0x0f);
+  
+  // Animación de carga mientras conecta
+  const uint8_t SEG_CONN[] = {
+    SEG_A | SEG_D | SEG_E | SEG_F, // C
+    SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F, // O
+    SEG_C | SEG_E | SEG_G, // n
+    SEG_C | SEG_E | SEG_G  // n
+  };
+  display.setSegments(SEG_CONN);
+
+  // Conectar WiFi
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi Conectado!");
+
+  // Iniciar cliente de tiempo
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+}
+
+void loop() {
+  struct tm timeinfo;
+  
+  // Intentar obtener hora local
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Error obteniendo hora NTP");
+    return;
+  }
+  
+  // Extraer hora y minutos
+  int hora = timeinfo.tm_hour;
+  int minutos = timeinfo.tm_min;
+  
+  // Formato 12H (Opcional)
+  // if (hora > 12) hora -= 12;
+  // if (hora == 0) hora = 12;
+
+  // Calcular número para display: 1230 -> 12:30
+  int displayTime = (hora * 100) + minutos;
+  
+  // Parpadeo de los dos puntos (:) cada segundo
+  // El TM1637 muestra los puntos si activamos el bit central
+  // 0x40 es el bit de los dos puntos en algunos modelos, 
+  // o usamos el segundo argumento de showNumberDecEx
+  
+  bool parpadeo = (timeinfo.tm_sec % 2 == 0);
+  
+  // showNumberDecEx(numero, puntos, ceros_izquierda)
+  // 0b01000000 (0x40) activa los dos puntos centrales
+  display.showNumberDecEx(displayTime, (parpadeo ? 0x40 : 0), true);
+  
+  delay(500);
+}`,
+            sim: "" 
+        }
+        // ---------------FIN DE PÁGINAS---------------
     };
     
     // --- LISTA DE NAVEGACIÓN (CONFIGURACIÓN DE NIVELES) ---
