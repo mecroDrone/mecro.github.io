@@ -61,7 +61,13 @@
     .c-k { color: #ff7b72; } .c-t { color: #79c0ff; } .c-f { color: #d2a8ff; } 
     .c-c { color: #8b949e; font-style: italic; } .c-n { color: #e5c07b; } 
     .c-s { color: #a5d6ff; } .c-m { color: #ffa657; }
-    .math-block { font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid var(--accent); margin: 1rem 0; font-size: 0.85rem; }
+    .math-block { font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid var(--accent); margin: 1rem 0; font-size: 0.85rem; color: #e2e8f0; }
+
+    /* Deep Dive Typography */
+    .prose h4 { color: white; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1rem; }
+    .prose p { margin-bottom: 1em; line-height: 1.6; color: var(--text-dim); }
+    .prose strong { color: var(--accent); }
+    .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; color: var(--text-dim); }
 
     /* Animations */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -96,7 +102,7 @@
     <!-- SIDEBAR -->
     <aside class="w-[280px] bg-[#0d1012] border-r border-[var(--line)] overflow-y-auto hidden md:block flex-none">
       <div class="p-4 pb-10">
-        <div class="text-xs font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 px-2">Roadmap 2025 v4.0</div>
+        <div class="text-xs font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 px-2">Roadmap 2025 v4.7</div>
         <nav class="space-y-6" id="sidebar-nav">
            <!-- Se llena dinámicamente con JS -->
         </nav>
@@ -171,35 +177,128 @@
 
   <!-- DATA & LOGIC ENGINE -->
   <script>
-    // --- BASE DE DATOS DE PROYECTOS (NIVEL 1 COMPLETO) ---
+    // --- BASE DE DATOS DE PROYECTOS ---
     const projectDB = {
         1: {
             title: "01. Semáforo Inteligente",
             level: "Nivel 1: Iniciación",
-            desc: "Aprende a programar el procesador ESP32 para gestionar tareas críticas sin bloqueos, usando <code>millis()</code> y máquinas de estado.",
+            desc: "Aprende a programar el procesador ESP32 para gestionar tareas críticas sin bloqueos, usando <code>millis()</code> y máquinas de estado. Fundamental para drones.",
             theory: `
+                <!-- Capítulo 1 -->
                 <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
-                  <button onclick="toggleAccordion('t1')" class="w-full p-5 text-left flex justify-between items-center hover:bg-[#1e2329]"><span class="font-bold text-white">1. El Problema del Bloqueo</span><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
-                  <div id="t1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 bg-[#13161a] text-sm text-[var(--text-dim)]">
-                    Un dron corre a 400Hz. Si usas <code>delay(1000)</code>, el dron cae. Usamos <code>millis()</code> para medir el tiempo transcurrido sin detener el CPU.
-                  </div></div>
+                  <button onclick="toggleAccordion('chap1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Física del Hardware</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Datasheets y Ley de Ohm</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="chap1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                      <div class="grid md:grid-cols-2 gap-6 mt-4">
+                        <div>
+                          <h4 class="text-xs font-bold text-[var(--accent)] uppercase tracking-wider mb-2">Datos Críticos</h4>
+                          <ul class="space-y-2 text-sm text-[var(--text-dim)]">
+                            <li class="flex justify-between border-b border-[var(--line)] pb-1"><span>Vcc</span> <span class="text-white font-mono">3.3V</span></li>
+                            <li class="flex justify-between border-b border-[var(--line)] pb-1"><span>I Max</span> <span class="text-white font-mono">~40mA</span></li>
+                          </ul>
+                          <div class="mt-4 p-2 bg-red-900/10 border border-red-900/30 rounded text-[10px] text-red-300 flex gap-2">
+                             <i class="ph-fill ph-warning"></i>
+                             <span>¡OJO! 5V queman el ESP32.</span>
+                          </div>
+                        </div>
+                        <div>
+                          <h4 class="text-xs font-bold text-[var(--accent)] uppercase tracking-wider mb-2">Cálculo R</h4>
+                          <div class="math-block text-xs my-0">
+                            R = (3.3V - 2.0V) / 0.01A <br>
+                            R = 1.3V / 0.01A = <strong>130Ω</strong>
+                          </div>
+                          <p class="text-[10px] text-[var(--text-dim)] mt-2">*Usar comercial: 220Ω o 330Ω.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- Capítulo 2 -->
                 <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
-                  <button onclick="toggleAccordion('t2')" class="w-full p-5 text-left flex justify-between items-center hover:bg-[#1e2329]"><span class="font-bold text-white">2. Máquina de Estados</span><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
-                  <div id="t2" class="reveal-content"><div class="reveal-inner p-5 pt-0 bg-[#13161a] text-sm text-[var(--text-dim)]">
-                    Definimos estados numéricos (0: Rojo, 1: Verde, 2: Amarillo) y usamos <code>switch-case</code> para transiciones ordenadas.
-                  </div></div>
+                  <button onclick="toggleAccordion('chap2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Lógica No Bloqueante</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Adiós delay(), hola millis()</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="chap2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         <code>delay(1000)</code> detiene el procesador. Un dron no puede permitirse dormir 1 segundo. Usamos <code>millis()</code> para comparar tiempos delta.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- QUIZ -->
+                <div class="pt-4 grid md:grid-cols-2 gap-4">
+                   <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4">
+                     <p class="text-sm font-medium text-gray-200 mb-2">¿Qué pasa con R = 10kΩ?</p>
+                     <button onclick="this.nextElementSibling.classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:underline">Ver Respuesta</button>
+                     <div class="hidden mt-2 text-xs text-gray-400 border-l-2 border-[var(--accent)] pl-2">El LED no brilla (Corriente muy baja, I=0.1mA).</div>
+                   </div>
+                   <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4">
+                     <p class="text-sm font-medium text-gray-200 mb-2">¿Por qué 'unsigned long'?</p>
+                     <button onclick="this.nextElementSibling.classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:underline">Ver Respuesta</button>
+                     <div class="hidden mt-2 text-xs text-gray-400 border-l-2 border-[var(--accent)] pl-2">Para evitar Overflow (reinicio) a los 32 segundos.</div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Profundización Técnica</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Profundización sobre semiconductores y arquitectura de silicio.
+                        </p>
+                        <h4>1. Física del Estado Sólido</h4>
+                        <p>Un LED no es un foco; es un dispositivo cuántico. La relación Voltaje-Corriente es exponencial. Sin resistencia, el transistor de salida del ESP32 sufriría un corto masivo ($P=IV$) al intentar igualar el voltaje.</p>
+                        <h4>2. Arquitectura Xtensa LX6</h4>
+                        <p>Al escribir <code>pinMode</code>, configuras multiplexores internos. Los pines tienen etapas de salida Push-Pull (MOSFETs). El datasheet advierte que el voltaje de salida cae ($V_{OH}$) si exiges demasiada corriente.</p>
+                        <h4>3. Rollover de <code>millis()</code></h4>
+                        <p>El contador se reinicia a 0 cada 49.7 días ($2^{32}$ ms). La resta binaria en complemento a dos <code>(actual - anterior)</code> maneja este reinicio matemáticamente sin errores.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             `,
             circuit: `
-                <div class="text-center">
-                   <p class="mb-4 text-white font-bold">Conexiones GPIO</p>
-                   <div class="grid grid-cols-3 gap-2 max-w-md mx-auto mb-6">
-                      <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded text-xs text-red-400">GPIO 23 -> LED Rojo</div>
-                      <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded text-xs text-green-400">GPIO 21 -> LED Verde</div>
-                      <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded text-xs text-yellow-400">GPIO 22 -> LED Amarillo</div>
+                <div class="text-center w-full max-w-2xl">
+                   <!-- AQUÍ COLOCAS TUS IMÁGENES -->
+                   <img src="https://docs.arduino.cc/static/f5db6498305c59704e6c464c48971032/8f467/circuit.png" class="w-full rounded-lg opacity-80 hover:opacity-100 transition-opacity mb-6 border border-[var(--line)]" alt="Diagrama de Conexión">
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Pines (Pinout)</p>
+                   <div class="grid grid-cols-3 gap-2 mx-auto mb-6">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded text-xs text-red-400 font-mono">GPIO 23 <br><span class="text-gray-500">LED Rojo</span></div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded text-xs text-green-400 font-mono">GPIO 21 <br><span class="text-gray-500">LED Verde</span></div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded text-xs text-yellow-400 font-mono">GPIO 22 <br><span class="text-gray-500">LED Amarillo</span></div>
                    </div>
-                   <p class="text-xs text-[var(--text-dim)]">Usa resistencias de 220Ω o 330Ω.</p>
+                   <p class="text-xs text-[var(--text-dim)]">Recuerda: Cátodos (-) a GND común.</p>
                 </div>
             `,
             code: `// PROYECTO 01: SEMÁFORO NO BLOQUEANTE
@@ -241,97 +340,345 @@ void loop() {
         2: {
             title: "02. Piano Electrónico",
             level: "Nivel 1: Iniciación",
-            desc: "Uso de Buzzer Pasivo y botones. Aprenderemos sobre frecuencias PWM y generación de sonido en ESP32.",
+            desc: "Construye un piano usando botones y un buzzer pasivo. Aprende sobre señales PWM, frecuencias sonoras y la física del sonido.",
             theory: `
+                <!-- Capítulo 1 -->
                 <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
-                   <div class="p-5 text-sm text-[var(--text-dim)]">
-                      <h4 class="text-white font-bold mb-2">Frecuencia y Sonido</h4>
-                      <p class="mb-2">A diferencia de Arduino Uno (<code>tone()</code>), el ESP32 usa el periférico LEDC para generar PWM.</p>
-                      <div class="math-block">Nota DO = 261 Hz <br>Nota RE = 294 Hz <br>Nota MI = 329 Hz</div>
-                      <p>Configuramos el Buzzer en un canal PWM y cambiamos la frecuencia al pulsar botones.</p>
-                   </div>
+                  <button onclick="toggleAccordion('p2c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Física del Sonido</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Ondas, Hertz y Periodo</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p2c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El sonido es simplemente aire vibrando. Para que un buzzer suene, tenemos que encenderlo y apagarlo muy rápido.
+                       </p>
+                       <ul class="text-sm text-[var(--text-dim)] list-disc pl-4 mt-2">
+                         <li><strong>Frecuencia (f):</strong> Veces que vibra por segundo. Se mide en Hertz (Hz).</li>
+                         <li><strong>Nota DO Central (C4):</strong> Vibra 261 veces por segundo (261 Hz).</li>
+                         <li><strong>Periodo (T):</strong> Tiempo que dura una vibración. $T = 1/f$.</li>
+                       </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p2c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">PWM y LEDC</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Hardware dedicado vs Software</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p2c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         En Arduino normal usábamos <code>tone()</code>. En el ESP32, usamos <strong>LEDC (LED Control)</strong>. Es un hardware periférico que genera ondas cuadradas (PWM) sin molestar al procesador principal.
+                       </p>
+                       <div class="math-block text-xs my-2">
+                         ledcSetup(canal, frecuencia, resolución);
+                       </div>
+                       <p class="text-sm text-[var(--text-dim)]">
+                         Esto permite que el ESP32 haga sonar música compleja mientras sigue conectado al WiFi o estabilizando un dron.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Audio Embebido</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Timers y Resolución de Bits</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive2" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Profundización sobre cómo el silicio genera ondas.
+                        </p>
+                        <h4>1. Timers de Hardware</h4>
+                        <p>El ESP32 tiene 4 timers de alta velocidad. Cuando usas <code>ledcAttachPin</code>, estás conectando físicamente un pin GPIO a uno de estos relojes internos. El CPU le dice al timer: "Cuenta hasta X y cambia el estado del pin". Una vez configurado, el timer trabaja solo.</p>
+                        <h4>2. Resolución de Bits (Duty Cycle)</h4>
+                        <p>Configuramos 8 bits de resolución ($2^8 = 256$ pasos). Para generar sonido, usamos un ciclo de trabajo (duty cycle) del 50% (valor 128). Esto crea una onda cuadrada perfecta que maximiza el volumen del buzzer.</p>
+                        <h4>3. Buzzer Activo vs Pasivo</h4>
+                        <p><strong>Activo:</strong> Tiene un oscilador interno. Solo necesita corriente DC para sonar (como un pito fijo).<br><strong>Pasivo (El que usamos):</strong> Es solo un altavoz piezoeléctrico. Necesita una señal AC (nuestra onda PWM) para vibrar. Si le das DC, solo hace "click".</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             `,
             circuit: `
-                <div class="text-center">
-                   <p class="mb-4 text-white font-bold">Esquemático</p>
-                   <ul class="text-sm text-[var(--text-dim)] text-left max-w-xs mx-auto list-disc pl-4">
-                      <li>GPIO 4 -> Botón DO</li>
-                      <li>GPIO 5 -> Botón RE</li>
-                      <li>GPIO 18 -> Botón MI</li>
-                      <li>GPIO 19 -> Buzzer Pasivo (+), el (-) a GND</li>
-                   </ul>
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: Buzzer en GPIO 19 | Botones en 4, 5, 18]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 19</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Buzzer (+)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 4</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Botón DO</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 5</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Botón RE</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 18</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Botón MI</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 text-left">
+                      <strong>Nota de Ingeniería:</strong> Usamos <code>INPUT_PULLUP</code>. Los botones deben conectar el pin GPIO directamente a <strong>GND</strong>. No necesitas resistencias externas.
+                   </div>
                 </div>
             `,
-            code: `// PROYECTO 02: PIANO ESP32
+            code: `/* * MECRO KIT - PROYECTO 02: PIANO ELECTRÓNICO
+ * Objetivo: Generación de ondas cuadradas (Sonido) usando PWM (LEDC)
+ * Hardware: ESP32, Buzzer Pasivo, 3 Pulsadores
+ */
+
+// --- 1. DEFINICIONES DE PINES ---
 const int PIN_BUZZER = 19;
 const int BTN_DO = 4;
 const int BTN_RE = 5;
 const int BTN_MI = 18;
 
-// Frecuencias
-const int C = 261;
-const int D = 294;
-const int E = 329;
+// --- 2. FRECUENCIAS MUSICALES (Hertz) ---
+// Escala 4 (Octava Central)
+const int NOTA_DO = 261;
+const int NOTA_RE = 294;
+const int NOTA_MI = 329;
+
+// --- 3. CONFIGURACIÓN PWM (LEDC) ---
+const int CANAL_PWM = 0;      // El ESP32 tiene 16 canales (0-15)
+const int FREC_BASE = 2000;   // Frecuencia inicial (no importa mucho, la cambiaremos)
+const int RESOLUCION = 8;     // 8 bits (0-255)
 
 void setup() {
+  // Configurar botones con resistencia interna (Pull-Up)
+  // Al presionar, el pin leerá LOW (GND)
   pinMode(BTN_DO, INPUT_PULLUP);
   pinMode(BTN_RE, INPUT_PULLUP);
   pinMode(BTN_MI, INPUT_PULLUP);
+
+  // Configurar el periférico de LED Control (LEDC)
+  ledcSetup(CANAL_PWM, FREC_BASE, RESOLUCION);
   
-  // Configurar PWM Buzzer (Canal 0, 50Hz base, 8 bits)
-  ledcSetup(0, 2000, 8);
-  ledcAttachPin(PIN_BUZZER, 0);
+  // Conectar el canal al pin del buzzer
+  ledcAttachPin(PIN_BUZZER, CANAL_PWM);
+  
+  Serial.begin(115200);
+  Serial.println("MECRO Piano Iniciado");
 }
 
 void loop() {
+  // Leemos los botones (Lógica Inversa: LOW = Presionado)
+  
   if (digitalRead(BTN_DO) == LOW) {
-    ledcWriteTone(0, C);
-  } else if (digitalRead(BTN_RE) == LOW) {
-    ledcWriteTone(0, D);
-  } else if (digitalRead(BTN_MI) == LOW) {
-    ledcWriteTone(0, E);
-  } else {
-    ledcWriteTone(0, 0); // Silencio
+    // Tocar DO: Frecuencia 261Hz
+    ledcWriteTone(CANAL_PWM, NOTA_DO);
+    Serial.println("Nota: DO");
+  } 
+  else if (digitalRead(BTN_RE) == LOW) {
+    ledcWriteTone(CANAL_PWM, NOTA_RE);
+    Serial.println("Nota: RE");
   }
-  delay(10); // Pequeño debounce
+  else if (digitalRead(BTN_MI) == LOW) {
+    ledcWriteTone(CANAL_PWM, NOTA_MI);
+    Serial.println("Nota: MI");
+  }
+  else {
+    // Silencio: Frecuencia 0
+    ledcWriteTone(CANAL_PWM, 0);
+  }
+  
+  // Pequeño delay para estabilidad (Debounce simple)
+  delay(10);
 }`,
-            sim: "" // Usuario debe crear simulacion
+            sim: "" 
         },
         3: {
             title: "03. Luz Nocturna (LDR)",
             level: "Nivel 1: Iniciación",
-            desc: "Lectura analógica (ADC). El LED se enciende automáticamente cuando el sensor detecta oscuridad.",
+            desc: "Uso de Fotoresistencia (LDR) y conversión Analógica-Digital (ADC). El sistema reacciona automáticamente a la oscuridad.",
             theory: `
+                <!-- Capítulo 1 -->
                 <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
-                   <div class="p-5 text-sm text-[var(--text-dim)]">
-                      <h4 class="text-white font-bold mb-2">ADC (Convertidor Analógico Digital)</h4>
-                      <p>El mundo es analógico. El ESP32 tiene ADCs de 12 bits (Valores 0-4095).</p>
-                      <div class="math-block">Voltaje = (Lectura / 4095.0) * 3.3V</div>
-                      <p>Usamos un divisor de voltaje con el LDR para convertir la luz en voltaje.</p>
+                  <button onclick="toggleAccordion('p3c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Analógico vs Digital</h3>
+                         <p class="text-xs text-[var(--text-dim)]">El mundo no es ceros y unos</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p3c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         Hasta ahora usábamos <code>digitalRead</code> (0V o 3.3V). Pero la luz varía continuamente. 
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         Para entenderla, usamos el <strong>ADC (Analog-to-Digital Converter)</strong>. El ESP32 mide el voltaje en un pin y lo convierte en un número entre 0 y 4095 (12 bits).
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p3c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">El Divisor de Voltaje</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Convirtiendo resistencia en voltaje</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p3c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El ESP32 no mide resistencia (Ohms), mide voltaje (Volts). El LDR cambia su resistencia con la luz. ¿Cómo leemos eso?
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         Usamos un circuito Divisor de Voltaje: Ponemos el LDR en serie con una resistencia fija (10kΩ). Al variar la resistencia del LDR, el voltaje en el punto medio cambia según la Ley de Ohm.
+                       </p>
+                       <div class="math-block text-xs my-2">
+                         V_out = V_in * (R2 / (R1 + R2))
+                       </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive3')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Sensores</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Resolución y Ruido</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive3" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Detalles críticos sobre la lectura de señales analógicas.
+                        </p>
+                        <h4>1. Resolución de 12-bits</h4>
+                        <p>El ADC del ESP32 divide los 3.3V en 4096 pasos ($2^{12}$). Cada paso equivale a $3.3V / 4095 \approx 0.8 mV$. Esta precisión es mucho mayor que la del Arduino Uno (10-bits, 1024 pasos), permitiendo detectar cambios de luz más sutiles.</p>
+                        <h4>2. No Linealidad del ESP32</h4>
+                        <p>Los ADCs del ESP32 no son perfectos. Cerca de 0V y cerca de 3.3V, las lecturas no son lineales. Por eso es importante calibrar el umbral experimentalmente en lugar de confiar ciegamente en la fórmula matemática.</p>
+                        <h4>3. Histéresis (Anti-Parpadeo)</h4>
+                        <p>Si la luz está justo en el umbral (ej. atardecer), el valor oscilará (1999... 2001... 2000). Esto haría que el LED parpadee como loco. En ingeniería, usamos dos umbrales: Uno para encender (ej. 1000) y otro más alto para apagar (ej. 1200). Esa "zona muerta" evita el ruido.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: LDR + 10k Resistencia en GPIO 34]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">3.3V</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Pata 1 del LDR</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 34</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Pata 2 del LDR (Señal)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GND</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Vía Resistencia 10k</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 text-left">
+                      <strong>Configuración Pull-Down:</strong> La resistencia de 10k va desde la pata de señal hacia GND. Esto asegura que la lectura no "flote" y nos da un voltaje estable.
                    </div>
                 </div>
             `,
-            circuit: `LDR en serie con R=10kΩ. Punto medio a GPIO 34 (Solo entrada).`,
-            code: `// PROYECTO 03: LUZ AUTOMÁTICA
-const int PIN_LDR = 34; // Pin Analógico
-const int PIN_LED = 2;  // Led Integrado
-const int UMBRAL = 2000; // Calibrar según luz
+            code: `/* * MECRO KIT - PROYECTO 03: LUZ AUTOMÁTICA
+ * Objetivo: Lectura analógica (ADC) y control con Histéresis
+ * Hardware: ESP32, LDR (Fotoresistencia), LED, R 10k
+ */
+
+// --- 1. DEFINICIONES ---
+const int PIN_SENSOR = 34; // Pin ADC1_CH6 (Solo entrada)
+const int PIN_LED = 2;     // LED Integrado (o externo en GPIO 2)
+
+// --- 2. UMBRALES (CALIBRACIÓN) ---
+// El ESP32 lee de 0 (oscuridad total) a 4095 (luz plena)
+// Ajusta estos valores según la luz de tu habitación
+const int UMBRAL_ENCENDER = 1500; // Si baja de esto, prende
+const int UMBRAL_APAGAR = 1800;   // Si sube de esto, apaga
+
+// Variable de estado para la histéresis
+bool luzEncendida = false;
 
 void setup() {
   pinMode(PIN_LED, OUTPUT);
+  
+  // Iniciamos Serial para ver los valores en pantalla
   Serial.begin(115200);
+  Serial.println("Sistema de Luz Automática Iniciado");
 }
 
 void loop() {
-  int luz = analogRead(PIN_LDR);
-  Serial.println(luz);
+  // 1. Leer el valor analógico (0 - 4095)
+  int lecturaLuz = analogRead(PIN_SENSOR);
   
-  if (luz < UMBRAL) { // Si hay poca luz (valor bajo)
+  // 2. Imprimir para depuración (Plotter Serial)
+  Serial.print("Luz: ");
+  Serial.println(lecturaLuz);
+  
+  // 3. Lógica de Control con Histéresis (Schmitt Trigger Software)
+  if (lecturaLuz < UMBRAL_ENCENDER && !luzEncendida) {
      digitalWrite(PIN_LED, HIGH);
-  } else {
+     luzEncendida = true;
+     Serial.println("-> Oscuridad detectada: LUCES ON");
+  } 
+  else if (lecturaLuz > UMBRAL_APAGAR && luzEncendida) {
      digitalWrite(PIN_LED, LOW);
+     luzEncendida = false;
+     Serial.println("-> Luz detectada: LUCES OFF");
   }
+  
+  // Pequeño retardo para no saturar el puerto serial
   delay(100);
 }`,
             sim: ""
@@ -339,44 +686,173 @@ void loop() {
         4: {
             title: "04. Auto Fantástico (74HC595)",
             level: "Nivel 1: Multiplexación ⭐",
-            desc: "Controlar 8 LEDs con solo 3 pines usando un Shift Register. Esencial para entender datos seriales.",
+            desc: "Control de múltiples LEDs utilizando un Shift Register 74HC595 para aprender sobre serialización de datos y multiplexación.",
             theory: `
+                <!-- Capítulo 1 -->
                 <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
-                   <div class="p-5 text-sm text-[var(--text-dim)]">
-                      <h4 class="text-white font-bold mb-2">Shift Register</h4>
-                      <p>El 74HC595 convierte datos seriales (fila india) en paralelos (fila ancha). Mandamos un byte (8 bits) bit por bit y el chip enciende las 8 salidas.</p>
+                  <button onclick="toggleAccordion('p4c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">¿Qué es la Multiplexación?</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Más salidas, menos pines</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p4c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         Imagina que tienes 8 LEDs pero solo quieres usar 3 pines del microcontrolador. 
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         La <strong>multiplexación</strong> es la técnica que nos permite controlar múltiples señales a través de un canal compartido. En este caso, usamos un registro de desplazamiento para enviar datos en "fila india" (serial) y mostrarlos todos a la vez (paralelo).
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p4c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">El Chip 74HC595</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Entrada Serial, Salida Paralela</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p4c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El <strong>74HC595</strong> tiene 3 pines clave de control:
+                         <ul class="list-disc pl-4 mt-2">
+                            <li><strong>DS (Data Serial):</strong> Por donde entran los bits (0 o 1) uno por uno.</li>
+                            <li><strong>SH_CP (Shift Clock):</strong> El reloj que empuja los bits adentro cada vez que pulsa.</li>
+                            <li><strong>ST_CP (Store/Latch Clock):</strong> Cuando se activa, "copia" los datos internos a los pines de salida para encender los LEDs.</li>
+                         </ul>
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive4')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería Digital Avanzada</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Registros y Operadores Bit a Bit</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive4" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Manipulación directa de bits y lógica de registros.
+                        </p>
+                        <h4>1. Flip-Flops en Cascada</h4>
+                        <p>Internamente, el 74HC595 consta de una serie de 8 Flip-Flops tipo D conectados en cadena. Cada pulso de reloj mueve el estado del Flip-Flop N al N+1. Esto es literalmente una "tubería" digital de bits.</p>
+                        <h4>2. Operador Bitwise Left Shift (<<)</h4>
+                        <p>En el código usamos <code>1 << i</code>. Esto mueve el bit '1' a la izquierda 'i' posiciones.
+                        <br>i=0 -> 00000001
+                        <br>i=1 -> 00000010
+                        <br>i=2 -> 00000100
+                        <br>Esto es mucho más eficiente para el procesador que usar potencias o multiplicaciones matemáticas.</p>
+                        <h4>3. El Efecto "Latch"</h4>
+                        <p>El pin ST_CP es vital. Sin él, veríamos los bits "corriendo" por los LEDs mientras se cargan, causando un parpadeo fantasma no deseado. El Latch actúa como una puerta de garaje: mantenemos la puerta cerrada mientras organizamos los autos (bits) adentro, y luego la abrimos de golpe para mostrarlos todos listos.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: 74HC595 + 8 LEDs + Resistencias]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones 74HC595</p>
+                   <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 23</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">DS (Data - Pin 14)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 22</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">ST_CP (Latch - Pin 12)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 21</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">SH_CP (Clock - Pin 11)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-red-400 font-mono font-bold text-xs">VCC (3.3V)</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Pin 16 y Pin 10 (MR)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-blue-400 font-mono font-bold text-xs">GND</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Pin 8 y Pin 13 (OE)</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 text-left">
+                      <strong>Nota Importante:</strong> El pin OE (Output Enable) debe ir a GND para habilitar las salidas. El pin MR (Master Reset) debe ir a VCC para evitar reseteos.
                    </div>
                 </div>
             `,
-            circuit: `Conexión 74HC595: DS->GPIO23, ST_CP->GPIO22, SH_CP->GPIO21.`,
-            code: `// PROYECTO 04: KNIGHT RIDER
-const int DATA_PIN = 23;
-const int LATCH_PIN = 22;
-const int CLOCK_PIN = 21;
+            code: `/* * MECRO KIT - PROYECTO 04: AUTO FANTÁSTICO (KNIGHT RIDER)
+ * Objetivo: Multiplexación y Shift Registers (74HC595)
+ * Hardware: ESP32, 74HC595, 8 LEDs
+ */
 
+// --- 1. PINES DE CONTROL ---
+const int PIN_DATA  = 23; // DS
+const int PIN_LATCH = 22; // ST_CP
+const int PIN_CLOCK = 21; // SH_CP
+
+// Variable para almacenar el estado de los 8 LEDs (1 byte)
 byte leds = 0;
 
 void setup() {
-  pinMode(DATA_PIN, OUTPUT);
-  pinMode(LATCH_PIN, OUTPUT);
-  pinMode(CLOCK_PIN, OUTPUT);
+  // Configurar pines como salida
+  pinMode(PIN_DATA, OUTPUT);
+  pinMode(PIN_LATCH, OUTPUT);
+  pinMode(PIN_CLOCK, OUTPUT);
+  
+  Serial.begin(115200);
+  Serial.println("Sistema Knight Rider Iniciado");
 }
 
-void updateShiftRegister() {
-   digitalWrite(LATCH_PIN, LOW);
-   shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, leds);
-   digitalWrite(LATCH_PIN, HIGH);
+// Función auxiliar para enviar el byte al chip
+void actualizarRegistro() {
+   // 1. Bajamos el Latch para empezar a enviar datos (Puerta cerrada)
+   digitalWrite(PIN_LATCH, LOW);
+   
+   // 2. Enviamos el byte completo bit a bit (MSBFIRST = Bit más significativo primero)
+   shiftOut(PIN_DATA, PIN_CLOCK, MSBFIRST, leds);
+   
+   // 3. Subimos el Latch para mostrar los datos en los LEDs (Puerta abierta)
+   digitalWrite(PIN_LATCH, HIGH);
 }
 
 void loop() {
+  // EFECTO: Ida (Izquierda a Derecha)
   for (int i = 0; i < 8; i++) {
-    leds = 1 << i; // Desplazamiento de bits
-    updateShiftRegister();
-    delay(100);
+    leds = 1 << i; // Operación Bitwise Shift: Mueve el '1' i posiciones
+    actualizarRegistro();
+    delay(100); // Velocidad del efecto
   }
+  
+  // EFECTO: Vuelta (Derecha a Izquierda)
   for (int i = 7; i >= 0; i--) {
     leds = 1 << i;
-    updateShiftRegister();
+    actualizarRegistro();
     delay(100);
   }
 }`,
@@ -384,23 +860,216 @@ void loop() {
         },
         5: {
             title: "05. Dado Digital",
-            level: "Nivel 1: Lógica Random",
-            desc: "Agita el sensor (simulado con botón) y el display de 7 segmentos mostrará un número aleatorio.",
-            theory: `Display 7 Segmentos Ánodo Común.`,
-            circuit: `Segmentos A-G a GPIOs.`,
-            code: `// PROYECTO 05: DADO DIGITAL (Simplificado Serial)
-// En la versión física usaremos Display 7 Seg
+            level: "Nivel 1: Lógica & Arrays",
+            desc: "Construye un dado electrónico que 'rueda' cuando detecta movimiento. Aprenderemos a controlar Displays de 7 Segmentos y a usar Arrays para gestionar datos complejos.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p5c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Anatomía del 7 Segmentos</h3>
+                         <p class="text-xs text-[var(--text-dim)]">A, B, C, D, E, F, G</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p5c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         Un display de 7 segmentos no es más que 7 (u 8, si cuentas el punto) LEDs empaquetados en una sola caja. Cada LED tiene una letra asignada: A (arriba), B (arriba-derecha), etc.
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         Para dibujar el número <strong>"1"</strong>, encendemos los segmentos B y C. Para el <strong>"8"</strong>, encendemos todos (A-G).
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p5c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Arrays y Mapas de Bits</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Ingeniería de Datos</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p5c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         No queremos escribir 100 líneas de <code>digitalWrite</code>. Usamos un <strong>Array</strong> para guardar el "mapa" de qué segmentos se encienden para cada número.
+                       </p>
+                       <div class="math-block text-xs my-2">
+                         byte numeros[10] = { 0b00111111, ... }; // 0 es encender todo menos G
+                       </div>
+                       <p class="text-sm text-[var(--text-dim)]">
+                         Esto nos permite "imprimir" cualquier número simplemente llamando a <code>mostrarNumero(5)</code>.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive5')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">La Ciencia del Azar</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Entropía y Ruido</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive5" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          ¿Por qué las computadoras son malas lanzando dados?
+                        </p>
+                        <h4>1. Determinismo</h4>
+                        <p>Los procesadores son máquinas deterministas: dada una entrada A, siempre producen B. No existe el "azar" real en el silicio. La función <code>random()</code> es solo un algoritmo matemático complejo que parece aleatorio pero se repite si reinicias el chip.</p>
+                        <h4>2. La Semilla (Seed)</h4>
+                        <p>Para crear azar real, necesitamos "ruido" del mundo exterior (Entropía). Usamos <code>randomSeed(analogRead(0))</code>. Al leer un pin analógico desconectado, captamos ruido electromagnético del aire (ondas de radio, estática). Este valor "basura" sirve como semilla inicial impredecible.</p>
+                        <h4>3. Lógica del Sensor de Vibración</h4>
+                        <p>Usaremos un sensor SW-520D (o un botón simple). Es un cilindro con una bolita metálica adentro. Al agitarlo, la bolita cierra el circuito brevemente. El código detecta este cambio (interrupción o polling) para iniciar la secuencia de "rodar".</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: Display 7 Seg Cátodo Común + Botón]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Pines (Display CC)</p>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 13</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento A</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 12</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento B</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 14</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento C</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 27</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento D</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 26</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento E</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 25</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento F</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 33</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Segmento G</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-blue-400 font-mono font-bold text-xs">GPIO 4</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Botón/Sensor</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 text-left">
+                      <strong>Nota:</strong> Asumimos un Display de Cátodo Común (El pin común va a GND). Si tu display es Ánodo Común, conecta el común a 3.3V e invierte la lógica en el código (0 enciende, 1 apaga).
+                   </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 05: DADO DIGITAL
+ * Objetivo: Arrays, Displays de 7 Segmentos y Generación de Azar
+ * Hardware: ESP32, Display 7-Seg (Cátodo Común), Botón
+ */
+
+// --- 1. DEFINICIÓN DE PINES (A, B, C, D, E, F, G) ---
+// Usamos un Array para guardar los pines en orden
+const int segmentPins[] = {13, 12, 14, 27, 26, 25, 33};
+const int PIN_BUTTON = 4;
+
+// --- 2. MAPA DE BITS (LOOKUP TABLE) ---
+// Cada byte representa un número del 0 al 9.
+// 1 = Encendido, 0 = Apagado. Orden: G F E D C B A (Depende de tu cableado)
+// Aquí asumimos orden de array: A, B, C, D, E, F, G
+const byte digits[10] = {
+  // A B C D E F G
+  0b1111110, // 0
+  0b0110000, // 1
+  0b1101101, // 2
+  0b1111001, // 3
+  0b0110011, // 4
+  0b1011011, // 5
+  0b1011111, // 6
+  0b1110000, // 7
+  0b1111111, // 8
+  0b1111011  // 9
+};
+
 void setup() {
+  // Configurar todos los pines de segmentos como salida
+  for (int i = 0; i < 7; i++) {
+    pinMode(segmentPins[i], OUTPUT);
+  }
+  
+  pinMode(PIN_BUTTON, INPUT_PULLUP);
+  
+  // SEMILLA DE CAOS: Leer ruido analógico para que sea aleatorio de verdad
+  randomSeed(analogRead(0));
+  
   Serial.begin(115200);
-  randomSeed(analogRead(0)); // Semilla aleatoria
+  Serial.println("Dado Digital Listo. Agita (Pulsa) para lanzar.");
+  mostrarNumero(0); // Mostrar 0 al inicio
 }
 
 void loop() {
-  // Simular agitado
-  int resultado = random(1, 7);
-  Serial.print("Dado arroja: ");
-  Serial.println(resultado);
-  delay(2000);
+  if (digitalRead(PIN_BUTTON) == LOW) { // Si se pulsa
+    efectoRodar();
+    
+    int resultado = random(1, 7); // Número entre 1 y 6
+    Serial.print("Resultado: ");
+    Serial.println(resultado);
+    
+    mostrarNumero(resultado);
+    
+    // Esperar a que se suelte para no repetir
+    while(digitalRead(PIN_BUTTON) == LOW); 
+    delay(200); // Debounce
+  }
+}
+
+// Función auxiliar para encender los segmentos correctos
+void mostrarNumero(int num) {
+  byte patron = digits[num]; // Obtener el mapa de bits
+  
+  for (int i = 0; i < 7; i++) {
+    // bitRead lee el bit en la posición i.
+    // Nota: Dependiendo de tu tabla binaria, puede que necesites leer al revés
+    // Aquí asumimos bit 0 = G, bit 6 = A (o ajusta según tu tabla)
+    // Para simplificar, escribimos:
+    int estado = bitRead(patron, 6 - i); 
+    digitalWrite(segmentPins[i], estado);
+  }
+}
+
+// Efecto visual de "calculando"
+void efectoRodar() {
+  for (int i = 0; i < 10; i++) {
+    mostrarNumero(random(1, 7));
+    delay(50 + (i * 20)); // Se va haciendo más lento
+  }
 }`,
             sim: ""
         }
@@ -474,11 +1143,17 @@ void loop() {
         
         // Escape HTML for code display
         const escapedCode = data.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        // Simple Syntax Highlighting Regex
-        const highlighted = escapedCode
-            .replace(/(const|int|void|unsigned long|byte)/g, '<span class="c-t">$1</span>')
-            .replace(/(setup|loop|pinMode|digitalWrite|delay|millis|Serial|begin|println|ledcSetup|ledcAttachPin|ledcWriteTone|shiftOut)/g, '<span class="c-f">$1</span>')
+        
+        // Robust Syntax Highlighting
+        let highlighted = escapedCode
+            .replace(/(const|int|void|unsigned long|byte|bool)/g, '<span class="c-t">$1</span>')
             .replace(/(\/\/.*)/g, '<span class="c-c">$1</span>');
+            
+        // Use regex constructor to avoid literal syntax errors with specific keywords
+        const keywords = ["setup", "loop", "pinMode", "digitalWrite", "delay", "millis", "Serial", "begin", "println", "ledcSetup", "ledcAttachPin", "ledcWriteTone", "shiftOut", "INPUT_PULLUP", "LOW", "HIGH", "OUTPUT", "ledcWrite", "analogRead", "print", "MSBFIRST", "randomSeed", "random", "bitRead", "while"];
+        const keywordRegex = new RegExp(`\\b(${keywords.join("|")})\\b`, 'g');
+        
+        highlighted = highlighted.replace(keywordRegex, '<span class="c-f">$1</span>');
 
         document.getElementById('code-display').innerHTML = `<pre>${highlighted}</pre>`;
         
@@ -496,8 +1171,10 @@ void loop() {
 
         // Re-render Nav to update active state
         const links = document.querySelectorAll('.nav-link');
-        links.forEach(l => l.classList.remove('active'));
-        // (Simple fix: re-init is heavy, usually just toggle class, but for now ok)
+        links.forEach(l => {
+           l.classList.remove('active');
+           if(l.innerText.includes(`${id < 10 ? '0'+id : id}.`)) l.classList.add('active');
+        });
     }
 
     // Tabs Logic
