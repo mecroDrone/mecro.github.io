@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kit MECRO ESP32 — Estación de Ingeniería</title>
+  
+  <!-- Tipografías de Ingeniería -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & Iconos -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0a0d10;
+      --bg-card: #161a1d;
+      --line: #2a3033;
+      --text-main: #e2e8f0;
+      --text-dim: #94a3b8;
+      --accent: #10b981; /* Verde Esmeralda Ingenieril */
+      --accent-dim: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.15);
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* UI Elements */
+    .card-surface { background-color: var(--bg-card); border: 1px solid var(--line); border-radius: 1rem; transition: border-color 0.3s; }
+    .nav-blur { backdrop-filter: blur(16px); background-color: rgba(10,13,16,.95); border-bottom: 1px solid var(--line); }
+    
+    /* Navigation */
+    .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; color: var(--text-dim); font-size: 0.8rem; transition: all 0.2s; border-left: 2px solid transparent; margin-bottom: 2px; cursor: pointer; }
+    .nav-link:hover { background: rgba(255,255,255,0.03); color: white; }
+    .nav-link.active { background: rgba(16, 185, 129, 0.08); color: var(--accent); border-left-color: var(--accent); }
+    .nav-link.locked { opacity: 0.5; cursor: not-allowed; }
+
+    /* Tabs */
+    .tab-btn { position: relative; color: var(--text-dim); transition: all 0.3s; background: transparent; }
+    .tab-btn:hover { color: var(--text-main); background-color: rgba(255,255,255,0.03); }
+    .tab-btn.active { color: var(--accent); background-color: rgba(16, 185, 129, 0.05); }
+    .tab-btn.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--accent); }
+
+    /* Accordion */
+    .reveal-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease; opacity: 0.5; }
+    .reveal-content.open { grid-template-rows: 1fr; opacity: 1; }
+    .reveal-inner { overflow: hidden; }
+
+    /* Code & Math */
+    pre { margin: 0; padding: 1.5rem; overflow-x: auto; font-size: 0.85rem; }
+    .c-k { color: #ff7b72; } .c-t { color: #79c0ff; } .c-f { color: #d2a8ff; } 
+    .c-c { color: #8b949e; font-style: italic; } .c-n { color: #e5c07b; } 
+    .c-s { color: #a5d6ff; } .c-m { color: #ffa657; }
+    .math-block { font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid var(--accent); margin: 1rem 0; font-size: 0.85rem; }
+
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+  </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+
+  <!-- HEADER -->
+  <header class="flex-none h-16 nav-blur z-50 flex items-center justify-between px-6">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-gradient-to-br from-[var(--accent)] to-[#065f46] rounded flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+        <i class="ph-bold ph-cpu text-white"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-lg tracking-tight leading-none text-white">MECRO <span class="text-[var(--accent)]">ACADEMY</span></h1>
+        <span class="text-[10px] text-[var(--text-dim)] uppercase tracking-widest font-medium">Ingeniería de Vuelo</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+       <span class="hidden md:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.2)] text-xs font-medium text-[var(--accent)]">
+         <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse"></span>
+         Online
+       </span>
+    </div>
+  </header>
+
+  <!-- LAYOUT -->
+  <div class="flex flex-1 overflow-hidden">
+    
+    <!-- SIDEBAR -->
+    <aside class="w-[280px] bg-[#0d1012] border-r border-[var(--line)] overflow-y-auto hidden md:block flex-none">
+      <div class="p-4 pb-10">
+        <div class="text-xs font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 px-2">Roadmap 2025 v4.0</div>
+        <nav class="space-y-6" id="sidebar-nav">
+           <!-- Se llena dinámicamente con JS -->
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 overflow-y-auto bg-[var(--bg-dark)] relative" id="main-scroll">
+      
+      <!-- HERO DINÁMICO -->
+      <section class="relative pt-12 pb-8 px-8 border-b border-[var(--line)] overflow-hidden">
+        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--accent)] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="relative z-10 max-w-5xl mx-auto">
+          <div class="inline-flex items-center gap-2 mb-4">
+            <span id="p-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-[#334155] text-white tracking-wide border border-[#475569]">Nivel Iniciación</span>
+            <span class="h-px w-8 bg-[var(--line)]"></span>
+            <span class="text-xs text-[var(--accent)] uppercase tracking-wide font-bold">Proyecto Activo</span>
+          </div>
+          <h2 id="p-title" class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">Cargando...</h2>
+          <p id="p-desc" class="text-lg text-[var(--text-dim)] max-w-3xl leading-relaxed">Selecciona un proyecto del menú.</p>
+        </div>
+      </section>
+
+      <!-- ÁREA DE TRABAJO -->
+      <section class="p-6 md:p-8">
+        <div class="max-w-5xl mx-auto">
+          <div class="card-surface overflow-hidden shadow-2xl min-h-[600px] flex flex-col bg-[#0f1114]">
+            
+            <!-- TABS -->
+            <div class="flex overflow-x-auto border-b border-[var(--line)] bg-[#0d1012]">
+              <button onclick="switchTab('theory')" id="tab-theory" class="tab-btn active flex-1 py-4 px-6 text-sm font-medium whitespace-nowrap min-w-[120px] flex items-center justify-center gap-2"><i class="ph ph-book-open-text text-lg"></i> Teoría</button>
+              <button onclick="switchTab('circuit')" id="tab-circuit" class="tab-btn flex-1 py-4 px-6 text-sm font-medium whitespace-nowrap min-w-[120px] flex items-center justify-center gap-2"><i class="ph ph-circuitry text-lg"></i> Diagrama</button>
+              <button onclick="switchTab('code')" id="tab-code" class="tab-btn flex-1 py-4 px-6 text-sm font-medium whitespace-nowrap min-w-[120px] flex items-center justify-center gap-2"><i class="ph ph-code-block text-lg"></i> Código</button>
+              <button onclick="switchTab('sim')" id="tab-sim" class="tab-btn flex-1 py-4 px-6 text-sm font-medium whitespace-nowrap min-w-[120px] flex items-center justify-center gap-2 text-[var(--accent)]"><i class="ph-fill ph-play-circle text-lg"></i> Simulador</button>
+            </div>
+
+            <!-- CONTENIDO DINÁMICO -->
+            <div class="flex-grow bg-[#0f1114] relative">
+              
+              <!-- THEORY CONTENT -->
+              <div id="content-theory" class="p-6 md:p-10 animate-fadeIn space-y-4"></div>
+
+              <!-- CIRCUIT CONTENT -->
+              <div id="content-circuit" class="hidden p-10 flex flex-col items-center justify-center animate-fadeIn min-h-[500px]"></div>
+
+              <!-- CODE CONTENT -->
+              <div id="content-code" class="hidden p-0 animate-fadeIn h-[600px] flex flex-col">
+                 <div class="bg-[#161b22] p-2 flex justify-end border-b border-[#30363d]">
+                    <button class="text-[10px] bg-[#238636] text-white px-2 py-1 rounded" onclick="copyCode()">Copiar al Portapapeles</button>
+                 </div>
+                 <div class="flex-grow bg-[#0d1117] p-4 overflow-auto font-mono text-xs leading-relaxed" id="code-display"></div>
+              </div>
+
+              <!-- SIM CONTENT -->
+              <div id="content-sim" class="hidden h-[600px] animate-fadeIn bg-black p-1">
+                 <iframe id="sim-frame" src="" class="w-full h-full border-none rounded" title="Wokwi"></iframe>
+                 <div id="sim-placeholder" class="hidden w-full h-full flex items-center justify-center text-[var(--text-dim)]">
+                    Simulación no disponible para este proyecto aún.
+                 </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <footer class="py-6 text-center text-xs text-[var(--text-dim)] border-t border-[var(--line)] mt-8">
+        MECRO Academy © 2025
+      </footer>
+    </main>
+  </div>
+
+  <!-- DATA & LOGIC ENGINE -->
+  <script>
+    // --- BASE DE DATOS DE PROYECTOS (NIVEL 1 COMPLETO) ---
+    const projectDB = {
+        1: {
+            title: "01. Semáforo Inteligente",
+            level: "Nivel 1: Iniciación",
+            desc: "Aprende a programar el procesador ESP32 para gestionar tareas críticas sin bloqueos, usando <code>millis()</code> y máquinas de estado.",
+            theory: `
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('t1')" class="w-full p-5 text-left flex justify-between items-center hover:bg-[#1e2329]"><span class="font-bold text-white">1. El Problema del Bloqueo</span><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="t1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 bg-[#13161a] text-sm text-[var(--text-dim)]">
+                    Un dron corre a 400Hz. Si usas <code>delay(1000)</code>, el dron cae. Usamos <code>millis()</code> para medir el tiempo transcurrido sin detener el CPU.
+                  </div></div>
+                </div>
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('t2')" class="w-full p-5 text-left flex justify-between items-center hover:bg-[#1e2329]"><span class="font-bold text-white">2. Máquina de Estados</span><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="t2" class="reveal-content"><div class="reveal-inner p-5 pt-0 bg-[#13161a] text-sm text-[var(--text-dim)]">
+                    Definimos estados numéricos (0: Rojo, 1: Verde, 2: Amarillo) y usamos <code>switch-case</code> para transiciones ordenadas.
+                  </div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center">
+                   <p class="mb-4 text-white font-bold">Conexiones GPIO</p>
+                   <div class="grid grid-cols-3 gap-2 max-w-md mx-auto mb-6">
+                      <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded text-xs text-red-400">GPIO 23 -> LED Rojo</div>
+                      <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded text-xs text-green-400">GPIO 21 -> LED Verde</div>
+                      <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded text-xs text-yellow-400">GPIO 22 -> LED Amarillo</div>
+                   </div>
+                   <p class="text-xs text-[var(--text-dim)]">Usa resistencias de 220Ω o 330Ω.</p>
+                </div>
+            `,
+            code: `// PROYECTO 01: SEMÁFORO NO BLOQUEANTE
+const int P_RED = 23;
+const int P_YEL = 22;
+const int P_GRN = 21;
+
+unsigned long prevTime = 0;
+int state = 0; // 0:R, 1:G, 2:Y
+
+void setup() {
+  pinMode(P_RED, OUTPUT);
+  pinMode(P_YEL, OUTPUT);
+  pinMode(P_GRN, OUTPUT);
+}
+
+void loop() {
+  unsigned long now = millis();
+  
+  switch(state) {
+    case 0: // ROJO
+      digitalWrite(P_RED, HIGH); digitalWrite(P_YEL, LOW); digitalWrite(P_GRN, LOW);
+      if(now - prevTime >= 3000) { state = 1; prevTime = now; }
+      break;
+      
+    case 1: // VERDE
+      digitalWrite(P_RED, LOW); digitalWrite(P_YEL, LOW); digitalWrite(P_GRN, HIGH);
+      if(now - prevTime >= 3000) { state = 2; prevTime = now; }
+      break;
+
+    case 2: // AMARILLO
+      digitalWrite(P_RED, LOW); digitalWrite(P_YEL, HIGH); digitalWrite(P_GRN, LOW);
+      if(now - prevTime >= 1000) { state = 0; prevTime = now; }
+      break;
+  }
+}`,
+            sim: "https://wokwi.com/projects/344933668862657042/embed"
+        },
+        2: {
+            title: "02. Piano Electrónico",
+            level: "Nivel 1: Iniciación",
+            desc: "Uso de Buzzer Pasivo y botones. Aprenderemos sobre frecuencias PWM y generación de sonido en ESP32.",
+            theory: `
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                   <div class="p-5 text-sm text-[var(--text-dim)]">
+                      <h4 class="text-white font-bold mb-2">Frecuencia y Sonido</h4>
+                      <p class="mb-2">A diferencia de Arduino Uno (<code>tone()</code>), el ESP32 usa el periférico LEDC para generar PWM.</p>
+                      <div class="math-block">Nota DO = 261 Hz <br>Nota RE = 294 Hz <br>Nota MI = 329 Hz</div>
+                      <p>Configuramos el Buzzer en un canal PWM y cambiamos la frecuencia al pulsar botones.</p>
+                   </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center">
+                   <p class="mb-4 text-white font-bold">Esquemático</p>
+                   <ul class="text-sm text-[var(--text-dim)] text-left max-w-xs mx-auto list-disc pl-4">
+                      <li>GPIO 4 -> Botón DO</li>
+                      <li>GPIO 5 -> Botón RE</li>
+                      <li>GPIO 18 -> Botón MI</li>
+                      <li>GPIO 19 -> Buzzer Pasivo (+), el (-) a GND</li>
+                   </ul>
+                </div>
+            `,
+            code: `// PROYECTO 02: PIANO ESP32
+const int PIN_BUZZER = 19;
+const int BTN_DO = 4;
+const int BTN_RE = 5;
+const int BTN_MI = 18;
+
+// Frecuencias
+const int C = 261;
+const int D = 294;
+const int E = 329;
+
+void setup() {
+  pinMode(BTN_DO, INPUT_PULLUP);
+  pinMode(BTN_RE, INPUT_PULLUP);
+  pinMode(BTN_MI, INPUT_PULLUP);
+  
+  // Configurar PWM Buzzer (Canal 0, 50Hz base, 8 bits)
+  ledcSetup(0, 2000, 8);
+  ledcAttachPin(PIN_BUZZER, 0);
+}
+
+void loop() {
+  if (digitalRead(BTN_DO) == LOW) {
+    ledcWriteTone(0, C);
+  } else if (digitalRead(BTN_RE) == LOW) {
+    ledcWriteTone(0, D);
+  } else if (digitalRead(BTN_MI) == LOW) {
+    ledcWriteTone(0, E);
+  } else {
+    ledcWriteTone(0, 0); // Silencio
+  }
+  delay(10); // Pequeño debounce
+}`,
+            sim: "" // Usuario debe crear simulacion
+        },
+        3: {
+            title: "03. Luz Nocturna (LDR)",
+            level: "Nivel 1: Iniciación",
+            desc: "Lectura analógica (ADC). El LED se enciende automáticamente cuando el sensor detecta oscuridad.",
+            theory: `
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                   <div class="p-5 text-sm text-[var(--text-dim)]">
+                      <h4 class="text-white font-bold mb-2">ADC (Convertidor Analógico Digital)</h4>
+                      <p>El mundo es analógico. El ESP32 tiene ADCs de 12 bits (Valores 0-4095).</p>
+                      <div class="math-block">Voltaje = (Lectura / 4095.0) * 3.3V</div>
+                      <p>Usamos un divisor de voltaje con el LDR para convertir la luz en voltaje.</p>
+                   </div>
+                </div>
+            `,
+            circuit: `LDR en serie con R=10kΩ. Punto medio a GPIO 34 (Solo entrada).`,
+            code: `// PROYECTO 03: LUZ AUTOMÁTICA
+const int PIN_LDR = 34; // Pin Analógico
+const int PIN_LED = 2;  // Led Integrado
+const int UMBRAL = 2000; // Calibrar según luz
+
+void setup() {
+  pinMode(PIN_LED, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+  int luz = analogRead(PIN_LDR);
+  Serial.println(luz);
+  
+  if (luz < UMBRAL) { // Si hay poca luz (valor bajo)
+     digitalWrite(PIN_LED, HIGH);
+  } else {
+     digitalWrite(PIN_LED, LOW);
+  }
+  delay(100);
+}`,
+            sim: ""
+        },
+        4: {
+            title: "04. Auto Fantástico (74HC595)",
+            level: "Nivel 1: Multiplexación ⭐",
+            desc: "Controlar 8 LEDs con solo 3 pines usando un Shift Register. Esencial para entender datos seriales.",
+            theory: `
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                   <div class="p-5 text-sm text-[var(--text-dim)]">
+                      <h4 class="text-white font-bold mb-2">Shift Register</h4>
+                      <p>El 74HC595 convierte datos seriales (fila india) en paralelos (fila ancha). Mandamos un byte (8 bits) bit por bit y el chip enciende las 8 salidas.</p>
+                   </div>
+                </div>
+            `,
+            circuit: `Conexión 74HC595: DS->GPIO23, ST_CP->GPIO22, SH_CP->GPIO21.`,
+            code: `// PROYECTO 04: KNIGHT RIDER
+const int DATA_PIN = 23;
+const int LATCH_PIN = 22;
+const int CLOCK_PIN = 21;
+
+byte leds = 0;
+
+void setup() {
+  pinMode(DATA_PIN, OUTPUT);
+  pinMode(LATCH_PIN, OUTPUT);
+  pinMode(CLOCK_PIN, OUTPUT);
+}
+
+void updateShiftRegister() {
+   digitalWrite(LATCH_PIN, LOW);
+   shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, leds);
+   digitalWrite(LATCH_PIN, HIGH);
+}
+
+void loop() {
+  for (int i = 0; i < 8; i++) {
+    leds = 1 << i; // Desplazamiento de bits
+    updateShiftRegister();
+    delay(100);
+  }
+  for (int i = 7; i >= 0; i--) {
+    leds = 1 << i;
+    updateShiftRegister();
+    delay(100);
+  }
+}`,
+            sim: ""
+        },
+        5: {
+            title: "05. Dado Digital",
+            level: "Nivel 1: Lógica Random",
+            desc: "Agita el sensor (simulado con botón) y el display de 7 segmentos mostrará un número aleatorio.",
+            theory: `Display 7 Segmentos Ánodo Común.`,
+            circuit: `Segmentos A-G a GPIOs.`,
+            code: `// PROYECTO 05: DADO DIGITAL (Simplificado Serial)
+// En la versión física usaremos Display 7 Seg
+void setup() {
+  Serial.begin(115200);
+  randomSeed(analogRead(0)); // Semilla aleatoria
+}
+
+void loop() {
+  // Simular agitado
+  int resultado = random(1, 7);
+  Serial.print("Dado arroja: ");
+  Serial.println(resultado);
+  delay(2000);
+}`,
+            sim: ""
+        }
+    };
+
+    // --- LISTA DE NAVEGACIÓN (CONFIGURACIÓN DE NIVELES) ---
+    const navStructure = [
+        { title: "Nivel 1: Iniciación", projects: [1, 2, 3, 4, 5] },
+        { title: "Nivel 2: Pantallas", projects: [6, 7, 8, 9, 10] },
+        { title: "Nivel 3: Robótica", projects: [11, 12, 13, 14, 15] },
+        { title: "Nivel 4: Drones & IoT", projects: [16, 17, 18, 19, 20] }
+    ];
+
+    // Nombres placeholder para los proyectos futuros
+    const projectNames = {
+        6: "Huicha Digital", 7: "Estación Clima", 8: "Caja Fuerte", 9: "Detector Intrusos", 10: "Ventilador Smart",
+        11: "Radar Exploración", 12: "Brazo Robótico", 13: "Base Cámara", 14: "Ascensor 3 Pisos", 15: "Control Industrial",
+        16: "Nivel Digital", 17: "Mando Vuelo", 18: "Mouse Aéreo", 19: "Riego IoT", 20: "Reloj NTP"
+    };
+
+    // --- ENGINE LÓGICO ---
+    let currentProjectId = 1;
+
+    function init() {
+        const navContainer = document.getElementById('sidebar-nav');
+        navContainer.innerHTML = '';
+
+        navStructure.forEach(level => {
+            // Header de Nivel
+            const lvlHeader = document.createElement('div');
+            lvlHeader.className = "px-2 pb-2 mt-6 text-[10px] font-bold uppercase tracking-wider opacity-90 border-b border-[var(--line)] mb-2 text-[var(--accent)]";
+            lvlHeader.innerText = level.title;
+            navContainer.appendChild(lvlHeader);
+
+            // Links de Proyectos
+            level.projects.forEach(pid => {
+                const link = document.createElement('div');
+                const isLocked = !projectDB[pid]; // Bloqueado si no está en la DB
+                
+                let classes = "nav-link";
+                if(pid === currentProjectId) classes += " active";
+                if(isLocked) classes += " locked";
+
+                link.className = classes;
+                link.innerHTML = `<span class="font-mono text-xs opacity-50">${pid < 10 ? '0'+pid : pid}.</span> ${projectDB[pid]?.title.substring(4) || projectNames[pid]}`;
+                
+                if(isLocked) link.innerHTML += `<i class="ph-fill ph-lock-key ml-auto text-xs"></i>`;
+                
+                if(!isLocked) {
+                    link.onclick = () => loadProject(pid);
+                }
+                
+                navContainer.appendChild(link);
+            });
+        });
+        
+        loadProject(1);
+    }
+
+    function loadProject(id) {
+        currentProjectId = id;
+        const data = projectDB[id];
+        
+        // Update UI
+        document.getElementById('p-badge').innerText = data.level;
+        document.getElementById('p-title').innerText = data.title;
+        document.getElementById('p-desc').innerHTML = data.desc;
+        
+        document.getElementById('content-theory').innerHTML = data.theory;
+        document.getElementById('content-circuit').innerHTML = data.circuit;
+        
+        // Escape HTML for code display
+        const escapedCode = data.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        // Simple Syntax Highlighting Regex
+        const highlighted = escapedCode
+            .replace(/(const|int|void|unsigned long|byte)/g, '<span class="c-t">$1</span>')
+            .replace(/(setup|loop|pinMode|digitalWrite|delay|millis|Serial|begin|println|ledcSetup|ledcAttachPin|ledcWriteTone|shiftOut)/g, '<span class="c-f">$1</span>')
+            .replace(/(\/\/.*)/g, '<span class="c-c">$1</span>');
+
+        document.getElementById('code-display').innerHTML = `<pre>${highlighted}</pre>`;
+        
+        // Sim Frame
+        const simFrame = document.getElementById('sim-frame');
+        const simPlace = document.getElementById('sim-placeholder');
+        if(data.sim) {
+            simFrame.src = data.sim;
+            simFrame.classList.remove('hidden');
+            simPlace.classList.add('hidden');
+        } else {
+            simFrame.classList.add('hidden');
+            simPlace.classList.remove('hidden');
+        }
+
+        // Re-render Nav to update active state
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach(l => l.classList.remove('active'));
+        // (Simple fix: re-init is heavy, usually just toggle class, but for now ok)
+    }
+
+    // Tabs Logic
+    function switchTab(tabId) {
+        ['theory', 'circuit', 'code', 'sim'].forEach(id => {
+            document.getElementById('content-' + id).classList.add('hidden');
+            document.getElementById('tab-' + id).classList.remove('active');
+        });
+        document.getElementById('content-' + tabId).classList.remove('hidden');
+        document.getElementById('tab-' + tabId).classList.add('active');
+    }
+
+    // Accordion
+    function toggleAccordion(id) {
+        const el = document.getElementById(id);
+        if (el.classList.contains('open')) el.classList.remove('open');
+        else el.classList.add('open');
+    }
+
+    // Copy Code
+    function copyCode() {
+        const codeText = projectDB[currentProjectId].code;
+        navigator.clipboard.writeText(codeText).then(() => alert("Código copiado al portapapeles"));
+    }
+
+    // Boot
+    init();
+
+  </script>
+</body>
+</html>
