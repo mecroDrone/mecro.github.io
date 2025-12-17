@@ -102,7 +102,7 @@
     <!-- SIDEBAR -->
     <aside class="w-[280px] bg-[#0d1012] border-r border-[var(--line)] overflow-y-auto hidden md:block flex-none">
       <div class="p-4 pb-10">
-        <div class="text-xs font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 px-2">Roadmap 2025 v4.7</div>
+        <div class="text-xs font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 px-2">Roadmap 2025 v5.0</div>
         <nav class="space-y-6" id="sidebar-nav">
            <!-- Se llena dinámicamente con JS -->
         </nav>
@@ -1072,9 +1072,1271 @@ void efectoRodar() {
   }
 }`,
             sim: ""
-        }
-    };
+        },
+        6: {
+            title: "06. Huicha Digital",
+            level: "Nivel 2: Pantallas",
+            desc: "Construye una herramienta de medición de distancia precisa usando ultrasonido y visualización en tiempo real. Aplicación directa de física de ondas.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p6c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Física del Ultrasonido</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Tiempo de Vuelo (ToF)</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p6c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El sensor HC-SR04 funciona como un murciélago. Emite un sonido inaudible (40kHz) y espera el eco.
+                       </p>
+                       <ul class="text-sm text-[var(--text-dim)] list-disc pl-4 mt-2">
+                         <li><strong>Velocidad del Sonido ($v$):</strong> Aprox 343 m/s en aire a 20°C.</li>
+                         <li><strong>Fórmula:</strong> $Distancia = (Tiempo \times v) / 2$.</li>
+                         <li>Dividimos por 2 porque el sonido viaja de ida y vuelta.</li>
+                       </ul>
+                    </div>
+                  </div>
+                </div>
 
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p6c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Display TM1637</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Controlador de 4 Dígitos</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p6c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El módulo TM1637 simplifica la vida. En lugar de usar 12 pines para 4 dígitos, usa un chip controlador que se comunica con solo 2 cables (CLK y DIO). Usaremos la librería <code>TM1637Display</code> para enviar números fácilmente.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive6')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Señales</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Voltajes y Protocolos</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive6" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Precauciones de voltaje y detalles del protocolo.
+                        </p>
+                        <h4>1. Niveles Lógicos (3.3V vs 5V)</h4>
+                        <p>El HC-SR04 estándar funciona a 5V. El pin "Echo" devuelve una señal de 5V. El ESP32 es de 3.3V. Conectar Echo directo <i>podría</i> dañar el pin a largo plazo, aunque muchos lo hacen sin problemas inmediatos. La solución de ingeniería correcta es un <strong>Divisor de Voltaje</strong> (R1=1k, R2=2k) en el pin Echo para bajar 5V a 3.3V.</p>
+                        <h4>2. La Función <code>pulseIn()</code></h4>
+                        <p>Esta función mide cuánto tiempo un pin se mantiene en estado HIGH. Es "bloqueante" (detiene el código hasta que llega el pulso o expira el tiempo). En sistemas críticos (drones), usaríamos interrupciones, pero para una huicha manual es aceptable.</p>
+                        <h4>3. Compensación de Temperatura</h4>
+                        <p>La velocidad del sonido cambia con la temperatura ($v \approx 331.4 + 0.6T_c$). Si tuviéramos un sensor de temperatura (como en el Proyecto 7), podríamos hacer la medición ultra-precisa compensando la fórmula.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: HC-SR04 y TM1637 conectados al ESP32]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 5</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">HC-SR04 Trig</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 18</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">HC-SR04 Echo</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 19</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">TM1637 CLK</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 23</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">TM1637 DIO</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-red-900/10 border border-red-900/30 rounded text-xs text-red-300 text-left">
+                      <strong>Precaución:</strong> El HC-SR04 requiere 5V (Vin del ESP32 si está por USB). El pin Echo idealmente lleva un divisor de voltaje para proteger el GPIO 18 (3.3V).
+                   </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 06: HUICHA DIGITAL
+ * Objetivo: Medición ultrasónica y visualización I2C-like
+ * Hardware: ESP32, HC-SR04, TM1637
+ * Librería requerida: TM1637Display
+ */
+
+#include <TM1637Display.h>
+
+// --- 1. DEFINICIONES ---
+const int PIN_TRIG = 5;
+const int PIN_ECHO = 18;
+const int PIN_CLK  = 19;
+const int PIN_DIO  = 23;
+
+// Configuración del Display
+TM1637Display display(PIN_CLK, PIN_DIO);
+
+void setup() {
+  Serial.begin(115200);
+  
+  pinMode(PIN_TRIG, OUTPUT);
+  pinMode(PIN_ECHO, INPUT);
+  
+  display.setBrightness(0x0f); // Brillo máximo
+  display.showNumberDec(0);    // Iniciar en 0
+  
+  Serial.println("Huicha Digital Lista");
+}
+
+void loop() {
+  // 1. Generar pulso de Trigger (10 microsegundos)
+  digitalWrite(PIN_TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(PIN_TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(PIN_TRIG, LOW);
+  
+  // 2. Leer el tiempo del Echo (en microsegundos)
+  // pulseIn espera a que el pin pase a HIGH y cuenta el tiempo hasta que vuelve a LOW
+  long duracion = pulseIn(PIN_ECHO, HIGH);
+  
+  // 3. Convertir a Distancia (cm)
+  // Velocidad sonido = 343 m/s = 0.0343 cm/us
+  // Distancia = (tiempo * velocidad) / 2 (ida y vuelta)
+  int distancia = duracion * 0.0343 / 2;
+  
+  // 4. Mostrar en Display y Serial
+  Serial.print("Distancia: ");
+  Serial.print(distancia);
+  Serial.println(" cm");
+  
+  // Si está fuera de rango (>400cm o <2cm), mostrar guiones
+  if (distancia > 400 || distancia < 2) {
+    // Segmentos para "----"
+    const uint8_t SEG_ERR[] = {
+      SEG_G, SEG_G, SEG_G, SEG_G
+    };
+    display.setSegments(SEG_ERR);
+  } else {
+    display.showNumberDec(distancia);
+  }
+  
+  delay(200); // Pequeña pausa para estabilidad
+}`,
+            sim: "" 
+        },
+        7: {
+            title: "07. Estación de Clima",
+            level: "Nivel 2: Pantallas",
+            desc: "Uso del sensor DHT11 para leer temperatura y humedad, mostrando los datos en una pantalla OLED SSD1306. Introduce protocolos I2C y librerías externas.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p7c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Sensor DHT11</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Protocolo Digital de 1 Hilo</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p7c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El DHT11 es un sensor digital compuesto que mide temperatura y humedad. A diferencia de sensores analógicos, este envía una trama de 40 bits de datos digitales a través de un solo cable.
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         Es lento (toma lecturas cada 2 segundos) pero fácil de usar con librerías.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p7c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Pantalla OLED y I2C</h3>
+                         <p class="text-xs text-[var(--text-dim)]">El Bus Inter-Integrated Circuit</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p7c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         Para la pantalla usamos el protocolo <strong>I2C</strong>. Es un bus de comunicación que usa solo dos cables para conectar múltiples dispositivos:
+                       </p>
+                       <ul class="text-sm text-[var(--text-dim)] list-disc pl-4 mt-2">
+                         <li><strong>SDA (Serial Data):</strong> Por donde viajan los datos.</li>
+                         <li><strong>SCL (Serial Clock):</strong> El reloj que sincroniza la comunicación.</li>
+                         <li>Cada dispositivo tiene una dirección única (0x3C para la mayoría de OLEDs).</li>
+                       </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive7')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Protocolos</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Timing y Buffers</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive7" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Detalles técnicos sobre cómo funcionan los sensores y pantallas modernas.
+                        </p>
+                        <h4>1. Protocolo 1-Wire (DHT11)</h4>
+                        <p>El protocolo del DHT11 es crítico en tiempo. El microcontrolador envía una señal de inicio (baja el pin por 18ms) y luego el sensor responde con pulsos. Un pulso de 26-28µs es un '0', y uno de 70µs es un '1'. Si el ESP32 se interrumpe (por WiFi, por ejemplo) durante la lectura, obtendrás datos corruptos. Por eso a veces ves "NaN".</p>
+                        <h4>2. Buffer de Pantalla (GDDRAM)</h4>
+                        <p>La pantalla OLED tiene 128x64 píxeles = 8192 puntos. La librería <code>Adafruit_SSD1306</code> crea un "buffer" en la RAM del ESP32 (1 KB). Tú dibujas en ese buffer (rápido) y luego llamas a <code>display.display()</code> para enviar todo ese bloque de memoria por I2C a la pantalla. Es eficiente, pero consume memoria RAM.</p>
+                        <h4>3. Humedad Relativa vs Absoluta</h4>
+                        <p>El DHT11 mide Humedad Relativa (RH%). Esto es el porcentaje de vapor de agua en el aire <i>en relación con lo máximo que podría contener a esa temperatura</i>. Si la temperatura baja, el aire "se encoge" y la RH sube, aunque la cantidad de agua sea la misma. Esto es termodinámica básica.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: DHT11 y OLED I2C conectados al ESP32]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 15</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">DHT11 Data</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 21</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">OLED SDA</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 22</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">OLED SCL</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">3.3V / 5V</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">VCC Sensores</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 text-left">
+                      <strong>Nota de Ingeniería:</strong> El DHT11 a veces necesita una resistencia "Pull-Up" de 10k entre VCC y Data si no viene en módulo. La pantalla OLED va a 3.3V normalmente, pero revisa si tu módulo acepta 5V.
+                   </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 07: ESTACIÓN DE CLIMA
+ * Objetivo: Lectura de sensores ambientales y visualización I2C
+ * Hardware: ESP32, DHT11, OLED SSD1306
+ * Librerías: Adafruit SSD1306, Adafruit GFX, DHT sensor library
+ */
+
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <DHT.h>
+
+// --- 1. CONFIGURACIÓN OLED ---
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET    -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// --- 2. CONFIGURACIÓN DHT ---
+#define DHTPIN 15     // Pin donde está conectado el DHT11
+#define DHTTYPE DHT11 // Tipo de sensor
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Iniciar sensor DHT
+  dht.begin();
+  
+  // Iniciar pantalla OLED (Dirección 0x3C es estándar)
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Fallo al iniciar OLED"));
+    for(;;); // Bucle infinito si falla
+  }
+  
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0,0);
+  display.println("MECRO CLIMA v1.0");
+  display.display();
+  delay(2000);
+}
+
+void loop() {
+  // Leer humedad y temperatura
+  // ¡OJO! Esto toma unos 250ms
+  float h = dht.readHumidity();
+  float t = dht.readTemperature(); // Celsius
+
+  // Verificar si hubo error de lectura (NaN = Not a Number)
+  if (isnan(h) || isnan(t)) {
+    Serial.println(F("Fallo lectura DHT!"));
+    return;
+  }
+
+  // Mostrar en Serial
+  Serial.print(F("Humedad: ")); Serial.print(h);
+  Serial.print(F("%  Temp: ")); Serial.print(t); Serial.println(F("°C"));
+
+  // Mostrar en OLED
+  display.clearDisplay();
+  
+  // Título
+  display.setTextSize(1);
+  display.setCursor(0,0);
+  display.print("MECRO Estacion");
+  
+  // Temperatura (Grande)
+  display.setTextSize(2);
+  display.setCursor(0, 16);
+  display.print(t, 1); // 1 decimal
+  display.print(" C");
+  display.drawCircle(60, 18, 3, WHITE); // Símbolo grado
+  
+  // Humedad
+  display.setTextSize(2);
+  display.setCursor(0, 40);
+  display.print(h, 0); // 0 decimales
+  display.print(" %RH");
+  
+  display.display(); // Enviar buffer a pantalla
+  
+  delay(2000); // El DHT11 es lento, esperar 2s
+}`,
+            sim: "" 
+        },
+        8: {
+            title: "08. Caja Fuerte",
+            level: "Nivel 2: Pantallas y Entorno",
+            desc: "Sistema de seguridad con teclado matricial 4x4. Aprende la lógica de escaneo de matrices y control de potencia con Relés.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p8c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Matrices de Escaneo</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Multiplexación de Entradas</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p8c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         No usamos 16 pines para 16 botones. Usamos una matriz de 4 filas y 4 columnas (8 pines). El ESP32 activa una fila a la vez y lee las columnas para ver dónde se cierra el circuito.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p8c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">Relés y Aislamiento</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Control de Potencia</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p8c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         El Relé es un interruptor mecánico controlado eléctricamente. Permite que el ESP32 (3.3V) controle una cerradura magnética de 12V o una lámpara de 220V.
+                       </p>
+                       <ul class="text-sm text-[var(--text-dim)] list-disc pl-4 mt-2">
+                         <li><strong>NO (Normally Open):</strong> Circuito abierto hasta que se activa.</li>
+                         <li><strong>NC (Normally Closed):</strong> Circuito cerrado hasta que se activa.</li>
+                         <li><strong>COM (Common):</strong> El punto común de conexión.</li>
+                       </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive8')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Lógica de Seguridad</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Máquinas de Estado y Debounce</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive8" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Profundización en la lógica detrás de un sistema de acceso.
+                        </p>
+                        <h4>1. Escaneo de Matrices y Ghosting</h4>
+                        <p>Para leer el teclado, ponemos todas las filas en ALTO y una a BAJO. Si se presiona un botón en esa fila, la columna correspondiente se va a BAJO. Repetimos esto para cada fila muy rápido. Si se presionan múltiples teclas a la vez, pueden aparecer "teclas fantasma" si no hay diodos en la matriz.</p>
+                        <h4>2. Máquina de Estados Finita (FSM)</h4>
+                        <p>El código no solo lee teclas. Tiene estados: <code>IDLE</code> (Esperando), <code>ENTERING</code> (Ingresando), <code>CHECK</code> (Verificando), <code>UNLOCKED</code> (Abierto). Esto evita que el sistema se comporte de manera errática.</p>
+                        <h4>3. Seguridad del Buffer</h4>
+                        <p>Guardamos la clave ingresada en un String o array de chars. En sistemas reales, nunca guardamos la clave en texto plano, usamos un Hash. Aquí, por simplicidad educativa, comparamos strings directos.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: Teclado 4x4, Relé y Buzzer conectados al ESP32]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 13, 12, 14, 27</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Filas (R1-R4)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 26, 25, 33, 32</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Columnas (C1-C4)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 4</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Relé (IN)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 19</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Buzzer (+)</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-red-900/10 border border-red-900/30 rounded text-xs text-red-300 text-left">
+                      <strong>Precaución:</strong> Los relés manejan voltajes peligrosos. Asegúrate de que las conexiones de potencia estén aisladas.
+                   </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 08: CAJA FUERTE (KEYPAD)
+ * Objetivo: Lectura de teclado matricial y control de acceso
+ * Hardware: ESP32, Keypad 4x4, Relé, Buzzer
+ * Librería requerida: Keypad
+ */
+
+#include <Keypad.h>
+
+// --- 1. CONFIGURACIÓN DEL TECLADO ---
+const byte ROWS = 4; // 4 filas
+const byte COLS = 4; // 4 columnas
+
+// Mapeo de teclas
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+// Pines (Ajustar según conexión)
+byte rowPins[ROWS] = {13, 12, 14, 27}; 
+byte colPins[COLS] = {26, 25, 33, 32}; 
+
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+// --- 2. LÓGICA DE SEGURIDAD ---
+String password = "1234"; // Clave correcta
+String inputParams = "";  // Buffer de entrada
+const int PIN_RELAY = 4;
+const int PIN_BUZZER = 19;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PIN_RELAY, OUTPUT);
+  pinMode(PIN_BUZZER, OUTPUT);
+  
+  digitalWrite(PIN_RELAY, LOW); // Cerrado al inicio
+  Serial.println("Sistema de Seguridad Activo");
+}
+
+void loop() {
+  char key = keypad.getKey(); // Leer tecla
+  
+  if (key) {
+    Serial.println(key);
+    tone(PIN_BUZZER, 2000, 50); // Feedback sonoro "beep"
+    
+    if (key == '#') { // Tecla '#' para confirmar (Enter)
+      checkPassword();
+    } 
+    else if (key == '*') { // Tecla '*' para borrar (Clear)
+      inputParams = "";
+      Serial.println("Entrada borrada");
+    }
+    else {
+      inputParams += key; // Agregar caracter al buffer
+    }
+  }
+}
+
+void checkPassword() {
+  if (inputParams == password) {
+    Serial.println("Acceso Concedido");
+    tone(PIN_BUZZER, 3000, 100); delay(150); tone(PIN_BUZZER, 3000, 100);
+    digitalWrite(PIN_RELAY, HIGH); // Abrir cerradura
+    delay(3000); // Mantener abierto 3 segundos
+    digitalWrite(PIN_RELAY, LOW);  // Cerrar
+  } else {
+    Serial.println("Acceso Denegado");
+    tone(PIN_BUZZER, 500, 1000); // Sonido de error largo
+  }
+  inputParams = ""; // Limpiar buffer
+}`,
+
+
+
+
+            sim: "" 
+        },
+        9: {
+            title: "09. Detector de Intrusos",
+            level: "Nivel 2: Pantallas y Entorno",
+            desc: "Uso de Sensores PIR (Infrarrojo Pasivo) para detectar movimiento humano. Introducción a la radiación térmica y la lógica de seguridad con calibración.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p9c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">¿Cómo funciona un PIR?</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Piroelectricidad Diferencial</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p9c1" class="reveal-content open">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         Todo cuerpo vivo (tu perro, tú mismo) emite radiación infrarroja (calor). El sensor PIR tiene dos ranuras de material sensible que generan electricidad cuando reciben este calor.
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         Si ambas ranuras ven lo mismo (una pared vacía), la señal se cancela. Pero si alguien camina, una ranura detecta el cambio antes que la otra. Esa <strong>diferencia</strong> dispara la alarma.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Capítulo 2 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
+                  <button onclick="toggleAccordion('p9c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
+                    <div class="flex items-center gap-4">
+                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">02</div>
+                       <div>
+                         <h3 class="font-bold text-white text-base">La Lente de Fresnel</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Óptica Geométrica</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="p9c2" class="reveal-content">
+                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
+                       <p class="text-sm text-[var(--text-dim)] mt-4">
+                         Esa cúpula blanca de plástico no es decoración. Es una matriz de <strong>Lentes de Fresnel</strong>. Su función es concentrar la luz infrarroja de múltiples ángulos en el pequeño sensor central.
+                       </p>
+                       <p class="text-sm text-[var(--text-dim)] mt-2">
+                         Además, divide la habitación en "zonas". Para que el sensor detecte movimiento, el intruso debe cruzar de una zona a otra.
+                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive9')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
+                    <div class="flex items-center gap-4">
+                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
+                       <div>
+                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Ingeniería de Sensores PIR</h3>
+                         <p class="text-xs text-[var(--text-dim)]">Calibración y Modos de Disparo</p>
+                       </div>
+                    </div>
+                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
+                  </button>
+                  <div id="deepdive9" class="reveal-content"> 
+                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
+                      <div class="prose max-w-none mt-6 text-sm">
+                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
+                          Configuraciones críticas del módulo HC-SR501.
+                        </p>
+                        <h4>1. Tiempo de Calibración (Warm-up)</h4>
+                        <p>Al conectar la energía, el sensor necesita entre 30 y 60 segundos para "aprender" el nivel de radiación infrarroja de la habitación vacía. Si no programas este tiempo de espera en el <code>setup()</code>, tendrás falsas alarmas inmediatas. En sistemas profesionales, esto se indica con un LED parpadeante.</p>
+                        <h4>2. Jumper de Disparo (Trigger Mode)</h4>
+                        <p>El módulo tiene un jumper amarillo con dos posiciones:
+                        <ul class="list-disc pl-4">
+                           <li><strong>L (Single Trigger):</strong> La salida se activa y luego baja, aunque sigas moviéndote. Malo para alarmas continuas.</li>
+                           <li><strong>H (Repeat Trigger):</strong> La salida se mantiene en HIGH todo el tiempo que detecte movimiento. Esta es la configuración correcta para alarmas.</li>
+                        </ul></p>
+                        <h4>3. Ajuste de Sensibilidad</h4>
+                        <p>Los dos potenciómetros naranjas controlan:
+                        1. <strong>Sensibilidad (Distancia):</strong> De 3 a 7 metros.
+                        2. <strong>Tiempo de Salida:</strong> Cuánto tiempo se queda en HIGH después de detectar (de 3s a 5min).</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: PIR VCC a 5V (Vin) | OUT a GPIO 13 | Buzzer en GPIO 12]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 13</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">PIR Output</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 12</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Buzzer (+)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-red-400 font-mono font-bold text-xs">5V (Vin)</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">PIR VCC</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-blue-400 font-mono font-bold text-xs">GND</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Común</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 text-left">
+                      <strong>Nota de Voltaje:</strong> Aunque el PIR se alimenta con 5V, la señal de salida suele ser de 3.3V, lo cual es perfecto y seguro para el ESP32.
+                   </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 09: DETECTOR DE INTRUSOS
+ * Objetivo: Lectura de sensores PIR, Calibración y Lógica de Estados
+ * Hardware: ESP32, Sensor PIR HC-SR501, Buzzer Pasivo
+ */
+
+const int PIN_PIR = 13;     // Entrada del sensor
+const int PIN_BUZZER = 12;  // Salida alarma sonora
+const int LED_STATUS = 2;   // LED interno para feedback visual
+
+// Variables de estado (Lógica de Detección de Flancos)
+int estadoPIR = LOW; // Guardamos el estado anterior
+int lectura = 0;     // Lectura actual
+
+void setup() {
+  pinMode(PIN_PIR, INPUT);
+  pinMode(PIN_BUZZER, OUTPUT);
+  pinMode(LED_STATUS, OUTPUT);
+  
+  Serial.begin(115200);
+  Serial.println("--- SISTEMA DE SEGURIDAD MECRO ---");
+  Serial.print("Calibrando Sensor PIR... (Espere 30s)");
+  
+  // FASE DE CALIBRACIÓN
+  // Es vital dar tiempo al sensor para estabilizarse térmicamente
+  for(int i = 0; i < 30; i++){
+      // Parpadeo rápido durante calibración
+      digitalWrite(LED_STATUS, HIGH); 
+      delay(50);
+      digitalWrite(LED_STATUS, LOW); 
+      delay(950);
+      Serial.print(".");
+  }
+  Serial.println("\nCALIBRACIÓN COMPLETA.");
+  Serial.println(">>> SISTEMA ARMADO Y LISTO <<<");
+  
+  // Sonido de confirmación de armado
+  tone(PIN_BUZZER, 2000, 100);
+  delay(150);
+  tone(PIN_BUZZER, 2000, 100);
+}
+
+void loop() {
+  lectura = digitalRead(PIN_PIR); // Leer sensor
+  
+  if (lectura == HIGH) {
+    // --- MOVIMIENTO DETECTADO ---
+    
+    digitalWrite(LED_STATUS, HIGH); // Encender LED
+    
+    // Alarma tipo Sirena (Frecuencia variable)
+    for(int f = 1000; f < 2000; f+=50) {
+        tone(PIN_BUZZER, f);
+        delay(10);
+    }
+    
+    // Lógica de Flancos: Solo imprimir cuando CAMBIA el estado
+    // Esto evita llenar el monitor serial con "Detectado... Detectado..."
+    if (estadoPIR == LOW) {
+      Serial.println("¡ALERTA! Movimiento Detectado!");
+      estadoPIR = HIGH; // Actualizar estado
+    }
+  } 
+  else {
+    // --- ZONA SEGURA ---
+    
+    digitalWrite(LED_STATUS, LOW);
+    noTone(PIN_BUZZER); // Apagar sonido
+    
+    if (estadoPIR == HIGH) {
+      Serial.println("Movimiento finalizado. Zona segura.");
+      estadoPIR = LOW; // Resetear estado
+    }
+  }
+}`,
+            sim: ""
+        },
+                       10: {
+            title: "10. Ventilador Inteligente",
+            level: "Nivel 2: Pantallas y Entorno",
+            desc: "Sistema de control automático de lazo cerrado (Bang-Bang). Si la temperatura (DHT11) supera los 25°C, activa un motor DC usando un transistor de potencia.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p10c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">La Barrera de la Corriente</h3><p class="text-xs text-[var(--text-dim)]">Lógica vs Potencia</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p10c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un pin del ESP32 entrega máximo <strong>40mA</strong> a 3.3V. Un motor DC pequeño consume al menos <strong>500mA</strong> al arrancar. Si conectas el motor directo, quemas el chip instantáneamente. La solución es separar el circuito de "Control" (ESP32) del circuito de "Potencia" (Batería + Motor) usando un <strong>Transistor</strong>.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p10c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Lazo de Control Térmico</h3><p class="text-xs text-[var(--text-dim)]">Feedback Loop</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p10c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Este es un sistema de automatización básico. Tiene 3 componentes: <br>1. <strong>Sensor (Input):</strong> El DHT11 mide la realidad.<br>2. <strong>Controlador (Proceso):</strong> El ESP32 compara con el "Setpoint" (25°C).<br>3. <strong>Actuador (Output):</strong> El motor modifica la realidad (enfría).</p></div></div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive10')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Electrónica de Potencia</h3><p class="text-xs text-[var(--text-dim)]">Cargas Inductivas y Flyback</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive10" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">Manejar motores no es juego. Aquí la física se pone agresiva.</p><h4>1. El Transistor como Interruptor</h4><p>Usamos un transistor NPN (como el 2N2222 o TIP120) en configuración de "Emisor Común". Aplicamos una pequeña corriente en la <strong>Base</strong> (desde el ESP32) para permitir una gran corriente entre <strong>Colector y Emisor</strong>. El transistor debe trabajar en la región de "Saturación" (interruptor cerrado) y "Corte" (interruptor abierto), nunca en la zona lineal (porque se calienta).</p><h4>2. El Diodo Flyback (Protección Vital)</h4><p>Un motor es una bobina (inductor). Cuando le cortas la corriente de golpe, el campo magnético colapsa y genera un pico de voltaje inverso (Fuerza Contraelectromotriz) que puede llegar a cientos de voltios. Este "latigazo" puede destruir el transistor. Colocamos un diodo en antiparalelo al motor para "cortocircuitar" y disipar ese pico de forma segura.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl">
+                   <!-- IMAGEN PLACEHOLDER -->
+                   <div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">
+                      [Diagrama: Transistor NPN (Base a GPIO 26 con R 1k), Colector a Motor(-), Emisor a GND. Motor(+) a 5V Ext. Diodo inversamente en Motor.]
+                   </div>
+                   
+                   <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                   <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mx-auto mb-6 text-left">
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 26</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Base Transistor (Control)</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-white font-mono font-bold text-xs">GPIO 15</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">DHT11 Data</div>
+                      </div>
+                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded">
+                         <div class="text-red-400 font-mono font-bold text-xs">Fuente Externa</div>
+                         <div class="text-[10px] text-[var(--text-dim)]">Motor (+) y GND Común</div>
+                      </div>
+                   </div>
+                   <div class="p-3 bg-red-900/10 border border-red-900/30 rounded text-xs text-red-300 text-left">
+                      <strong>¡ALERTA DE TIERRA!</strong> Debes conectar el GND de la batería externa con el GND del ESP32. Si no hay tierra común, el circuito no se cierra y el transistor no funcionará.
+                   </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 10: VENTILADOR INTELIGENTE
+ * Objetivo: Control de Potencia y Lazo Cerrado con Histéresis
+ * Hardware: ESP32, DHT11, Motor DC, Transistor NPN (2N2222/TIP120), Diodo
+ */
+
+#include <DHT.h>
+
+const int PIN_DHT = 15;
+const int PIN_MOTOR = 26;
+
+// Configuración del Termostato
+const float TEMP_SETPOINT = 25.0; // Temperatura deseada
+const float HISTERESIS = 1.0;     // Margen para evitar rebote
+
+// Límites calculados
+const float LIMITE_ON = TEMP_SETPOINT + HISTERESIS; // 26.0°C
+const float LIMITE_OFF = TEMP_SETPOINT - HISTERESIS; // 24.0°C
+
+#define DHTTYPE DHT11
+DHT dht(PIN_DHT, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PIN_MOTOR, OUTPUT);
+  digitalWrite(PIN_MOTOR, LOW); // Motor apagado por seguridad al inicio
+  
+  dht.begin();
+  Serial.println("--- MECRO Climate Control Activo ---");
+}
+
+void loop() {
+  // Leer temperatura (DHT11 es lento, toma ~250ms)
+  float t = dht.readTemperature();
+
+  // Validación de seguridad: Si el sensor falla, apagar motor
+  if (isnan(t)) {
+    Serial.println("¡ERROR SENSOR! Apagando sistema...");
+    digitalWrite(PIN_MOTOR, LOW);
+    return;
+  }
+
+  Serial.print("Temperatura: ");
+  Serial.print(t);
+  Serial.println(" °C");
+
+  // Lógica de Control con Histéresis (Schmitt Trigger)
+  // Esto evita que el motor se prenda/apague 10 veces por segundo si T=25.0
+  
+  if (t >= LIMITE_ON) {
+    digitalWrite(PIN_MOTOR, HIGH); // Encender
+    Serial.println("-> Calor detectado: VENTILADOR ON");
+  } 
+  else if (t <= LIMITE_OFF) {
+    digitalWrite(PIN_MOTOR, LOW);  // Apagar
+    Serial.println("-> Temperatura baja: VENTILADOR OFF");
+  }
+  // Nota: Entre 24.0 y 26.0, el motor MANTIENE su estado anterior (Estabilidad)
+
+  delay(2000); // Esperar 2s entre lecturas
+}`,
+            sim: ""
+        },
+// Proyecto 11 completo
+    11: {
+            title: "11. Radar de Exploración",
+            level: "Nivel 3: Robótica",
+            desc: "Un sistema de Sonar real. Un servo gira 180° moviendo un sensor ultrasónico. Los datos se procesan con trigonometría para dibujar un mapa polar en la pantalla OLED.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p11c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Trigonometría Aplicada</h3><p class="text-xs text-[var(--text-dim)]">De Polares a Cartesianas</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p11c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El sensor nos entrega una distancia ($r$) y el servo nos da un ángulo ($\theta$). Pero la pantalla OLED funciona con coordenadas ($x, y$). Para traducir el mundo real al digital, usamos la transformación polar:</p><div class="math-block text-xs">x = centro_x + (radio * cos(angulo))<br>y = centro_y - (radio * sin(angulo))</div><p class="text-xs text-[var(--text-dim)]">Nota: Restamos en Y porque en computación gráfica, el pixel (0,0) está arriba a la izquierda.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p11c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">Control de Servos</h3><p class="text-xs text-[var(--text-dim)]">PWM de 50Hz</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p11c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un servomotor no es un motor DC cualquiera. Tiene su propio controlador interno (lazo cerrado). Nosotros enviamos un pulso PWM cada 20ms (50Hz). El ancho de ese pulso dicta la posición: 1ms para 0°, 1.5ms para 90°, 2ms para 180°. La librería <code>ESP32Servo</code> abstrae estos tiempos.</p></div></div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive11')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Física de Sensores</h3><p class="text-xs text-[var(--text-dim)]">Límites de Velocidad y Resolución</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive11" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">El hardware real no es perfecto. Aquí analizamos por qué.</p><h4>1. El Límite de la Velocidad del Sonido</h4><p>El sonido viaja a 343 m/s. Para medir un objeto a 2 metros, el pulso tarda $\approx 12ms$ en ir y volver. Si mueves el servo demasiado rápido, el sensor estará apuntando a otro lado cuando llegue el eco, causando "fantasmas" o lecturas fallidas. El código debe esperar mecánicamente.</p><h4>2. Resolución Angular (Beam Width)</h4><p>El HC-SR04 no es un láser; emite un cono de sonido de aprox. 15° a 30°. Esto significa que objetos pequeños parecerán más anchos en el radar (baja resolución angular). Para un mapeo preciso tipo LIDAR, necesitaríamos láseres, pero el ultrasonido es excelente para detectar obstáculos grandes.</p><h4>3. Transformaciones Lineales (Mapping)</h4><p>La pantalla OLED tiene una resolución de 128x64. El sensor mide hasta 400cm. No podemos dibujar 400 píxeles. Debemos escalar la realidad: definimos que el borde de la pantalla (radio 60px) equivale a 60cm reales. Cualquier objeto más lejos se ignora o se recorta (clipping).</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: Servo(13), HC-SR04(5/18), OLED(21/22)]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-orange-400 font-mono font-bold text-xs">GPIO 13</div><div class="text-[10px] text-[var(--text-dim)]">Servo Señal (PWM)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 5</div><div class="text-[10px] text-[var(--text-dim)]">HC-SR04 Trig</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-white font-mono font-bold text-xs">GPIO 18</div><div class="text-[10px] text-[var(--text-dim)]">HC-SR04 Echo</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GPIO 21</div><div class="text-[10px] text-[var(--text-dim)]">OLED SDA</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GPIO 22</div><div class="text-[10px] text-[var(--text-dim)]">OLED SCL</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">5V (Vin)</div><div class="text-[10px] text-[var(--text-dim)]">Servo VCC</div></div>
+                </div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 11: RADAR DE EXPLORACIÓN
+ * Objetivo: Integración de Mecánica (Servo), Sensores y Matemáticas
+ * Librerías: ESP32Servo, Adafruit_SSD1306, Adafruit_GFX
+ */
+
+#include <ESP32Servo.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Wire.h>
+
+// Definiciones OLED
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+// Definiciones Hardware
+Servo miServo;
+const int PIN_SERVO = 13;
+const int PIN_TRIG = 5;
+const int PIN_ECHO = 18;
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Configurar Servo
+  miServo.attach(PIN_SERVO);
+  
+  // Configurar Sensor Ultrasonido
+  pinMode(PIN_TRIG, OUTPUT);
+  pinMode(PIN_ECHO, INPUT);
+  
+  // Iniciar OLED
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Fallo OLED"));
+    for(;;);
+  }
+  
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(20, 20);
+  display.println("MECRO RADAR");
+  display.println("Iniciando...");
+  display.display();
+  delay(2000);
+}
+
+// Función auxiliar para medir distancia
+int obtenerDistancia() {
+  digitalWrite(PIN_TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(PIN_TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(PIN_TRIG, LOW);
+  
+  long duracion = pulseIn(PIN_ECHO, HIGH);
+  int distanciaCm = duracion * 0.034 / 2;
+  
+  // Limitar rango para dibujo (max 60cm en pantalla)
+  if (distanciaCm > 60) distanciaCm = 60;
+  if (distanciaCm < 0) distanciaCm = 60;
+  
+  return distanciaCm;
+}
+
+void loop() {
+  // Barrido de 15 a 165 grados (Evitar extremos mecánicos 0 y 180 para cuidar el servo)
+  for(int angulo = 15; angulo <= 165; angulo += 3) {
+    miServo.write(angulo);
+    delay(40); // Esperar que el servo llegue a la posición física
+    
+    int distancia = obtenerDistancia();
+    
+    // Dibujar Radar
+    display.clearDisplay();
+    
+    // 1. Dibujar líneas de referencia (Arcos de distancia)
+    // Centro del radar en (64, 64) - parte inferior central
+    display.drawCircle(64, 64, 20, WHITE); // 20cm
+    display.drawCircle(64, 64, 40, WHITE); // 40cm
+    display.drawCircle(64, 64, 60, WHITE); // 60cm
+    
+    // 2. Calcular vector de barrido (Aguja)
+    // Convertir a Radianes
+    float rad = angulo * PI / 180.0;
+    
+    // Coordenadas Polares -> Cartesianas
+    // x = r * cos(theta), y = r * sin(theta)
+    int lineaX = 64 - (60 * cos(rad));
+    int lineaY = 64 - (60 * sin(rad));
+    
+    display.drawLine(64, 64, lineaX, lineaY, WHITE);
+    
+    // 3. Dibujar Objeto si está dentro del rango
+    if(distancia < 60) {
+       int objX = 64 - (distancia * cos(rad));
+       int objY = 64 - (distancia * sin(rad));
+       display.fillCircle(objX, objY, 4, WHITE); // Punto gordo para el objeto
+    }
+    
+    // Texto informativo
+    display.setCursor(0,0);
+    display.print("Ang: "); display.print(angulo);
+    display.setCursor(80,0);
+    display.print("Dist: "); display.print(distancia);
+    
+    display.display();
+  }
+  
+  // Retorno rápido al inicio
+  for(int angulo = 165; angulo >= 15; angulo -= 5) {
+     miServo.write(angulo);
+     delay(10);
+  }
+}`,
+            sim: ""
+        },
+       12: {
+            title: "12. Brazo Robótico (Sim)",
+            level: "Nivel 3: Robótica",
+            desc: "Control de precisión de un Servomotor usando un Potenciómetro. Aprenderemos sobre interpolación de señales, lazo de control cerrado y conversión ADC a PWM angular.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p12c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">La Resistencia Variable</h3><p class="text-xs text-[var(--text-dim)]">El Potenciómetro</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p12c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un potenciómetro es un divisor de voltaje mecánico. Tiene 3 patas: VCC, GND y Señal (Wiper). Al girar la perilla, cambias la posición del contacto deslizante sobre una pista resistiva, variando el voltaje de salida de 0V a 3.3V.</p><div class="p-3 bg-blue-900/10 border border-blue-900/30 rounded text-xs text-blue-300 mt-2"><strong>Nota de Ingeniería:</strong> El ADC del ESP32 convierte este voltaje en un número entero de 0 a 4095 (12 bits). Esta resolución es 4 veces mayor que la de un Arduino Uno (10 bits, 0-1023).</div></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p12c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">¿Qué hay dentro de un Servo?</h3><p class="text-xs text-[var(--text-dim)]">Lazo Cerrado Miniatura</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p12c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un servomotor SG90 no es solo un motor. Contiene: 1) Un motor DC pequeño, 2) Una caja de engranajes (reducción), 3) Un potenciómetro interno y 4) Un circuito de control. <br><br>Cuando le dices "ve a 90°", el circuito compara la posición actual (leída por su potenciómetro interno) con la deseada. Si hay error, enciende el motor hasta que el error sea cero. Esto es <strong>Control Proporcional</strong> en hardware puro.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <!-- P1 -->
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Por qué el servo "tiembla" (jitter) si dejo el potenciómetro quieto?</p>
+                       <div id="ans12-1" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Ruido Eléctrico en el ADC.</strong><br>El valor leído por el ADC nunca es perfectamente estable (ej: oscila entre 2001 y 2005). El servo intenta seguir esos cambios microscópicos. Solución: Promediar lecturas (filtro software).</div>
+                       <button onclick="document.getElementById('ans12-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <!-- P2 -->
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">Si aplico 3.3V constantes al pin de señal del servo, ¿se mueve a 180°?</p>
+                       <div id="ans12-2" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>No.</strong><br>Los servos se controlan por PWM (ancho de pulso), no por voltaje analógico. Necesitan pulsos específicos de 1ms a 2ms cada 20ms. Voltaje constante no hace nada (o lo daña).</div>
+                       <button onclick="document.getElementById('ans12-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive12')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3><p class="text-xs text-[var(--text-dim)]">Mapeo Lineal y PWM</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive12" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">Traduciendo el lenguaje de los sensores al lenguaje de los actuadores.</p><h4>1. La Función <code>map()</code></h4><p>En ingeniería, a menudo necesitamos convertir una escala a otra (ej: 0-4095 a 0-180). Esto es una <strong>Interpolación Lineal</strong>. La fórmula matemática es: <br><code>y = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min</code>. <br>Es simple, pero poderosa.</p><h4>2. Frecuencia de Servos (50Hz)</h4><p>El estándar de servos analógicos espera un pulso cada 20ms (50Hz). El ancho del pulso determina el ángulo: <br>- 1.0ms = 0 grados <br>- 1.5ms = 90 grados (centro) <br>- 2.0ms = 180 grados. <br>El ESP32 usa sus temporizadores LEDC para generar estos pulsos con precisión de microsegundos, liberando al procesador principal.</p><h4>3. Curiosidad: Origen Aeronáutico</h4><p>¿Sabías que este protocolo PWM de 50Hz nació en los años 60 para el radiocontrol de aviones modelo? Se diseñó para ser robusto frente a la interferencia de radio AM/FM. Hoy sigue siendo el estándar en robótica por su simplicidad.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: Potenciómetro(34), Servo(13)]</div>
+                <p class="mb-4 text-white font-bold">Mapa de Conexiones</p>
+                <div class="grid grid-cols-2 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-[var(--accent)] font-mono font-bold text-xs">GPIO 34</div><div class="text-[10px] text-[var(--text-dim)]">Potenciómetro (Wiper)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-orange-400 font-mono font-bold text-xs">GPIO 13</div><div class="text-[10px] text-[var(--text-dim)]">Servo Señal (PWM)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">3.3V</div><div class="text-[10px] text-[var(--text-dim)]">Potenciómetro VCC</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">5V (Vin)</div><div class="text-[10px] text-[var(--text-dim)]">Servo VCC (Alta corriente)</div></div>
+                </div>
+                <div class="p-3 bg-red-900/10 border border-red-900/30 rounded text-xs text-red-300 text-left"><strong>Aviso de Potencia:</strong> Alimenta el servo desde el pin 5V (Vin) o una fuente externa. El pin 3.3V del ESP32 no tiene suficiente corriente para mover el motor.</div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 12: BRAZO ROBÓTICO (CONTROL SERVO)
+ * Objetivo: ADC Mapping y Control PWM de Servos
+ * Librerías: ESP32Servo (Gestión de Timers PWM)
+ */
+#include <ESP32Servo.h>
+
+Servo myServo;
+
+// Definiciones de Hardware
+const int PIN_POT = 34;   // Entrada analógica (Potenciómetro)
+const int PIN_SERVO = 13; // Salida PWM (Servo)
+
+// Variables para el filtro de promedio (Anti-Jitter)
+const int NUM_LECTURAS = 10;
+int lecturas[NUM_LECTURAS];
+int indiceLectura = 0;
+long total = 0;
+int promedio = 0;
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Configuración del Servo
+  // Los servos SG90 suelen trabajar entre 500us y 2400us
+  myServo.attach(PIN_SERVO, 500, 2400);
+  
+  // Inicializar array de lecturas en 0
+  for (int i = 0; i < NUM_LECTURAS; i++) lecturas[i] = 0;
+  
+  Serial.println("Control de Servo Iniciado");
+}
+
+void loop() {
+  // --- 1. FILTRO DE PROMEDIO MÓVIL (Suavizado) ---
+  // Restar la última lectura
+  total = total - lecturas[indiceLectura];
+  // Leer del sensor
+  lecturas[indiceLectura] = analogRead(PIN_POT);
+  // Sumar la nueva lectura
+  total = total + lecturas[indiceLectura];
+  // Avanzar al siguiente índice
+  indiceLectura = indiceLectura + 1;
+  // Si llegamos al final del array, volver al principio
+  if (indiceLectura >= NUM_LECTURAS) indiceLectura = 0;
+  // Calcular promedio
+  promedio = total / NUM_LECTURAS;
+
+  // --- 2. MAPEO DE SEÑAL ---
+  // Convertir rango ADC (0-4095) a Rango Servo (0-180)
+  int angulo = map(promedio, 0, 4095, 0, 180);
+  
+  // --- 3. ACTUAR ---
+  myServo.write(angulo);
+  
+  // --- 4. TELEMETRÍA ---
+  // Usar el plotter serial para ver la estabilidad
+  Serial.print("Raw:");
+  Serial.print(analogRead(PIN_POT)); // Valor crudo (ruidoso)
+  Serial.print(" Smooth:");
+  Serial.print(promedio);            // Valor suavizado
+  Serial.print(" Angulo:");
+  Serial.println(angulo);
+  
+  delay(15); // Pequeña espera para permitir que el servo llegue a la posición
+}`,
+            sim: ""
+        },
+       13: {
+            title: "13. Base de Cámara (Stepper)",
+            level: "Nivel 3: Robótica ⭐",
+            desc: "Control de un Motor Paso a Paso 28BYJ-48 con driver ULN2003. Movimiento de alta precisión grado por grado, base para máquinas CNC e impresoras 3D.",
+            theory: `
+                <!-- Capítulo 1 -->
+                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p13c1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">01</div><div><h3 class="font-bold text-white text-base">Electromagnetismo Secuencial</h3><p class="text-xs text-[var(--text-dim)]">Bobinas y Rotores</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p13c1" class="reveal-content open"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">Un motor paso a paso (Stepper) tiene múltiples bobinas fijas (estator) y un imán en el centro (rotor). Para moverlo, no basta con darle corriente; hay que energizar las bobinas en una secuencia específica (A -> B -> C -> D) para "atraer" el rotor paso a paso.</p></div></div>
+                </div>
+                
+                <!-- Capítulo 2 -->
+                <div class="mt-4 border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('p13c2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded bg-orange-900/20 text-orange-400 flex items-center justify-center border border-orange-900/30 font-bold text-sm">02</div><div><h3 class="font-bold text-white text-base">El Array Darlington (ULN2003)</h3><p class="text-xs text-[var(--text-dim)]">Amplificación de Corriente</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="p13c2" class="reveal-content"><div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]"><p class="text-sm text-[var(--text-dim)] mt-4">El ESP32 no tiene fuerza para energizar una bobina de motor. El chip ULN2003 contiene 7 pares de transistores Darlington. Actúa como un "músculo": el ESP32 envía una señal débil (cerebro) y el ULN2003 conecta la bobina a la fuente de 5V con alta corriente.</p></div></div>
+                </div>
+
+                <!-- QUIZ INTERACTIVO -->
+                <div class="mt-8 pt-8 border-t border-[var(--line)]">
+                   <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2"><i class="ph ph-brain text-[var(--accent)]"></i> Reto de Ingeniería</h3>
+                   <div class="grid md:grid-cols-2 gap-4">
+                     <!-- P1 -->
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">Si el motor tiene 4 bobinas, ¿por qué el driver tiene 4 LEDs que parpadean?</p>
+                       <div id="ans13-1" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Visualización de Fases.</strong><br>Los LEDs del módulo ULN2003 están conectados en paralelo a las bobinas. Te permiten ver visualmente la secuencia de activación (A, B, C, D) y diagnosticar si una fase está muerta o si el código va muy rápido.</div>
+                       <button onclick="document.getElementById('ans13-1').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                     <!-- P2 -->
+                     <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4 relative">
+                       <p class="text-sm font-medium text-gray-200 mb-3">¿Qué pasa si intento girar el motor más rápido de lo que puede?</p>
+                       <div id="ans13-2" class="hidden mt-3 p-3 bg-orange-900/10 border-l-2 border-[var(--accent)] text-sm text-gray-400 animate-fadeIn"><strong>Pérdida de Pasos (Stall).</strong><br>Las bobinas necesitan tiempo para magnetizarse y mover el rotor (inercia). Si la secuencia es demasiado rápida, el rotor no alcanza a llegar a la siguiente posición y el motor vibra sin moverse.</div>
+                       <button onclick="document.getElementById('ans13-2').classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:text-white underline mt-2 transition-colors">Ver Respuesta</button>
+                     </div>
+                   </div>
+                </div>
+
+                <!-- COMPENDIO DE INGENIERÍA -->
+                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
+                  <button onclick="toggleAccordion('deepdive13')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group"><div class="flex items-center gap-4"><i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i><div><h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3><p class="text-xs text-[var(--text-dim)]">Pasos, Reductoras y Control Lazo Abierto</p></div></div><i class="ph ph-caret-down text-[var(--text-dim)]"></i></button>
+                  <div id="deepdive13" class="reveal-content"><div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]"><div class="prose max-w-none mt-6 text-sm"><p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">Los detalles que diferencian un juguete de una máquina CNC.</p><h4>1. Control de Lazo Abierto (Open Loop)</h4><p>A diferencia del servo (Proyecto 12), el stepper <strong>no sabe dónde está</strong>. El código asume que si envió 100 pulsos, el motor se movió 100 pasos. Si algo bloquea el motor físicamente, el código sigue contando pero la posición real se pierde. Por eso las impresoras 3D hacen "Home" al inicio: para encontrar el cero real.</p><h4>2. La Verdad sobre el 28BYJ-48</h4><p>Este motor es famoso por su reducción interna de engranajes. Aunque el motor interno da 32 pasos por vuelta, la caja reductora es de aproximadamente <strong>64:1</strong>. <br>Matemática exacta: 32 pasos * 64 ratio = 2048 pasos por vuelta. <br>Dato Curioso: El ratio real es fraccionario (63.68395:1), por lo que tras miles de vueltas, tendrás un error acumulado de posición si no recalibras.</p><h4>3. Modos de Paso: Wave vs Full vs Half</h4><p><strong>Wave Drive:</strong> 1 bobina a la vez. Poco torque, poco consumo.<br><strong>Full Step:</strong> 2 bobinas a la vez. Máximo torque.<br><strong>Half Step:</strong> Alterna 1 y 2 bobinas. Duplica la resolución (4096 pasos/vuelta) y suaviza el movimiento, pero es más complejo de programar.</p></div></div></div>
+                </div>
+            `,
+            circuit: `
+                <div class="text-center w-full max-w-2xl"><div class="w-full h-48 bg-[#1a1d21] rounded flex items-center justify-center border border-[var(--line)] mb-6 text-[var(--text-dim)] font-mono text-sm">[Diagrama: ULN2003 Driver conectado al ESP32 y Motor]</div>
+                <p class="mb-4 text-white font-bold">Conexión del Driver ULN2003</p>
+                <div class="grid grid-cols-4 gap-2 mx-auto mb-6 text-center text-xs">
+                   <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded"><span class="text-orange-400 font-bold">IN1</span><br>GPIO 19</div>
+                   <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded"><span class="text-orange-400 font-bold">IN2</span><br>GPIO 18</div>
+                   <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded"><span class="text-orange-400 font-bold">IN3</span><br>GPIO 5</div>
+                   <div class="p-2 bg-[#13161a] border border-[var(--line)] rounded"><span class="text-orange-400 font-bold">IN4</span><br>GPIO 17</div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mx-auto mb-6 text-left">
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-red-400 font-mono font-bold text-xs">5V (Vin)</div><div class="text-[10px] text-[var(--text-dim)]">Alimentación Motor (+)</div></div>
+                   <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded"><div class="text-blue-400 font-mono font-bold text-xs">GND</div><div class="text-[10px] text-[var(--text-dim)]">Tierra Común (-)</div></div>
+                </div>
+                <div class="p-3 bg-red-900/10 border border-red-900/30 rounded text-xs text-red-300 text-left"><strong>Aviso de Energía:</strong> NUNCA alimentes el motor desde el pin 3.3V. Usa el pin 5V (Vin) si estás conectado por USB, o una fuente externa de 5V-12V.</div>
+                </div>
+            `,
+            code: `/* * MECRO KIT - PROYECTO 13: BASE DE CÁMARA (STEPPER)
+ * Objetivo: Control preciso de posición usando Stepper 28BYJ-48
+ * Librería: Stepper.h (Incluida en Arduino IDE)
+ */
+#include <Stepper.h>
+
+// Definir pasos por revolución para la secuencia interna
+// El 28BYJ-48 en modo Full Step (4 pasos) con reducción tiene 2048 pasos/vuelta
+const int PASOS_POR_VUELTA = 2048; 
+
+// Inicializar librería
+// NOTA CRÍTICA: La secuencia de pines para la librería Stepper.h es IN1, IN3, IN2, IN4
+// Esto es específico para el 28BYJ-48. Si usas 1,2,3,4 vibrará y no girará.
+Stepper miMotor(PASOS_POR_VUELTA, 19, 5, 18, 17);
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Velocidad en RPM (Revoluciones por Minuto)
+  // Este motor es lento, 10-15 RPM es lo máximo seguro a 5V
+  miMotor.setSpeed(10); 
+  
+  Serial.println("--- Sistema de Base de Cámara Iniciado ---");
+}
+
+void loop() {
+  Serial.println("-> Escaneando: 90 grados a la derecha");
+  // 2048 pasos = 360 grados. 
+  // 90 grados = 2048 / 4 = 512 pasos
+  miMotor.step(512); 
+  
+  delay(1000); // Pausa para "tomar foto"
+  
+  Serial.println("-> Retornando: 90 grados a la izquierda");
+  miMotor.step(-512); // Pasos negativos giran al revés
+  
+  delay(1000);
+  
+  // Movimiento de precisión (Grado por grado)
+  Serial.println("-> Modo Precisión: 10 grados");
+  for(int i=0; i<10; i++) {
+     miMotor.step(6); // Aprox 1 grado (2048/360 = 5.68 pasos)
+     delay(200);
+  }
+  
+  // Retorno rápido
+  miMotor.step(-60);
+  delay(2000);
+}`,
+            sim: ""
+        },
+    };
+    
     // --- LISTA DE NAVEGACIÓN (CONFIGURACIÓN DE NIVELES) ---
     const navStructure = [
         { title: "Nivel 1: Iniciación", projects: [1, 2, 3, 4, 5] },
@@ -1126,7 +2388,7 @@ void efectoRodar() {
             });
         });
         
-        loadProject(1);
+        loadProject(1); // Cargar proyecto 1 al inicio
     }
 
     function loadProject(id) {
@@ -1146,11 +2408,11 @@ void efectoRodar() {
         
         // Robust Syntax Highlighting
         let highlighted = escapedCode
-            .replace(/(const|int|void|unsigned long|byte|bool)/g, '<span class="c-t">$1</span>')
+            .replace(/(const|int|void|unsigned long|byte|bool|uint8_t|long|float|#define|#include|char|String)/g, '<span class="c-t">$1</span>')
             .replace(/(\/\/.*)/g, '<span class="c-c">$1</span>');
             
         // Use regex constructor to avoid literal syntax errors with specific keywords
-        const keywords = ["setup", "loop", "pinMode", "digitalWrite", "delay", "millis", "Serial", "begin", "println", "ledcSetup", "ledcAttachPin", "ledcWriteTone", "shiftOut", "INPUT_PULLUP", "LOW", "HIGH", "OUTPUT", "ledcWrite", "analogRead", "print", "MSBFIRST", "randomSeed", "random", "bitRead", "while"];
+        const keywords = ["setup", "loop", "pinMode", "digitalWrite", "delay", "millis", "Serial", "begin", "println", "ledcSetup", "ledcAttachPin", "ledcWriteTone", "shiftOut", "INPUT_PULLUP", "LOW", "HIGH", "OUTPUT", "ledcWrite", "analogRead", "print", "MSBFIRST", "randomSeed", "random", "bitRead", "while", "pulseIn", "delayMicroseconds", "setBrightness", "showNumberDec", "setSegments", "INPUT", "dht", "display", "isnan", "drawCircle", "setTextSize", "setTextColor", "setCursor", "clearDisplay", "Wire", "tone", "checkPassword", "getKey", "makeKeymap"];
         const keywordRegex = new RegExp(`\\b(${keywords.join("|")})\\b`, 'g');
         
         highlighted = highlighted.replace(keywordRegex, '<span class="c-f">$1</span>');
