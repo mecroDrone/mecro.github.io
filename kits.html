@@ -301,41 +301,92 @@
                    <p class="text-xs text-[var(--text-dim)]">Recuerda: Cátodos (-) a GND común.</p>
                 </div>
             `,
-            code: `// PROYECTO 01: SEMÁFORO NO BLOQUEANTE
-const int P_RED = 23;
-const int P_YEL = 22;
-const int P_GRN = 21;
+            code: `/* * MECRO FLIGHT CORE - PROYECTO 01: SEMÁFORO INTELIGENTE
+ * Arquitectura: Máquina de Estados No Bloqueante
+ * Hardware: ESP32 DevKit V1
+ */
 
-unsigned long prevTime = 0;
-int state = 0; // 0:R, 1:G, 2:Y
+// --- 1. DEFINICIÓN DE HARDWARE (MAPPING) ---
+// Usamos constantes para ahorrar RAM (Flash memory)
+const int PIN_ROJO     = 23; // GPIO 23
+const int PIN_AMARILLO = 22; // GPIO 22
+const int PIN_VERDE    = 21; // GPIO 21
+
+// --- 2. CONFIGURACIÓN DE TIEMPOS (TIMING) ---
+// Tiempos en milisegundos
+const unsigned long TIEMPO_ROJO     = 3000; // 3 segundos
+const unsigned long TIEMPO_VERDE    = 3000; // 3 segundos
+const unsigned long TIEMPO_AMARILLO = 1000; // 1 segundo
+
+// --- 3. VARIABLES DEL SISTEMA ---
+// 'unsigned long' es vital para evitar el desbordamiento de millis()
+unsigned long tiempoAnterior = 0; 
+int estadoActual = 0; // 0:Rojo, 1:Verde, 2:Amarillo
 
 void setup() {
-  pinMode(P_RED, OUTPUT);
-  pinMode(P_YEL, OUTPUT);
-  pinMode(P_GRN, OUTPUT);
+  // Configurar pines como salida digital
+  pinMode(PIN_ROJO, OUTPUT);
+  pinMode(PIN_AMARILLO, OUTPUT);
+  pinMode(PIN_VERDE, OUTPUT);
+
+  // Estado inicial seguro: Todo apagado
+  digitalWrite(PIN_ROJO, LOW);
+  digitalWrite(PIN_AMARILLO, LOW);
+  digitalWrite(PIN_VERDE, LOW);
+
+  Serial.begin(115200);
+  Serial.println("--- MECRO SYSTEM: TRAFFIC CONTROL ONLINE ---");
 }
 
 void loop() {
-  unsigned long now = millis();
-  
-  switch(state) {
-    case 0: // ROJO
-      digitalWrite(P_RED, HIGH); digitalWrite(P_YEL, LOW); digitalWrite(P_GRN, LOW);
-      if(now - prevTime >= 3000) { state = 1; prevTime = now; }
-      break;
-      
-    case 1: // VERDE
-      digitalWrite(P_RED, LOW); digitalWrite(P_YEL, LOW); digitalWrite(P_GRN, HIGH);
-      if(now - prevTime >= 3000) { state = 2; prevTime = now; }
+  // Capturamos el "instante" actual
+  unsigned long tiempoActual = millis();
+
+  // MÁQUINA DE ESTADOS FINITOS (FSM)
+  switch (estadoActual) {
+    
+    // --- ESTADO 0: ROJO (ALTO) ---
+    case 0:
+      digitalWrite(PIN_ROJO, HIGH);
+      digitalWrite(PIN_AMARILLO, LOW);
+      digitalWrite(PIN_VERDE, LOW);
+
+      // Lógica no bloqueante: ¿Pasó el tiempo?
+      if (tiempoActual - tiempoAnterior >= TIEMPO_ROJO) {
+        estadoActual = 1; // Transición a Verde
+        tiempoAnterior = tiempoActual; // Reset cronómetro
+        Serial.println("Estado: VERDE (Go)");
+      }
       break;
 
-    case 2: // AMARILLO
-      digitalWrite(P_RED, LOW); digitalWrite(P_YEL, HIGH); digitalWrite(P_GRN, LOW);
-      if(now - prevTime >= 1000) { state = 0; prevTime = now; }
+    // --- ESTADO 1: VERDE (AVANCE) ---
+    case 1:
+      digitalWrite(PIN_ROJO, LOW);
+      digitalWrite(PIN_AMARILLO, LOW);
+      digitalWrite(PIN_VERDE, HIGH);
+
+      if (tiempoActual - tiempoAnterior >= TIEMPO_VERDE) {
+        estadoActual = 2; // Transición a Amarillo
+        tiempoAnterior = tiempoActual;
+        Serial.println("Estado: AMARILLO (Warning)");
+      }
+      break;
+
+    // --- ESTADO 2: AMARILLO (PRECAUCIÓN) ---
+    case 2:
+      digitalWrite(PIN_ROJO, LOW);
+      digitalWrite(PIN_AMARILLO, HIGH);
+      digitalWrite(PIN_VERDE, LOW);
+
+      if (tiempoActual - tiempoAnterior >= TIEMPO_AMARILLO) {
+        estadoActual = 0; // Vuelta a Rojo
+        tiempoAnterior = tiempoActual;
+        Serial.println("Estado: ROJO (Stop)");
+      }
       break;
   }
 }`,
-            sim: "https://wokwi.com/projects/344933668862657042/embed"
+            sim: "https://wokwi.com/projects/450413185158930433"
         },
         2: {
             title: "02. Piano Electrónico",
