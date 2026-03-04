@@ -180,214 +180,218 @@
     // --- BASE DE DATOS DE PROYECTOS ---
     const projectDB = {
         1: {
-            title: "01. Semáforo Inteligente",
-            level: "Nivel 1: Iniciación",
-            desc: "Aprende a programar el procesador ESP32 para gestionar tareas críticas sin bloqueos, usando <code>millis()</code> y máquinas de estado. Fundamental para drones.",
-            theory: `
-                <!-- Capítulo 1 -->
-                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
-                  <button onclick="toggleAccordion('chap1')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
-                    <div class="flex items-center gap-4">
-                       <div class="w-8 h-8 rounded bg-blue-900/20 text-blue-400 flex items-center justify-center border border-blue-900/30 font-bold text-sm">01</div>
-                       <div>
-                         <h3 class="font-bold text-white text-base">Física del Hardware</h3>
-                         <p class="text-xs text-[var(--text-dim)]">Datasheets y Ley de Ohm</p>
-                       </div>
-                    </div>
-                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
-                  </button>
-                  <div id="chap1" class="reveal-content open">
-                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
-                      <div class="grid md:grid-cols-2 gap-6 mt-4">
-                        <div>
-                          <h4 class="text-xs font-bold text-[var(--accent)] uppercase tracking-wider mb-2">Datos Críticos</h4>
-                          <ul class="space-y-2 text-sm text-[var(--text-dim)]">
-                            <li class="flex justify-between border-b border-[var(--line)] pb-1"><span>Vcc</span> <span class="text-white font-mono">3.3V</span></li>
-                            <li class="flex justify-between border-b border-[var(--line)] pb-1"><span>I Max</span> <span class="text-white font-mono">~40mA</span></li>
-                          </ul>
-                          <div class="mt-4 p-2 bg-red-900/10 border border-red-900/30 rounded text-[10px] text-red-300 flex gap-2">
-                             <i class="ph-fill ph-warning"></i>
-                             <span>¡OJO! 5V queman el ESP32.</span>
-                          </div>
+                title: "01. Fundamentos: El Semáforo",
+                level: "Nivel 1: Iniciación",
+                desc: "Antes de volar, hay que encender. Aprenderemos los conceptos básicos de voltaje, corriente y resistencia usando un circuito de LEDs controlado por software.",
+                stats: { logic: 2, hardware: 8, math: 4, code: 3, time: "45", diff: "1" },
+                
+                // --- MISIÓN: FUNDAMENTOS FÍSICOS ---
+                mission: `
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="mission-card">
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2"><i class="ph-fill ph-question text-blue-500"></i> ¿Por qué empezamos aquí?</h3>
+                            <p class="text-sm text-zinc-400 leading-relaxed">
+                                Un dron, un satélite o un coche eléctrico son, en esencia, electrones moviéndose por cables. Si conectas algo mal, se quema.
+                                <br><br>
+                                En este primer reto, no solo encenderemos luces. Entenderás <strong>cómo domesticar la electricidad</strong> para que haga lo que tú digas sin destruir tus componentes.
+                            </p>
                         </div>
-                        <div>
-                          <h4 class="text-xs font-bold text-[var(--accent)] uppercase tracking-wider mb-2">Cálculo R</h4>
-                          <div class="math-block text-xs my-0">
-                            R = (3.3V - 2.0V) / 0.01A <br>
-                            R = 1.3V / 0.01A = <strong>130Ω</strong>
-                          </div>
-                          <p class="text-[10px] text-[var(--text-dim)] mt-2">*Usar comercial: 220Ω o 330Ω.</p>
+                        <div class="mission-card">
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2"><i class="ph-fill ph-target text-emerald-500"></i> Tu Objetivo</h3>
+                            <p class="text-sm text-zinc-400 leading-relaxed">
+                                Construir un "Semáforo Inteligente". Pero el reto real es calcular y montar el circuito físico correcto: 
+                                <br><br>
+                                ¿Qué resistencia necesitas? ¿Por qué el LED tiene polaridad? ¿Cómo le dice el código al chip que envíe 3.3 voltios?
+                            </p>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </div>
 
-                <!-- Capítulo 2 -->
-                <div class="border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)] mt-4">
-                  <button onclick="toggleAccordion('chap2')" class="w-full flex items-center justify-between p-5 text-left hover:bg-[#1e2329] transition-colors">
-                    <div class="flex items-center gap-4">
-                       <div class="w-8 h-8 rounded bg-purple-900/20 text-purple-400 flex items-center justify-center border border-purple-900/30 font-bold text-sm">02</div>
-                       <div>
-                         <h3 class="font-bold text-white text-base">Lógica No Bloqueante</h3>
-                         <p class="text-xs text-[var(--text-dim)]">Adiós delay(), hola millis()</p>
-                       </div>
+                    <div class="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 mb-8">
+                        <h4 class="text-blue-400 font-bold text-sm uppercase tracking-widest mb-4">Conceptos Clave que Dominarás</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1 min-w-[20px]"><i class="ph-fill ph-lightning text-zinc-500"></i></div>
+                                <div>
+                                    <strong class="text-white block text-sm">Voltaje vs Corriente</strong>
+                                    <span class="text-xs text-zinc-500">Entender la diferencia entre la "presión" y el "caudal" de los electrones.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1 min-w-[20px]"><i class="ph-fill ph-shield-check text-zinc-500"></i></div>
+                                <div>
+                                    <strong class="text-white block text-sm">Resistencia y Protección</strong>
+                                    <span class="text-xs text-zinc-500">Usar la Ley de Ohm para evitar que tus LEDs exploten.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1 min-w-[20px]"><i class="ph-fill ph-code text-zinc-500"></i></div>
+                                <div>
+                                    <strong class="text-white block text-sm">Control Digital (GPIO)</strong>
+                                    <span class="text-xs text-zinc-500">Cómo el software se convierte en una señal eléctrica física (High/Low).</span>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
-                  </button>
-                  <div id="chap2" class="reveal-content">
-                    <div class="reveal-inner p-5 pt-0 border-t border-[var(--line)] bg-[#13161a]">
-                       <p class="text-sm text-[var(--text-dim)] mt-4">
-                         <code>delay(1000)</code> detiene el procesador. Un dron no puede permitirse dormir 1 segundo. Usamos <code>millis()</code> para comparar tiempos delta.
-                       </p>
-                    </div>
-                  </div>
-                </div>
 
-                <!-- QUIZ -->
-                <div class="pt-4 grid md:grid-cols-2 gap-4">
-                   <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4">
-                     <p class="text-sm font-medium text-gray-200 mb-2">¿Qué pasa con R = 10kΩ?</p>
-                     <button onclick="this.nextElementSibling.classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:underline">Ver Respuesta</button>
-                     <div class="hidden mt-2 text-xs text-gray-400 border-l-2 border-[var(--accent)] pl-2">El LED no brilla (Corriente muy baja, I=0.1mA).</div>
-                   </div>
-                   <div class="bg-black/30 border border-[var(--line)] rounded-lg p-4">
-                     <p class="text-sm font-medium text-gray-200 mb-2">¿Por qué 'unsigned long'?</p>
-                     <button onclick="this.nextElementSibling.classList.remove('hidden'); this.style.display='none'" class="text-xs text-[var(--accent)] hover:underline">Ver Respuesta</button>
-                     <div class="hidden mt-2 text-xs text-gray-400 border-l-2 border-[var(--accent)] pl-2">Para evitar Overflow (reinicio) a los 32 segundos.</div>
-                   </div>
-                </div>
+                    <div class="flex items-center gap-4 p-4 bg-blue-900/10 border border-blue-900/30 rounded-lg">
+                        <div class="p-2 bg-blue-500/20 rounded-full text-blue-400"><i class="ph-fill ph-lightbulb-filament text-xl"></i></div>
+                        <div>
+                            <h5 class="font-bold text-white text-sm">MECRO Insight: Futuro</h5>
+                            <p class="text-xs text-zinc-400 mt-1">
+                                Hoy controlamos un LED pequeño. Mañana, usando exactamente esta misma señal lógica (3.3V), activaremos un transistor gigante (MOSFET) que moverá los motores de tu dron a 20,000 RPM. El principio de control es idéntico.
+                            </p>
+                        </div>
+                    </div>
+                `,
+                
+                // --- TEORÍA ELECTRÓNICA ---
+                theory: `
+                    <!-- Block 1: La Analogía del Agua -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden mb-4">
+                        <button onclick="toggleAcc(this)" class="w-full flex justify-between p-4 hover:bg-zinc-800 transition items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono text-zinc-500">01</span>
+                                <span class="font-bold text-white">Voltaje y Corriente (Analogía Hidráulica)</span>
+                            </div>
+                            <i class="ph ph-caret-down text-zinc-500"></i>
+                        </button>
+                        <div class="accordion-content bg-black px-6 text-sm text-zinc-400 border-t border-zinc-900">
+                            <div class="py-6 space-y-4">
+                                <p>La electricidad es invisible, así que imaginémosla como agua en una tubería:</p>
+                                <ul class="list-disc pl-4 space-y-2">
+                                    <li><strong>Voltaje (V):</strong> Es la <em>presión</em> del agua. El ESP32 empuja con una presión de 3.3 Volts.</li>
+                                    <li><strong>Corriente (I):</strong> Es la <em>cantidad</em> de agua que fluye. Se mide en Amperios (o miliamperios mA).</li>
+                                    <li><strong>Resistencia (R):</strong> Es qué tan estrecha es la tubería. Una resistencia frena el flujo.</li>
+                                </ul>
+                                <div class="p-3 bg-zinc-900 rounded border border-zinc-800 mt-2">
+                                    <strong class="text-white block text-xs uppercase mb-1">Ley de Ohm</strong>
+                                    <p class="font-mono text-blue-400">V = I × R</p>
+                                    <p class="text-xs mt-1">Si subes la resistencia (R), baja la corriente (I) para el mismo voltaje.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- COMPENDIO DE INGENIERÍA -->
-                <div class="mt-8 border border-yellow-900/30 rounded-xl overflow-hidden bg-[var(--bg-card)]">
-                  <button onclick="toggleAccordion('deepdive')" class="w-full flex items-center justify-between p-5 text-left hover:bg-yellow-900/5 transition-colors group">
-                    <div class="flex items-center gap-4">
-                       <i class="ph-fill ph-student text-2xl text-[var(--warning)]"></i>
-                       <div>
-                         <h3 class="font-bold text-white text-base group-hover:text-[var(--warning)] transition-colors">Compendio de Ingeniería Avanzada</h3>
-                         <p class="text-xs text-[var(--text-dim)]">Profundización Técnica</p>
-                       </div>
+                    <!-- Block 2: Protegiendo el LED -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden mb-4">
+                        <button onclick="toggleAcc(this)" class="w-full flex justify-between p-4 hover:bg-zinc-800 transition items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono text-zinc-500">02</span>
+                                <span class="font-bold text-white">¿Por qué necesitamos una Resistencia?</span>
+                            </div>
+                            <i class="ph ph-caret-down text-zinc-500"></i>
+                        </button>
+                        <div class="accordion-content bg-black px-6 text-sm text-zinc-400 border-t border-zinc-900">
+                            <div class="py-6">
+                                <p class="mb-4">Un LED es un componente "codicioso". Si lo conectas directo a 3.3V, intentará chupar corriente infinita hasta quemarse (o quemar tu ESP32). Necesitamos un "limitador de tráfico".</p>
+                                <div class="bg-zinc-900 p-4 rounded border border-zinc-800">
+                                    <p class="text-xs font-bold text-white mb-2">Cálculo de Ingeniero:</p>
+                                    <ul class="text-xs space-y-1 font-mono">
+                                        <li>Voltaje Fuente (ESP32) = 3.3V</li>
+                                        <li>Voltaje Consumo (LED Rojo) ≈ 2.0V</li>
+                                        <li>Voltaje Sobrante = 1.3V (¡Hay que eliminarlo!)</li>
+                                        <li>Corriente Deseada = 0.010 A (10mA para que brille bien)</li>
+                                        <li class="mt-2 text-blue-400">R = V / I = 1.3V / 0.01A = 130 Ω</li>
+                                    </ul>
+                                </div>
+                                <p class="mt-4 text-xs">Por eso usamos resistencias de <strong>220Ω</strong> (el valor comercial estándar más cercano hacia arriba) para estar seguros.</p>
+                            </div>
+                        </div>
                     </div>
-                    <i class="ph ph-caret-down text-[var(--text-dim)]"></i>
-                  </button>
-                  <div id="deepdive" class="reveal-content"> 
-                    <div class="reveal-inner p-6 pt-0 border-t border-yellow-900/20 bg-[#14120e]">
-                      <div class="prose max-w-none mt-6 text-sm">
-                        <p class="text-[var(--text-dim)] italic border-l-2 border-[var(--warning)] pl-3 mb-6">
-                          Profundización sobre semiconductores y arquitectura de silicio.
-                        </p>
-                        <h4>1. Física del Estado Sólido</h4>
-                        <p>Un LED no es un foco; es un dispositivo cuántico. La relación Voltaje-Corriente es exponencial. Sin resistencia, el transistor de salida del ESP32 sufriría un corto masivo ($P=IV$) al intentar igualar el voltaje.</p>
-                        <h4>2. Arquitectura Xtensa LX6</h4>
-                        <p>Al escribir <code>pinMode</code>, configuras multiplexores internos. Los pines tienen etapas de salida Push-Pull (MOSFETs). El datasheet advierte que el voltaje de salida cae ($V_{OH}$) si exiges demasiada corriente.</p>
-                        <h4>3. Rollover de <code>millis()</code></h4>
-                        <p>El contador se reinicia a 0 cada 49.7 días ($2^{32}$ ms). La resta binaria en complemento a dos <code>(actual - anterior)</code> maneja este reinicio matemáticamente sin errores.</p>
-                      </div>
+                `,
+                circuit: `
+                    <div class="flex flex-col items-center gap-8">
+                        <div class="w-full bg-zinc-900 p-6 rounded-lg border border-zinc-800">
+                            <h4 class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-4 border-b border-zinc-800 pb-2">Inventario del Proyecto</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-zinc-300">
+                                <div class="flex items-center gap-2"><div class="w-2 h-2 bg-blue-500 rounded-full"></div> 1x ESP32 DevKit</div>
+                                <div class="flex items-center gap-2"><div class="w-2 h-2 bg-red-500 rounded-full"></div> 1x LED Rojo</div>
+                                <div class="flex items-center gap-2"><div class="w-2 h-2 bg-yellow-500 rounded-full"></div> 1x LED Amarillo</div>
+                                <div class="flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full"></div> 1x LED Verde</div>
+                                <div class="flex items-center gap-2"><div class="w-2 h-2 bg-zinc-500 rounded-full"></div> 3x R 220Ω</div>
+                                <div class="flex items-center gap-2"><div class="w-2 h-2 bg-white rounded-full"></div> Protoboard</div>
+                            </div>
+                        </div>
+                        
+                        <div class="w-full text-center">
+                            <img src="images/proyecto1.png" class="max-w-md w-full mx-auto rounded-lg opacity-80 hover:opacity-100 transition-opacity border border-zinc-700 shadow-2xl" alt="Diagrama de Conexión Semáforo">
+                            <div class="mt-4 grid grid-cols-3 gap-2 text-xs font-mono text-zinc-400">
+                                <div class="p-2 bg-zinc-900 rounded border border-zinc-800">GPIO 23 ➔ R ➔ LED Rojo</div>
+                                <div class="p-2 bg-zinc-900 rounded border border-zinc-800">GPIO 22 ➔ R ➔ LED Amar.</div>
+                                <div class="p-2 bg-zinc-900 rounded border border-zinc-800">GPIO 21 ➔ R ➔ LED Verde</div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-            `,
-            circuit: `
-                <div class="text-center w-full max-w-2xl">
-                   <!-- AQUÍ COLOCAS TUS IMÁGENES -->
-                   <img src="images/proyecto1.png" class="w-full rounded-lg opacity-80 hover:opacity-100 transition-opacity mb-6 border border-[var(--line)]" alt="Diagrama de Conexión">
-                   
-                   <p class="mb-4 text-white font-bold">Mapa de Pines (Pinout)</p>
-                   <div class="grid grid-cols-3 gap-2 mx-auto mb-6">
-                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded text-xs text-red-400 font-mono">GPIO 23 <br><span class="text-gray-500">LED Rojo</span></div>
-                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded text-xs text-green-400 font-mono">GPIO 21 <br><span class="text-gray-500">LED Verde</span></div>
-                      <div class="p-3 bg-[#13161a] border border-[var(--line)] rounded text-xs text-yellow-400 font-mono">GPIO 22 <br><span class="text-gray-500">LED Amarillo</span></div>
-                   </div>
-                   <p class="text-xs text-[var(--text-dim)]">Recuerda: Cátodos (-) a GND común.</p>
-                </div>
-            `,
-            code: `/* * MECRO FLIGHT CORE - PROYECTO 01: SEMÁFORO INTELIGENTE
- * Arquitectura: Máquina de Estados No Bloqueante
- * Hardware: ESP32 DevKit V1
+                `,
+                code: `/* * MECRO ACADEMY - PROYECTO 01: SEMÁFORO FUNDAMENTAL
+ * Conceptos: GPIO Digital, Tiempos, Lógica de Estados
  */
 
-// --- 1. DEFINICIÓN DE HARDWARE (MAPPING) ---
-// Usamos constantes para ahorrar RAM (Flash memory)
-const int PIN_ROJO     = 23; // GPIO 23
-const int PIN_AMARILLO = 22; // GPIO 22
-const int PIN_VERDE    = 21; // GPIO 21
+// Definimos los "nombres" de los pines físicos
+const int PIN_ROJO = 23;
+const int PIN_AMARILLO = 22;
+const int PIN_VERDE = 21;
 
-// --- 2. CONFIGURACIÓN DE TIEMPOS (TIMING) ---
-// Tiempos en milisegundos
-const unsigned long TIEMPO_ROJO     = 3000; // 3 segundos
-const unsigned long TIEMPO_VERDE    = 3000; // 3 segundos
-const unsigned long TIEMPO_AMARILLO = 1000; // 1 segundo
-
-// --- 3. VARIABLES DEL SISTEMA ---
-// 'unsigned long' es vital para evitar el desbordamiento de millis()
-unsigned long tiempoAnterior = 0; 
-int estadoActual = 0; // 0:Rojo, 1:Verde, 2:Amarillo
+// Variables para el reloj interno
+unsigned long tiempoAnterior = 0;
+int estado = 0; // 0:Rojo, 1:Verde, 2:Amarillo
 
 void setup() {
-  // Configurar pines como salida digital
+  // Le decimos al chip: "Estos pines van a enviar voltaje (SALIDA)"
   pinMode(PIN_ROJO, OUTPUT);
   pinMode(PIN_AMARILLO, OUTPUT);
   pinMode(PIN_VERDE, OUTPUT);
-
-  // Estado inicial seguro: Todo apagado
-  digitalWrite(PIN_ROJO, LOW);
-  digitalWrite(PIN_AMARILLO, LOW);
-  digitalWrite(PIN_VERDE, LOW);
-
-  Serial.begin(115200);
-  Serial.println("--- MECRO SYSTEM: TRAFFIC CONTROL ONLINE ---");
+  
+  Serial.begin(115200); // Iniciar comunicación para debug
+  Serial.println("Sistema Iniciado. Voltaje estable.");
 }
 
 void loop() {
-  // Capturamos el "instante" actual
+  // Miramos el reloj del sistema (milisegundos desde que encendió)
   unsigned long tiempoActual = millis();
 
-  // MÁQUINA DE ESTADOS FINITOS (FSM)
-  switch (estadoActual) {
-    
-    // --- ESTADO 0: ROJO (ALTO) ---
-    case 0:
+  switch(estado) {
+    case 0: // ROJO
+      // Enviamos 3.3V al rojo, 0V a los demás
       digitalWrite(PIN_ROJO, HIGH);
       digitalWrite(PIN_AMARILLO, LOW);
       digitalWrite(PIN_VERDE, LOW);
-
-      // Lógica no bloqueante: ¿Pasó el tiempo?
-      if (tiempoActual - tiempoAnterior >= TIEMPO_ROJO) {
-        estadoActual = 1; // Transición a Verde
-        tiempoAnterior = tiempoActual; // Reset cronómetro
-        Serial.println("Estado: VERDE (Go)");
+      
+      // Si han pasado 3000ms (3 segundos)
+      if(tiempoActual - tiempoAnterior >= 3000) {
+        estado = 1; // Cambiar a Verde
+        tiempoAnterior = tiempoActual; // Reiniciar cuenta
+        Serial.println("Cambio a VERDE");
       }
       break;
-
-    // --- ESTADO 1: VERDE (AVANCE) ---
-    case 1:
+      
+    case 1: // VERDE
       digitalWrite(PIN_ROJO, LOW);
       digitalWrite(PIN_AMARILLO, LOW);
       digitalWrite(PIN_VERDE, HIGH);
-
-      if (tiempoActual - tiempoAnterior >= TIEMPO_VERDE) {
-        estadoActual = 2; // Transición a Amarillo
+      
+      if(tiempoActual - tiempoAnterior >= 3000) {
+        estado = 2;
         tiempoAnterior = tiempoActual;
-        Serial.println("Estado: AMARILLO (Warning)");
       }
       break;
 
-    // --- ESTADO 2: AMARILLO (PRECAUCIÓN) ---
-    case 2:
+    case 2: // AMARILLO
       digitalWrite(PIN_ROJO, LOW);
       digitalWrite(PIN_AMARILLO, HIGH);
       digitalWrite(PIN_VERDE, LOW);
-
-      if (tiempoActual - tiempoAnterior >= TIEMPO_AMARILLO) {
-        estadoActual = 0; // Vuelta a Rojo
+      
+      if(tiempoActual - tiempoAnterior >= 1000) {
+        estado = 0; // Vuelta a Rojo
         tiempoAnterior = tiempoActual;
-        Serial.println("Estado: ROJO (Stop)");
       }
       break;
   }
 }`,
-            sim: "https://wokwi.com/projects/450413185158930433"
-        },
+                sim: "https://wokwi.com/projects/344933668862657042/embed"
+            },
+
+
         2: {
             title: "02. Piano Electrónico",
             level: "Nivel 1: Iniciación",
