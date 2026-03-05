@@ -10,7 +10,7 @@
   <meta property="og:description" content="Kits educativos con ESP32, cursos de drones y proyectos de I+D en sistemas embebidos." />
   <meta property="og:type" content="website" />
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>" />
+  <link rel="icon" href="./images/favicon.png" type="image/png" />
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +36,6 @@
       color: var(--mecro-text-main);
     }
 
-    /* Utilidades personalizadas */
     .text-dim { color: var(--mecro-text-dim); }
     .text-accent { color: var(--mecro-accent); transition: color 0.2s; }
     .text-accent:hover { color: #6e9e7a; }
@@ -82,28 +81,16 @@
       background-color: rgba(10,13,16,.85);
     }
 
-    /* Estilos para el Modal */
     .modal-backdrop {
       background-color: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(4px);
     }
     
-    /* Scrollbar personalizada para el modal si es muy largo */
-    .custom-scroll::-webkit-scrollbar {
-      width: 8px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: var(--mecro-bg-dark); 
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: var(--mecro-line); 
-      border-radius: 4px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: var(--mecro-accent); 
-    }
+    .custom-scroll::-webkit-scrollbar { width: 8px; }
+    .custom-scroll::-webkit-scrollbar-track { background: var(--mecro-bg-dark); }
+    .custom-scroll::-webkit-scrollbar-thumb { background: var(--mecro-line); border-radius: 4px; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: var(--mecro-accent); }
 
-    /* Inputs del formulario */
     .contact-input {
       width: 100%;
       border-radius: 0.75rem;
@@ -128,8 +115,9 @@
       <div class="flex h-16 items-center justify-between">
 
         <a href="#" class="flex items-center gap-3 group">
-          <div class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] bg-[var(--mecro-bg-dark)] flex items-center justify-center text-lg">
-            🚁
+          <div class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] bg-[var(--mecro-bg-dark)] flex items-center justify-center text-lg overflow-hidden">
+            <img src="./images/logo-mecro-blanco.png" alt="MECRO" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span style="display:none;">🚁</span>
           </div>
           <div class="leading-tight">
             <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)] group-hover:text-[var(--mecro-accent)] transition-colors">MECRO</span>
@@ -213,7 +201,7 @@
           <div class="grid grid-cols-2 gap-4 p-4 bg-[#0f1417]/50 rounded-2xl border border-[var(--mecro-line)] backdrop-blur-sm">
             <div class="col-span-2 h-48 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 relative overflow-hidden group">
                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-               <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506947411487-a56738267384?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity"></div>
+               <div class="absolute inset-0 bg-[url('./images/hero-vtol.jpg')] bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity"></div>
                <div class="relative z-20 h-full flex flex-col justify-end">
                  <span class="text-xs font-bold text-[var(--mecro-accent)] uppercase">Destacado</span>
                  <h3 class="text-xl font-bold">Drones VTOL</h3>
@@ -299,7 +287,7 @@
         <a href="kits.html" class="group relative block rounded-2xl overflow-hidden border border-[var(--mecro-line)] hover:border-[var(--mecro-accent)] transition-all duration-300">
           <div class="grid md:grid-cols-2 bg-[var(--mecro-bg-card)]">
             <div class="h-64 md:h-auto bg-[var(--mecro-bg-dark)] relative overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1603732551658-5fabbafa84eb?auto=format&fit=crop&w=800" alt="Kit Mecro ESP32" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
+              <img src="./images/kit-caja-render.jpg" alt="Kit Mecro ESP32" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
               <div class="absolute inset-0 bg-gradient-to-t from-[var(--mecro-bg-card)] to-transparent md:bg-gradient-to-r"></div>
             </div>
             <div class="p-8 flex flex-col justify-center">
@@ -344,12 +332,6 @@
 
       <div id="projectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         </div>
-
-      <div class="mt-10 text-center">
-        <button id="loadMoreBtn" class="btn-outline-accent px-8 py-3">
-          Ver todos los proyectos
-        </button>
-      </div>
     </div>
   </section>
 
@@ -361,7 +343,7 @@
         <div class="group text-center">
           <div class="relative inline-block mb-4">
             <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-[var(--mecro-accent)] p-1">
-              <img src="https://ui-avatars.com/api/?name=Gerard+Quispe&background=3a5241&color=fff&size=256" alt="Gerard" class="w-full h-full rounded-full object-cover">
+              <img src="./images/equipo-gerard.png" alt="Gerard Quispe" class="w-full h-full rounded-full object-cover">
             </div>
           </div>
           <h3 class="font-bold text-xl">Gerard Quispe</h3>
@@ -372,7 +354,7 @@
         <div class="group text-center">
           <div class="relative inline-block mb-4">
             <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-[var(--mecro-line)] p-1 group-hover:border-[var(--mecro-accent)] transition-colors">
-              <img src="https://ui-avatars.com/api/?name=Alvaro+Lopez&background=161a1d&color=fff&size=256" alt="Alvaro" class="w-full h-full rounded-full object-cover">
+              <img src="./images/equipo-alvaro.png" alt="Alvaro Lopez" class="w-full h-full rounded-full object-cover">
             </div>
           </div>
           <h3 class="font-bold text-xl">Alvaro Lopez</h3>
@@ -525,7 +507,7 @@
 
   <script>
     /* ==========================================
-       1. DATOS DE LOS PROYECTOS (SOLO PORTAFOLIO AVANZADO)
+       1. DATOS DE LOS PROYECTOS (RUTAS LOCALES)
        ========================================== */
     const projectsData = [
       {
@@ -533,7 +515,7 @@
         title: "Estabilizador PID (Balance-Bar)",
         desc: "El corazón de un drone. Sistema de control de lazo cerrado usando un giroscopio MPU6050 y un ESP32 externo (no incluido en el kit base). Mantiene una barra en equilibrio perfecto corrigiendo motores en microsegundos.",
         tag: "I+D / Control Avanzado",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800", 
+        image: "./images/proyecto-pid.jpg", // <-- RUTA LOCAL
         youtubeId: "", 
         driveUrl: "https://github.com/tu-usuario/mecro/tree/main/proyectos-avanzados/balance-pid" 
       },
@@ -542,7 +524,7 @@
         title: "Visión Artificial con YOLOv8",
         desc: "Detección de objetos en tiempo real. Procesamiento externo pesado (PC/Raspberry Pi) que se comunica con el microcontrolador para actuar físicamente en el entorno.",
         tag: "I+D / Inteligencia Artificial",
-        image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=800",
+        image: "./images/proyecto-yolo.jpg", // <-- RUTA LOCAL
         youtubeId: "",
         driveUrl: "#"
       }
@@ -553,15 +535,13 @@
        ========================================== */
     const grid = document.getElementById('projectsGrid');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
-    let itemsToShow = 6; // Cuántos mostrar al inicio
+    let itemsToShow = 6;
 
     function renderProjects() {
-      grid.innerHTML = ''; // Limpiar
-      // Cortar el array según itemsToShow
+      grid.innerHTML = '';
       const visibleProjects = projectsData.slice(0, itemsToShow);
 
       visibleProjects.forEach(project => {
-        // Crear tarjeta HTML
         const card = document.createElement('div');
         card.className = 'card-surface flex flex-col h-full group cursor-pointer overflow-hidden';
         card.onclick = () => openModal(project);
@@ -587,19 +567,18 @@
         grid.appendChild(card);
       });
 
-      // Ocultar botón si ya mostramos todos
       if (itemsToShow >= projectsData.length) {
-        loadMoreBtn.style.display = 'none';
+        if(loadMoreBtn) loadMoreBtn.style.display = 'none';
       }
     }
 
-    // Evento botón "Ver más"
-    loadMoreBtn.addEventListener('click', () => {
-      itemsToShow = projectsData.length; // Mostrar todos
-      renderProjects();
-    });
+    if(loadMoreBtn){
+      loadMoreBtn.addEventListener('click', () => {
+        itemsToShow = projectsData.length;
+        renderProjects();
+      });
+    }
 
-    // Render inicial
     renderProjects();
 
     /* ==========================================
@@ -608,7 +587,6 @@
     const modal = document.getElementById('projectModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     
-    // Elementos dentro del modal
     const mTitle = document.getElementById('modalTitle');
     const mDesc = document.getElementById('modalDesc');
     const mTag = document.getElementById('modalTag');
@@ -618,41 +596,39 @@
     const mIframe = document.getElementById('modalIframe');
 
     function openModal(project) {
-      // Llenar datos
       mTitle.textContent = project.title;
       mDesc.textContent = project.desc;
       mTag.textContent = project.tag;
       mImg.src = project.image;
       
-      // Links simulados (si estuvieran vacíos en la data, podrías ocultarlos)
-      mYoutubeBtn.href = project.youtubeId ? \`https://youtube.com/watch?v=\${project.youtubeId}\` : '#';
+      mYoutubeBtn.href = project.youtubeId ? `https://youtube.com/watch?v=${project.youtubeId}` : '#';
       mDriveBtn.href = project.driveUrl;
 
-      // Iframe
       if(project.youtubeId) {
         mIframe.parentElement.style.display = 'block';
-        mIframe.src = \`https://www.youtube.com/embed/\${project.youtubeId}\`;
+        mIframe.src = `https://www.youtube.com/embed/${project.youtubeId}`;
       } else {
         mIframe.parentElement.style.display = 'none';
       }
 
-      // Mostrar modal
       modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden'; // Evitar scroll fondo
+      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       modal.classList.add('hidden');
-      mIframe.src = ''; // Parar video
-      document.body.style.overflow = 'auto'; // Restaurar scroll
+      mIframe.src = ''; 
+      document.body.style.overflow = 'auto'; 
     }
 
-    closeModalBtn.addEventListener('click', closeModal);
-    // Cerrar al dar clic fuera del contenido
-    modal.addEventListener('click', (e) => {
+    if(closeModalBtn){
+      closeModalBtn.addEventListener('click', closeModal);
+    }
+    
+    window.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
     });
-    // Cerrar con ESC
+    
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
         closeModal();
@@ -662,23 +638,24 @@
     /* ==========================================
        4. LÓGICA GENERAL Y MENÚ MÓVIL
        ========================================== */
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
 
     const btn = document.getElementById('menuBtn');
     const menu = document.getElementById('mobileMenu');
-    const mobileLinks = menu.querySelectorAll('a');
+    
+    if(btn && menu){
+      const mobileLinks = menu.querySelectorAll('a');
+      btn.addEventListener('click', () => menu.classList.toggle('hidden'));
 
-    btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
-
-    // Cierre automático del menú móvil
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (!menu.classList.contains('hidden')) {
-          menu.classList.add('hidden');
-        }
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+          }
+        });
       });
-    });
-
+    }
   </script>
 </body>
 </html>
