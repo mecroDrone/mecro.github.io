@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arquitectura y Ensamblaje UAV | MECRO</title>
+  <meta name="description" content="Aprende a ensamblar tu primer drone táctico desde cero con ingeniería aplicada y control PID." />
+  
+  <link rel="icon" href="./images/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <!-- Librería para renderizar fórmulas matemáticas (LaTeX) -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --mecro-bg-dark: #0a0d10;          
+      --mecro-bg-card: #161a1d;          
+      --mecro-line: #2a3033;             
+      --mecro-text-main: #f5f6f7;        
+      --mecro-text-dim: #9ca3ad;         
+      --mecro-accent: #3a5241;           
+      --mecro-accent-hover: #4a6652;     
+      --mecro-accent-soft: #2c3a30;      
+      --mecro-accent-ring: rgba(58,82,65,.5); 
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--mecro-bg-dark);
+      color: var(--mecro-text-main);
+      overflow-x: hidden;
+    }
+
+    .text-dim { color: var(--mecro-text-dim); }
+    
+    .card-surface {
+      background-color: var(--mecro-bg-card);
+      border: 1px solid var(--mecro-line);
+      border-radius: 1rem;
+    }
+
+    .btn-solid-accent {
+      border-radius: 0.75rem;
+      padding: 1rem 1.5rem;
+      background-color: var(--mecro-accent);
+      color: #fff;
+      font-weight: 700;
+      transition: background-color 0.2s;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .btn-solid-accent:hover {
+      background-color: var(--mecro-accent-hover);
+    }
+
+    header.nav-blur {
+      backdrop-filter: blur(12px);
+      background-color: rgba(10,13,16,.85);
+    }
+
+    /* Estilos Acordeón Temario */
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+    .caret-icon { transition: transform 0.3s ease; }
+    details[open] .caret-icon { transform: rotate(180deg); }
+    details[open] summary ~ * { animation: sweep .3s ease-in-out; }
+    @keyframes sweep {
+      0%    {opacity: 0; transform: translateY(-5px)}
+      100%  {opacity: 1; transform: translateY(0)}
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  
+  <header class="sticky top-0 z-40 nav-blur border-b border-[var(--mecro-line)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] bg-[var(--mecro-bg-dark)] flex items-center justify-center text-lg overflow-hidden">
+            <img src="./images/logo-mecro-blanco.png" alt="MECRO" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span style="display:none;">🚁</span>
+          </div>
+          <div class="leading-tight">
+            <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)] group-hover:text-[var(--mecro-accent)] transition-colors">MECRO</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--mecro-text-main)]">
+          <a href="cursos.html" class="text-[var(--mecro-accent)] transition-colors">Cursos</a>
+          <a href="kits.html" class="hover:text-[var(--mecro-accent)] transition-colors">Hardware & Kits</a>
+          <a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Portafolio I+D</a>
+          <a href="nosotros.html" class="hover:text-[var(--mecro-accent)] transition-colors">Quiénes somos</a>
+          <a href="login.html" class="ml-2 btn-solid-accent !py-2 !w-auto text-sm"><i class="ph ph-user"></i> Portal de Alumnos</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO DEL CURSO -->
+  <section class="relative pt-16 pb-24 border-b border-[var(--mecro-line)] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-t from-[var(--mecro-bg-dark)] via-[#0a0d10]/90 to-[#0a0d10]/60 z-10"></div>
+      <img src="./images/curso-drones.jpg" alt="Drones MECRO" class="w-full h-full object-cover filter blur-[2px]">
+    </div>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-20" data-aos="fade-up">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">Drones Tácticos</span>
+          <span class="border border-[var(--mecro-line)] bg-black/50 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded">Nivel: Intermedio</span>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight drop-shadow-lg text-white">
+          Arquitectura y Ensamblaje de Sistemas UAV Multirrotor
+        </h1>
+        
+        <p class="text-xl text-gray-300 mb-8 leading-relaxed drop-shadow-md">
+          Pasa de la teoría al banco de pruebas. Aprende a dimensionar el powertrain, configurar un controlador F405 y programar algoritmos PID para construir tu primer dron táctico desde cero.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-300">
+          <div class="flex items-center gap-2"><i class="ph ph-clock text-2xl text-[var(--mecro-accent)]"></i> 25 Horas académicas</div>
+          <div class="flex items-center gap-2"><i class="ph ph-video-camera text-2xl text-[var(--mecro-accent)]"></i> 100% Online</div>
+          <div class="flex items-center gap-2"><i class="ph ph-certificate text-2xl text-[var(--mecro-accent)]"></i> Certificado de Especialidad</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO DEL CURSO -->
+  <section class="py-16 relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-12 items-start">
+        
+        <!-- COLUMNA IZQUIERDA (Info y Temario) -->
+        <div class="lg:col-span-2 space-y-12">
+          
+          <div data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-4 border-b border-[var(--mecro-line)] pb-2">Descripción Técnica</h2>
+            <p class="text-dim leading-relaxed mb-4">
+              Este programa está diseñado por el equipo de I+D de MECRO para formar constructores, no solo pilotos. Dejamos de lado los tutoriales superficiales para sumergirnos en la física del vuelo, la química de las baterías LiPo de alta descarga y la arquitectura de los controladores de vuelo modernos.
+            </p>
+            <p class="text-dim leading-relaxed">
+              Analizaremos el diagrama de bloques fundamental (Sensor → Procesador → Actuador), soldaremos componentes de potencia y configuraremos la matemática del lazo cerrado que mantiene a la aeronave estable en el aire.
+            </p>
+          </div>
+
+          <div data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-6 border-b border-[var(--mecro-line)] pb-2">Proyectos del Curso</h2>
+            <div class="card-surface p-6 bg-gradient-to-br from-[#161a1d] to-[#0a0d10] border border-[var(--mecro-accent-ring)] mb-6">
+              <div class="flex flex-col md:flex-row gap-6 items-center">
+                <div class="w-full md:w-1/3 h-32 rounded-lg bg-[var(--mecro-bg-dark)] overflow-hidden border border-[var(--mecro-line)]">
+                  <img src="./images/curso-drones.jpg" alt="Dron Terminado" class="w-full h-full object-cover opacity-80">
+                </div>
+                <div class="w-full md:w-2/3">
+                  <span class="text-[var(--mecro-accent)] text-xs font-bold uppercase tracking-widest block mb-1">Proyecto Principal</span>
+                  <h3 class="text-xl font-bold text-white mb-2">Ensamblaje Dron F405 (6S)</h3>
+                  <p class="text-sm text-dim mb-4">Dimensionamiento, soldadura de alta corriente y configuración de un stack F405 con motores EMAX 2807.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TEMARIO MECRO -->
+          <div data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-2 border-b border-[var(--mecro-line)] pb-2">Syllabus del Curso</h2>
+            <p class="text-sm text-dim mb-6">8 Sesiones intensivas distribuidas en 4 semanas de trabajo técnico.</p>
+            
+            <div class="space-y-4">
+              
+              <!-- SEMANA 1 -->
+              <details class="card-surface group border border-[var(--mecro-line)] hover:border-[var(--mecro-accent-ring)] transition-colors" open>
+                <summary class="p-5 flex justify-between items-center font-bold text-lg">
+                  <div class="flex items-center gap-4">
+                    <span class="w-10 h-10 rounded bg-[var(--mecro-accent-soft)] text-[var(--mecro-accent)] flex items-center justify-center text-sm border border-[var(--mecro-accent)]">S1</span>
+                    Física del Vuelo y Potencia Bruta
+                  </div>
+                  <div class="flex items-center gap-4 text-sm text-dim font-normal">
+                    <span class="hidden sm:inline">6 Horas</span>
+                    <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
+                  </div>
+                </summary>
+                <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 1: Aerodinámica y Ecosistema UAV (Lidera: Gerard)</div>
+                  <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Dinámica de vuelo: Sustentación en perfiles alares vs. Vectorización de empuje y torque.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Diagrama de bloques del sistema: Sensor → Procesador → Actuador.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> El hardware: Presentación de kits (ESP32, componentes discretos y chasis).</li>
+                  </ul>
+                  
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 2: El Powertrain y Seguridad LiPo (Lidera: Álvaro)</div>
+                  <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Química de Baterías: Celdas, resistencia interna, C-rating y balanceo para sistemas 6S.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Motores y ESCs: Relación Kv, cálculo de empuje. Análisis de motores EMAX 2807 y ESCs de 50A/60A.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Práctica: Medición de voltajes, cálculo de potencias y demostración de cortocircuitos.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <!-- SEMANA 2 -->
+              <details class="card-surface group border border-[var(--mecro-line)] hover:border-[var(--mecro-accent-ring)] transition-colors">
+                <summary class="p-5 flex justify-between items-center font-bold text-lg">
+                  <div class="flex items-center gap-4">
+                    <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S2</span>
+                    Señales, Embebidos y Control
+                  </div>
+                  <div class="flex items-center gap-4 text-sm text-dim font-normal">
+                    <span class="hidden sm:inline">6 Horas</span>
+                    <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
+                  </div>
+                </summary>
+                <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 3: Radiocontrol y Modulación con ESP32 (Lidera: Gerard)</div>
+                  <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Radiofrecuencia: Receptores, bandas (2.4GHz vs 900MHz) y latencia.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Protocolos RC: Análisis del PWM analógico vs. DSHOT.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Práctica ESP32: Programación en C++ para inyectar señales de 1000µs a 2000µs a un ESC discreto y visualización en osciloscopio.</li>
+                  </ul>
+                  
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 4: Arquitectura del Controlador de Vuelo (Lideran: Gerard / Álvaro)</div>
+                  <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> El Cerebro: Evolución de placas. Análisis de la arquitectura F405.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Sensores Inerciales: Acelerómetros y Giroscopios (Filtros SPI/I2C).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Lectura de Esquemáticos: UARTs, pines de señal y distribución de potencia.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <!-- SEMANA 3 -->
+              <details class="card-surface group border border-[var(--mecro-line)] hover:border-[var(--mecro-accent-ring)] transition-colors">
+                <summary class="p-5 flex justify-between items-center font-bold text-lg">
+                  <div class="flex items-center gap-4">
+                    <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S3</span>
+                    Manufactura y Ruteo (Práctico)
+                  </div>
+                  <div class="flex items-center gap-4 text-sm text-dim font-normal">
+                    <span class="hidden sm:inline">6 Horas</span>
+                    <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
+                  </div>
+                </summary>
+                <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 5: Ensamblaje Electromecánico - Ala Fija (Lidera: Álvaro)</div>
+                  <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Mecánica Básica: Instalación de servos, varillajes y motor.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Ruteo de Señales: Conexión del receptor al ESC y servos.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Práctica: Configuración de canales (Roll, Pitch, Yaw, Throttle).</li>
+                  </ul>
+                  
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 6: Ensamblaje de Potencia - Dron F405 (Lidera: Álvaro)</div>
+                  <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Soldadura de Alta Corriente: Técnicas para pads y cables AWG 12/14.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Montaje del Stack: Unión F405 con ESC 4-en-1. Uso de dampers para mitigación de vibraciones.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Integración: Ruteo de periféricos y pruebas de continuidad.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <!-- SEMANA 4 -->
+              <details class="card-surface group border border-[var(--mecro-line)] hover:border-[var(--mecro-accent-ring)] transition-colors">
+                <summary class="p-5 flex justify-between items-center font-bold text-lg">
+                  <div class="flex items-center gap-4">
+                    <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S4</span>
+                    Software, Dinámica de Control y Vuelo
+                  </div>
+                  <div class="flex items-center gap-4 text-sm text-dim font-normal">
+                    <span class="hidden sm:inline">7 Horas</span>
+                    <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
+                  </div>
+                </summary>
+                <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 7: Firmware y Lazo de Control PID (Lidera: Gerard)</div>
+                  <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Flasheo: Instalación de Betaflight/INAV y carga de firmware.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Teoría de Control: Explicación matemática del lazo cerrado para estabilización inercial:
+                      <div class="w-full overflow-x-auto bg-[#0a0d10] p-4 rounded-lg my-2 border border-[var(--mecro-line)] text-center text-[var(--mecro-text-main)]">
+                        $$u(t) = K_p e(t) + K_i \int e(t) dt + K_d \frac{de(t)}{dt}$$
+                      </div>
+                    </li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Configuración: Calibración de acelerómetros, mapeo de motores y modos de vuelo (Acro/Angle).</li>
+                  </ul>
+                  
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 8: Sintonización en Campo y Operaciones (Lideran: Gerard / Álvaro)</div>
+                  <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Protocolos pre-vuelo: Pruebas de failsafe.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Vuelos de demostración: Avión RC vs. Dron.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Análisis Post-Vuelo: Revisión de telemetría (cajas negras) y sintonización PID inicial.</li>
+                  </ul>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA (Sticky Card de Inscripción) -->
+        <div class="lg:col-span-1 relative">
+          <div class="sticky top-24 card-surface p-6 border-2 border-[var(--mecro-accent)] shadow-2xl shadow-[var(--mecro-accent-soft)]">
+            <h3 class="text-xl font-bold mb-4 text-white">Inscripción al Programa</h3>
+            
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-4xl font-black text-white">S/ 350.00</span>
+              <span class="text-sm text-dim line-through">S/ 500.00</span>
+            </div>
+            <p class="text-xs text-[var(--mecro-accent)] font-bold mb-6 uppercase tracking-wider">Pago único • Acceso de por vida</p>
+
+            <ul class="space-y-3 text-sm text-dim mb-8">
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Acceso a las 8 Sesiones en Alta Calidad</li>
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Materiales descargables (Esquemáticos)</li>
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Soporte en foro de constructores MECRO</li>
+              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Emisión de Certificado Oficial</li>
+            </ul>
+
+            <a href="login.html" class="btn-solid-accent text-lg shadow-lg">
+              Inscribirme Ahora <i class="ph ph-arrow-right font-bold"></i>
+            </a>
+            
+            <p class="text-center text-xs text-dim mt-4">
+              Serás redirigido al portal de alumnos para crear tu cuenta y procesar el pago de forma segura.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="pt-12 pb-8 border-t border-[var(--mecro-line)] mt-auto bg-[var(--mecro-bg-dark)] text-center text-dim text-sm">
+    <p>Copyright © <span id="year"></span> MECRO. Todos los derechos reservados. Diseñado en Perú 🇵🇪.</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true, offset: 50 });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
