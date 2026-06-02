@@ -3,44 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MECRO — Tecnología que impulsa</title>
-  <meta name="description" content="MECRO: Hardware aeroespacial, drones (UAVs/VTOLs), cohetería amateur y sistemas embebidos de código abierto." />
-  <meta property="og:title" content="MECRO — Tecnología que impulsa" />
-  <meta property="og:description" content="Kits de desarrollo, planos de drones, cohetería y proyectos de I+D en sistemas embebidos." />
-  <meta property="og:type" content="website" />
+  <title>Quiénes Somos | MECRO</title>
+  <meta name="description" content="Conoce al equipo detrás de MECRO. Ingenieros apasionados por el hardware aeroespacial, drones y sistemas embebidos." />
   
   <link rel="icon" href="./images/favicon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
     :root {
-      --mecro-bg-dark: #0a0d10;          /* fondo principal casi negro */
-      --mecro-bg-card: #161a1d;          /* paneles / tarjetas */
-      --mecro-line: #2a3033;             /* bordes suaves */
-      --mecro-text-main: #f5f6f7;        /* texto principal */
-      --mecro-text-dim: #9ca3ad;         /* texto secundario */
-      --mecro-accent: #3a5241;           /* verde del logo */
-      --mecro-accent-hover: #4a6652;     /* verde un poco más claro para hover */
-      --mecro-accent-soft: #2c3a30;      /* verde profundo para fondos */
-      --mecro-accent-ring: rgba(58,82,65,.5); /* borde verde traslúcido */
+      --mecro-bg-dark: #0a0d10;          
+      --mecro-bg-card: #161a1d;          
+      --mecro-line: #2a3033;             
+      --mecro-text-main: #f5f6f7;        
+      --mecro-text-dim: #9ca3ad;         
+      --mecro-accent: #3a5241;           
+      --mecro-accent-hover: #4a6652;     
+      --mecro-accent-soft: #2c3a30;      
+      --mecro-accent-ring: rgba(58,82,65,.5); 
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--mecro-bg-dark);
       color: var(--mecro-text-main);
-      overflow-x: hidden; /* Evita scroll horizontal por animaciones */
+      overflow-x: hidden;
     }
 
     .text-dim { color: var(--mecro-text-dim); }
-    .text-accent { color: var(--mecro-accent); transition: color 0.2s; }
-    .text-accent:hover { color: #6e9e7a; }
-
+    
     .card-surface {
       background-color: var(--mecro-bg-card);
       border: 1px solid var(--mecro-line);
@@ -65,46 +59,9 @@
       border-color: var(--mecro-accent);
     }
 
-    .btn-solid-accent {
-      border-radius: 0.75rem;
-      padding: 0.5rem 1rem;
-      background-color: var(--mecro-accent);
-      color: #fff;
-      font-weight: 600;
-      transition: background-color 0.2s;
-    }
-    .btn-solid-accent:hover {
-      background-color: var(--mecro-accent-hover);
-    }
-
     header.nav-blur {
       backdrop-filter: blur(12px);
       background-color: rgba(10,13,16,.85);
-    }
-
-    .modal-backdrop {
-      background-color: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-    }
-    
-    .custom-scroll::-webkit-scrollbar { width: 8px; }
-    .custom-scroll::-webkit-scrollbar-track { background: var(--mecro-bg-dark); }
-    .custom-scroll::-webkit-scrollbar-thumb { background: var(--mecro-line); border-radius: 4px; }
-    .custom-scroll::-webkit-scrollbar-thumb:hover { background: var(--mecro-accent); }
-
-    .contact-input {
-      width: 100%;
-      border-radius: 0.75rem;
-      background-color: #0f1417;
-      padding: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.07);
-      outline: none;
-      color: var(--mecro-text-main);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .contact-input:focus {
-      border-color: var(--mecro-accent);
-      box-shadow: 0 0 0 2px rgba(58,82,65,.4);
     }
   </style>
 </head>
@@ -121,7 +78,6 @@
           </div>
           <div class="leading-tight">
             <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)] group-hover:text-[var(--mecro-accent)] transition-colors">MECRO</span>
-            <span class="block text-xs text-dim -mt-0.5">Tecnología que impulsa</span>
           </div>
         </a>
 
@@ -129,8 +85,8 @@
           <a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Cursos</a>
           <a href="kits.html" class="hover:text-[var(--mecro-accent)] transition-colors">Hardware & Kits</a>
           <a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Planos I+D</a>
-          <a href="nosotros.html" class="hover:text-[var(--mecro-accent)] transition-colors">Quiénes somos</a>
-          <a href="contacto.html" class="ml-2 btn-outline-accent">Acceder al Portal</a>
+          <a href="nosotros.html" class="text-[var(--mecro-accent)] transition-colors">Quiénes somos</a>
+          <a href="login.html" class="ml-2 btn-outline-accent flex items-center gap-2"><i class="ph ph-user"></i> Mi Portal</a>
         </nav>
 
         <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-gray-400 hover:bg-[var(--mecro-line)] hover:text-white focus:outline-none">
@@ -144,77 +100,90 @@
         <a href="cursos.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Cursos</a>
         <a href="kits.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Hardware & Kits</a>
         <a href="proyectos.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Planos I+D</a>
-        <a href="nosotros.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Quiénes somos</a>
-        <a href="contacto.html" class="block rounded-md px-3 py-2 text-[var(--mecro-accent)]">Acceder al Portal</a>
+        <a href="nosotros.html" class="block rounded-md px-3 py-2 bg-[var(--mecro-accent-soft)] text-white">Quiénes somos</a>
+        <a href="login.html" class="block rounded-md px-3 py-2 text-[var(--mecro-accent)]">Mi Portal</a>
       </div>
     </div>
   </header>
 
-  <section class="relative isolate pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[1000px] h-[500px] opacity-20" style="background: radial-gradient(circle, rgba(58,82,65,1) 0%, rgba(0,0,0,0) 70%);"></div>
+  <section class="pt-20 pb-16 relative overflow-hidden bg-[#0f1417]">
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(var(--mecro-text-main) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <span class="text-[var(--mecro-accent)] font-bold tracking-widest uppercase text-xs mb-4 block">Nuestro ADN</span>
+        <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">No ensamblamos, <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">desarrollamos desde cero.</span></h1>
+        <p class="text-dim text-lg leading-relaxed">
+          MECRO nace de la pasión por la ingeniería dura. Somos un laboratorio de I+D enfocado en hardware aeroespacial, drones y sistemas embebidos. Construimos prototipos reales para democratizar la tecnología de alto nivel.
+        </p>
+      </div>
+    </div>
+  </section>
 
+  <section class="py-16 border-t border-[var(--mecro-line)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="grid md:grid-cols-3 gap-8">
         
-        <div data-aos="fade-right">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-[var(--mecro-text-main)]">
-            Diseña, construye y vuela. Hardware aeroespacial de
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--mecro-accent)] to-green-400">código abierto.</span>
-          </h1>
-          <p class="mt-6 text-lg text-dim max-w-prose">
-            Accede a planos de UAVs, telemetría de cohetes y domina los sistemas embebidos. Construimos prototipos reales y formamos a la próxima generación de ingenieros.
-          </p>
-
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="proyectos.html" class="btn-solid-accent text-center">
-              Ver Planos y Proyectos
-            </a>
-            <a href="kits.html" class="btn-outline-accent text-center">
-              Explorar Hardware
-            </a>
-          </div>
-
-          <dl class="mt-10 grid grid-cols-3 gap-4 text-center border-t border-[var(--mecro-line)] pt-8">
-            <div>
-              <dt class="text-xs uppercase tracking-wider text-dim">Planos Libres</dt>
-              <dd class="text-3xl font-bold text-[var(--mecro-text-main)]">20+</dd>
-            </div>
-            <div>
-              <dt class="text-xs uppercase tracking-wider text-dim">Kits Activos</dt>
-              <dd class="text-3xl font-bold text-[var(--mecro-text-main)]">ESP32</dd>
-            </div>
-            <div>
-              <dt class="text-xs uppercase tracking-wider text-dim">Constructores</dt>
-              <dd class="text-3xl font-bold text-[var(--mecro-text-main)]">1K+</dd>
-            </div>
-          </dl>
+        <div class="p-6 border-l-2 border-[var(--mecro-line)] hover:border-[var(--mecro-accent)] transition-colors" data-aos="fade-right" data-aos-delay="0">
+          <i class="ph ph-cpu text-3xl text-[var(--mecro-accent)] mb-4"></i>
+          <h3 class="text-xl font-bold mb-3">Ingeniería a Bajo Nivel</h3>
+          <p class="text-sm text-dim leading-relaxed">No dependemos de librerías mágicas. Programamos desde los registros del microcontrolador, diseñamos nuestros propios PCBs y entendemos cada línea de código.</p>
         </div>
 
-        <div class="relative hidden lg:block" data-aos="fade-left" data-aos-delay="200">
-          <div class="grid grid-cols-2 gap-4 p-4 bg-[#0f1417]/50 rounded-2xl border border-[var(--mecro-line)] backdrop-blur-sm">
-            <div class="col-span-2 h-48 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 relative overflow-hidden group cursor-pointer">
-               <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
-               <div class="absolute inset-0 bg-[url('./images/hero-vtol.jpg')] bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500"></div>
-               <div class="relative z-20 h-full flex flex-col justify-end">
-                 <span class="text-xs font-bold text-[var(--mecro-accent)] uppercase tracking-wider mb-1">Proyecto Activo</span>
-                 <h3 class="text-2xl font-bold text-white">Cohete Suborbital M-1</h3>
-                 <p class="text-sm text-gray-300">Telemetría con ESP32 y sensores de recuperación</p>
-               </div>
-            </div>
-            <div class="h-40 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 flex flex-col justify-between hover:border-[var(--mecro-accent)] transition-colors cursor-pointer">
-               <i class="ph ph-drone text-4xl text-[var(--mecro-accent)]"></i>
-               <div>
-                 <h4 class="font-semibold text-white">Drones VTOL</h4>
-                 <p class="text-xs text-dim">Estabilización PID avanzada</p>
-               </div>
-            </div>
-            <div class="h-40 rounded-xl bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] p-4 flex flex-col justify-between hover:border-[var(--mecro-accent)] transition-colors cursor-pointer">
-               <i class="ph ph-circuitry text-4xl text-[var(--mecro-accent)]"></i>
-               <div>
-                 <h4 class="font-semibold text-white">PCB Design</h4>
-                 <p class="text-xs text-dim">Altium & KiCad</p>
-               </div>
-            </div>
+        <div class="p-6 border-l-2 border-[var(--mecro-line)] hover:border-[var(--mecro-accent)] transition-colors" data-aos="fade-right" data-aos-delay="100">
+          <i class="ph ph-airplane-tilt text-3xl text-[var(--mecro-accent)] mb-4"></i>
+          <h3 class="text-xl font-bold mb-3">De la Teoría al Vuelo</h3>
+          <p class="text-sm text-dim leading-relaxed">Aplicamos matemática pura (Filtros de Kalman, Control PID avanzado) en la construcción de UAVs y cohetes experimentales que superan pruebas reales.</p>
+        </div>
+
+        <div class="p-6 border-l-2 border-[var(--mecro-line)] hover:border-[var(--mecro-accent)] transition-colors" data-aos="fade-right" data-aos-delay="200">
+          <i class="ph ph-share-network text-3xl text-[var(--mecro-accent)] mb-4"></i>
+          <h3 class="text-xl font-bold mb-3">Open Source Hardware</h3>
+          <p class="text-sm text-dim leading-relaxed">Creemos que el futuro es abierto. Compartimos nuestros planos, esquemáticos y descubrimientos para impulsar a la próxima generación de ingenieros.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-[#0f1417] border-t border-[var(--mecro-line)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-black">Conoce al Equipo</h2>
+        <p class="mt-4 text-dim max-w-2xl mx-auto">Ingenieros, desarrolladores y constructores comprometidos con el avance tecnológico.</p>
+      </div>
+            
+      <div class="grid md:grid-cols-2 max-w-4xl mx-auto gap-12">
+        
+        <div class="card-surface p-8 text-center flex flex-col items-center group" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-[var(--mecro-line)] p-1 group-hover:border-[var(--mecro-accent)] transition-colors mb-6 relative">
+            <div class="absolute inset-1 rounded-full bg-[var(--mecro-accent)] opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+            <img src="./images/equipo-gerard.png" alt="Gerard Quispe" class="w-full h-full rounded-full object-cover relative z-0" onerror="this.src='https://via.placeholder.com/200/161a1d/3a5241?text=GQ'">
+          </div>
+          <h3 class="font-black text-2xl mb-1 group-hover:text-[var(--mecro-accent)] transition-colors">Gerard Quispe</h3>
+          <p class="text-white text-sm font-bold uppercase tracking-wider mb-4 border-b border-[var(--mecro-line)] pb-4 w-full">Fundador & Lead Engineer</p>
+          <p class="text-sm text-dim leading-relaxed">
+            Especialista en Aeronáutica, Teoría de Control (PID/Kalman), sistemas embebidos y arquitectura de hardware. Lidera el desarrollo de los sistemas de vuelo y telemetría en MECRO.
+          </p>
+          <div class="mt-6 flex gap-3 text-dim">
+            <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-linkedin-logo text-2xl"></i></a>
+            <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-github-logo text-2xl"></i></a>
+          </div>
+        </div>
+
+        <div class="card-surface p-8 text-center flex flex-col items-center group" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-[var(--mecro-line)] p-1 group-hover:border-[var(--mecro-accent)] transition-colors mb-6 relative">
+            <div class="absolute inset-1 rounded-full bg-[var(--mecro-accent)] opacity-0 group-hover:opacity-20 transition-opacity z-10"></div>
+            <img src="./images/equipo-alvaro.png" alt="Alvaro Lopez" class="w-full h-full rounded-full object-cover relative z-0" onerror="this.src='https://via.placeholder.com/200/161a1d/3a5241?text=AL'">
+          </div>
+          <h3 class="font-black text-2xl mb-1 group-hover:text-[var(--mecro-accent)] transition-colors">Alvaro Lopez</h3>
+          <p class="text-white text-sm font-bold uppercase tracking-wider mb-4 border-b border-[var(--mecro-line)] pb-4 w-full">Socio Comercial & Operaciones</p>
+          <p class="text-sm text-dim leading-relaxed">
+            Responsable de la estrategia comercial, diseño instruccional, distribución global de kits ESP32 y la logística operativa detrás de cada lanzamiento de MECRO.
+          </p>
+          <div class="mt-6 flex gap-3 text-dim">
+            <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-linkedin-logo text-2xl"></i></a>
+            <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-envelope-simple text-2xl"></i></a>
           </div>
         </div>
 
@@ -222,53 +191,24 @@
     </div>
   </section>
 
-  <section class="py-16 border-t border-[var(--mecro-line)] bg-[#0f1417]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
-        <h2 class="text-3xl font-bold text-[var(--mecro-text-main)]">El Ecosistema MECRO</h2>
-        <p class="mt-4 text-dim">
-          No somos una escuela tradicional. Somos un laboratorio de I+D abierto al público.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card-surface p-8" data-aos="fade-up" data-aos-delay="100">
-          <div class="w-12 h-12 rounded-lg bg-[var(--mecro-accent-soft)] flex items-center justify-center mb-4 text-[var(--mecro-accent)]">
-            <i class="ph ph-rocket-launch text-2xl"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Hardware Aeroespacial</h3>
-          <p class="text-sm text-dim leading-relaxed">
-            Planos y código fuente para construir tus propios UAVs, cohetes experimentales y sistemas de telemetría desde cero.
-          </p>
-        </div>
-
-        <div class="card-surface p-8" data-aos="fade-up" data-aos-delay="200">
-          <div class="w-12 h-12 rounded-lg bg-[var(--mecro-accent-soft)] flex items-center justify-center mb-4 text-[var(--mecro-accent)]">
-            <i class="ph ph-cpu text-2xl"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Sistemas Embebidos</h3>
-          <p class="text-sm text-dim leading-relaxed">
-            Hardware educativo propio (Kits ESP32) diseñado para aprender interrupciones, FreeRTOS y control PID a bajo nivel.
-          </p>
-        </div>
-
-        <div class="card-surface p-8" data-aos="fade-up" data-aos-delay="300">
-          <div class="w-12 h-12 rounded-lg bg-[var(--mecro-accent-soft)] flex items-center justify-center mb-4 text-[var(--mecro-accent)]">
-            <i class="ph ph-certificate text-2xl"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Certificaciones Online</h3>
-          <p class="text-sm text-dim leading-relaxed">
-            Plataforma interactiva con cursos en video, evaluaciones rigurosas y credenciales verificables al terminar tus ensamblajes.
-          </p>
-        </div>
+  <section class="py-24 relative border-t border-[var(--mecro-line)] overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--mecro-accent)] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
+    
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10" data-aos="zoom-in">
+      <i class="ph ph-quotes text-5xl text-[var(--mecro-accent)] mb-6 inline-block opacity-50"></i>
+      <h2 class="text-2xl md:text-3xl font-medium leading-relaxed italic text-white">
+        "Mi sueño es consolidar una empresa de tecnología donde el hardware de alto nivel sea accesible. Construir drones, automatizar procesos y formar a los ingenieros del futuro."
+      </h2>
+      <div class="mt-8 flex flex-col items-center">
+        <div class="w-12 h-12 rounded-full bg-[var(--mecro-bg-card)] border border-[var(--mecro-accent)] flex items-center justify-center text-[var(--mecro-accent)] font-bold text-lg mb-2">G</div>
+        <p class="text-sm font-bold text-white tracking-widest uppercase">Gerard Quispe</p>
       </div>
     </div>
   </section>
 
   <footer class="pt-16 pb-8 border-t border-[var(--mecro-line)] mt-auto bg-[var(--mecro-bg-dark)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12 text-sm" data-aos="fade-in">
-        
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12 text-sm">
         <div>
           <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Hardware y Planos</h4>
           <ul class="space-y-3 text-dim">
@@ -278,7 +218,6 @@
             <li><a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Componentes I+D</a></li>
           </ul>
         </div>
-
         <div>
           <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Aprende</h4>
           <ul class="space-y-3 text-dim">
@@ -288,7 +227,6 @@
             <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Verificar Certificado</a></li>
           </ul>
         </div>
-
         <div>
           <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Soporte</h4>
           <ul class="space-y-3 text-dim">
@@ -297,7 +235,6 @@
             <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Garantía de Kits</a></li>
           </ul>
         </div>
-
         <div>
           <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Comunidad</h4>
           <ul class="space-y-3 text-dim">
@@ -306,7 +243,6 @@
             <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Eventos y Talleres</a></li>
           </ul>
         </div>
-
         <div class="col-span-2 md:col-span-4 lg:col-span-1">
           <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Radar MECRO</h4>
           <p class="text-dim mb-4 leading-relaxed">Recibe los últimos planos aeroespaciales y actualizaciones de hardware directamente en tu correo.</p>
@@ -318,7 +254,6 @@
           </form>
         </div>
       </div>
-
       <div class="pt-8 border-t border-[var(--mecro-line)] flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-dim">
         <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
           <span class="font-black text-white text-xl tracking-widest flex items-center gap-2">
@@ -330,7 +265,6 @@
             <a href="#" class="hover:text-white transition-colors">Términos de Uso</a>
           </div>
         </div>
-        
         <div class="flex gap-5 text-xl">
           <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-linkedin-logo"></i></a>
           <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-youtube-logo"></i></a>
@@ -347,21 +281,14 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
   <script>
-    // Inicializar Animaciones
-    AOS.init({
-      duration: 800, // duración en milisegundos
-      once: true,    // la animación ocurre solo una vez
-      offset: 50     // offset en px para detonar la animación
-    });
+    AOS.init({ duration: 800, once: true, offset: 50 });
 
-    // Lógica General y Menú Móvil
     document.addEventListener('DOMContentLoaded', () => {
       const yearEl = document.getElementById('year');
       if(yearEl) yearEl.textContent = new Date().getFullYear();
 
       const btn = document.getElementById('menuBtn');
       const menu = document.getElementById('mobileMenu');
-      
       if(btn && menu){
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
       }
@@ -369,5 +296,3 @@
   </script>
 </body>
 </html>
-
-```

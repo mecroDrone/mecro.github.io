@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repositorio I+D | MECRO</title>
+  <meta name="description" content="Explora los proyectos de hardware, drones y cohetería desarrollados por el laboratorio de MECRO." />
+  
+  <link rel="icon" href="./images/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --mecro-bg-dark: #0a0d10;          
+      --mecro-bg-card: #161a1d;          
+      --mecro-line: #2a3033;             
+      --mecro-text-main: #f5f6f7;        
+      --mecro-text-dim: #9ca3ad;         
+      --mecro-accent: #3a5241;           
+      --mecro-accent-hover: #4a6652;     
+      --mecro-accent-soft: #2c3a30;      
+      --mecro-accent-ring: rgba(58,82,65,.5); 
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--mecro-bg-dark);
+      color: var(--mecro-text-main);
+      overflow-x: hidden;
+    }
+
+    .text-dim { color: var(--mecro-text-dim); }
+    
+    .card-surface {
+      background-color: var(--mecro-bg-card);
+      border: 1px solid var(--mecro-line);
+      border-radius: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .card-surface:hover {
+      border-color: var(--mecro-accent-ring);
+      transform: translateY(-4px);
+    }
+
+    .btn-outline-accent {
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--mecro-accent-ring);
+      color: var(--mecro-text-main);
+      background-color: rgba(0,0,0,0);
+      transition: all 0.2s;
+    }
+    .btn-outline-accent:hover {
+      background-color: var(--mecro-accent-soft);
+      border-color: var(--mecro-accent);
+    }
+
+    header.nav-blur {
+      backdrop-filter: blur(12px);
+      background-color: rgba(10,13,16,.85);
+    }
+
+    .modal-backdrop {
+      background-color: rgba(10, 13, 16, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: var(--mecro-line); border-radius: 4px; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: var(--mecro-accent); }
+
+    /* Filtros estilo Píldora */
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid var(--mecro-line);
+      color: var(--mecro-text-dim);
+      transition: all 0.2s;
+    }
+    .filter-btn.active {
+      background-color: var(--mecro-accent-soft);
+      border-color: var(--mecro-accent);
+      color: white;
+    }
+    .filter-btn:hover:not(.active) {
+      border-color: var(--mecro-text-dim);
+      color: white;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  
+  <header class="sticky top-0 z-40 nav-blur border-b border-[var(--mecro-line)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] bg-[var(--mecro-bg-dark)] flex items-center justify-center text-lg overflow-hidden">
+            <img src="./images/logo-mecro-blanco.png" alt="MECRO" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span style="display:none;">🚁</span>
+          </div>
+          <div class="leading-tight">
+            <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)] group-hover:text-[var(--mecro-accent)] transition-colors">MECRO</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--mecro-text-main)]">
+          <a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Cursos</a>
+          <a href="kits.html" class="hover:text-[var(--mecro-accent)] transition-colors">Hardware & Kits</a>
+          <a href="proyectos.html" class="text-[var(--mecro-accent)] transition-colors">Planos I+D</a>
+          <a href="nosotros.html" class="hover:text-[var(--mecro-accent)] transition-colors">Quiénes somos</a>
+          <a href="login.html" class="ml-2 btn-outline-accent flex items-center gap-2"><i class="ph ph-user"></i> Mi Portal</a>
+        </nav>
+
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-gray-400 hover:bg-[var(--mecro-line)] hover:text-white focus:outline-none">
+          <i class="ph ph-list text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-[var(--mecro-line)] bg-[var(--mecro-bg-dark)] absolute w-full left-0 z-50">
+      <div class="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-2 text-base font-medium">
+        <a href="cursos.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Cursos</a>
+        <a href="kits.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Hardware & Kits</a>
+        <a href="proyectos.html" class="block rounded-md px-3 py-2 bg-[var(--mecro-accent-soft)] text-white">Planos I+D</a>
+        <a href="nosotros.html" class="block rounded-md px-3 py-2 hover:bg-[var(--mecro-accent-soft)] hover:text-white">Quiénes somos</a>
+        <a href="login.html" class="block rounded-md px-3 py-2 text-[var(--mecro-accent)]">Mi Portal</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="pt-20 pb-12 border-b border-[var(--mecro-line)] bg-[#0f1417] relative overflow-hidden">
+    <div class="absolute right-0 top-0 w-1/2 h-full opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8cGF0aCBkPSJNMCAwbDhfOFpNOCAwTDBfOFoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjwvc3ZnPg==')]"></div>
+    
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10" data-aos="fade-up">
+      <div class="max-w-3xl">
+        <span class="text-[var(--mecro-accent)] font-bold tracking-widest uppercase text-xs mb-2 block">Open Source Hardware</span>
+        <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Repositorio de I+D</h1>
+        <p class="text-dim text-lg leading-relaxed">
+          Explora las entrañas de nuestra ingeniería. Aquí documentamos las características técnicas, estudios, código fuente y esquemáticos de los UAVs, cohetes y sistemas embebidos que desarrollamos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 flex-grow">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap gap-3 mb-10" data-aos="fade-up" id="filterContainer">
+        <button class="filter-btn active" data-filter="all">Todos los proyectos</button>
+        <button class="filter-btn" data-filter="drones">Drones / VTOLs</button>
+        <button class="filter-btn" data-filter="cohetes">Cohetería</button>
+        <button class="filter-btn" data-filter="embebidos">Sistemas Embebidos (STM/PIC/ESP)</button>
+      </div>
+
+      <div id="projectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+
+    </div>
+  </section>
+
+  <div id="projectModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+    <div class="bg-[var(--mecro-bg-card)] w-full max-w-5xl rounded-2xl border border-[var(--mecro-line)] shadow-2xl flex flex-col lg:flex-row max-h-[90vh] overflow-hidden relative transform scale-95 transition-transform duration-300" id="modalContent">
+      
+      <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20 bg-black/50 backdrop-blur rounded-full p-2 transition-colors">
+        <i class="ph ph-x text-xl"></i>
+      </button>
+
+      <div class="lg:w-1/2 relative bg-[var(--mecro-bg-dark)] h-64 lg:h-auto flex-shrink-0">
+        <img id="modalImg" src="" alt="Proyecto" class="w-full h-full object-cover opacity-80">
+        <div class="absolute inset-0 bg-gradient-to-t from-[var(--mecro-bg-card)] lg:from-transparent lg:bg-gradient-to-r lg:to-[var(--mecro-bg-card)] to-transparent"></div>
+        
+        <div class="absolute top-6 left-6 flex flex-wrap gap-2" id="modalTechTags">
+          </div>
+      </div>
+
+      <div class="lg:w-1/2 p-6 lg:p-10 overflow-y-auto custom-scroll flex flex-col">
+        <div class="mb-6">
+          <span id="modalCategory" class="text-[var(--mecro-accent)] font-bold text-xs uppercase tracking-widest">Categoría</span>
+          <h2 id="modalTitle" class="text-3xl font-black text-white mt-1 mb-4 leading-tight">Nombre del Proyecto</h2>
+          <p id="modalDesc" class="text-dim text-sm leading-relaxed">Descripción profunda del proyecto...</p>
+        </div>
+
+        <div class="mb-8">
+          <h3 class="text-white font-bold mb-4 flex items-center gap-2 border-b border-[var(--mecro-line)] pb-2">
+            <i class="ph ph-cpu text-[var(--mecro-accent)]"></i> Especificaciones Técnicas
+          </h3>
+          <ul id="modalSpecs" class="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-dim">
+            </ul>
+        </div>
+
+        <div class="mt-auto space-y-3 pt-6 border-t border-[var(--mecro-line)]">
+          <h3 class="text-white font-bold text-sm mb-3">Recursos Abiertos:</h3>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a id="modalGithub" href="#" target="_blank" class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[#24292e]/50 text-gray-300 border border-[#24292e] hover:bg-[#24292e] hover:text-white transition-colors text-sm font-medium">
+              <i class="ph ph-github-logo text-xl"></i> Código Fuente
+            </a>
+            <a id="modalDrive" href="#" target="_blank" class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[var(--mecro-accent-soft)] text-white border border-[var(--mecro-accent)] hover:bg-[var(--mecro-accent)] transition-colors text-sm font-medium">
+              <i class="ph ph-google-drive-logo text-xl"></i> Planos & Estudios
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="pt-16 pb-8 border-t border-[var(--mecro-line)] mt-auto bg-[var(--mecro-bg-dark)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12 text-sm">
+        <div>
+          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Hardware y Planos</h4>
+          <ul class="space-y-3 text-dim">
+            <li><a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Drones VTOL</a></li>
+            <li><a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Cohetería Amateur</a></li>
+            <li><a href="kits.html" class="hover:text-[var(--mecro-accent)] transition-colors">Kits de Desarrollo ESP32</a></li>
+            <li><a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Componentes I+D</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Aprende</h4>
+          <ul class="space-y-3 text-dim">
+            <li><a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Portal de Cursos</a></li>
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Tutoriales Abiertos</a></li>
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Repositorio GitHub</a></li>
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Verificar Certificado</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Soporte</h4>
+          <ul class="space-y-3 text-dim">
+            <li><a href="contacto.html" class="hover:text-[var(--mecro-accent)] transition-colors">Centro de Ayuda</a></li>
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Descarga de Software / Drivers</a></li>
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Garantía de Kits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Comunidad</h4>
+          <ul class="space-y-3 text-dim">
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Foro de Constructores</a></li>
+            <li><a href="nosotros.html" class="hover:text-[var(--mecro-accent)] transition-colors">Conoce al Equipo</a></li>
+            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Eventos y Talleres</a></li>
+          </ul>
+        </div>
+        <div class="col-span-2 md:col-span-4 lg:col-span-1">
+          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Radar MECRO</h4>
+          <p class="text-dim mb-4 leading-relaxed">Recibe los últimos planos aeroespaciales y actualizaciones de hardware.</p>
+          <form action="#" class="flex mt-2">
+            <input type="email" placeholder="Tu correo electrónico" required class="bg-[#161a1d] text-white px-4 py-3 w-full border border-[var(--mecro-line)] rounded-l-lg focus:outline-none focus:border-[var(--mecro-accent)] transition-colors text-sm">
+            <button type="submit" class="bg-[var(--mecro-accent)] hover:bg-[var(--mecro-accent-hover)] px-5 py-3 rounded-r-lg text-white transition-colors flex items-center justify-center">
+              <i class="ph ph-paper-plane-right text-lg"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-[var(--mecro-line)] flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-dim">
+        <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+          <span class="font-black text-white text-xl tracking-widest flex items-center gap-2">
+            <i class="ph ph-rocket text-[var(--mecro-accent)]"></i> MECRO
+          </span>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
+            <span class="hidden md:inline">•</span>
+            <a href="#" class="hover:text-white transition-colors">Términos de Uso</a>
+          </div>
+        </div>
+        <div class="flex gap-5 text-xl">
+          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-linkedin-logo"></i></a>
+          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-youtube-logo"></i></a>
+          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-tiktok-logo"></i></a>
+          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+      </div>
+      <div class="mt-6 text-xs text-dim text-center md:text-left">
+        <p>Copyright © <span id="year"></span> MECRO. Todos los derechos reservados. Diseñado y ensamblado en Perú 🇵🇪.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    AOS.init({ duration: 800, once: true, offset: 50 });
+
+    /* ==========================================
+       BASE DE DATOS LOCAL DE PROYECTOS
+       (Aquí es donde agregarás tus fotos e info)
+       ========================================== */
+    const dbProjects = [
+      {
+        id: 1,
+        title: "UAV VTOL M-Series Surveyor",
+        filter: "drones",
+        category: "Drones / UAVs",
+        desc: "Aeronave híbrida de ala fija y rotores cuádruples. Diseñada para mapeo topográfico con capacidad de transición de vuelo suave controlada por firmware personalizado. El modelo aerodinámico fue simulado en ANSYS CFD antes de la fabricación del chasis en fibra de carbono.",
+        image: "./images/proyecto-vtol.jpg", // Asegúrate de tener esta imagen
+        fallbackImg: "https://via.placeholder.com/800x600/161a1d/3a5241?text=UAV+VTOL",
+        tech: ["STM32", "C++", "Pixhawk", "CFD"],
+        specs: [
+          { icon: "ph-airplane", label: "Envergadura", value: "1.8 Metros" },
+          { icon: "ph-battery-charging", label: "Autonomía", value: "65 Minutos" },
+          { icon: "ph-scales", label: "MTOW", value: "4.5 Kg" },
+          { icon: "ph-broadcast", label: "Telemetría", value: "915 MHz RF" }
+        ],
+        github: "https://github.com/mecro/vtol-firmware",
+        drive: "https://drive.google.com/drive/folders/ejemplo"
+      },
+      {
+        id: 2,
+        title: "Cohete Suborbital M1-Alpha",
+        filter: "cohetes",
+        category: "Cohetería",
+        desc: "Prototipo de cohete de combustible sólido para sondeo atmosférico. Cuenta con una computadora de vuelo dual (redundancia) que registra aceleración, presión y temperatura, además de activar el sistema de paracaídas (Recovery System) detectando el apogeo mediante Filtros de Kalman.",
+        image: "./images/proyecto-cohete.jpg",
+        fallbackImg: "https://via.placeholder.com/800x600/161a1d/3a5241?text=Cohete+M1",
+        tech: ["ESP32-S3", "LoRa", "FreeRTOS", "Kalman"],
+        specs: [
+          { icon: "ph-rocket", label: "Apogeo Objetivo", value: "1.5 Km" },
+          { icon: "ph-gauge", label: "Max Vel", value: "Mach 0.8" },
+          { icon: "ph-cpu", label: "Aviónica", value: "Custom PCB ESP32" },
+          { icon: "ph-parachute", label: "Recuperación", value: "Doble Despliegue" }
+        ],
+        github: "https://github.com/mecro/m1-avionics",
+        drive: "https://drive.google.com/drive/folders/ejemplo"
+      },
+      {
+        id: 3,
+        title: "Balance-Bar PID Controller",
+        filter: "embebidos",
+        category: "Sistemas Embebidos",
+        desc: "Banco de pruebas didáctico para el desarrollo de algoritmos de control. Utiliza un microcontrolador de la familia PIC32 para leer la IMU (giroscopio/acelerómetro) a 1kHz y calcular la salida de los motores brushless, manteniendo una barra estabilizada ante perturbaciones externas.",
+        image: "./images/proyecto-pid.jpg",
+        fallbackImg: "https://via.placeholder.com/800x600/161a1d/3a5241?text=Balance+Bar+PID",
+        tech: ["PIC32", "Control PID", "C", "I2C"],
+        specs: [
+          { icon: "ph-microchip", label: "Micro", value: "PIC32MX" },
+          { icon: "ph-arrows-clockwise", label: "Loop Time", value: "1000 Hz" },
+          { icon: "ph-compass", label: "Sensor", value: "MPU6050 (IMU)" },
+          { icon: "ph-fan", label: "Actuadores", value: "Motores BLDC 2300kv" }
+        ],
+        github: "https://github.com/mecro/balance-pid",
+        drive: "https://drive.google.com/drive/folders/ejemplo"
+      }
+    ];
+
+    /* ==========================================
+       LÓGICA DE RENDERIZADO Y FILTROS
+       ========================================== */
+    const grid = document.getElementById('projectsGrid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    function renderProjects(filterValue = 'all') {
+      grid.innerHTML = '';
+      
+      const filtered = filterValue === 'all' 
+        ? dbProjects 
+        : dbProjects.filter(p => p.filter === filterValue);
+
+      filtered.forEach((project, index) => {
+        // Delay para la animación AOS en cascada
+        const delay = (index % 3) * 100;
+        
+        const tagsHtml = project.tech.slice(0, 3).map(t => `<span class="bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim text-xs px-2 py-1 rounded">${t}</span>`).join('');
+
+        const card = document.createElement('div');
+        card.className = 'card-surface flex flex-col h-full group cursor-pointer overflow-hidden';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', delay);
+        card.onclick = () => openModal(project);
+
+        card.innerHTML = `
+          <div class="h-56 overflow-hidden relative bg-[var(--mecro-bg-dark)]">
+            <div class="absolute top-3 right-3 bg-black/70 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded border border-white/10 z-10">
+              ${project.category}
+            </div>
+            <img src="${project.image}" alt="${project.title}" onerror="this.src='${project.fallbackImg}'" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--mecro-bg-card)] to-transparent opacity-80"></div>
+          </div>
+          <div class="p-6 flex flex-col flex-grow relative -mt-10 z-20">
+            <h3 class="text-xl font-bold text-white mb-2 leading-tight">${project.title}</h3>
+            <div class="flex gap-2 mb-4 flex-wrap">${tagsHtml}</div>
+            <p class="text-sm text-dim line-clamp-3 mb-4 flex-grow">${project.desc}</p>
+            <div class="pt-4 border-t border-[var(--mecro-line)] flex items-center text-[var(--mecro-accent)] font-medium text-sm group-hover:text-white transition-colors">
+              <i class="ph ph-faders mr-2 text-lg"></i> Ver Especificaciones
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Configurar botones de filtro
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Quitar clase active a todos
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Poner clase active al clickeado
+        e.target.classList.add('active');
+        // Re-renderizar
+        renderProjects(e.target.dataset.filter);
+      });
+    });
+
+    // Render inicial
+    renderProjects();
+
+    /* ==========================================
+       LÓGICA DEL MODAL "TRIPAS"
+       ========================================== */
+    const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    function openModal(project) {
+      document.getElementById('modalTitle').textContent = project.title;
+      document.getElementById('modalCategory').textContent = project.category;
+      document.getElementById('modalDesc').textContent = project.desc;
+      
+      const imgEl = document.getElementById('modalImg');
+      imgEl.src = project.image;
+      imgEl.onerror = () => imgEl.src = project.fallbackImg;
+
+      // Renderizar Tags
+      document.getElementById('modalTechTags').innerHTML = project.tech.map(t => `<span class="bg-[var(--mecro-accent)] text-white text-xs font-bold px-3 py-1 rounded shadow-lg backdrop-blur-sm bg-opacity-90">${t}</span>`).join('');
+
+      // Renderizar Specs
+      document.getElementById('modalSpecs').innerHTML = project.specs.map(s => `
+        <li class="flex flex-col bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] p-3 rounded-lg">
+          <span class="flex items-center gap-1 text-xs uppercase tracking-wider text-[var(--mecro-accent)] font-bold mb-1"><i class="ph ${s.icon} text-lg"></i> ${s.label}</span>
+          <span class="text-white font-medium text-sm">${s.value}</span>
+        </li>
+      `).join('');
+
+      // Configurar links
+      const btnGit = document.getElementById('modalGithub');
+      const btnDrive = document.getElementById('modalDrive');
+      
+      btnGit.href = project.github;
+      btnGit.style.display = project.github === '#' ? 'none' : 'flex';
+      
+      btnDrive.href = project.drive;
+      btnDrive.style.display = project.drive === '#' ? 'none' : 'flex';
+
+      // Mostrar modal con animación
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('opacity-0');
+      modalContent.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }, 300); // Mismo tiempo que duration-300
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    // Menú móvil y año
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const btnMenu = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if(btnMenu && mobileMenu){
+      btnMenu.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+  </script>
+</body>
+</html>
