@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acceso al Portal | MECRO</title>
+  
+  <link rel="icon" href="./images/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    :root {
+      --mecro-bg-dark: #0a0d10;          
+      --mecro-bg-card: #161a1d;          
+      --mecro-line: #2a3033;             
+      --mecro-text-main: #f5f6f7;        
+      --mecro-text-dim: #9ca3ad;         
+      --mecro-accent: #3a5241;           
+      --mecro-accent-hover: #4a6652;     
+      --mecro-accent-soft: #2c3a30;      
+      --mecro-accent-ring: rgba(58,82,65,.5); 
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--mecro-bg-dark);
+      color: var(--mecro-text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Fondo Difuminado */
+    .auth-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+    }
+    .auth-bg::before {
+      content: "";
+      position: absolute;
+      inset: -20px; 
+      background-image: url('./images/image_b9e999.jpg'); /* Tu fondo épico */
+      background-size: cover;
+      background-position: center;
+      filter: blur(15px);
+      opacity: 0.5; 
+    }
+    .auth-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,13,16,0.9) 0%, rgba(10,13,16,0.6) 100%);
+    }
+
+    /* Inputs de formulario */
+    .auth-input {
+      width: 100%;
+      border-radius: 0.5rem;
+      background-color: rgba(0,0,0,0.4);
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 1px solid var(--mecro-line);
+      outline: none;
+      color: white;
+      transition: all 0.2s;
+    }
+    .auth-input:focus {
+      border-color: var(--mecro-accent);
+      box-shadow: 0 0 0 2px var(--mecro-accent-ring);
+    }
+    .input-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--mecro-text-dim);
+      font-size: 1.25rem;
+    }
+
+    /* Botón Principal */
+    .btn-auth {
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      background-color: var(--mecro-accent);
+      color: white;
+      font-weight: 700;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+    .btn-auth:hover { background-color: var(--mecro-accent-hover); }
+
+    /* Botón Google */
+    .btn-google {
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      background-color: white;
+      color: black;
+      font-weight: 600;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background-color 0.2s;
+    }
+    .btn-google:hover { background-color: #f1f5f9; }
+
+    /* Glassmorphism Panel */
+    .glass-panel {
+      background: rgba(22, 26, 29, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Ocultar elementos para el toggle JS */
+    .hidden-form { display: none; }
+  </style>
+</head>
+
+<body>
+  <div class="auth-bg"></div>
+
+  <header class="p-6 absolute top-0 left-0 w-full z-10 flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition">
+      <div class="h-8 w-8 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] flex items-center justify-center p-1">
+        <img src="./images/logo-mecro-blanco.png" alt="MECRO" class="w-full h-full object-contain">
+      </div>
+      <span class="font-black tracking-widest uppercase text-sm">Volver al inicio</span>
+    </a>
+  </header>
+
+  <main class="flex-grow flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-md rounded-2xl overflow-hidden relative z-10">
+      
+      <div class="flex border-b border-[var(--mecro-line)]">
+        <button id="tabLogin" class="flex-1 py-4 text-sm font-bold text-white border-b-2 border-[var(--mecro-accent)] bg-white/5 transition-colors">
+          Iniciar Sesión
+        </button>
+        <button id="tabRegister" class="flex-1 py-4 text-sm font-medium text-dim hover:text-white transition-colors">
+          Crear Cuenta
+        </button>
+      </div>
+
+      <div class="p-8">
+        <form id="formLogin" action="#" class="space-y-5">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-white mb-1">Bienvenido de vuelta</h2>
+            <p class="text-sm text-dim">Ingresa al portal de alumnos MECRO</p>
+          </div>
+
+          <div class="relative">
+            <i class="ph ph-envelope-simple input-icon"></i>
+            <input type="email" placeholder="Correo electrónico" required class="auth-input">
+          </div>
+
+          <div class="relative">
+            <i class="ph ph-lock-key input-icon"></i>
+            <input type="password" placeholder="Contraseña" required class="auth-input">
+          </div>
+
+          <div class="flex items-center justify-between text-xs">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded bg-black border-[var(--mecro-line)] text-[var(--mecro-accent)] focus:ring-[var(--mecro-accent)]">
+              <span class="text-dim">Recordarme</span>
+            </label>
+            <a href="#" class="text-[var(--mecro-accent)] hover:underline font-medium">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <button type="submit" class="btn-auth mt-2">Ingresar al Portal</button>
+
+          <div class="relative flex items-center py-2">
+            <div class="flex-grow border-t border-[var(--mecro-line)]"></div>
+            <span class="flex-shrink-0 mx-4 text-xs text-dim">o continúa con</span>
+            <div class="flex-grow border-t border-[var(--mecro-line)]"></div>
+          </div>
+
+          <button type="button" class="btn-google">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
+            Google
+          </button>
+        </form>
+
+        <form id="formRegister" action="#" class="space-y-5 hidden-form">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-white mb-1">Únete a la academia</h2>
+            <p class="text-sm text-dim">Crea tu cuenta para inscribirte a los cursos</p>
+          </div>
+
+          <div class="relative">
+            <i class="ph ph-user input-icon"></i>
+            <input type="text" placeholder="Nombre completo" required class="auth-input">
+          </div>
+
+          <div class="relative">
+            <i class="ph ph-envelope-simple input-icon"></i>
+            <input type="email" placeholder="Correo electrónico" required class="auth-input">
+          </div>
+
+          <div class="relative">
+            <i class="ph ph-lock-key input-icon"></i>
+            <input type="password" placeholder="Crear contraseña" required class="auth-input">
+          </div>
+
+          <p class="text-xs text-dim text-center mt-2">
+            Al registrarte, aceptas nuestros <a href="#" class="text-[var(--mecro-accent)] hover:underline">Términos de Servicio</a> y <a href="#" class="text-[var(--mecro-accent)] hover:underline">Política de Privacidad</a>.
+          </p>
+
+          <button type="submit" class="btn-auth mt-2">Crear Cuenta y Continuar</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Lógica simple para cambiar entre Iniciar Sesión y Crear Cuenta
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const formLogin = document.getElementById('formLogin');
+    const formRegister = document.getElementById('formRegister');
+
+    tabLogin.addEventListener('click', () => {
+      // Activar tab Login
+      tabLogin.classList.add('border-b-2', 'border-[var(--mecro-accent)]', 'bg-white/5', 'font-bold');
+      tabLogin.classList.remove('font-medium', 'text-dim');
+      tabLogin.style.color = 'white';
+      
+      // Desactivar tab Register
+      tabRegister.classList.remove('border-b-2', 'border-[var(--mecro-accent)]', 'bg-white/5', 'font-bold');
+      tabRegister.classList.add('font-medium', 'text-dim');
+      tabRegister.style.color = '';
+
+      // Mostrar/Ocultar Formularios
+      formLogin.classList.remove('hidden-form');
+      formRegister.classList.add('hidden-form');
+    });
+
+    tabRegister.addEventListener('click', () => {
+      // Activar tab Register
+      tabRegister.classList.add('border-b-2', 'border-[var(--mecro-accent)]', 'bg-white/5', 'font-bold');
+      tabRegister.classList.remove('font-medium', 'text-dim');
+      tabRegister.style.color = 'white';
+      
+      // Desactivar tab Login
+      tabLogin.classList.remove('border-b-2', 'border-[var(--mecro-accent)]', 'bg-white/5', 'font-bold');
+      tabLogin.classList.add('font-medium', 'text-dim');
+      tabLogin.style.color = '';
+
+      // Mostrar/Ocultar Formularios
+      formRegister.classList.remove('hidden-form');
+      formLogin.classList.add('hidden-form');
+    });
+  </script>
+</body>
+</html>

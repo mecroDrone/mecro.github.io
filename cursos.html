@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cursos Premium | MECRO</title>
+  <title>Programas de Especialización | MECRO</title>
   <meta name="description" content="Capacitación avanzada en hardware aeroespacial, drones y sistemas embebidos." />
   
   <link rel="icon" href="./images/favicon.png" type="image/png" />
@@ -94,14 +94,12 @@
 
 <body class="flex flex-col min-h-screen">
   
-  <!-- NAVEGACIÓN -->
   <header class="sticky top-0 z-40 nav-blur border-b border-[var(--mecro-line)]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <a href="index.html" class="flex items-center gap-3 group">
           <div class="h-9 w-9 rounded-lg border border-[var(--mecro-accent-ring)] bg-[var(--mecro-bg-dark)] flex items-center justify-center text-lg overflow-hidden">
-            <img src="./images/logo-mecro-blanco.png" alt="MECRO" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <span style="display:none;">🚁</span>
+            <img src="./images/logo-mecro-blanco.png" alt="MECRO" class="w-full h-full object-contain p-1">
           </div>
           <div class="leading-tight">
             <span class="block font-extrabold tracking-tight text-lg text-[var(--mecro-text-main)] group-hover:text-[var(--mecro-accent)] transition-colors">MECRO</span>
@@ -116,13 +114,12 @@
           <a href="login.html" class="ml-2 border border-[var(--mecro-accent)] rounded-xl px-4 py-2 hover:bg-[var(--mecro-accent-soft)] transition flex items-center gap-2"><i class="ph ph-lock-key"></i> Portal de Alumnos</a>
         </nav>
 
-        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-gray-400 hover:bg-[var(--mecro-line)] hover:text-white focus:outline-none">
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-gray-400 hover:text-white focus:outline-none">
           <i class="ph ph-list text-2xl"></i>
         </button>
       </div>
     </div>
 
-    <!-- Menú Móvil -->
     <div id="mobileMenu" class="hidden md:hidden border-t border-[var(--mecro-line)] bg-[var(--mecro-bg-dark)] absolute w-full left-0 z-50">
       <div class="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-2 text-base font-medium">
         <a href="cursos.html" class="block rounded-md px-3 py-2 bg-[var(--mecro-accent-soft)] text-white">Cursos</a>
@@ -134,7 +131,6 @@
     </div>
   </header>
 
-  <!-- HERO DE CURSOS -->
   <section class="pt-16 pb-12 border-b border-[var(--mecro-line)] bg-[#0f1417] relative overflow-hidden">
     <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(var(--mecro-text-main) 1px, transparent 1px); background-size: 32px 32px;"></div>
     
@@ -156,23 +152,19 @@
     </div>
   </section>
 
-  <!-- CATÁLOGO DE CURSOS PREMIUM -->
   <section class="py-12 flex-grow">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       
       <div class="flex flex-col lg:flex-row gap-8">
         
-        <!-- BARRA LATERAL (Filtros) -->
         <aside class="w-full lg:w-64 shrink-0" data-aos="fade-right">
           <div class="sticky top-24 space-y-8">
-            
             <div>
               <div class="relative">
                 <input type="text" placeholder="Buscar programas..." class="w-full bg-[var(--mecro-bg-card)] border border-[var(--mecro-line)] rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-[var(--mecro-accent)] text-white">
                 <i class="ph ph-magnifying-glass absolute left-3 top-2.5 text-dim text-lg"></i>
               </div>
             </div>
-
             <div>
               <h3 class="font-bold text-white mb-4 uppercase tracking-wider text-xs">Categorías</h3>
               <ul class="space-y-3 text-sm text-dim">
@@ -182,7 +174,6 @@
                 <li class="flex items-center gap-3"><input type="checkbox" class="filter-checkbox"><label>Sistemas Embebidos</label></li>
               </ul>
             </div>
-
             <div>
               <h3 class="font-bold text-white mb-4 uppercase tracking-wider text-xs">Nivel Técnico</h3>
               <ul class="space-y-3 text-sm text-dim">
@@ -191,11 +182,9 @@
                 <li class="flex items-center gap-3"><input type="checkbox" class="filter-checkbox"><label>Avanzado</label></li>
               </ul>
             </div>
-
           </div>
         </aside>
 
-        <!-- GRID DE CURSOS -->
         <main class="flex-grow">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-white">Mostrando 4 Programas</h2>
@@ -207,7 +196,6 @@
 
           <div class="grid md:grid-cols-2 gap-6">
             
-            <!-- CURSO 1: DRONES TÁCTICOS -->
             <div class="card-surface flex flex-col overflow-hidden group" data-aos="fade-up">
               <div class="h-48 relative overflow-hidden bg-[var(--mecro-bg-dark)]">
                 <div class="absolute top-3 left-3 bg-black/70 backdrop-blur text-white text-xs font-bold px-2 py-1 rounded border border-white/10 z-10 flex items-center gap-1">
@@ -232,7 +220,6 @@
               </div>
             </div>
 
-            <!-- CURSO 2: COHETERÍA (NUEVO) -->
             <div class="card-surface flex flex-col overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
               <div class="h-48 relative overflow-hidden bg-[var(--mecro-bg-dark)]">
                 <div class="absolute top-3 left-3 bg-black/70 backdrop-blur text-white text-xs font-bold px-2 py-1 rounded border border-white/10 z-10 flex items-center gap-1">
@@ -252,13 +239,11 @@
 
                 <div class="pt-4 border-t border-[var(--mecro-line)] flex items-center justify-between">
                   <span class="text-xl font-black text-white">S/ 450.00</span>
-                  <!-- Te sugiero que cuando crees el HTML del curso de cohetes lo enlances aquí -->
                   <a href="curso-cohetes.html" class="btn-solid-accent !w-auto !py-2 !px-4 text-sm">Ver Detalles</a>
                 </div>
               </div>
             </div>
 
-            <!-- CURSO 3: ESP32 -->
             <div class="card-surface flex flex-col overflow-hidden group" data-aos="fade-up">
               <div class="h-48 relative overflow-hidden bg-[var(--mecro-bg-dark)]">
                 <div class="absolute top-3 left-3 bg-black/70 backdrop-blur text-white text-xs font-bold px-2 py-1 rounded border border-white/10 z-10 flex items-center gap-1">
@@ -283,14 +268,12 @@
               </div>
             </div>
 
-            <!-- CURSO 4: TELEMETRÍA -->
             <div class="card-surface flex flex-col overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
               <div class="h-48 relative overflow-hidden bg-[var(--mecro-bg-dark)]">
                 <div class="absolute top-3 left-3 bg-black/70 backdrop-blur text-white text-xs font-bold px-2 py-1 rounded border border-white/10 z-10 flex items-center gap-1">
                   <div class="w-2 h-2 rounded-full bg-red-500"></div> Avanzado
                 </div>
-                <!-- Si no tienes foto específica de telemetría, puedes reusar la del cohete o esp32 -->
-                <img src="./images/telemtriaa.jpg" alt="Telemetría" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 grayscale hover:grayscale-0">
+                <img src="./images/image_b9de5c.jpg" alt="Telemetría" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 grayscale hover:grayscale-0">
               </div>
               <div class="p-6 flex flex-col flex-grow">
                 <div class="text-xs text-[var(--mecro-accent)] font-bold mb-2 uppercase tracking-wide">Aviónica</div>
@@ -310,112 +293,21 @@
             </div>
 
           </div>
-          
-          <!-- Paginación -->
-          <div class="mt-12 flex justify-center gap-2">
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center border border-[var(--mecro-line)] text-dim hover:bg-[var(--mecro-bg-card)] hover:text-white transition-colors"><i class="ph ph-caret-left"></i></button>
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-[var(--mecro-accent)] text-white font-bold">1</button>
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center border border-[var(--mecro-line)] text-dim hover:bg-[var(--mecro-bg-card)] hover:text-white transition-colors">2</button>
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center border border-[var(--mecro-line)] text-dim hover:bg-[var(--mecro-bg-card)] hover:text-white transition-colors"><i class="ph ph-caret-right"></i></button>
-          </div>
-
         </main>
       </div>
     </div>
   </section>
 
-  <!-- MEGA FOOTER -->
   <footer class="pt-16 pb-8 border-t border-[var(--mecro-line)] mt-auto bg-[var(--mecro-bg-dark)]">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12 text-sm">
-        
-        <div>
-          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Aeronáutica</h4>
-          <ul class="space-y-3 text-dim">
-            <li><a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Dinámica de Drones</a></li>
-            <li><a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Ingeniería VTOL</a></li>
-            <li><a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Sistemas Suborbitales</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Capacitación</h4>
-          <ul class="space-y-3 text-dim">
-            <li><a href="cursos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Catálogo de Cursos</a></li>
-            <li><a href="kits.html" class="hover:text-[var(--mecro-accent)] transition-colors">Kits de Desarrollo ESP32</a></li>
-            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Verificación de Certificados</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Soporte</h4>
-          <ul class="space-y-3 text-dim">
-            <li><a href="contacto.html" class="hover:text-[var(--mecro-accent)] transition-colors">Atención al Alumno</a></li>
-            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Envíos de Hardware</a></li>
-            <li><a href="#" class="hover:text-[var(--mecro-accent)] transition-colors">Garantía MECRO</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Compañía</h4>
-          <ul class="space-y-3 text-dim">
-            <li><a href="nosotros.html" class="hover:text-[var(--mecro-accent)] transition-colors">El Equipo</a></li>
-            <li><a href="proyectos.html" class="hover:text-[var(--mecro-accent)] transition-colors">Portafolio I+D</a></li>
-            <li><a href="contacto.html" class="hover:text-[var(--mecro-accent)] transition-colors">Contacto Corporativo</a></li>
-          </ul>
-        </div>
-
-        <div class="col-span-2 md:col-span-4 lg:col-span-1">
-          <h4 class="text-white font-bold mb-4 tracking-wide uppercase text-xs">Novedades MECRO</h4>
-          <p class="text-dim mb-4 leading-relaxed">Entérate primero sobre la apertura de nuevas matrículas y lanzamientos de kits.</p>
-          <form action="#" class="flex mt-2">
-            <input type="email" placeholder="Tu correo electrónico" required class="bg-[#161a1d] text-white px-4 py-3 w-full border border-[var(--mecro-line)] rounded-l-lg focus:outline-none focus:border-[var(--mecro-accent)] transition-colors text-sm">
-            <button type="submit" class="bg-[var(--mecro-accent)] hover:bg-[var(--mecro-accent-hover)] px-5 py-3 rounded-r-lg text-white transition-colors flex items-center justify-center">
-              <i class="ph ph-paper-plane-right text-lg"></i>
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div class="pt-8 border-t border-[var(--mecro-line)] flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-dim">
-        <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-          <span class="font-black text-white text-xl tracking-widest flex items-center gap-2">
-            <i class="ph ph-rocket text-[var(--mecro-accent)]"></i> MECRO
-          </span>
-          <div class="flex gap-4">
-            <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
-            <span class="hidden md:inline">•</span>
-            <a href="#" class="hover:text-white transition-colors">Términos de Uso</a>
-          </div>
-        </div>
-        
-        <div class="flex gap-5 text-xl">
-          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-linkedin-logo"></i></a>
-          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-youtube-logo"></i></a>
-          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-tiktok-logo"></i></a>
-          <a href="#" class="hover:text-[var(--mecro-accent)] transition-colors"><i class="ph ph-instagram-logo"></i></a>
-        </div>
-      </div>
-      <div class="mt-6 text-xs text-dim text-center md:text-left">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-dim">
         <p>Copyright © <span id="year"></span> MECRO. Todos los derechos reservados. Diseñado en Perú 🇵🇪.</p>
-      </div>
     </div>
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 800, once: true, offset: 50 });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const yearEl = document.getElementById('year');
-      if(yearEl) yearEl.textContent = new Date().getFullYear();
-
-      const btn = document.getElementById('menuBtn');
-      const menu = document.getElementById('mobileMenu');
-      if(btn && menu){
-        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-      }
-    });
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
