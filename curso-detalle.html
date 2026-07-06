@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ 
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
@@ -124,11 +124,11 @@
         </h1>
         
         <p class="text-xl text-gray-300 mb-8 leading-relaxed drop-shadow-md">
-          Pasa de la teoría al banco de pruebas. Aprende a dimensionar el powertrain, configurar un controlador F405 y programar algoritmos PID para construir tu primer dron táctico desde cero.
+          Pasa de la teoría al banco de pruebas. Aprende a dimensionar el powertrain, configurar un controlador F405, entender las telecomunicaciones RF y programar algoritmos PID para construir tu primer dron táctico desde cero.
         </p>
 
         <div class="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-300">
-          <div class="flex items-center gap-2"><i class="ph ph-clock text-2xl text-[var(--mecro-accent)]"></i> 25 Horas académicas</div>
+          <div class="flex items-center gap-2"><i class="ph ph-clock text-2xl text-[var(--mecro-accent)]"></i> 36 Horas (6 Semanas)</div>
           <div class="flex items-center gap-2"><i class="ph ph-video-camera text-2xl text-[var(--mecro-accent)]"></i> 100% Online</div>
           <div class="flex items-center gap-2"><i class="ph ph-certificate text-2xl text-[var(--mecro-accent)]"></i> Certificado de Especialidad</div>
         </div>
@@ -145,10 +145,10 @@
           <div data-aos="fade-up">
             <h2 class="text-2xl font-bold mb-4 border-b border-[var(--mecro-line)] pb-2">Descripción Técnica</h2>
             <p class="text-dim leading-relaxed mb-4">
-              Este programa está diseñado por el equipo de I+D de MECRO para formar constructores, no solo pilotos. Dejamos de lado los tutoriales superficiales para sumergirnos en la física del vuelo, la química de las baterías LiPo de alta descarga y la arquitectura de los controladores de vuelo modernos.
+              Este programa está diseñado por el equipo de MECRO para formar constructores e ingenieros de hardware, no solo pilotos. Dejamos de lado los tutoriales superficiales para sumergirnos en la física del vuelo, la ciencia de los microcontroladores, la física de radiofrecuencia (ExpressLRS) y la arquitectura de los stacks modernos.
             </p>
             <p class="text-dim leading-relaxed">
-              Analizaremos el diagrama de bloques fundamental (Sensor → Procesador → Actuador), soldaremos componentes de potencia y configuraremos la matemática del lazo cerrado que mantiene a la aeronave estable en el aire.
+              Analizaremos a fondo el diagrama de bloques (Sensor → Procesador → Actuador), realizaremos soldadura de alta potencia y configuraremos la matemática del lazo cerrado (PID) que mantiene a la aeronave estable en el aire.
             </p>
           </div>
 
@@ -161,8 +161,8 @@
                 </div>
                 <div class="w-full md:w-2/3">
                   <span class="text-[var(--mecro-accent)] text-xs font-bold uppercase tracking-widest block mb-1">Proyecto Principal</span>
-                  <h3 class="text-xl font-bold text-white mb-2">Ensamblaje Dron F405 (6S)</h3>
-                  <p class="text-sm text-dim mb-4">Dimensionamiento, soldadura de alta corriente y configuración de un stack F405 con motores EMAX 2807.</p>
+                  <h3 class="text-xl font-bold text-white mb-2">Ensamblaje Dron Táctico F405 (6S)</h3>
+                  <p class="text-sm text-dim mb-4">Dimensionamiento matemático, soldadura intermetálica de alta corriente y configuración absoluta de un stack F405 con motores EMAX 2807 y telemetría avanzada.</p>
                 </div>
               </div>
             </div>
@@ -170,7 +170,7 @@
 
           <div data-aos="fade-up">
             <h2 class="text-2xl font-bold mb-2 border-b border-[var(--mecro-line)] pb-2">Syllabus del Curso</h2>
-            <p class="text-sm text-dim mb-6">8 Sesiones intensivas distribuidas en 4 semanas de trabajo técnico.</p>
+            <p class="text-sm text-dim mb-6">12 Sesiones intensivas distribuidas en 6 semanas de trabajo técnico.</p>
             
             <div class="space-y-4">
               
@@ -178,7 +178,7 @@
                 <summary class="p-5 flex justify-between items-center font-bold text-lg">
                   <div class="flex items-center gap-4">
                     <span class="w-10 h-10 rounded bg-[var(--mecro-accent-soft)] text-[var(--mecro-accent)] flex items-center justify-center text-sm border border-[var(--mecro-accent)]">S1</span>
-                    Física del Vuelo y Potencia Bruta
+                    Fundamentos, Aerodinámica y Estructuras
                   </div>
                   <div class="flex items-center gap-4 text-sm text-dim font-normal">
                     <span class="hidden sm:inline">6 Horas</span>
@@ -186,18 +186,16 @@
                   </div>
                 </summary>
                 <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 1: Aerodinámica y Ecosistema UAV (Lidera: Gerard)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 1: Aerodinámica y Hélices</div>
                   <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Dinámica de vuelo: Sustentación en perfiles alares vs. Vectorización de empuje y torque.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Diagrama de bloques del sistema: Sensor → Procesador → Actuador.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> El hardware: Presentación de kits (ESP32, componentes discretos y chasis).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Dinámica de vuelo, sustentación y nomenclatura de hélices (Paso vs. Diámetro).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Consumo de corriente según el perfil aerodinámico.</li>
                   </ul>
                   
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 2: El Powertrain y Seguridad LiPo (Lidera: Álvaro)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 2: Chasis y Materiales</div>
                   <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Química de Baterías: Celdas, resistencia interna, C-rating y balanceo para sistemas 6S.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Motores y ESCs: Relación Kv, cálculo de empuje. Análisis de motores EMAX 2807 y ESCs de 50A/60A.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Práctica: Medición de voltajes, cálculo de potencias y demostración de cortocircuitos.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Geometría de frames: True X para acrobacia vs. Deadcat para cine.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Resonancia de la fibra de carbono y mención a drones híbridos de combustión.</li>
                   </ul>
                 </div>
               </details>
@@ -206,7 +204,7 @@
                 <summary class="p-5 flex justify-between items-center font-bold text-lg">
                   <div class="flex items-center gap-4">
                     <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S2</span>
-                    Señales, Embebidos y Control
+                    El Powertrain y Dimensionamiento Físico
                   </div>
                   <div class="flex items-center gap-4 text-sm text-dim font-normal">
                     <span class="hidden sm:inline">6 Horas</span>
@@ -214,18 +212,16 @@
                   </div>
                 </summary>
                 <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 3: Radiocontrol y Modulación con ESP32 (Lidera: Gerard)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 3: Química y Energía</div>
                   <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Radiofrecuencia: Receptores, bandas (2.4GHz vs 900MHz) y latencia.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Protocolos RC: Análisis del PWM analógico vs. DSHOT.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Práctica ESP32: Programación en C++ para inyectar señales de 1000µs a 2000µs a un ESC discreto y visualización en osciloscopio.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Curvas de descarga de celdas LiPo (1S a 12S).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Resistencia interna, C-rating y la Ley de Watt aplicada a la eficiencia térmica.</li>
                   </ul>
                   
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 4: Arquitectura del Controlador de Vuelo (Lideran: Gerard / Álvaro)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 4: Propulsión Matemática</div>
                   <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> El Cerebro: Evolución de placas. Análisis de la arquitectura F405.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Sensores Inerciales: Acelerómetros y Giroscopios (Filtros SPI/I2C).</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Lectura de Esquemáticos: UARTs, pines de señal y distribución de potencia.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Lectura de estatores y Relación Kv (Análisis EMAX 2807).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Cálculo matemático de Empuje vs. Peso (TWR) y efecto Joule en los circuitos.</li>
                   </ul>
                 </div>
               </details>
@@ -234,7 +230,7 @@
                 <summary class="p-5 flex justify-between items-center font-bold text-lg">
                   <div class="flex items-center gap-4">
                     <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S3</span>
-                    Manufactura y Ruteo (Práctico)
+                    Embebidos y Controladores de Vuelo
                   </div>
                   <div class="flex items-center gap-4 text-sm text-dim font-normal">
                     <span class="hidden sm:inline">6 Horas</span>
@@ -242,18 +238,16 @@
                   </div>
                 </summary>
                 <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 5: Ensamblaje Electromecánico - Ala Fija (Lidera: Álvaro)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 5: El Cerebro a Bajo Nivel</div>
                   <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Mecánica Básica: Instalación de servos, varillajes y motor.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Ruteo de Señales: Conexión del receptor al ESC y servos.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Práctica: Configuración de canales (Roll, Pitch, Yaw, Throttle).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Arquitectura de Microcontroladores: Diferencias de reloj (STM32 F4 vs F7 vs H7) y su impacto en el Loop Time.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Análisis de buses UART, I2C y SPI.</li>
                   </ul>
                   
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 6: Ensamblaje de Potencia - Dron F405 (Lidera: Álvaro)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 6: Protocolos de Modulación</div>
                   <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Soldadura de Alta Corriente: Técnicas para pads y cables AWG 12/14.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Montaje del Stack: Unión F405 con ESC 4-en-1. Uso de dampers para mitigación de vibraciones.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Integración: Ruteo de periféricos y pruebas de continuidad.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Evolución de la comunicación con los ESCs.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Del PWM analógico y su latencia, al protocolo digital DSHOT (tramas de 16 bits y telemetría).</li>
                   </ul>
                 </div>
               </details>
@@ -262,30 +256,80 @@
                 <summary class="p-5 flex justify-between items-center font-bold text-lg">
                   <div class="flex items-center gap-4">
                     <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S4</span>
-                    Software, Dinámica de Control y Vuelo
+                    Telecomunicaciones, Telemetría y FPV
                   </div>
                   <div class="flex items-center gap-4 text-sm text-dim font-normal">
-                    <span class="hidden sm:inline">7 Horas</span>
+                    <span class="hidden sm:inline">6 Horas</span>
                     <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
                   </div>
                 </summary>
                 <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 7: Firmware y Lazo de Control PID (Lidera: Gerard)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 7: Enlaces de Radio (RF)</div>
                   <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Flasheo: Instalación de Betaflight/INAV y carga de firmware.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Teoría de Control: Explicación matemática del lazo cerrado para estabilización inercial:
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Protocolos modernos de control: ExpressLRS (LoRa 2.4GHz/900MHz) vs chips clásicos (CC2500).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Análisis de latencia y packet rate.</li>
+                  </ul>
+                  
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 8: Sistemas de Video (VTX) y Antenas</div>
+                  <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Transmisión analógica (5.8GHz) vs Digital HD.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Física de antenas, ganancia (dBi) y polarización circular (RHCP/LHCP).</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="card-surface group border border-[var(--mecro-line)] hover:border-[var(--mecro-accent-ring)] transition-colors">
+                <summary class="p-5 flex justify-between items-center font-bold text-lg">
+                  <div class="flex items-center gap-4">
+                    <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S5</span>
+                    Manufactura, Materiales y Ruteo Práctico
+                  </div>
+                  <div class="flex items-center gap-4 text-sm text-dim font-normal">
+                    <span class="hidden sm:inline">6 Horas</span>
+                    <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
+                  </div>
+                </summary>
+                <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 9: Ingeniería de Cables y Soldadura</div>
+                  <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Calibración AWG de alto filtraje (hilos de cobre estañado).</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Aleaciones intermetálicas, flux y temperaturas correctas (380°C - 400°C).</li>
+                  </ul>
+                  
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 10: Ensamblaje del Stack F405</div>
+                  <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Uso de Smoke Stoppers para prevención de cortos.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Ruteo inteligente de señales, periféricos y mitigación de vibraciones con dampers.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="card-surface group border border-[var(--mecro-line)] hover:border-[var(--mecro-accent-ring)] transition-colors">
+                <summary class="p-5 flex justify-between items-center font-bold text-lg">
+                  <div class="flex items-center gap-4">
+                    <span class="w-10 h-10 rounded bg-[var(--mecro-bg-dark)] border border-[var(--mecro-line)] text-dim flex items-center justify-center text-sm">S6</span>
+                    Software, Dinámica de Control y Vuelo
+                  </div>
+                  <div class="flex items-center gap-4 text-sm text-dim font-normal">
+                    <span class="hidden sm:inline">6 Horas</span>
+                    <i class="ph ph-caret-down caret-icon text-xl text-[var(--mecro-accent)]"></i>
+                  </div>
+                </summary>
+                <div class="px-5 pb-5 pt-2 text-sm text-dim border-t border-[var(--mecro-line)]">
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 11: Firmware y Lazo PID</div>
+                  <ul class="space-y-2 mb-4 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Flasheo de Betaflight/INAV.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Explicación matemática del lazo de control PID para estabilización inercial y configuración de filtros giroscópicos:
                       <div class="w-full overflow-x-auto bg-[#0a0d10] p-4 rounded-lg my-2 border border-[var(--mecro-line)] text-center text-[var(--mecro-text-main)]">
                         $$u(t) = K_p e(t) + K_i \int e(t) dt + K_d \frac{de(t)}{dt}$$
                       </div>
                     </li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Configuración: Calibración de acelerómetros, mapeo de motores y modos de vuelo (Acro/Angle).</li>
                   </ul>
                   
-                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 8: Sintonización en Campo y Operaciones (Lideran: Gerard / Álvaro)</div>
+                  <div class="mt-4 mb-2 font-bold text-[var(--mecro-text-main)]">Sesión 12: Sintonización y Operaciones en Campo</div>
                   <ul class="space-y-2 pl-2 border-l-2 border-[var(--mecro-accent-soft)]">
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Protocolos pre-vuelo: Pruebas de failsafe.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Vuelos de demostración: Avión RC vs. Dron.</li>
-                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Análisis Post-Vuelo: Revisión de telemetría (cajas negras) y sintonización PID inicial.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Protocolos de failsafe y Vuelos de demostración.</li>
+                    <li class="flex items-start gap-2"><span class="text-[var(--mecro-accent)] mt-1">•</span> Análisis de telemetría post-vuelo (Blackbox) y sintonización de algoritmos.</li>
                   </ul>
                 </div>
               </details>
@@ -299,24 +343,27 @@
             <h3 class="text-xl font-bold mb-4 text-white">Inscripción al Programa</h3>
             
             <div class="flex items-baseline gap-2 mb-2">
-              <span class="text-4xl font-black text-white">S/ 350.00</span>
-              <span class="text-sm text-dim line-through">S/ 500.00</span>
+              <span class="text-4xl font-black text-white">S/ 349.00</span>
+              <span class="text-sm text-dim line-through">S/ 499.00</span>
             </div>
+            <p class="text-xs text-[var(--mecro-accent)] font-bold mb-1 uppercase tracking-wider">Precio especial de lanzamiento.</p>
             <p class="text-xs text-[var(--mecro-accent)] font-bold mb-6 uppercase tracking-wider">Pago único • Acceso de por vida</p>
 
+            <div class="mb-4 text-sm font-bold text-white">¿Qué incluye tu inscripción?</div>
             <ul class="space-y-3 text-sm text-dim mb-8">
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Acceso a las 8 Sesiones en Alta Calidad</li>
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Materiales descargables (Esquemáticos)</li>
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Soporte en foro de constructores MECRO</li>
-              <li class="flex items-center gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg"></i> Emisión de Certificado Oficial</li>
+              <li class="flex items-start gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg mt-0.5"></i> Acceso a las 12 Sesiones en Alta Calidad (36 Horas).</li>
+              <li class="flex items-start gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg mt-0.5"></i> Materiales descargables (Esquemáticos, Tablas de Dimensionamiento).</li>
+              <li class="flex items-start gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg mt-0.5"></i> Lista de componentes y proveedores a precio de fábrica.</li>
+              <li class="flex items-start gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg mt-0.5"></i> Soporte directo en el Foro de Constructores MECRO.</li>
+              <li class="flex items-start gap-3"><i class="ph ph-check-circle text-[var(--mecro-accent)] text-lg mt-0.5"></i> Emisión de Certificado Oficial de Especialidad.</li>
             </ul>
 
-            <a href="login.html" class="btn-solid-accent text-lg shadow-lg">
-              Inscribirme Ahora <i class="ph ph-arrow-right font-bold"></i>
+            <a href="https://wa.me/51918389333?text=%C2%A1Hola%20equipo%20de%20MECRO%21%20%F0%9F%9B%81%20Vengo%20de%20la%20p%C3%A1gina%20web%20y%20quiero%20inscribirme%20al%20curso%20de%20%27Arquitectura%20y%20Ensamblaje%20UAV%27.%20%C2%BFMe%20brindan%20los%20m%C3%A9todos%20de%20pago%3F" target="_blank" class="btn-solid-accent text-lg shadow-lg bg-green-600 hover:bg-green-700">
+              Inscribirme por WhatsApp <i class="ph ph-whatsapp-logo font-bold"></i>
             </a>
-            
+
             <p class="text-center text-xs text-dim mt-4">
-              Serás redirigido al portal seguro de alumnos para crear tu cuenta.
+                        Serás redirigido a nuestro chat oficial para coordinar tu pago e inscripción.
             </p>
           </div>
         </div>
