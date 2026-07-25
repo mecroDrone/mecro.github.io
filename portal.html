@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECRO | Aula Virtual Aeroespacial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mecro-bg-dark: #0b0d10;
+      --mecro-bg-card: #13171f;
+      --mecro-bg-sidebar: #0f1218;
+      --mecro-accent: #00f0ff;
+      --mecro-accent-green: #00ff88;
+      --mecro-line: rgba(255, 255, 255, 0.1);
+      --mecro-text: #e2e8f0;
+      --mecro-text-dim: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--mecro-bg-dark); color: var(--mecro-text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* Header */
+    header {
+      height: 60px;
+      background: var(--mecro-bg-sidebar);
+      border-bottom: 1px solid var(--mecro-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+    .brand { font-weight: 800; font-size: 1.1rem; letter-spacing: 1px; color: #fff; }
+    .brand span { color: var(--mecro-accent); }
+    .user-info { display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; color: var(--mecro-text-dim); }
+    .btn-logout { background: transparent; border: 1px solid var(--mecro-line); color: #fff; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; }
+    .btn-logout:hover { border-color: var(--mecro-accent); color: var(--mecro-accent); }
+
+    /* Layout Main */
+    .app-container { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar Navigation */
+    aside {
+      width: 320px;
+      background: var(--mecro-bg-sidebar);
+      border-right: 1px solid var(--mecro-line);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .sidebar-title { padding: 1rem 1.2rem; font-size: 0.75rem; text-transform: uppercase; color: var(--mecro-text-dim); letter-spacing: 1px; font-weight: 700; border-bottom: 1px solid var(--mecro-line); }
+    .nav-list { list-style: none; }
+    .nav-item {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--mecro-line);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-item:hover { background: rgba(0, 240, 255, 0.05); }
+    .nav-item.active { background: rgba(0, 240, 255, 0.1); border-left: 4px solid var(--mecro-accent); }
+    .week-code { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--mecro-accent); font-weight: 600; }
+    .week-name { font-size: 0.9rem; font-weight: 600; margin-top: 0.2rem; }
+
+    /* Main Content Area */
+    main { flex: 1; padding: 2rem; overflow-y: auto; background: var(--mecro-bg-dark); }
+    .content-header { margin-bottom: 2rem; border-bottom: 1px solid var(--mecro-line); padding-bottom: 1rem; }
+    .content-title { font-size: 1.6rem; font-weight: 800; color: #fff; }
+    .content-subtitle { color: var(--mecro-text-dim); margin-top: 0.4rem; font-size: 0.95rem; }
+
+    /* Cards & Grid */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .card { background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); border-radius: 12px; padding: 1.5rem; }
+    .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: #fff; display: flex; align-items: center; gap: 0.5rem; }
+    
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--mecro-accent);
+      color: #000;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-secondary { background: transparent; border: 1px solid var(--mecro-line); color: #fff; }
+    .btn-secondary:hover { border-color: var(--mecro-accent); color: var(--mecro-accent); }
+
+    /* Resource List */
+    .resource-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .resource-item { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid var(--mecro-line); }
+    .resource-info h4 { font-size: 0.9rem; font-weight: 600; color: #fff; }
+    .resource-info p { font-size: 0.75rem; color: var(--mecro-text-dim); }
+
+    /* Login Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .modal-box { background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); padding: 2.5rem; border-radius: 16px; width: 100%; max-width: 400px; text-align: center; }
+    .modal-box h2 { font-weight: 800; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .modal-box p { color: var(--mecro-text-dim); font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; text-align: left; }
+    .form-group label { display: block; font-size: 0.8rem; color: var(--mecro-text-dim); margin-bottom: 0.4rem; }
+    .form-group input { width: 100%; padding: 0.8rem; background: var(--mecro-bg-dark); border: 1px solid var(--mecro-line); border-radius: 8px; color: #fff; outline: none; }
+    .form-group input:focus { border-color: var(--mecro-accent); }
+    .login-status { margin-top: 1rem; font-size: 0.85rem; color: #ff5555; }
+  </style>
+</head>
+<body>
+
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-box">
+      <h2>MECRO 🚀</h2>
+      <p>Acceso exclusivo a la Plataforma de Alumnos</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Correo Electrónico Registraro</label>
+          <input type="email" id="inputEmail" placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="inputPassword" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-action">Ingresar al Aula Virtual</button>
+      </form>
+      <div id="loginStatus" class="login-status"></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="brand">MECRO <span>ACADEMY</span> | Drones & Cohetes</div>
+    <div class="user-info">
+      <span id="userName">Alumno no identificado</span>
+      <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <aside>
+      <div class="sidebar-title">Contenido por Semanas</div>
+      <ul class="nav-list" id="navList"></ul>
+    </aside>
+
+    <main id="mainView"></main>
+  </div>
+
+  <script>
+    // REEMPLAZAR ESTA URL CON TU GOOGLE APPS SCRIPT WEB APP URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbHNi4FL-FQv5DMPCMJPphT626ICMC3pPUf6G_VCIoOYSI7DLgEg4w8h5kYOJRG04sbg/exec";
+
+    // Sílabo Oficial de MECRO
+    const syllabus = [
+      {
+        code: "S1",
+        title: "Fundamentos de Arquitectura UAV",
+        focus: "Topología de un multirrotor. Flujo de potencia y datos lógico (Batería → ESC → FC → Motores).",
+        meetLink: "https://meet.google.com/cmk-ypmg-prs",
+        pptLink: "https://docs.google.com/presentation/d/e/2PACX-1v.../embed",
+        videoLink: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        code: "S2",
+        title: "Criterios de Selección de Aviónica",
+        focus: "Análisis de especificaciones técnicas. Estándares RF (ExpressLRS) y latencia en video digital HD vs. analógico.",
+        meetLink: "https://meet.google.com/xyz-abc-def",
+        pptLink: "",
+        videoLink: ""
+      },
+      {
+        code: "S3",
+        title: "Simulación y Enlace de Control",
+        focus: "Conexión del radiocontrol a PC. Configuración de protocolos de comunicación y tasas de refresco para entornos virtuales.",
+        meetLink: "", pptLink: "", videoLink: ""
+      },
+      {
+        code: "S4",
+        title: "Cinemática de Vuelo Multirrotor",
+        focus: "Análisis de respuesta dinámica en los ejes espaciales (Yaw, Pitch, Roll) y gestión vectorial del empuje (Throttle).",
+        meetLink: "", pptLink: "", videoLink: ""
+      },
+      {
+        code: "S5",
+        title: "Protocolos de Laboratorio y Soldadura",
+        focus: "Gestión térmica, uniones de alta corriente (calibres AWG) y mitigación de cortocircuitos eléctricos (Smoke Stoppers).",
+        meetLink: "", pptLink: "", videoLink: ""
+      },
+      {
+        code: "S6",
+        title: "Análisis de Esquemáticos y Ruteo",
+        focus: "Lectura de diagramas del Controlador de Vuelo. Identificación de buses de comunicación (UART, SPI) para periféricos.",
+        meetLink: "", pptLink: "", videoLink: ""
+      },
+      {
+        code: "S7",
+        title: "Integración de Sistemas Electrónicos",
+        focus: "Montaje del Stack, plan de cableado eficiente y mitigación de vibraciones mecánicas en sensores (Soft-mounting).",
+        meetLink: "", pptLink: "", videoLink: ""
+      },
+      {
+        code: "S8",
+        title: "Configuración Firmware y Telemetría",
+        focus: "Interfaz Betaflight, asignación de puertos lógicos y el concepto básico de estabilización mediante lazo de control (PID).",
+        meetLink: "", pptLink: "", videoLink: ""
+      }
+    ];
+
+    let activeIndex = 0;
+
+    // Login Form Event
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('inputEmail').value;
+      const password = document.getElementById('inputPassword').value;
+      const statusDiv = document.getElementById('loginStatus');
+
+      statusDiv.style.color = '#00f0ff';
+      statusDiv.textContent = "Verificando matrícula en Google Sheets...";
+
+      try {
+        if(APPS_SCRIPT_URL.includes("TU_SCRIPT_ID_AQUI")) {
+          // Modo demo local si no se ha pegado el URL de Apps Script
+          localStorage.setItem('mecro_user', JSON.stringify({ nombre: "Alumno Demo MECRO", email: email }));
+          document.getElementById('loginModal').style.display = 'none';
+          initApp();
+          return;
+        }
+
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'login', email: email, password: password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('mecro_user', JSON.stringify(data));
+          document.getElementById('loginModal').style.display = 'none';
+          initApp();
+        } else {
+          statusDiv.style.color = '#ff5555';
+          statusDiv.textContent = data.message;
+        }
+      } catch (err) {
+        statusDiv.style.color = '#ff5555';
+        statusDiv.textContent = "Error al conectar con la base de datos.";
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('mecro_user');
+      location.reload();
+    }
+
+    function initApp() {
+      const user = JSON.parse(localStorage.getItem('mecro_user'));
+      if (!user) {
+        document.getElementById('loginModal').style.display = 'flex';
+        return;
+      }
+      document.getElementById('loginModal').style.display = 'none';
+      document.getElementById('userName').textContent = user.nombre;
+
+      renderSidebar();
+      renderContent(0);
+    }
+
+    function renderSidebar() {
+      const navList = document.getElementById('navList');
+      navList.innerHTML = '';
+
+      syllabus.forEach((item, idx) => {
+        const li = document.createElement('li');
+        li.className = `nav-item ${idx === activeIndex ? 'active' : ''}`;
+        li.onclick = () => { activeIndex = idx; renderSidebar(); renderContent(idx); };
+        li.innerHTML = `
+          <div class="week-code">${item.code}</div>
+          <div class="week-name">${item.title}</div>
+        `;
+        navList.appendChild(li);
+      });
+
+      // Pestaña especial de Bibliografía
+      const liBiblio = document.createElement('li');
+      liBiblio.className = `nav-item ${activeIndex === 99 ? 'active' : ''}`;
+      liBiblio.onclick = () => { activeIndex = 99; renderSidebar(); renderBiblio(); };
+      liBiblio.innerHTML = `
+        <div class="week-code">RECURSOS</div>
+        <div class="week-name">Bibliografía & Software</div>
+      `;
+      navList.appendChild(liBiblio);
+    }
+
+    function renderContent(idx) {
+      const main = document.getElementById('mainView');
+      const item = syllabus[idx];
+
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="week-code">${item.code} - SESIÓN TÉCNICA</div>
+          <h1 class="content-title">${item.title}</h1>
+          <p class="content-subtitle">${item.focus}</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">📡 Clase en Vivo (Google Meet / Zoom)</div>
+            <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1rem;">
+              Accede al enlace de la sesión sincronizada con el instructor.
+            </p>
+            <a href="${item.meetLink || '#'}" target="_blank" class="btn-action ${!item.meetLink ? 'btn-secondary' : ''}">
+              ${item.meetLink ? 'Unirse a la Sesión en Vivo' : 'Enlace disponible antes de la clase'}
+            </a>
+          </div>
+
+          <div class="card">
+            <div class="card-title">📊 Presentación & Diapositivas</div>
+            <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1rem;">
+              Syllabus y esquemáticos presentados durante el laboratorio.
+            </p>
+            <a href="${item.pptLink || '#'}" target="_blank" class="btn-action btn-secondary">
+              Ver Diapositivas en Drive
+            </a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:2rem;">
+          <div class="card-title">🎥 Grabación de la Clase Repasada</div>
+          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1rem;">
+            Alojado directamente en tu almacenamiento de Google Drive / Servidor seguro.
+          </p>
+          <div style="background:#000; border-radius:8px; height:280px; display:flex; align-items:center; justify-content:center; border:1px solid var(--mecro-line);">
+            ${item.videoLink ? 
+              `<iframe width="100%" height="100%" src="${item.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
+              `<span style="color:var(--mecro-text-dim); font-size:0.9rem;">La grabación estará disponible 2 horas después de finalizar la sesión.</span>`}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBiblio() {
+      const main = document.getElementById('mainView');
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="week-code">REPOSITORIO GENERAL</div>
+          <h1 class="content-title">Bibliografía, Software y Herramientas</h1>
+          <p class="content-subtitle">Descargas oficiales, software de configuración y libros de referencia técnica para laboratorio.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">⚡ Software de Configuración y Simulación</div>
+            <ul class="resource-list">
+              <li class="resource-item">
+                <div class="resource-info">
+                  <h4>Betaflight Configurator</h4>
+                  <p>Configurador principal para Controladores de Vuelo (FC).</p>
+                </div>
+                <a href="https://github.com/betaflight/betaflight-configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
+              </li>
+              <li class="resource-item">
+                <div class="resource-info">
+                  <h4>ExpressLRS Configurator</h4>
+                  <p>Software para flasheo de transmisores y receptores RF.</p>
+                </div>
+                <a href="https://github.com/ExpressLRS/ExpressLRS-Configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
+              </li>
+              <li class="resource-item">
+                <div class="resource-info">
+                  <h4>Simulador de Vuelo (VelociDrone / Liftoff)</h4>
+                  <p>Práctica de control en entornos virtuales antes del vuelo real.</p>
+                </div>
+                <a href="https://www.velocidrone.com/" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Ver Sitio</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title">📚 Documentos Técnicos y Guías</div>
+            <ul class="resource-list">
+              <li class="resource-item">
+                <div class="resource-info">
+                  <h4>Manual de Telecomunicaciones y Enlaces RF</h4>
+                  <p>Guía de latencia, bandas de frecuencia y antenas.</p>
+                </div>
+                <button class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar PDF</button>
+              </li>
+              <li class="resource-item">
+                <div class="resource-info">
+                  <h4>Guía de Soldadura de Alto Amperaje (AWG)</h4>
+                  <p>Estándares de laboratorio y seguridad eléctrica.</p>
+                </div>
+                <button class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar PDF</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // Inicializar app
+    window.onload = initApp;
+  </script>
+</body>
+</html>
