@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MECRO | Aula Virtual Aeroespacial</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons para la iconografía del Foro y PDFs -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
     :root {
       --mecro-bg-dark: #0b0d10;
@@ -118,7 +120,7 @@
       <p>Acceso exclusivo a la Plataforma de Alumnos</p>
       <form id="loginForm">
         <div class="form-group">
-          <label>Correo Electrónico Registraro</label>
+          <label>Correo Electrónico Registrado</label>
           <input type="email" id="inputEmail" placeholder="ejemplo@correo.com" required>
         </div>
         <div class="form-group">
@@ -149,17 +151,15 @@
   </div>
 
   <script>
-    // REEMPLAZAR ESTA URL CON TU GOOGLE APPS SCRIPT WEB APP URL
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbHNi4FL-FQv5DMPCMJPphT626ICMC3pPUf6G_VCIoOYSI7DLgEg4w8h5kYOJRG04sbg/exec";
 
-    // Sílabo Oficial de MECRO
     const syllabus = [
       {
         code: "S1",
         title: "Fundamentos de Arquitectura UAV",
         focus: "Topología de un multirrotor. Flujo de potencia y datos lógico (Batería → ESC → FC → Motores).",
         meetLink: "https://meet.google.com/cmk-ypmg-prs",
-        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing.../embed",
+        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing",
         videoLink: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview"
       },
       {
@@ -208,9 +208,8 @@
       }
     ];
 
-    let activeIndex = 0;
+    let currentView = 'info'; // Puede ser 'info', un índice numérico (0-7), o 'biblio'
 
-    // Login Form Event
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('inputEmail').value;
@@ -222,7 +221,6 @@
 
       try {
         if(APPS_SCRIPT_URL.includes("TU_SCRIPT_ID_AQUI")) {
-          // Modo demo local si no se ha pegado el URL de Apps Script
           localStorage.setItem('mecro_user', JSON.stringify({ nombre: "Alumno Demo MECRO", email: email }));
           document.getElementById('loginModal').style.display = 'none';
           initApp();
@@ -263,34 +261,82 @@
       document.getElementById('loginModal').style.display = 'none';
       document.getElementById('userName').textContent = user.nombre;
 
+      changeView('info');
+    }
+
+    function changeView(view) {
+      currentView = view;
       renderSidebar();
-      renderContent(0);
+      
+      if (view === 'info') {
+        renderInfo();
+      } else if (view === 'biblio') {
+        renderBiblio();
+      } else {
+        renderContent(view);
+      }
     }
 
     function renderSidebar() {
       const navList = document.getElementById('navList');
       navList.innerHTML = '';
 
+      // Tab Info General
+      navList.innerHTML += `
+        <li class="nav-item ${currentView === 'info' ? 'active' : ''}" onclick="changeView('info')">
+          <div class="week-code">INICIO</div>
+          <div class="week-name">Información del Curso</div>
+        </li>
+      `;
+
+      // Tabs Semanas
       syllabus.forEach((item, idx) => {
-        const li = document.createElement('li');
-        li.className = `nav-item ${idx === activeIndex ? 'active' : ''}`;
-        li.onclick = () => { activeIndex = idx; renderSidebar(); renderContent(idx); };
-        li.innerHTML = `
-          <div class="week-code">${item.code}</div>
-          <div class="week-name">${item.title}</div>
+        navList.innerHTML += `
+          <li class="nav-item ${currentView === idx ? 'active' : ''}" onclick="changeView(${idx})">
+            <div class="week-code">${item.code}</div>
+            <div class="week-name">${item.title}</div>
+          </li>
         `;
-        navList.appendChild(li);
       });
 
-      // Pestaña especial de Bibliografía
-      const liBiblio = document.createElement('li');
-      liBiblio.className = `nav-item ${activeIndex === 99 ? 'active' : ''}`;
-      liBiblio.onclick = () => { activeIndex = 99; renderSidebar(); renderBiblio(); };
-      liBiblio.innerHTML = `
-        <div class="week-code">RECURSOS</div>
-        <div class="week-name">Bibliografía & Software</div>
+      // Tab Bibliografía
+      navList.innerHTML += `
+        <li class="nav-item ${currentView === 'biblio' ? 'active' : ''}" onclick="changeView('biblio')">
+          <div class="week-code">RECURSOS</div>
+          <div class="week-name">Bibliografía & Software</div>
+        </li>
       `;
-      navList.appendChild(liBiblio);
+    }
+
+    function renderInfo() {
+      const main = document.getElementById('mainView');
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="week-code">VISIÓN GENERAL</div>
+          <h1 class="content-title">Introducción a la Ingeniería y Ensamblaje de Drones</h1>
+          <p class="content-subtitle">Capacitación técnica en Hardware, Control PID y Cinemática de Vuelo.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem;">
+          <img src="./images/curso-drones.jpg" alt="Drone Course" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--mecro-line);" onerror="this.style.display='none'">
+          
+          <h2 style="color: #fff; margin-bottom: 1rem; font-size: 1.4rem;">Sobre este programa</h2>
+          <p style="color: var(--mecro-text-dim); line-height: 1.6; margin-bottom: 1.5rem;">
+            A lo largo de 8 semanas intensivas (1 mes), dominaremos la arquitectura interna de un Vehículo Aéreo No Tripulado (UAV). Aterrizaremos la teoría aeronáutica en componentes reales, desde la interpretación de diagramas esquemáticos del Controlador de Vuelo, hasta la soldadura de potencia y configuración de los algoritmos de estabilización en Betaflight. El objetivo es estructurar conocimientos escalables para tu desarrollo en sistemas embebidos y robótica aérea.
+          </p>
+
+          <div style="display: flex; align-items: center; gap: 1.2rem; padding-top: 1.5rem; border-top: 1px solid var(--mecro-line);">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--mecro-accent); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--mecro-accent);">
+              <i class="ph ph-user-gear"></i>
+            </div>
+            <div>
+              <h4 style="color: #fff; font-weight: 700; font-size: 1.1rem;">Gerard</h4>
+              <span style="color: var(--mecro-accent); font-size: 0.85rem; font-weight: 600;">Lead Engineer & Fundador en MECRO</span>
+              <p style="color: var(--mecro-text-dim); font-size: 0.8rem; margin-top: 0.2rem;">Instructor de Sistemas Embebidos y Control Aeronáutico.</p>
+            </div>
+          </div>
+        </div>
+      `;
     }
 
     function renderContent(idx) {
@@ -326,18 +372,127 @@
           </div>
         </div>
 
+        <!-- REPRODUCTOR DE VIDEO DE DRIVE CORREGIDO -->
         <div class="card" style="margin-bottom:2rem;">
           <div class="card-title">🎥 Grabación de la Clase Repasada</div>
           <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1rem;">
             Alojado directamente en tu almacenamiento de Google Drive / Servidor seguro.
           </p>
-          <div style="background:#000; border-radius:8px; height:280px; display:flex; align-items:center; justify-content:center; border:1px solid var(--mecro-line);">
+          <div style="background:#000; border-radius:8px; height:450px; display:flex; align-items:center; justify-content:center; border:1px solid var(--mecro-line);">
             ${item.videoLink ? 
-              `<iframe width="100%" height="100%" src="${item.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
+              `<iframe width="100%" height="100%" src="${item.videoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
               `<span style="color:var(--mecro-text-dim); font-size:0.9rem;">La grabación estará disponible 2 horas después de finalizar la sesión.</span>`}
+          </div>
+          ${item.videoLink ? `
+          <div style="margin-top: 1rem; text-align: right;">
+              <a href="${item.videoLink.replace('/preview', '/view')}" target="_blank" style="font-size: 0.8rem; color: var(--mecro-accent); text-decoration: none;">
+                 ¿Problemas reproduciendo el video incrustado? Ábrelo directamente en Drive ↗
+              </a>
+          </div>` : ''}
+        </div>
+
+        <!-- SECCIÓN DE ARCHIVOS PDF (SOLO SEMANA 1) -->
+        ${idx === 0 ? `
+        <div class="card" style="margin-bottom: 2rem;">
+          <div class="card-title" style="color:#fff;">
+            <i class="ph ph-file-pdf text-2xl text-[var(--mecro-accent)]"></i> Documentación Oficial y Sílabo
+          </div>
+          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.2rem;">
+            Descarga el material oficial de lectura, especificaciones y el sílabo general de la academia MECRO.
+          </p>
+          <div class="grid-2">
+            <div class="resource-item" style="padding:1rem; border:1px solid var(--mecro-line); border-radius:10px; display:flex; flex-direction:column; gap:1rem;">
+              <div style="display:flex; align-items:center; gap:0.8rem;">
+                <i class="ph ph-file-text text-3xl" style="color:var(--mecro-accent)"></i>
+                <div>
+                  <h4 style="color:#fff; font-size:0.9rem; font-weight:700;">Sílabo General (PDF)</h4>
+                  <span style="font-size:0.75rem; color:var(--mecro-text-dim);">Estructura y cronograma.</span>
+                </div>
+              </div>
+              <a href="#" target="_blank" class="btn-action btn-secondary" style="font-size: 0.8rem;"><i class="ph ph-download-simple"></i> Descargar PDF</a>
+            </div>
+            <div class="resource-item" style="padding:1rem; border:1px solid var(--mecro-line); border-radius:10px; display:flex; flex-direction:column; gap:1rem;">
+              <div style="display:flex; align-items:center; gap:0.8rem;">
+                <i class="ph ph-book-open text-3xl" style="color:var(--mecro-accent)"></i>
+                <div>
+                  <h4 style="color:#fff; font-size:0.9rem; font-weight:700;">Bibliografía Técnica</h4>
+                  <span style="font-size:0.75rem; color:var(--mecro-text-dim);">Datasheets y teoría de control.</span>
+                </div>
+              </div>
+              <a href="#" target="_blank" class="btn-action btn-secondary" style="font-size: 0.8rem;"><i class="ph ph-download-simple"></i> Descargar PDF</a>
+            </div>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- SECCIÓN: FORO DE CONSULTAS -->
+        <div class="card" style="margin-bottom: 2rem;">
+          <div class="card-title" style="color:#fff;">
+            <i class="ph ph-chats-teardrop text-2xl text-[var(--mecro-accent)]"></i> Foro de Consultas Técnicas
+          </div>
+          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
+            Escribe tu consulta para que el equipo de instructores MECRO te responda de manera asíncrona.
+          </p>
+
+          <form id="forumForm" style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:2rem;">
+            <textarea id="forumQuestion" rows="3" placeholder="Ingresa tu consulta sobre la teoría de control, conexión física o firmware..." required style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.4); border:1px solid var(--mecro-line); border-radius:8px; color:#fff; outline:none; resize:vertical; font-size:0.9rem;"></textarea>
+            <div style="display:flex; justify-content: flex-end;">
+              <button type="submit" class="btn-action" style="width:auto; padding:0.6rem 1.2rem; font-size:0.85rem;">
+                <i class="ph ph-paper-plane-right"></i> Publicar Pregunta
+              </button>
+            </div>
+          </form>
+
+          <div id="forumList" style="display:flex; flex-direction:column; gap:1rem;">
+            <!-- Pregunta de Ejemplo Estática -->
+            <div style="background:rgba(255,255,255,0.02); border:1px solid var(--mecro-line); border-radius:8px; padding:1rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span style="font-weight:700; color:#fff; font-size:0.85rem;">Ing. Alvaro López</span>
+                <span style="font-size:0.75rem; color:var(--mecro-text-dim);">Ayer, 4:15 PM</span>
+              </div>
+              <p style="font-size:0.85rem; color:#d1d5db; margin-bottom:0.8rem;">
+                ¿Cuál es la diferencia técnica entre procesar señales analógicas vs. usar DShot en la línea de datos del ESC?
+              </p>
+              <!-- Respuesta Admin -->
+              <div style="background:rgba(0,240,255,0.05); border-left:3px solid var(--mecro-accent); padding:0.8rem; border-radius:0 6px 6px 0; margin-left:1rem;">
+                <div style="font-weight:700; color:var(--mecro-accent); font-size:0.8rem; margin-bottom:0.2rem; display:flex; align-items:center; gap:0.4rem;">
+                  <i class="ph ph-seal-check"></i> Instructor MECRO
+                </div>
+                <p style="font-size:0.8rem; color:#e2e8f0;">
+                  DShot es un protocolo digital exento de ruido electromagnético que elimina la necesidad de calibración del rango PWM, optimizando el tiempo de respuesta del motor.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       `;
+
+      // Inicializar lógica de publicación de foro dinámico
+      const forumForm = document.getElementById('forumForm');
+      if (forumForm) {
+        forumForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const txt = document.getElementById('forumQuestion').value;
+          if(!txt.trim()) return;
+
+          const user = JSON.parse(localStorage.getItem('mecro_user')) || { nombre: "Alumno" };
+          const forumList = document.getElementById('forumList');
+          const newPost = document.createElement('div');
+          
+          newPost.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid var(--mecro-line); border-radius:8px; padding:1rem;";
+          newPost.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-weight:700; color:#fff; font-size:0.85rem;">${user.nombre}</span>
+              <span style="font-size:0.75rem; color:var(--mecro-text-dim);">Justo ahora</span>
+            </div>
+            <p style="font-size:0.85rem; color:#d1d5db;">${txt}</p>
+            <span style="font-size:0.75rem; color:var(--mecro-accent); margin-top:0.5rem; display:block;">Pendiente de evaluación por el equipo de ingeniería.</span>
+          `;
+          
+          forumList.prepend(newPost);
+          document.getElementById('forumQuestion').value = "";
+        });
+      }
     }
 
     function renderBiblio() {
@@ -376,31 +531,10 @@
               </li>
             </ul>
           </div>
-
-          <div class="card">
-            <div class="card-title">📚 Documentos Técnicos y Guías</div>
-            <ul class="resource-list">
-              <li class="resource-item">
-                <div class="resource-info">
-                  <h4>Manual de Telecomunicaciones y Enlaces RF</h4>
-                  <p>Guía de latencia, bandas de frecuencia y antenas.</p>
-                </div>
-                <button class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar PDF</button>
-              </li>
-              <li class="resource-item">
-                <div class="resource-info">
-                  <h4>Guía de Soldadura de Alto Amperaje (AWG)</h4>
-                  <p>Estándares de laboratorio y seguridad eléctrica.</p>
-                </div>
-                <button class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar PDF</button>
-              </li>
-            </ul>
-          </div>
         </div>
       `;
     }
 
-    // Inicializar app
     window.onload = initApp;
   </script>
 </body>
