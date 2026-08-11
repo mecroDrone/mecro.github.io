@@ -10,7 +10,7 @@
   
   <style>
     :root {
-      /* Paleta Oficial de Colores MECRO */
+      /* Colores Oficiales MECRO */
       --mecro-bg-dark: #0a0d10;
       --mecro-bg-card: #161a1d;
       --mecro-bg-sidebar: #0e1215;
@@ -29,73 +29,40 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-    
-    body { 
-      background-color: var(--mecro-bg-dark); 
-      color: var(--mecro-text-main); 
-      display: flex; flex-direction: column; height: 100vh; overflow: hidden; 
-    }
+    body { background-color: var(--mecro-bg-dark); color: var(--mecro-text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
     @keyframes fadeUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
     .animate-fade { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-    /* Header con Logo de MECRO */
-    header { 
-      height: 65px; 
-      background: var(--mecro-bg-sidebar); 
-      border-bottom: 1px solid var(--mecro-line); 
-      display: flex; align-items: center; justify-content: space-between; 
-      padding: 0 1.8rem; z-index: 10; 
-    }
-    
+    /* Header */
+    header { height: 65px; background: var(--mecro-bg-sidebar); border-bottom: 1px solid var(--mecro-line); display: flex; align-items: center; justify-content: space-between; padding: 0 1.8rem; z-index: 10; }
     .brand-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
     .brand-logo img { height: 32px; width: auto; object-fit: contain; }
     .brand-text { font-weight: 800; font-size: 1.1rem; letter-spacing: 1px; color: var(--mecro-text-main); }
     .brand-text span { color: var(--mecro-accent-bright); font-size: 0.75rem; font-weight: 600; display: block; margin-top: -3px; }
 
     .user-info { display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--mecro-text-dim); }
-    
-    .btn-logout { 
-      background: transparent; border: 1px solid var(--mecro-line); color: var(--mecro-text-main); 
-      padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; 
-    }
+    .btn-logout { background: transparent; border: 1px solid var(--mecro-line); color: var(--mecro-text-main); padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
     .btn-logout:hover { border-color: #ff4757; color: #ff4757; background: rgba(255, 71, 87, 0.1); }
-
-    .group-badge { 
-      background: var(--mecro-accent-soft); border: 1px solid var(--mecro-accent); color: var(--mecro-accent-bright); 
-      padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; 
-    }
-
-    /* Selector de Cursos (Dropdown Topbar) */
-    .course-select {
-      background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); color: #fff;
-      padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; outline: none; cursor: pointer;
-    }
-    .course-select:focus { border-color: var(--mecro-accent-bright); }
+    .group-badge { background: var(--mecro-accent-soft); border: 1px solid var(--mecro-accent); color: var(--mecro-accent-bright); padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; }
 
     /* Layout Main */
     .app-container { display: flex; flex: 1; overflow: hidden; }
 
     /* Sidebar Navigation */
-    aside { 
-      width: 310px; background: var(--mecro-bg-sidebar); 
-      border-right: 1px solid var(--mecro-line); display: flex; flex-direction: column; overflow-y: auto; 
-    }
+    aside { width: 310px; background: var(--mecro-bg-sidebar); border-right: 1px solid var(--mecro-line); display: flex; flex-direction: column; overflow-y: auto; }
     .sidebar-title { padding: 1.2rem 1.2rem 0.4rem; font-size: 0.7rem; text-transform: uppercase; color: var(--mecro-text-dim); letter-spacing: 1px; font-weight: 700; }
     .nav-list { list-style: none; padding: 0.5rem; flex: 1;}
-    
-    .nav-item { 
-      padding: 0.82rem 1rem; margin-bottom: 0.3rem; border-radius: 8px; cursor: pointer; 
-      transition: all 0.2s ease; border: 1px solid transparent; display: flex; align-items: center; gap: 0.8rem; 
-    }
+    .nav-item { padding: 0.82rem 1rem; margin-bottom: 0.3rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; display: flex; align-items: center; gap: 0.8rem; }
     .nav-item:hover { background: rgba(255,255,255,0.02); border-color: var(--mecro-line); transform: translateX(3px); }
-    .nav-item.active { 
-      background: var(--mecro-accent-soft); border-left: 4px solid var(--mecro-accent-bright); 
-      border-color: var(--mecro-accent-ring); 
-    }
-    
+    .nav-item.active { background: var(--mecro-accent-soft); border-left: 4px solid var(--mecro-accent-bright); border-color: var(--mecro-accent-ring); }
     .week-code { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--mecro-accent-bright); font-weight: 600; width: 28px;}
     .week-name { font-size: 0.88rem; font-weight: 600; color: var(--mecro-text-main); }
+
+    /* Progress Widget */
+    .progress-widget { margin: 1rem; padding: 1.2rem; background: rgba(255,255,255,0.02); border: 1px solid var(--mecro-line); border-radius: 12px; }
+    .progress-bar-bg { height: 8px; background: var(--mecro-line); border-radius: 4px; margin-top: 0.8rem; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--mecro-accent-bright); width: 37%; border-radius: 4px; box-shadow: 0 0 10px rgba(0,255,136,0.5);}
 
     /* Main Content Area */
     main { flex: 1; padding: 2rem 2.5rem; overflow-y: auto; background: var(--mecro-bg-dark); }
@@ -105,33 +72,19 @@
 
     /* Cards & Grid */
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-    
-    .card { 
-      background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); 
-      border-radius: 14px; padding: 1.8rem; transition: transform 0.2s ease, border-color 0.2s ease; 
-    }
+    .card { background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); border-radius: 14px; padding: 1.8rem; transition: transform 0.2s ease, border-color 0.2s ease; }
     .card:hover { transform: translateY(-3px); border-color: var(--mecro-accent-ring); }
     .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; color: var(--mecro-text-main); display: flex; align-items: center; gap: 0.6rem; }
     
-    /* Botones de Estilo MECRO */
-    .btn-action { 
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.8rem; 
-      background: var(--mecro-accent); color: #fff; font-weight: 700; border-radius: 8px; 
-      text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; 
-    }
+    .btn-action { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.8rem; background: var(--mecro-accent); color: #fff; font-weight: 700; border-radius: 8px; text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; }
     .btn-action:hover { background: var(--mecro-accent-hover); }
-    
     .btn-secondary { background: rgba(0,0,0,0.3); border: 1px solid var(--mecro-line-light); color: var(--mecro-text-main); }
     .btn-secondary:hover { border-color: var(--mecro-accent-bright); color: var(--mecro-accent-bright); }
-    
     .btn-disabled { background: rgba(255,255,255,0.03); color: var(--mecro-text-dim); cursor: not-allowed; border: 1px solid var(--mecro-line); }
 
-    .input-gray { 
-      width: 100%; padding: 0.9rem; background: rgba(0,0,0,0.4); 
-      border: 1px solid var(--mecro-line); border-radius: 8px; 
-      color: var(--mecro-text-main); outline: none; transition: all 0.2s ease; 
-    }
+    .input-gray { width: 100%; padding: 0.9rem; background: rgba(0,0,0,0.4); border: 1px solid var(--mecro-line); border-radius: 8px; color: var(--mecro-text-main); outline: none; transition: all 0.2s ease; }
     .input-gray:focus { border-color: var(--mecro-accent-bright); }
+    .alert-box { background: rgba(255, 176, 32, 0.1); border-left: 4px solid var(--mecro-warning); padding: 1.2rem; border-radius: 0 12px 12px 0; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 2rem;}
   </style>
 </head>
 <body>
@@ -144,9 +97,7 @@
         <span>ACADEMY LMS</span>
       </div>
     </a>
-    
     <div class="user-info">
-      <select id="courseSelector" class="course-select" onchange="switchCourse(this.value)"></select>
       <span id="userGroupBadge" class="group-badge">G1</span>
       <span id="userName"><i class="ph ph-user-circle text-lg"></i> Alumno</span>
       <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
@@ -155,8 +106,19 @@
 
   <div class="app-container">
     <aside>
-      <div class="sidebar-title">Estructura del Curso</div>
+      <div class="sidebar-title">Ruta de Aprendizaje</div>
       <ul class="nav-list" id="navList"></ul>
+      
+      <div class="progress-widget">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--mecro-text-main);">Progreso del Curso</span>
+          <span style="font-size: 0.8rem; color: var(--mecro-accent-bright); font-weight: 700;">37%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill"></div>
+        </div>
+        <p style="font-size: 0.7rem; color: var(--mecro-text-dim); margin-top: 0.5rem; text-align: center;">Módulo 3 de 8 en curso</p>
+      </div>
     </aside>
 
     <main>
@@ -165,13 +127,76 @@
   </div>
 
   <script>
-    // URL DE TU APPS SCRIPT
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqh3YTsXVC0Sxl8B5LObVNx0xKqUQIeF--vigQl65wmFVAkML4VETCPZHsJVvY0MslYg/exec";
+    // ====== AQUÍ ESTÁN TODAS TUS CLASES EXACTAS (S1 A S8) ======
+    const syllabus = [
+      {
+        code: "S1", title: "Fundamentos de Arquitectura UAV",
+        focus: "Topología de un multirrotor. Flujo de potencia y datos lógico.",
+        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", 
+        meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", 
+        meetLinkG3: "",
+        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing",
+        videoLinkG1: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview",
+        videoLinkG2: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview", 
+        videoLinkG3: "",
+        pdfResumenLink: ""
+      },
+      {
+        code: "S2", title: "Criterios de Selección de Aviónica",
+        focus: "Análisis de especificaciones técnicas. Estándares RF y latencia.",
+        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", 
+        meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", 
+        meetLinkG3: "",
+        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing", 
+        videoLinkG1: "https://drive.google.com/file/d/1szZVXn9CEnhJnoWkNdD2l6kCnivD8oZ6/preview", 
+        videoLinkG2: "https://drive.google.com/file/d/12HWPsjzG9pxCjxF9c_uMV9zaECN37Iov/preview",
+        videoLinkG3: "",
+        pdfResumenLink: ""
+      },
+      {
+        code: "S3", title: "Simulación y enlace de control",
+        focus: "Radiofrecuencia y Enlace de Control Virtual.",
+        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", 
+        meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", 
+        meetLinkG3: "",
+        pptLink: "https://docs.google.com/presentation/d/1BWznQygHr-lzZXu-2hAysfNZglAWAQ3GxTMewTGqxM4/edit?usp=sharing", 
+        videoLinkG1: "https://drive.google.com/file/d/1vBXsrpAEtB5vJ8hpfD2ifCsd5DdXPszH/preview", 
+        videoLinkG2: "", 
+        videoLinkG3: "",
+        pdfResumenLink: ""
+      },
+      {
+        code: "S4", title: "Cinemática de Vuelo Multirrotor",
+        focus: "Análisis de respuesta dinámica en los ejes (Yaw, Pitch, Roll) y empuje.",
+        meetLinkG1: "", meetLinkG2: "", meetLinkG3: "",
+        pptLink: "", videoLinkG1: "", videoLinkG2: "", videoLinkG3: "", pdfResumenLink: ""
+      },
+      {
+        code: "S5", title: "Protocolos de Laboratorio y Soldadura",
+        focus: "Gestión térmica, uniones de alta corriente y mitigación de cortos.",
+        meetLinkG1: "", meetLinkG2: "", meetLinkG3: "",
+        pptLink: "", videoLinkG1: "", videoLinkG2: "", videoLinkG3: "", pdfResumenLink: ""
+      },
+      {
+        code: "S6", title: "Análisis de Esquemáticos y Ruteo",
+        focus: "Lectura de diagramas del Controlador de Vuelo. Identificación de buses.",
+        meetLinkG1: "", meetLinkG2: "", meetLinkG3: "",
+        pptLink: "", videoLinkG1: "", videoLinkG2: "", videoLinkG3: "", pdfResumenLink: ""
+      },
+      {
+        code: "S7", title: "Integración de Sistemas Electrónicos",
+        focus: "Montaje del Stack, plan de cableado eficiente y mitigación de vibraciones.",
+        meetLinkG1: "", meetLinkG2: "", meetLinkG3: "",
+        pptLink: "", videoLinkG1: "", videoLinkG2: "", videoLinkG3: "", pdfResumenLink: ""
+      },
+      {
+        code: "S8", title: "Configuración Firmware y Telemetría",
+        focus: "Interfaz Betaflight y el concepto básico de estabilización PID.",
+        meetLinkG1: "", meetLinkG2: "", meetLinkG3: "",
+        pptLink: "", videoLinkG1: "", videoLinkG2: "", videoLinkG3: "", pdfResumenLink: ""
+      }
+    ];
 
-    let allCursos = [];
-    let allClases = [];
-    let activeCourseId = "";
-    let activeSyllabus = [];
     let currentView = 'info'; 
 
     function logout() {
@@ -179,64 +204,22 @@
       window.location.href = 'login.html'; 
     }
 
-    async function initApp() {
+    function initApp() {
       const user = JSON.parse(localStorage.getItem('mecro_user'));
       if (!user) {
         window.location.href = 'login.html';
         return;
       }
       
-      document.getElementById('userName').innerHTML = `<i class="ph ph-user-circle text-lg"></i> ${user.nombre || 'Alumno'}`;
-      const userGroup = user.grupo || 'G1'; 
+      document.getElementById('userName').innerHTML = `<i class="ph ph-user-circle text-lg"></i> ${user.nombre || 'Ingeniero(a)'}`;
+      
+      // SEGURO ANTI-UNDEFINED (Si falla, manda a G1 por defecto)
+      let userGroup = user.grupo;
+      if (!userGroup || userGroup === "undefined" || userGroup === "") {
+        userGroup = "G1"; 
+      }
       document.getElementById('userGroupBadge').textContent = `GRUPO ${userGroup}`;
 
-      // Pantalla de carga
-      document.getElementById('mainView').innerHTML = `
-        <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <i class="ph ph-spinner-gap text-5xl" style="color: var(--mecro-accent-bright); animation: spin 1s linear infinite;"></i>
-            <h3 style="color: var(--mecro-text-main); margin-top: 1rem;">Conectando con Servidor MECRO...</h3>
-        </div>
-        <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
-      `;
-
-      try {
-        const response = await fetch(APPS_SCRIPT_URL);
-        const data = await response.json();
-        
-        if (data.success) {
-          allCursos = data.cursos;
-          allClases = data.clases;
-
-          // Filtrar cursos a los que está inscrito el usuario
-          const userCourses = user.cursosInscritos && user.cursosInscritos.length > 0 
-            ? allCursos.filter(c => user.cursosInscritos.includes(c.id))
-            : allCursos; // Fallback: si no especifica, muestra todos los disponibles
-
-          populateCourseSelector(userCourses);
-          
-          if(userCourses.length > 0) {
-            switchCourse(userCourses[0].id);
-          }
-        } else {
-          document.getElementById('mainView').innerHTML = `<p style="color:#ff5555;">Error cargando datos de la academia.</p>`;
-        }
-      } catch (err) {
-        console.error("Error al conectar:", err);
-      }
-    }
-
-    function populateCourseSelector(cursos) {
-      const selector = document.getElementById('courseSelector');
-      selector.innerHTML = '';
-      cursos.forEach(c => {
-        selector.innerHTML += `<option value="${c.id}">${c.nombre}</option>`;
-      });
-      if(cursos.length <= 1) selector.style.display = 'none'; // Ocultar si solo tiene 1 curso
-    }
-
-    function switchCourse(courseId) {
-      activeCourseId = courseId;
-      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId);
       changeView('info');
     }
 
@@ -250,6 +233,8 @@
       mainView.classList.add('animate-fade');
       
       if (view === 'info') renderInfo();
+      else if (view === 'biblio') renderBiblio();
+      else if (view === 'cert') renderCert();
       else renderContent(view);
     }
 
@@ -259,12 +244,12 @@
       
       navList.innerHTML += `
         <li class="nav-item ${currentView === 'info' ? 'active' : ''}" onclick="changeView('info')">
-          <div class="week-code"><i class="ph ph-house text-lg"></i></div>
-          <div class="week-name">Información del Curso</div>
+          <div class="week-code"><i class="ph ph-house text-xl"></i></div>
+          <div class="week-name">Avisos y Sílabo</div>
         </li>
       `;
       
-      activeSyllabus.forEach((item, idx) => {
+      syllabus.forEach((item, idx) => {
         navList.innerHTML += `
           <li class="nav-item ${currentView === idx ? 'active' : ''}" onclick="changeView(${idx})">
             <div class="week-code">${item.code}</div>
@@ -272,54 +257,65 @@
           </li>
         `;
       });
+      
+      navList.innerHTML += `
+        <li class="nav-item ${currentView === 'biblio' ? 'active' : ''}" onclick="changeView('biblio')">
+          <div class="week-code"><i class="ph ph-books text-xl"></i></div>
+          <div class="week-name">Biblioteca & Software</div>
+        </li>
+        <li class="nav-item ${currentView === 'cert' ? 'active' : ''}" onclick="changeView('cert')" style="margin-top: 1rem; border: 1px dashed var(--mecro-warning); background: rgba(255, 176, 32, 0.05);">
+          <div class="week-code" style="color: var(--mecro-warning);"><i class="ph ph-certificate text-xl"></i></div>
+          <div class="week-name" style="color: var(--mecro-warning);">Certificación</div>
+        </li>
+      `;
     }
 
     function renderInfo() {
-      const curso = allCursos.find(c => c.id === activeCourseId) || {
-        nombre: "Programa de Ingeniería",
-        categoria: "Aeroespacial",
-        instructor: "Gerard",
-        foto: "./images/curso-drones.jpg",
-        silaboLink: ""
-      };
-
       const main = document.getElementById('mainView');
       main.innerHTML = `
         <div class="content-header">
           <div>
-            <div class="week-code">${curso.categoria.toUpperCase()}</div>
-            <h1 class="content-title">${curso.nombre}</h1>
-            <p class="content-subtitle">Modulo Oficial de Capacitación MECRO</p>
+            <div class="week-code">VISIÓN GENERAL</div>
+            <h1 class="content-title">Introducción a la Ingeniería de Drones</h1>
+            <p class="content-subtitle">Capacitación técnica en Hardware, Control PID y Cinemática.</p>
+          </div>
+        </div>
+
+        <div class="alert-box">
+          <i class="ph ph-warning-circle text-3xl" style="color: var(--mecro-warning);"></i>
+          <div>
+            <h3 style="color: #fff; font-weight: 700; margin-bottom: 0.3rem;">¡Aviso de Coordinación!</h3>
+            <p style="font-size: 0.9rem; color: var(--mecro-text-main); line-height: 1.5;">
+              La clase de la <strong>Semana 4</strong> se llevará a cabo hoy en su horario habitual. Por favor revisar la pestaña correspondiente para acceder al enlace de Google Meet.
+            </p>
           </div>
         </div>
 
         <div class="grid-2" style="grid-template-columns: 1fr 1fr; align-items: start;">
-          <div class="card">
-            <img src="${curso.foto}" alt="${curso.nombre}" style="width: 100%; height: 220px; object-fit: cover; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--mecro-line);" onerror="this.style.display='none'">
-            <h3 style="color: var(--mecro-text-main); margin-bottom: 0.8rem;">Detalles del Programa</h3>
-            <p style="color: var(--mecro-text-dim); line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.92rem;">
-              Desarrollo de competencias técnicas con enfoque en diseño, integración de hardware y pruebas de vuelo/laboratorio en tiempo real.
+          <div class="card" style="margin-bottom: 2rem;">
+            <img src="./images/curso-drones.jpg" alt="Drone Course" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3);" onerror="this.style.display='none'">
+            <h2 style="color: var(--mecro-text-white); margin-bottom: 1rem; font-size: 1.4rem;">Sobre este programa</h2>
+            <p style="color: var(--mecro-text-dim); line-height: 1.6; margin-bottom: 2rem; font-size: 0.95rem;">
+              A lo largo de 8 semanas, dominaremos la arquitectura interna de un Vehículo Aéreo No Tripulado (UAV). Aterrizaremos la teoría aeronáutica en componentes reales.
             </p>
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--mecro-line); border-radius: 10px; padding: 1rem; display: flex; align-items: center; gap: 1rem;">
-              <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--mecro-accent-soft); border: 1px solid var(--mecro-accent); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--mecro-accent-bright);">
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--mecro-line); border-radius: 12px; padding: 1.2rem; display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--mecro-accent-soft); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--mecro-accent-bright);">
                 <i class="ph ph-user-gear"></i>
               </div>
               <div>
-                <h4 style="color: var(--mecro-text-main); font-size: 1rem;">${curso.instructor}</h4>
-                <span style="color: var(--mecro-accent-bright); font-size: 0.8rem; font-weight: 600;">Instructor Titular MECRO</span>
+                <h4 style="color: var(--mecro-text-white); font-weight: 800; font-size: 1.1rem;">Gerard</h4>
+                <span style="color: var(--mecro-accent-bright); font-size: 0.8rem; font-weight: 600;">Lead Engineer MECRO</span>
               </div>
             </div>
           </div>
 
-          <div class="card" style="padding: 0; overflow: hidden; height: 100%; min-height: 500px; display: flex; flex-direction: column;">
-            <div style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--mecro-line);">
-              <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-xl"></i> Sílabo Oficial</div>
-              <p style="font-size:0.8rem; color:var(--mecro-text-dim); margin-top:0.2rem;">Visualiza el plan de estudios.</p>
+          <div class="card" style="padding: 0; overflow: hidden; height: 100%; min-height: 550px; display: flex; flex-direction: column;">
+            <div style="padding: 1.5rem; border-bottom: 1px solid var(--mecro-line);">
+              <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-2xl"></i> Sílabo Oficial del Curso</div>
+              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.3rem;">Visualiza el cronograma y temario completo.</p>
             </div>
-            <div style="flex: 1; background:#000; display:flex; align-items:center; justify-content:center;">
-              ${curso.silaboLink 
-                ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>`
-                : `<span style="color:var(--mecro-text-dim); font-size:0.85rem; padding:2rem; text-align:center;">El sílabo se cargará automáticamente al estar disponible en Drive.</span>`}
+            <div style="flex: 1; background:#0a0d10; display:flex; align-items:center; justify-content:center;">
+              <span style="color:var(--mecro-text-dim); padding: 2rem; text-align:center;">Para previsualizar el sílabo, coloca el link de Drive en el código.</span>
             </div>
           </div>
         </div>
@@ -328,22 +324,32 @@
 
     function renderContent(idx) {
       const main = document.getElementById('mainView');
-      const item = activeSyllabus[idx];
+      const item = syllabus[idx];
 
       const user = JSON.parse(localStorage.getItem('mecro_user'));
-      const userGroup = user ? (user.grupo || 'G1') : 'G1'; 
+      let userGroup = user ? user.grupo : 'G1'; 
+      if (!userGroup || userGroup === "undefined" || userGroup === "") userGroup = "G1"; 
 
-      // Extracción Dinámica de Links para el grupo del usuario (Soporta G1, G2, G3, G4, G5...)
-      const currentMeetLink = (item.meetLinks && item.meetLinks[userGroup]) ? item.meetLinks[userGroup] : "";
-      const currentVideoLink = (item.videoLinks && item.videoLinks[userGroup]) ? item.videoLinks[userGroup] : "";
+      // EXTRACCIÓN CONDICIONAL DE LINKS
+      let currentMeetLink = item.meetLinkG1;
+      let currentVideoLink = item.videoLinkG1;
 
+      if (userGroup === 'G2') {
+        currentMeetLink = item.meetLinkG2;
+        currentVideoLink = item.videoLinkG2;
+      } else if (userGroup === 'G3') {
+        currentMeetLink = item.meetLinkG3;
+        currentVideoLink = item.videoLinkG3;
+      }
+
+      // ESTADOS VACÍOS (Si no hay link, el botón sale bloqueado)
       const btnMeet = currentMeetLink 
         ? `<a href="${currentMeetLink}" target="_blank" class="btn-action"><i class="ph ph-video-camera text-lg"></i> Unirse a la Clase en Vivo</a>` 
-        : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> Sesión pendiente</button>`;
+        : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> Enlace pendiente</button>`;
       
       const btnPpt = item.pptLink 
         ? `<a href="${item.pptLink}" target="_blank" class="btn-action btn-secondary"><i class="ph ph-presentation-chart text-lg"></i> Abrir Diapositivas</a>` 
-        : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> Presentación pendiente</button>`;
+        : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> PPT pendiente</button>`;
 
       main.innerHTML = `
         <div class="content-header">
@@ -357,17 +363,17 @@
 
         <div class="grid-2">
           <div class="card">
-            <div class="card-title"><i class="ph ph-broadcast" style="color:var(--mecro-accent-bright)"></i> Enlace de la Sesión</div>
-            <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
-              Acceso a Google Meet/Zoom sincronizado con tu horario.
+            <div class="card-title"><i class="ph ph-broadcast" style="color:var(--mecro-accent-bright)"></i> Acceso a Clase (Meet)</div>
+            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
+              Ingresa puntual a la sesión asignada para tu grupo.
             </p>
             ${btnMeet}
           </div>
 
           <div class="card">
             <div class="card-title"><i class="ph ph-chalkboard-teacher" style="color:var(--mecro-accent-bright)"></i> Material Visual</div>
-            <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
-              Presentaciones, esquemáticos y diagramas técnicos.
+            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
+              Esquemáticos y teoría presentada en la clase.
             </p>
             ${btnPpt}
           </div>
@@ -375,43 +381,49 @@
 
         ${item.pdfResumenLink ? `
         <div class="card" style="margin-bottom:2rem; padding:0; overflow:hidden;">
-          <div style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--mecro-line); display:flex; align-items:center; gap: 0.8rem;">
-            <i class="ph ph-file-pdf text-2xl" style="color:var(--mecro-accent-bright);"></i>
+          <div style="padding: 1.5rem; border-bottom: 1px solid var(--mecro-line); display:flex; align-items:center; gap: 0.8rem;">
+            <i class="ph ph-file-pdf text-3xl" style="color:#ff4757;"></i>
             <div>
-              <div class="card-title" style="margin:0;">Guía / Resumen de Clase (PDF)</div>
-              <p style="font-size:0.8rem; color:var(--mecro-text-dim); margin-top:0.1rem;">Documentación post-sesión y ejercicios.</p>
+              <div class="card-title" style="margin:0;">Resumen y Preguntas de Clase</div>
+              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.2rem;">Material de lectura post-clase para repasar conceptos clave.</p>
             </div>
           </div>
-          <div style="background:#000; height:450px;">
+          <div style="background:#0a0d10; height:500px; display:flex; align-items:center; justify-content:center;">
              <iframe width="100%" height="100%" src="${item.pdfResumenLink}" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
         ` : ''}
 
         <div class="card" style="margin-bottom:2rem; padding:0; overflow:hidden;">
-          <div style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--mecro-line);">
+          <div style="padding: 1.5rem; border-bottom: 1px solid var(--mecro-line);">
             <div class="card-title" style="margin:0;"><i class="ph ph-film-strip"></i> Grabación de la Sesión (${userGroup})</div>
           </div>
-          <div style="background:#000; height:450px; display:flex; align-items:center; justify-content:center; flex-direction: column;">
+          <div style="background:#000; height:500px; display:flex; align-items:center; justify-content:center; flex-direction: column;">
             ${currentVideoLink ? 
               `<iframe width="100%" height="100%" src="${currentVideoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
-              `<i class="ph ph-video-camera-slash text-4xl" style="color: var(--mecro-line-light); margin-bottom: 0.8rem;"></i>
-               <span style="color:var(--mecro-text-main); font-size: 1rem; font-weight: 600;">Grabación en proceso</span>
-               <span style="color:var(--mecro-text-dim); font-size: 0.8rem; margin-top: 0.3rem;">Estará disponible horas después de la sesión de tu grupo.</span>`}
+              `<i class="ph ph-video-camera-slash" style="font-size: 4rem; color: var(--mecro-line-light); margin-bottom: 1rem;"></i>
+               <span style="color:var(--mecro-text-main); font-size: 1.1rem; font-weight: 600;">Grabación en proceso</span>
+               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px; text-align: center;">El video estará disponible horas después de finalizar la sesión.</span>`}
           </div>
+          ${currentVideoLink ? `
+          <div style="padding: 1rem 1.5rem; background: rgba(0,0,0,0.3); text-align:right;">
+              <a href="${currentVideoLink.replace('/preview', '/view')}" target="_blank" style="font-size: 0.85rem; color: var(--mecro-accent-bright); text-decoration: none; font-weight: 500;">
+                 Abrir externamente en Google Drive ↗
+              </a>
+          </div>` : ''}
         </div>
 
         <div class="card">
-          <div class="card-title"><i class="ph ph-chats-circle text-lg" style="color:var(--mecro-accent-bright)"></i> Foro del Módulo</div>
-          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.2rem;">¿Tienes alguna consulta técnica sobre esta sesión?</p>
+          <div class="card-title"><i class="ph ph-chats-circle text-lg" style="color:var(--mecro-accent-bright)"></i> Foro de Ingeniería</div>
+          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Deja tu duda sobre conectividad, hardware o control PID.</p>
           <form id="forumForm" style="margin-bottom:2rem;">
-            <textarea id="forumQuestion" rows="3" class="input-gray" placeholder="Escribe tu duda técnica aquí..." required></textarea>
+            <textarea id="forumQuestion" rows="3" class="input-gray" placeholder="Escribe tu consulta detallada..." required></textarea>
             <div style="display:flex; justify-content: flex-end; margin-top: 0.8rem;">
               <button type="submit" class="btn-action" style="width:auto; padding:0.6rem 1.4rem;">Publicar <i class="ph ph-paper-plane-right"></i></button>
             </div>
           </form>
-          <div id="forumList" style="display:flex; flex-direction:column; gap:1rem;">
-             <p style="color: var(--mecro-text-dim); text-align: center; font-size: 0.8rem;"><i class="ph ph-chat-centered-text"></i> Todavía no hay consultas registradas para este tema.</p>
+          <div id="forumList" style="display:flex; flex-direction:column; gap:1.2rem;">
+             <p style="color: var(--mecro-text-dim); text-align: center; font-size: 0.85rem;"><i class="ph ph-chat-centered-text"></i> Sé el primero en dejar una consulta en este módulo.</p>
           </div>
         </div>
       `;
@@ -424,13 +436,13 @@
           if(!txt.trim()) return;
 
           const forumList = document.getElementById('forumList');
-          if(forumList.innerHTML.includes('Todavía no')) forumList.innerHTML = '';
+          if(forumList.innerHTML.includes('Sé el primero')) forumList.innerHTML = '';
           
           const newPost = document.createElement('div');
-          newPost.style.cssText = "background: rgba(0,0,0,0.3); border: 1px solid var(--mecro-line); border-radius: 10px; padding: 1rem; animation: fadeUp 0.3s ease-out forwards;";
+          newPost.style.cssText = "background: rgba(0,0,0,0.3); border: 1px solid var(--mecro-line); border-radius: 12px; padding: 1.2rem; animation: fadeUp 0.3s ease-out forwards;";
           newPost.innerHTML = `
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
-              <strong style="color:var(--mecro-text-main); font-size:0.88rem;"><i class="ph ph-user-circle"></i> ${user ? user.nombre : 'Alumno'}</strong>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.8rem;">
+              <strong style="color:var(--mecro-text-main); font-size:0.9rem;"><i class="ph ph-user-circle"></i> ${user ? user.nombre : 'Alumno'}</strong>
               <span style="font-size:0.75rem; color:var(--mecro-accent-bright);">Ahora</span>
             </div>
             <p style="color:var(--mecro-text-dim); font-size: 0.9rem;">${txt}</p>
@@ -439,6 +451,56 @@
           document.getElementById('forumQuestion').value = "";
         });
       }
+    }
+
+    function renderBiblio() {
+      const main = document.getElementById('mainView');
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="week-code">REPOSITORIO</div>
+          <h1 class="content-title">Bibliografía y Software</h1>
+        </div>
+        <div class="card">
+          <div class="card-title">Descargas Esenciales</div>
+          <p style="color:var(--mecro-text-dim); margin-bottom: 2rem;">Enlaces directos oficiales.</p>
+          <ul class="resource-list">
+            <li class="resource-item">
+              <div>
+                <h4 style="color:#fff;">Betaflight Configurator</h4>
+                <p style="color:var(--mecro-text-dim); font-size:0.85rem;">Configurador FC.</p>
+              </div>
+              <a href="https://github.com/betaflight/betaflight-configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
+            </li>
+            <li class="resource-item">
+              <div>
+                <h4 style="color:#fff;">ExpressLRS Configurator</h4>
+                <p style="color:var(--mecro-text-dim); font-size:0.85rem;">Flasheo RF.</p>
+              </div>
+              <a href="https://github.com/ExpressLRS/ExpressLRS-Configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
+            </li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function renderCert() {
+      const main = document.getElementById('mainView');
+      main.innerHTML = `
+        <div class="content-header">
+          <div class="week-code">ACREDITACIÓN MECRO</div>
+          <h1 class="content-title">Certificado de Ingeniería</h1>
+        </div>
+        <div class="card" style="text-align: center; padding: 4rem 2rem;">
+          <div style="width: 100px; height: 100px; background: rgba(255, 176, 32, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+            <i class="ph ph-lock-key text-5xl" style="color: var(--mecro-warning);"></i>
+          </div>
+          <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 1rem;">Certificado Bloqueado</h2>
+          <p style="color: var(--mecro-text-dim); max-width: 500px; margin: 0 auto 2rem; line-height: 1.6;">
+            Para obtener tu certificado oficial, debes completar el 100% de las sesiones, entregar el proyecto final de estabilización y aprobar el test técnico.
+          </p>
+          <button class="btn-action btn-disabled" style="max-width: 250px;" disabled>Descargar Credencial</button>
+        </div>
+      `;
     }
 
     window.onload = initApp;
