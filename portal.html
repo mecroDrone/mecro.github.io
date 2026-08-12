@@ -91,8 +91,43 @@
   </div>
 
   <script>
-    // ⚠️ REEMPLAZA ESTO CON TU URL DE APPS SCRIPT (EL ÚNICO LINK EN TODO EL CÓDIGO)
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPAYSe4lRulJREf5DInb6h7JV2vbSaqVpPCxoVQZkLPHhH95P73tz12P-mYL6P_3l5rA/exec";
+    // URL DE APPS SCRIPT
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPAYSe4lRulJREf5DInb6h7JV2vbSaqVpPCxoVQZkLPHhH95P73tz12P-mYL6P_3l5rA/exec"; 
+
+    // =========================================================================
+    // BASE DE DATOS LOCAL INMORTAL (TUS VIDEOS SIEMPRE CARGARÁN CON ESTO)
+    // =========================================================================
+    const localFallbackSyllabus = [
+      {
+        code: "S1", title: "Fundamentos de Arquitectura UAV", focus: "Topología de un multirrotor. Flujo de potencia y datos lógico.",
+        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", meetLinkG3: "",
+        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing",
+        videoLinkG1: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview",
+        videoLinkG2: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview", videoLinkG3: "",
+        pdfResumenLink: ""
+      },
+      {
+        code: "S2", title: "Criterios de Selección de Aviónica", focus: "Análisis de especificaciones técnicas. Estándares RF y latencia.",
+        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", meetLinkG3: "",
+        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing", 
+        videoLinkG1: "https://drive.google.com/file/d/1szZVXn9CEnhJnoWkNdD2l6kCnivD8oZ6/preview",
+        videoLinkG2: "https://drive.google.com/file/d/12HWPsjzG9pxCjxF9c_uMV9zaECN37Iov/preview", videoLinkG3: "",
+        pdfResumenLink: ""
+      },
+      {
+        code: "S3", title: "Simulación y enlace de control", focus: "Radiofrecuencia y Enlace de Control.",
+        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", meetLinkG3: "",
+        pptLink: "https://docs.google.com/presentation/d/1BWznQygHr-lzZXu-2hAysfNZglAWAQ3GxTMewTGqxM4/edit?usp=sharing", 
+        videoLinkG1: "https://drive.google.com/file/d/1vBXsrpAEtB5vJ8hpfD2ifCsd5DdXPszH/preview",
+        videoLinkG2: "", videoLinkG3: "",
+        pdfResumenLink: ""
+      },
+      { code: "S4", title: "Cinemática de Vuelo Multirrotor", focus: "Análisis de respuesta dinámica en los ejes espaciales.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
+      { code: "S5", title: "Protocolos de Laboratorio y Soldadura", focus: "Gestión térmica, uniones de alta corriente y mitigación de cortocircuitos.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
+      { code: "S6", title: "Análisis de Esquemáticos y Ruteo", focus: "Lectura de diagramas del Controlador de Vuelo y buses de comunicación.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
+      { code: "S7", title: "Integración de Sistemas Electrónicos", focus: "Montaje del Stack y plan de cableado eficiente.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
+      { code: "S8", title: "Configuración Firmware y Telemetría", focus: "Interfaz Betaflight, asignación de puertos y estabilización PID.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" }
+    ];
 
     let allCursos = [];
     let allClases = [];
@@ -106,13 +141,12 @@
       let user = JSON.parse(localStorage.getItem('mecro_user'));
       if (!user) { window.location.href = 'login.html'; return; }
       
-      // Sanitizamos el grupo para evitar errores de escritura en la BD
-      if (!user.grupo || user.grupo === "undefined" || user.grupo.trim() === "") {
-        user.grupo = "G1"; 
-        localStorage.setItem('mecro_user', JSON.stringify(user));
-      } else {
-        user.grupo = user.grupo.trim().toUpperCase(); // Asegura formato G1, G2, G3...
+      let uGroup = user.grupo ? user.grupo.toString().toUpperCase().trim() : "";
+      if (uGroup !== "G1" && uGroup !== "G2" && uGroup !== "G3") {
+          uGroup = "G1"; 
       }
+      user.grupo = uGroup;
+      localStorage.setItem('mecro_user', JSON.stringify(user));
 
       document.getElementById('userName').innerHTML = `<i class="ph ph-user-circle text-lg"></i> ${user.nombre || 'Ingeniero(a)'}`;
       document.getElementById('userGroupBadge').textContent = `GRUPO ${user.grupo}`;
@@ -126,36 +160,55 @@
       `;
 
       try {
-        // Obtenemos los datos 100% dinámicos de Sheets (usando ?t= para evadir caché de Github Pages)
         const response = await fetch(APPS_SCRIPT_URL + "?t=" + new Date().getTime());
         const data = await response.json();
         
         if (data.success) {
           allCursos = data.cursos || [];
-          allClases = data.clases || data.syllabus || []; 
+          let apiClases = data.clases || data.syllabus || []; 
 
-          // Llenado de seguridad si tu pestaña de Cursos está vacía
           if (allCursos.length === 0) {
             allCursos = [{ id: "DRONES", nombre: "Ingeniería de Drones", categoria: "Aeroespacial", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
-            allClases.forEach(c => { if(!c.cursoId) c.cursoId = "DRONES"; });
+            apiClases.forEach(c => c.cursoId = "DRONES");
           }
 
-          const userCourses = user.cursosInscritos && user.cursosInscritos.length > 0 
-            ? allCursos.filter(c => user.cursosInscritos.includes(c.id))
-            : allCursos; 
+          allClases = localFallbackSyllabus.map(fallbackItem => {
+             const apiItem = apiClases.find(a => a.code === fallbackItem.code) || {};
+             
+             const m1 = (apiItem.meetLinks && apiItem.meetLinks.G1) || apiItem.meetLinkG1 || fallbackItem.meetLinkG1;
+             const m2 = (apiItem.meetLinks && apiItem.meetLinks.G2) || apiItem.meetLinkG2 || fallbackItem.meetLinkG2;
+             const m3 = (apiItem.meetLinks && apiItem.meetLinks.G3) || apiItem.meetLinkG3 || fallbackItem.meetLinkG3;
 
+             const v1 = (apiItem.videoLinks && apiItem.videoLinks.G1) || apiItem.videoLinkG1 || fallbackItem.videoLinkG1;
+             const v2 = (apiItem.videoLinks && apiItem.videoLinks.G2) || apiItem.videoLinkG2 || fallbackItem.videoLinkG2;
+             const v3 = (apiItem.videoLinks && apiItem.videoLinks.G3) || apiItem.videoLinkG3 || fallbackItem.videoLinkG3;
+
+             return {
+               ...fallbackItem,
+               ...apiItem,
+               cursoId: apiItem.cursoId || "DRONES",
+               pptLink: apiItem.pptLink || fallbackItem.pptLink,
+               pdfResumenLink: apiItem.pdfResumenLink || fallbackItem.pdfResumenLink,
+               meetLinks: { G1: m1, G2: m2, G3: m3 },
+               videoLinks: { G1: v1, G2: v2, G3: v3 }
+             };
+          });
+
+          const userCourses = user.cursosInscritos && user.cursosInscritos.length > 0 ? allCursos.filter(c => user.cursosInscritos.includes(c.id)) : allCursos; 
           populateCourseSelector(userCourses);
-          if(userCourses.length > 0) {
-            switchCourse(userCourses[0].id);
-          } else {
-            document.getElementById('mainView').innerHTML = `<p style="text-align:center; padding: 2rem;">No tienes cursos asignados.</p>`;
-          }
+          if(userCourses.length > 0) switchCourse(userCourses[0].id);
 
         } else {
-          document.getElementById('mainView').innerHTML = `<p style="color:#ff5555; text-align:center;">Error conectando a la BD: ${data.error || 'Verifica tu Apps Script.'}</p>`;
+          throw new Error("Error en API");
         }
       } catch (err) {
-        document.getElementById('mainView').innerHTML = `<p style="color:#ff5555; text-align:center;">Fallo de conexión. Verifica la URL de APPS_SCRIPT_URL.</p>`;
+        console.warn("Entrando en modo de rescate offline.");
+        allCursos = [{ id: "DRONES", nombre: "Ingeniería de Drones", categoria: "Aeroespacial", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
+        allClases = localFallbackSyllabus.map(item => {
+           return { ...item, cursoId: "DRONES", meetLinks: { G1: item.meetLinkG1, G2: item.meetLinkG2, G3: item.meetLinkG3 }, videoLinks: { G1: item.videoLinkG1, G2: item.videoLinkG2, G3: item.videoLinkG3 }};
+        });
+        populateCourseSelector(allCursos);
+        switchCourse("DRONES");
       }
     }
 
@@ -168,8 +221,7 @@
 
     function switchCourse(courseId) {
       activeCourseId = courseId;
-      // Filtramos las clases que pertenezcan al curso seleccionado
-      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId || cl.cursoId === "");
+      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId);
       changeView('info');
     }
 
@@ -180,7 +232,6 @@
       mainView.classList.remove('animate-fade');
       void mainView.offsetWidth; 
       mainView.classList.add('animate-fade');
-      
       if (view === 'info') renderInfo();
       else if (view === 'biblio') renderBiblio();
       else if (view === 'cert') renderCert();
@@ -195,7 +246,6 @@
           <div class="week-name">Avisos y Sílabo</div>
         </li>
       `;
-      
       activeSyllabus.forEach((item, idx) => {
         navList.innerHTML += `
           <li class="nav-item ${currentView === idx ? 'active' : ''}" onclick="changeView(${idx})">
@@ -204,7 +254,6 @@
           </li>
         `;
       });
-      
       navList.innerHTML += `
         <li class="nav-item ${currentView === 'biblio' ? 'active' : ''}" onclick="changeView('biblio')">
           <div class="week-code"><i class="ph ph-books text-xl"></i></div>
@@ -219,7 +268,6 @@
 
     function renderInfo() {
       const curso = allCursos.find(c => c.id === activeCourseId) || {};
-      
       document.getElementById('mainView').innerHTML = `
         <div class="content-header">
           <div>
@@ -248,9 +296,7 @@
               <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-2xl"></i> Sílabo Oficial</div>
             </div>
             <div style="flex: 1; background:#0a0d10; display:flex; align-items:center; justify-content:center;">
-              ${curso.silaboLink && curso.silaboLink.trim() !== "" 
-                ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>` 
-                : `<span style="color:var(--mecro-text-dim); padding: 2rem; text-align:center;">El sílabo se visualizará aquí al agregarlo en Google Sheets.</span>`}
+              ${curso.silaboLink && curso.silaboLink.trim() !== "" ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>` : `<span style="color:var(--mecro-text-dim); padding: 2rem; text-align:center;">El sílabo se mostrará al cargarlo en Google Sheets.</span>`}
             </div>
           </div>
         </div>
@@ -262,21 +308,12 @@
       const item = activeSyllabus[idx];
 
       const user = JSON.parse(localStorage.getItem('mecro_user'));
-      let userGroup = user ? user.grupo.trim().toUpperCase() : 'G1'; 
+      let userGroup = user ? user.grupo : 'G1'; 
+      if (!userGroup || userGroup === "undefined") userGroup = "G1"; 
+      userGroup = userGroup.trim().toUpperCase(); 
 
-      // EXTRACCIÓN DINÁMICA DE LINKS DESDE LA BD
-      let currentMeetLink = "";
-      let currentVideoLink = "";
-
-      // Buscamos en el array mapeado de meetLinks/videoLinks
-      if (item.meetLinks && item.meetLinks[userGroup]) currentMeetLink = item.meetLinks[userGroup];
-      else if (item["meetLink" + userGroup]) currentMeetLink = item["meetLink" + userGroup]; // Fallback vieja API
-
-      if (item.videoLinks && item.videoLinks[userGroup]) currentVideoLink = item.videoLinks[userGroup];
-      else if (item["videoLink" + userGroup]) currentVideoLink = item["videoLink" + userGroup]; // Fallback vieja API
-
-      currentMeetLink = currentMeetLink || "";
-      currentVideoLink = currentVideoLink || "";
+      const currentMeetLink = item.meetLinks[userGroup] || item.meetLinks["G1"] || "";
+      const currentVideoLink = item.videoLinks[userGroup] || item.videoLinks["G1"] || "";
       const currentPptLink = item.pptLink || "";
       const currentPdfLink = item.pdfResumenLink || "";
 
@@ -292,8 +329,8 @@
         <div class="content-header">
           <div>
             <div class="week-code">${item.code || 'S'+(idx+1)} - LABORATORIO TÉCNICO</div>
-            <h1 class="content-title">${item.title || 'Módulo '+(idx+1)}</h1>
-            <p class="content-subtitle">${item.focus || 'Enfoque técnico de la sesión'}</p>
+            <h1 class="content-title">${item.title || 'Módulo'}</h1>
+            <p class="content-subtitle">${item.focus || 'Enfoque técnico'}</p>
           </div>
           <span class="group-badge" style="height: fit-content; margin-top: 0.5rem;"><i class="ph ph-users"></i> GRUPO ${userGroup}</span>
         </div>
@@ -335,7 +372,7 @@
               `<iframe width="100%" height="100%" src="${currentVideoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
               `<i class="ph ph-video-camera-slash" style="font-size: 4rem; color: var(--mecro-line-light); margin-bottom: 1rem;"></i>
                <span style="color:var(--mecro-text-main); font-size: 1.1rem; font-weight: 600;">Grabación en proceso</span>
-               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px; text-align: center;">El video se cargará horas después de finalizada la sesión de tu grupo.</span>`}
+               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px; text-align: center;">El video estará disponible horas después de finalizar.</span>`}
           </div>
           ${currentVideoLink.trim() !== "" ? `
           <div style="padding: 1rem 1.5rem; background: rgba(0,0,0,0.3); text-align:right;">
