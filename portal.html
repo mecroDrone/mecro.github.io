@@ -28,6 +28,7 @@
     .brand-text span { color: var(--mecro-accent-bright); font-size: 0.75rem; font-weight: 600; display: block; margin-top: -3px; }
     .user-info { display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--mecro-text-dim); }
     .course-select { background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); color: #fff; padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; outline: none; cursor: pointer; }
+    .course-select:focus { border-color: var(--mecro-accent-bright); }
     .btn-logout { background: transparent; border: 1px solid var(--mecro-line); color: var(--mecro-text-main); padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
     .btn-logout:hover { border-color: #ff4757; color: #ff4757; background: rgba(255, 71, 87, 0.1); }
     .group-badge { background: var(--mecro-accent-soft); border: 1px solid var(--mecro-accent); color: var(--mecro-accent-bright); padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; }
@@ -38,11 +39,11 @@
     .nav-item { padding: 0.82rem 1rem; margin-bottom: 0.3rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; display: flex; align-items: center; gap: 0.8rem; }
     .nav-item:hover { background: rgba(255,255,255,0.02); border-color: var(--mecro-line); transform: translateX(3px); }
     .nav-item.active { background: var(--mecro-accent-soft); border-left: 4px solid var(--mecro-accent-bright); border-color: var(--mecro-accent-ring); }
-    .week-code { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--mecro-accent-bright); font-weight: 600; width: 28px;}
-    .week-name { font-size: 0.88rem; font-weight: 600; color: var(--mecro-text-main); }
+    .week-code { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--mecro-accent-bright); font-weight: 600; width: 28px; text-align: center;}
+    .week-name { font-size: 0.88rem; font-weight: 600; color: var(--mecro-text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
     .progress-widget { margin: 1rem; padding: 1.2rem; background: rgba(255,255,255,0.02); border: 1px solid var(--mecro-line); border-radius: 12px; }
     .progress-bar-bg { height: 8px; background: var(--mecro-line); border-radius: 4px; margin-top: 0.8rem; overflow: hidden; }
-    .progress-bar-fill { height: 100%; background: var(--mecro-accent-bright); width: 37%; border-radius: 4px; box-shadow: 0 0 10px rgba(0,255,136,0.5);}
+    .progress-bar-fill { height: 100%; background: var(--mecro-accent-bright); width: 0%; border-radius: 4px; box-shadow: 0 0 10px rgba(0,255,136,0.5); transition: width 0.5s ease;}
     main { flex: 1; padding: 2rem 2.5rem; overflow-y: auto; background: var(--mecro-bg-dark); }
     .content-header { margin-bottom: 2rem; border-bottom: 1px solid var(--mecro-line); padding-bottom: 1.2rem; display: flex; justify-content: space-between; align-items: flex-start;}
     .content-title { font-size: 1.8rem; font-weight: 800; color: var(--mecro-text-main); margin-top: 0.3rem;}
@@ -58,6 +59,7 @@
     .btn-disabled { background: rgba(255,255,255,0.03); color: var(--mecro-text-dim); cursor: not-allowed; border: 1px solid var(--mecro-line); }
     .input-gray { width: 100%; padding: 0.9rem; background: rgba(0,0,0,0.4); border: 1px solid var(--mecro-line); border-radius: 8px; color: var(--mecro-text-main); outline: none; transition: all 0.2s ease; }
     .input-gray:focus { border-color: var(--mecro-accent-bright); }
+    .error-msg { background: rgba(255, 85, 85, 0.1); border: 1px solid #ff5555; color: #ff5555; padding: 1.5rem; border-radius: 10px; text-align: center; margin: 2rem; }
   </style>
 </head>
 <body>
@@ -79,55 +81,20 @@
     <aside>
       <div class="sidebar-title">Ruta de Aprendizaje</div>
       <ul class="nav-list" id="navList"></ul>
-      <div class="progress-widget">
+      <div class="progress-widget" id="progressWidget" style="display:none;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <span style="font-size: 0.8rem; font-weight: 700; color: var(--mecro-text-main);">Progreso del Curso</span>
-          <span style="font-size: 0.8rem; color: var(--mecro-accent-bright); font-weight: 700;">Avanzando</span>
+          <span id="progressPercentage" style="font-size: 0.8rem; color: var(--mecro-accent-bright); font-weight: 700;">0%</span>
         </div>
-        <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+        <div class="progress-bar-bg"><div id="progressFill" class="progress-bar-fill"></div></div>
       </div>
     </aside>
     <main><div id="mainView"></div></main>
   </div>
 
   <script>
-    // URL DE APPS SCRIPT
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPAYSe4lRulJREf5DInb6h7JV2vbSaqVpPCxoVQZkLPHhH95P73tz12P-mYL6P_3l5rA/exec"; 
-
-    // =========================================================================
-    // BASE DE DATOS LOCAL INMORTAL (TUS VIDEOS SIEMPRE CARGARÁN CON ESTO)
-    // =========================================================================
-    const localFallbackSyllabus = [
-      {
-        code: "S1", title: "Fundamentos de Arquitectura UAV", focus: "Topología de un multirrotor. Flujo de potencia y datos lógico.",
-        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", meetLinkG3: "",
-        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing",
-        videoLinkG1: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview",
-        videoLinkG2: "https://drive.google.com/file/d/1hgjuOVhw-NNp9YHIP_zZEEM7NoCsPwFY/preview", videoLinkG3: "",
-        pdfResumenLink: ""
-      },
-      {
-        code: "S2", title: "Criterios de Selección de Aviónica", focus: "Análisis de especificaciones técnicas. Estándares RF y latencia.",
-        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", meetLinkG3: "",
-        pptLink: "https://docs.google.com/presentation/d/1ytbhvT98pBsXEJNu-x70L4DjCaYVMg8q-jTXju5PMdQ/edit?usp=sharing", 
-        videoLinkG1: "https://drive.google.com/file/d/1szZVXn9CEnhJnoWkNdD2l6kCnivD8oZ6/preview",
-        videoLinkG2: "https://drive.google.com/file/d/12HWPsjzG9pxCjxF9c_uMV9zaECN37Iov/preview", videoLinkG3: "",
-        pdfResumenLink: ""
-      },
-      {
-        code: "S3", title: "Simulación y enlace de control", focus: "Radiofrecuencia y Enlace de Control.",
-        meetLinkG1: "https://meet.google.com/cmk-ypmg-prs", meetLinkG2: "https://meet.google.com/qiu-mjck-bvi", meetLinkG3: "",
-        pptLink: "https://docs.google.com/presentation/d/1BWznQygHr-lzZXu-2hAysfNZglAWAQ3GxTMewTGqxM4/edit?usp=sharing", 
-        videoLinkG1: "https://drive.google.com/file/d/1vBXsrpAEtB5vJ8hpfD2ifCsd5DdXPszH/preview",
-        videoLinkG2: "", videoLinkG3: "",
-        pdfResumenLink: ""
-      },
-      { code: "S4", title: "Cinemática de Vuelo Multirrotor", focus: "Análisis de respuesta dinámica en los ejes espaciales.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
-      { code: "S5", title: "Protocolos de Laboratorio y Soldadura", focus: "Gestión térmica, uniones de alta corriente y mitigación de cortocircuitos.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
-      { code: "S6", title: "Análisis de Esquemáticos y Ruteo", focus: "Lectura de diagramas del Controlador de Vuelo y buses de comunicación.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
-      { code: "S7", title: "Integración de Sistemas Electrónicos", focus: "Montaje del Stack y plan de cableado eficiente.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" },
-      { code: "S8", title: "Configuración Firmware y Telemetría", focus: "Interfaz Betaflight, asignación de puertos y estabilización PID.", meetLinkG1:"", meetLinkG2:"", meetLinkG3:"", pptLink:"", videoLinkG1:"", videoLinkG2:"", videoLinkG3:"", pdfResumenLink:"" }
-    ];
+    // TU ENLACE OFICIAL DE APPS SCRIPT
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzEdJPv7-0e2qUuU0C2Fo4lpwj0He-cSXPS7azl6742j-yqasn1CkZ9ozI799ojsY-EEg/exec";
 
     let allCursos = [];
     let allClases = [];
@@ -135,18 +102,85 @@
     let activeSyllabus = [];
     let currentView = 'info'; 
 
-    function logout() { localStorage.removeItem('mecro_user'); window.location.href = 'login.html'; }
+    function redirectToLogin() {
+      try {
+        if (window.location.protocol === 'about:' || window.location.protocol === 'data:') {
+            document.body.innerHTML = `<h2 style="color:white; text-align:center; margin-top:2rem;">(Modo Editor de Código. Redirección a login bloqueada.)</h2>`;
+            return;
+        }
+        window.location.href = 'login.html';
+      } catch (e) {
+        console.warn("Redirección evitada por seguridad.");
+      }
+    }
+
+    function logout() { 
+      localStorage.removeItem('mecro_user'); 
+      redirectToLogin(); 
+    }
+
+    // =================================================================================
+    // RASTREADOR EXTREMO DE LINKS (IGNORA NOMBRES DE COLUMNAS ERRÓNEOS)
+    // =================================================================================
+    function buscarDatoExtremo(item, tipo, grupoUsuario) {
+      // Saca solo el número del grupo (ej: "G1" -> "1")
+      let num = grupoUsuario.replace(/\D/g, ''); 
+      
+      // Patrones posibles para el drive: "videog1", "video1", "videolinkg1"
+      let p1 = tipo + "g" + num;
+      let p2 = tipo + "linkg" + num;
+      let p3 = tipo + num;
+
+      // 1. Si la API manda los datos estructurados perfectos
+      if (item[tipo + "Links"] && item[tipo + "Links"][grupoUsuario]) return item[tipo + "Links"][grupoUsuario];
+
+      // 2. Búsqueda extrema: le quita espacios, mayúsculas y guiones a TODO el JSON que envía Sheets
+      for (let k in item) {
+          if (typeof item[k] !== 'string') continue;
+          let keyLimpia = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+          
+          if (keyLimpia.includes(p1) || keyLimpia.includes(p2) || keyLimpia.includes(p3)) {
+              if (item[k].trim() !== "") return item[k].trim();
+          }
+      }
+      
+      // 3. Fallback suicida: Si Sheets solo mandó la palabra "Video" o "Meet" a secas (sin número)
+      for (let k in item) {
+          if (typeof item[k] !== 'string') continue;
+          let keyLimpia = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+          if (keyLimpia === tipo || keyLimpia === tipo + "link") {
+                if (item[k].trim() !== "") return item[k].trim();
+          }
+      }
+      return "";
+    }
+
+    function buscarMaterial(item, palabrasClave) {
+      for (let k in item) {
+          if (typeof item[k] !== 'string') continue;
+          let keyLimpia = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+          for (let word of palabrasClave) {
+              if (keyLimpia.includes(word)) {
+                  if (item[k].trim() !== "") return item[k].trim();
+              }
+          }
+      }
+      return "";
+    }
+
+    // =================================================================================
 
     async function initApp() {
       let user = JSON.parse(localStorage.getItem('mecro_user'));
-      if (!user) { window.location.href = 'login.html'; return; }
-      
-      let uGroup = user.grupo ? user.grupo.toString().toUpperCase().trim() : "";
-      if (uGroup !== "G1" && uGroup !== "G2" && uGroup !== "G3") {
-          uGroup = "G1"; 
+      if (!user) { 
+        redirectToLogin(); 
+        return; 
       }
+      
+      // Sanitizar el grupo 
+      let uGroup = user.grupo ? user.grupo.toString().toUpperCase().trim() : "";
+      if (!uGroup) uGroup = "G1"; 
       user.grupo = uGroup;
-      localStorage.setItem('mecro_user', JSON.stringify(user));
 
       document.getElementById('userName').innerHTML = `<i class="ph ph-user-circle text-lg"></i> ${user.nombre || 'Ingeniero(a)'}`;
       document.getElementById('userGroupBadge').textContent = `GRUPO ${user.grupo}`;
@@ -154,61 +188,56 @@
       document.getElementById('mainView').innerHTML = `
         <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <i class="ph ph-spinner-gap text-5xl" style="color: var(--mecro-accent-bright); animation: spin 1s linear infinite;"></i>
-            <h3 style="color: var(--mecro-text-main); margin-top: 1rem;">Sincronizando Base de Datos MECRO...</h3>
+            <h3 style="color: var(--mecro-text-main); margin-top: 1rem;">Sincronizando Base de Datos...</h3>
+            <p style="color: var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem;">Por favor, espera un momento.</p>
         </div>
         <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
       `;
 
       try {
+        // Fetch puro hacia tu API
         const response = await fetch(APPS_SCRIPT_URL + "?t=" + new Date().getTime());
         const data = await response.json();
         
         if (data.success) {
           allCursos = data.cursos || [];
-          let apiClases = data.clases || data.syllabus || []; 
+          allClases = data.clases || data.syllabus || []; 
 
+          // Fallback para crear un curso si la tabla Cursos del drive falla
           if (allCursos.length === 0) {
-            allCursos = [{ id: "DRONES", nombre: "Ingeniería de Drones", categoria: "Aeroespacial", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
-            apiClases.forEach(c => c.cursoId = "DRONES");
+            allCursos = [{ id: "DEFAULT", nombre: "MECRO Academy", categoria: "Programa", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
+            allClases.forEach(c => { if(!c.cursoId) c.cursoId = "DEFAULT"; });
           }
 
-          allClases = localFallbackSyllabus.map(fallbackItem => {
-             const apiItem = apiClases.find(a => a.code === fallbackItem.code) || {};
-             
-             const m1 = (apiItem.meetLinks && apiItem.meetLinks.G1) || apiItem.meetLinkG1 || fallbackItem.meetLinkG1;
-             const m2 = (apiItem.meetLinks && apiItem.meetLinks.G2) || apiItem.meetLinkG2 || fallbackItem.meetLinkG2;
-             const m3 = (apiItem.meetLinks && apiItem.meetLinks.G3) || apiItem.meetLinkG3 || fallbackItem.meetLinkG3;
+          const userCourses = user.cursosInscritos && user.cursosInscritos.length > 0 
+            ? allCursos.filter(c => user.cursosInscritos.includes(c.id))
+            : allCursos; 
 
-             const v1 = (apiItem.videoLinks && apiItem.videoLinks.G1) || apiItem.videoLinkG1 || fallbackItem.videoLinkG1;
-             const v2 = (apiItem.videoLinks && apiItem.videoLinks.G2) || apiItem.videoLinkG2 || fallbackItem.videoLinkG2;
-             const v3 = (apiItem.videoLinks && apiItem.videoLinks.G3) || apiItem.videoLinkG3 || fallbackItem.videoLinkG3;
-
-             return {
-               ...fallbackItem,
-               ...apiItem,
-               cursoId: apiItem.cursoId || "DRONES",
-               pptLink: apiItem.pptLink || fallbackItem.pptLink,
-               pdfResumenLink: apiItem.pdfResumenLink || fallbackItem.pdfResumenLink,
-               meetLinks: { G1: m1, G2: m2, G3: m3 },
-               videoLinks: { G1: v1, G2: v2, G3: v3 }
-             };
-          });
-
-          const userCourses = user.cursosInscritos && user.cursosInscritos.length > 0 ? allCursos.filter(c => user.cursosInscritos.includes(c.id)) : allCursos; 
           populateCourseSelector(userCourses);
-          if(userCourses.length > 0) switchCourse(userCourses[0].id);
+          
+          if(userCourses.length > 0) {
+            switchCourse(userCourses[0].id);
+          } else {
+            document.getElementById('mainView').innerHTML = `<p style="text-align:center; padding: 2rem;">No tienes cursos asignados.</p>`;
+          }
 
         } else {
-          throw new Error("Error en API");
+          document.getElementById('mainView').innerHTML = `
+            <div class="error-msg">
+              <h3>❌ Error en la Base de Datos</h3>
+              <p>${data.error || data.message || 'El script devolvió false'}</p>
+            </div>
+          `;
         }
       } catch (err) {
-        console.warn("Entrando en modo de rescate offline.");
-        allCursos = [{ id: "DRONES", nombre: "Ingeniería de Drones", categoria: "Aeroespacial", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
-        allClases = localFallbackSyllabus.map(item => {
-           return { ...item, cursoId: "DRONES", meetLinks: { G1: item.meetLinkG1, G2: item.meetLinkG2, G3: item.meetLinkG3 }, videoLinks: { G1: item.videoLinkG1, G2: item.videoLinkG2, G3: item.videoLinkG3 }};
-        });
-        populateCourseSelector(allCursos);
-        switchCourse("DRONES");
+        document.getElementById('mainView').innerHTML = `
+          <div class="error-msg" style="max-width: 600px; margin: 2rem auto;">
+            <i class="ph ph-warning-octagon text-5xl" style="margin-bottom:1rem; display:block;"></i>
+            <h3>Error de Conexión o CORS</h3>
+            <p style="margin-top:0.5rem; font-size:0.9rem; line-height:1.5;">Tu API no está respondiendo. Si acabas de actualizarla, asegúrate de que esté como "Nueva implementación" y visible para "Cualquiera".</p>
+            <p style="margin-top:1rem; font-size:0.8rem; color:#aaa;">${err.message}</p>
+          </div>
+        `;
       }
     }
 
@@ -221,7 +250,18 @@
 
     function switchCourse(courseId) {
       activeCourseId = courseId;
-      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId);
+      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId || cl.cursoId === "" || !cl.cursoId);
+      
+      const progressWidget = document.getElementById('progressWidget');
+      if (activeSyllabus.length > 0) {
+        progressWidget.style.display = 'block';
+        const progress = Math.min(100, Math.round((3 / activeSyllabus.length) * 100));
+        document.getElementById('progressPercentage').textContent = progress + '%';
+        document.getElementById('progressFill').style.width = progress + '%';
+      } else {
+        progressWidget.style.display = 'none';
+      }
+
       changeView('info');
     }
 
@@ -232,6 +272,7 @@
       mainView.classList.remove('animate-fade');
       void mainView.offsetWidth; 
       mainView.classList.add('animate-fade');
+      
       if (view === 'info') renderInfo();
       else if (view === 'biblio') renderBiblio();
       else if (view === 'cert') renderCert();
@@ -246,14 +287,16 @@
           <div class="week-name">Avisos y Sílabo</div>
         </li>
       `;
+      
       activeSyllabus.forEach((item, idx) => {
         navList.innerHTML += `
           <li class="nav-item ${currentView === idx ? 'active' : ''}" onclick="changeView(${idx})">
             <div class="week-code">${item.code || `S${idx+1}`}</div>
-            <div class="week-name">${item.title || 'Módulo'}</div>
+            <div class="week-name" title="${item.title}">${item.title || 'Módulo '+(idx+1)}</div>
           </li>
         `;
       });
+      
       navList.innerHTML += `
         <li class="nav-item ${currentView === 'biblio' ? 'active' : ''}" onclick="changeView('biblio')">
           <div class="week-code"><i class="ph ph-books text-xl"></i></div>
@@ -268,6 +311,8 @@
 
     function renderInfo() {
       const curso = allCursos.find(c => c.id === activeCourseId) || {};
+      const fotoBg = curso.foto || './images/curso-drones.jpg';
+      
       document.getElementById('mainView').innerHTML = `
         <div class="content-header">
           <div>
@@ -278,10 +323,10 @@
         </div>
         <div class="grid-2" style="grid-template-columns: 1fr 1fr; align-items: start;">
           <div class="card" style="margin-bottom: 2rem;">
-            <img src="${curso.foto || './images/curso-drones.jpg'}" alt="Course" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem;" onerror="this.style.display='none'">
+            <div style="width: 100%; height: 200px; background-image: url('${fotoBg}'); background-size: cover; background-position: center; border-radius: 12px; margin-bottom: 1.5rem;"></div>
             <h2 style="color: var(--mecro-text-white); margin-bottom: 1rem; font-size: 1.4rem;">Sobre este programa</h2>
             <p style="color: var(--mecro-text-dim); line-height: 1.6; margin-bottom: 2rem; font-size: 0.95rem;">
-              Desarrollo de competencias técnicas con enfoque en diseño, integración y pruebas de laboratorio.
+              Programa de desarrollo de competencias técnicas con enfoque en diseño, integración y pruebas de laboratorio.
             </p>
             <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--mecro-line); border-radius: 12px; padding: 1.2rem; display: flex; align-items: center; gap: 1rem;">
               <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--mecro-accent-soft); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--mecro-accent-bright);"><i class="ph ph-user-gear"></i></div>
@@ -293,10 +338,13 @@
           </div>
           <div class="card" style="padding: 0; overflow: hidden; height: 100%; min-height: 550px; display: flex; flex-direction: column;">
             <div style="padding: 1.5rem; border-bottom: 1px solid var(--mecro-line);">
-              <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-2xl"></i> Sílabo Oficial</div>
+              <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-2xl"></i> Sílabo Oficial del Curso</div>
+              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.3rem;">Visualiza el cronograma y temario completo.</p>
             </div>
             <div style="flex: 1; background:#0a0d10; display:flex; align-items:center; justify-content:center;">
-              ${curso.silaboLink && curso.silaboLink.trim() !== "" ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>` : `<span style="color:var(--mecro-text-dim); padding: 2rem; text-align:center;">El sílabo se mostrará al cargarlo en Google Sheets.</span>`}
+              ${curso.silaboLink && curso.silaboLink.trim() !== "" 
+                ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>` 
+                : `<div style="text-align:center; padding:2rem; color:var(--mecro-text-dim);"><i class="ph ph-file-dashed text-4xl" style="margin-bottom:1rem; display:block;"></i>El sílabo se cargará automáticamente al subirlo al Drive.</div>`}
             </div>
           </div>
         </div>
@@ -308,14 +356,17 @@
       const item = activeSyllabus[idx];
 
       const user = JSON.parse(localStorage.getItem('mecro_user'));
-      let userGroup = user ? user.grupo : 'G1'; 
-      if (!userGroup || userGroup === "undefined") userGroup = "G1"; 
-      userGroup = userGroup.trim().toUpperCase(); 
+      const userGroup = user ? user.grupo.trim().toUpperCase() : 'G1'; 
 
-      const currentMeetLink = item.meetLinks[userGroup] || item.meetLinks["G1"] || "";
-      const currentVideoLink = item.videoLinks[userGroup] || item.videoLinks["G1"] || "";
-      const currentPptLink = item.pptLink || "";
-      const currentPdfLink = item.pdfResumenLink || "";
+      // MAGIA: El rastreador extremo fuerza a encontrar los links aunque tengan nombres raros en el Excel
+      let currentMeetLink = buscarDatoExtremo(item, "meet", userGroup) || "";
+      let currentVideoLink = buscarDatoExtremo(item, "video", userGroup) || "";
+      
+      let currentPptLink = buscarMaterial(item, ["ppt", "diapo", "presentacion"]) || "";
+      let currentPdfLink = buscarMaterial(item, ["pdf", "resumen"]) || "";
+
+      // Debugging: Mira la consola (F12) si falla, aquí verás qué está leyendo exactamente
+      console.log(`Buscando en Fila ${idx+1} para Grupo ${userGroup} -> Meet: ${currentMeetLink} | Video: ${currentVideoLink}`);
 
       const btnMeet = currentMeetLink.trim() !== ""
         ? `<a href="${currentMeetLink}" target="_blank" class="btn-action"><i class="ph ph-video-camera text-lg"></i> Unirse a la Clase en Vivo</a>` 
@@ -329,8 +380,8 @@
         <div class="content-header">
           <div>
             <div class="week-code">${item.code || 'S'+(idx+1)} - LABORATORIO TÉCNICO</div>
-            <h1 class="content-title">${item.title || 'Módulo'}</h1>
-            <p class="content-subtitle">${item.focus || 'Enfoque técnico'}</p>
+            <h1 class="content-title">${item.title || 'Módulo '+(idx+1)}</h1>
+            <p class="content-subtitle">${item.focus || 'Enfoque técnico de la sesión'}</p>
           </div>
           <span class="group-badge" style="height: fit-content; margin-top: 0.5rem;"><i class="ph ph-users"></i> GRUPO ${userGroup}</span>
         </div>
@@ -338,12 +389,12 @@
         <div class="grid-2">
           <div class="card">
             <div class="card-title"><i class="ph ph-broadcast" style="color:var(--mecro-accent-bright)"></i> Acceso a Clase</div>
-            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Ingresa puntual a la sesión asignada.</p>
+            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Ingresa puntual a la sesión asignada para tu grupo.</p>
             ${btnMeet}
           </div>
           <div class="card">
             <div class="card-title"><i class="ph ph-chalkboard-teacher" style="color:var(--mecro-accent-bright)"></i> Material Visual</div>
-            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Esquemáticos presentados en clase.</p>
+            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Esquemáticos y teoría presentada en la clase.</p>
             ${btnPpt}
           </div>
         </div>
@@ -354,7 +405,7 @@
             <i class="ph ph-file-pdf text-3xl" style="color:#ff4757;"></i>
             <div>
               <div class="card-title" style="margin:0;">Resumen y Preguntas de Clase</div>
-              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.2rem;">Material de lectura post-clase.</p>
+              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.2rem;">Material de lectura post-clase y ejercicios prácticos.</p>
             </div>
           </div>
           <div style="background:#0a0d10; height:500px; display:flex; align-items:center; justify-content:center;">
@@ -372,7 +423,7 @@
               `<iframe width="100%" height="100%" src="${currentVideoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
               `<i class="ph ph-video-camera-slash" style="font-size: 4rem; color: var(--mecro-line-light); margin-bottom: 1rem;"></i>
                <span style="color:var(--mecro-text-main); font-size: 1.1rem; font-weight: 600;">Grabación en proceso</span>
-               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px; text-align: center;">El video estará disponible horas después de finalizar.</span>`}
+               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px; text-align: center;">El video se procesará y subirá 2 horas después de finalizar la sesión de tu grupo.</span>`}
           </div>
           ${currentVideoLink.trim() !== "" ? `
           <div style="padding: 1rem 1.5rem; background: rgba(0,0,0,0.3); text-align:right;">
@@ -381,7 +432,45 @@
               </a>
           </div>` : ''}
         </div>
+
+        <div class="card">
+          <div class="card-title"><i class="ph ph-chats-circle text-lg" style="color:var(--mecro-accent-bright)"></i> Foro de Ingeniería</div>
+          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.2rem;">¿Tienes alguna consulta técnica sobre esta sesión?</p>
+          <form id="forumForm" style="margin-bottom:2rem;">
+            <textarea id="forumQuestion" rows="3" class="input-gray" placeholder="Escribe tu duda técnica aquí..." required></textarea>
+            <div style="display:flex; justify-content: flex-end; margin-top: 0.8rem;">
+              <button type="submit" class="btn-action" style="width:auto; padding:0.6rem 1.4rem;">Publicar <i class="ph ph-paper-plane-right"></i></button>
+            </div>
+          </form>
+          <div id="forumList" style="display:flex; flex-direction:column; gap:1rem;">
+             <p style="color: var(--mecro-text-dim); text-align: center; font-size: 0.8rem;"><i class="ph ph-chat-centered-text"></i> Todavía no hay consultas registradas para este tema.</p>
+          </div>
+        </div>
       `;
+
+      const forumForm = document.getElementById('forumForm');
+      if (forumForm) {
+        forumForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const txt = document.getElementById('forumQuestion').value;
+          if(!txt.trim()) return;
+
+          const forumList = document.getElementById('forumList');
+          if(forumList.innerHTML.includes('Todavía no')) forumList.innerHTML = '';
+          
+          const newPost = document.createElement('div');
+          newPost.style.cssText = "background: rgba(0,0,0,0.3); border: 1px solid var(--mecro-line); border-radius: 10px; padding: 1rem; animation: fadeUp 0.3s ease-out forwards;";
+          newPost.innerHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+              <strong style="color:var(--mecro-text-main); font-size:0.88rem;"><i class="ph ph-user-circle"></i> ${user ? user.nombre : 'Alumno'}</strong>
+              <span style="font-size:0.75rem; color:var(--mecro-accent-bright);">Ahora</span>
+            </div>
+            <p style="color:var(--mecro-text-dim); font-size: 0.9rem;">${txt}</p>
+          `;
+          forumList.prepend(newPost);
+          document.getElementById('forumQuestion').value = "";
+        });
+      }
     }
 
     function renderBiblio() {
@@ -389,10 +478,15 @@
         <div class="content-header"><div class="week-code">REPOSITORIO</div><h1 class="content-title">Bibliografía y Software</h1></div>
         <div class="card">
           <div class="card-title">Descargas Esenciales</div>
+          <p style="color:var(--mecro-text-dim); margin-bottom: 2rem;">Enlaces directos oficiales.</p>
           <ul class="resource-list">
             <li class="resource-item">
               <div><h4 style="color:#fff;">Betaflight Configurator</h4><p style="color:var(--mecro-text-dim); font-size:0.85rem;">Configurador FC.</p></div>
               <a href="https://github.com/betaflight/betaflight-configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
+            </li>
+            <li class="resource-item">
+              <div><h4 style="color:#fff;">ExpressLRS Configurator</h4><p style="color:var(--mecro-text-dim); font-size:0.85rem;">Flasheo RF.</p></div>
+              <a href="https://github.com/ExpressLRS/ExpressLRS-Configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
             </li>
           </ul>
         </div>
@@ -405,12 +499,19 @@
         <div class="card" style="text-align: center; padding: 4rem 2rem;">
           <div style="width: 100px; height: 100px; background: rgba(255, 176, 32, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;"><i class="ph ph-lock-key text-5xl" style="color: var(--mecro-warning);"></i></div>
           <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 1rem;">Certificado Bloqueado</h2>
-          <p style="color: var(--mecro-text-dim); max-width: 500px; margin: 0 auto 2rem;">Completa el 100% de las sesiones para desbloquear.</p>
+          <p style="color: var(--mecro-text-dim); max-width: 500px; margin: 0 auto 2rem; line-height: 1.6;">
+            Para obtener tu certificado oficial, debes completar el 100% de las sesiones, entregar el proyecto final de estabilización y aprobar el test técnico.
+          </p>
+          <button class="btn-action btn-disabled" style="max-width: 250px;" disabled>Descargar Credencial</button>
         </div>
       `;
     }
 
-    window.onload = initApp;
+    window.onload = () => {
+      initApp().catch(err => {
+        console.error("Error crítico en inicialización:", err);
+      });
+    };
   </script>
 </body>
 </html>
