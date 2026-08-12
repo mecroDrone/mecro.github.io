@@ -10,46 +10,28 @@
   
   <style>
     :root {
-      --mecro-bg-dark: #0a0d10;
-      --mecro-bg-card: #161a1d;
-      --mecro-bg-sidebar: #0e1215;
-      --mecro-line: #2a3033;
-      --mecro-line-light: #3a4248;
-      
-      --mecro-text-main: #f5f6f7;
-      --mecro-text-dim: #9ca3ad;
-      
-      --mecro-accent: #3a5241;
-      --mecro-accent-hover: #4a6652;
-      --mecro-accent-bright: #00ff88;
-      --mecro-accent-soft: rgba(58,82,65,0.4);
-      --mecro-accent-ring: rgba(58,82,65,0.6);
+      --mecro-bg-dark: #0a0d10; --mecro-bg-card: #161a1d; --mecro-bg-sidebar: #0e1215;
+      --mecro-line: #2a3033; --mecro-line-light: #3a4248;
+      --mecro-text-main: #f5f6f7; --mecro-text-dim: #9ca3ad;
+      --mecro-accent: #3a5241; --mecro-accent-hover: #4a6652; --mecro-accent-bright: #00ff88;
+      --mecro-accent-soft: rgba(58,82,65,0.4); --mecro-accent-ring: rgba(58,82,65,0.6);
       --mecro-warning: #ffb020;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
     body { background-color: var(--mecro-bg-dark); color: var(--mecro-text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-
     @keyframes fadeUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
     .animate-fade { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-    /* Header */
     header { height: 65px; background: var(--mecro-bg-sidebar); border-bottom: 1px solid var(--mecro-line); display: flex; align-items: center; justify-content: space-between; padding: 0 1.8rem; z-index: 10; }
     .brand-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
     .brand-logo img { height: 32px; width: auto; object-fit: contain; }
     .brand-text { font-weight: 800; font-size: 1.1rem; letter-spacing: 1px; color: var(--mecro-text-main); }
     .brand-text span { color: var(--mecro-accent-bright); font-size: 0.75rem; font-weight: 600; display: block; margin-top: -3px; }
-
     .user-info { display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--mecro-text-dim); }
     .course-select { background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); color: #fff; padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; outline: none; cursor: pointer; }
     .btn-logout { background: transparent; border: 1px solid var(--mecro-line); color: var(--mecro-text-main); padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
     .btn-logout:hover { border-color: #ff4757; color: #ff4757; background: rgba(255, 71, 87, 0.1); }
     .group-badge { background: var(--mecro-accent-soft); border: 1px solid var(--mecro-accent); color: var(--mecro-accent-bright); padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; }
-
-    /* Layout Main */
     .app-container { display: flex; flex: 1; overflow: hidden; }
-
-    /* Sidebar Navigation */
     aside { width: 310px; background: var(--mecro-bg-sidebar); border-right: 1px solid var(--mecro-line); display: flex; flex-direction: column; overflow-y: auto; }
     .sidebar-title { padding: 1.2rem 1.2rem 0.4rem; font-size: 0.7rem; text-transform: uppercase; color: var(--mecro-text-dim); letter-spacing: 1px; font-weight: 700; }
     .nav-list { list-style: none; padding: 0.5rem; flex: 1;}
@@ -58,29 +40,22 @@
     .nav-item.active { background: var(--mecro-accent-soft); border-left: 4px solid var(--mecro-accent-bright); border-color: var(--mecro-accent-ring); }
     .week-code { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--mecro-accent-bright); font-weight: 600; width: 28px;}
     .week-name { font-size: 0.88rem; font-weight: 600; color: var(--mecro-text-main); }
-
     .progress-widget { margin: 1rem; padding: 1.2rem; background: rgba(255,255,255,0.02); border: 1px solid var(--mecro-line); border-radius: 12px; }
     .progress-bar-bg { height: 8px; background: var(--mecro-line); border-radius: 4px; margin-top: 0.8rem; overflow: hidden; }
     .progress-bar-fill { height: 100%; background: var(--mecro-accent-bright); width: 37%; border-radius: 4px; box-shadow: 0 0 10px rgba(0,255,136,0.5);}
-
-    /* Main Content Area */
     main { flex: 1; padding: 2rem 2.5rem; overflow-y: auto; background: var(--mecro-bg-dark); }
     .content-header { margin-bottom: 2rem; border-bottom: 1px solid var(--mecro-line); padding-bottom: 1.2rem; display: flex; justify-content: space-between; align-items: flex-start;}
     .content-title { font-size: 1.8rem; font-weight: 800; color: var(--mecro-text-main); margin-top: 0.3rem;}
     .content-subtitle { color: var(--mecro-text-dim); margin-top: 0.4rem; font-size: 0.95rem; line-height: 1.5;}
-
-    /* Cards & Grid */
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
     .card { background: var(--mecro-bg-card); border: 1px solid var(--mecro-line); border-radius: 14px; padding: 1.8rem; transition: transform 0.2s ease, border-color 0.2s ease; }
     .card:hover { transform: translateY(-3px); border-color: var(--mecro-accent-ring); }
     .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; color: var(--mecro-text-main); display: flex; align-items: center; gap: 0.6rem; }
-    
     .btn-action { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.8rem; background: var(--mecro-accent); color: #fff; font-weight: 700; border-radius: 8px; text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; }
     .btn-action:hover { background: var(--mecro-accent-hover); }
     .btn-secondary { background: rgba(0,0,0,0.3); border: 1px solid var(--mecro-line-light); color: var(--mecro-text-main); }
     .btn-secondary:hover { border-color: var(--mecro-accent-bright); color: var(--mecro-accent-bright); }
     .btn-disabled { background: rgba(255,255,255,0.03); color: var(--mecro-text-dim); cursor: not-allowed; border: 1px solid var(--mecro-line); }
-
     .input-gray { width: 100%; padding: 0.9rem; background: rgba(0,0,0,0.4); border: 1px solid var(--mecro-line); border-radius: 8px; color: var(--mecro-text-main); outline: none; transition: all 0.2s ease; }
     .input-gray:focus { border-color: var(--mecro-accent-bright); }
   </style>
@@ -90,10 +65,7 @@
   <header>
     <a href="index.html" class="brand-logo">
       <img src="./images/logo-mecro-blanco.png" alt="MECRO" onerror="this.style.display='none'">
-      <div class="brand-text">
-        MECRO
-        <span>ACADEMY LMS</span>
-      </div>
+      <div class="brand-text">MECRO<span>ACADEMY LMS</span></div>
     </a>
     <div class="user-info">
       <select id="courseSelector" class="course-select" onchange="switchCourse(this.value)" style="display:none;"></select>
@@ -107,62 +79,45 @@
     <aside>
       <div class="sidebar-title">Ruta de Aprendizaje</div>
       <ul class="nav-list" id="navList"></ul>
-      
       <div class="progress-widget">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <span style="font-size: 0.8rem; font-weight: 700; color: var(--mecro-text-main);">Progreso del Curso</span>
           <span style="font-size: 0.8rem; color: var(--mecro-accent-bright); font-weight: 700;">Avanzando</span>
         </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill"></div>
-        </div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
       </div>
     </aside>
-
-    <main>
-      <div id="mainView"></div>
-    </main>
+    <main><div id="mainView"></div></main>
   </div>
 
   <script>
-    // ⚠️ PON AQUÍ TU LINK DE APPS SCRIPT (EL ÚNICO QUE DEBES PONER EN EL CÓDIGO)
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1K2jT_igevsFn9frkanaoevzTD0pw8dEGGNjx52oesz26LZ7_LCNDn7wEyOWyyBKO7w/exec"; // Reemplaza con tu URL real
+    // ⚠️ PON AQUÍ TU LINK DE APPS SCRIPT
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGDVoCxRTn8yLTMhL8GfmGRrfGKMFW-rOG4HgdXsbwFy6Qml-WwOBybbz-DdYNo6oiRQ/exec";
 
-    // Variables globales que se llenarán desde Excel
     let allCursos = [];
     let allClases = [];
     let activeCourseId = "";
     let activeSyllabus = [];
     let currentView = 'info'; 
 
-    function logout() {
-      localStorage.removeItem('mecro_user');
-      window.location.href = 'login.html'; 
-    }
+    function logout() { localStorage.removeItem('mecro_user'); window.location.href = 'login.html'; }
 
-    // ARRANQUE: DESCARGAMOS TODO DESDE EXCEL
     async function initApp() {
       let user = JSON.parse(localStorage.getItem('mecro_user'));
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
+      if (!user) { window.location.href = 'login.html'; return; }
       
-      // EL SEGURO ANTI-UNDEFINED QUE HABLAMOS
       if (!user.grupo || user.grupo === "undefined" || user.grupo === "") {
         user.grupo = "G1"; 
-        localStorage.setItem('mecro_user', JSON.stringify(user)); // Lo guardamos corregido
+        localStorage.setItem('mecro_user', JSON.stringify(user));
       }
 
       document.getElementById('userName').innerHTML = `<i class="ph ph-user-circle text-lg"></i> ${user.nombre || 'Ingeniero(a)'}`;
       document.getElementById('userGroupBadge').textContent = `GRUPO ${user.grupo}`;
 
-      // Pantalla de carga mientras lee tu Base de Datos (Sheets)
       document.getElementById('mainView').innerHTML = `
         <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <i class="ph ph-spinner-gap text-5xl" style="color: var(--mecro-accent-bright); animation: spin 1s linear infinite;"></i>
             <h3 style="color: var(--mecro-text-main); margin-top: 1rem;">Sincronizando Base de Datos MECRO...</h3>
-            <p style="color: var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem;">Descargando temario, videos y PDFs.</p>
         </div>
         <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
       `;
@@ -172,39 +127,34 @@
         const data = await response.json();
         
         if (data.success) {
-          allCursos = data.cursos;
-          allClases = data.clases;
+          allCursos = data.cursos || [];
+          allClases = data.clases || data.syllabus || []; // <--- SEGURO PARA LEER API ANTIGUA O NUEVA
 
-          // Mostrar los cursos a los que está inscrito (o todos si no hay restricción en Sheets)
+          // Si la API es la antigua, autogenerar un curso por defecto
+          if (allCursos.length === 0) {
+            allCursos = [{ id: "DRONES", nombre: "Ingeniería de Drones", categoria: "Aeroespacial", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
+            allClases.forEach(c => c.cursoId = "DRONES");
+          }
+
           const userCourses = user.cursosInscritos && user.cursosInscritos.length > 0 
             ? allCursos.filter(c => user.cursosInscritos.includes(c.id))
             : allCursos; 
 
           populateCourseSelector(userCourses);
-          
-          if(userCourses.length > 0) {
-            switchCourse(userCourses[0].id);
-          } else {
-            document.getElementById('mainView').innerHTML = `<p style="color:var(--mecro-warning); text-align:center; margin-top: 2rem;">No tienes cursos asignados en tu cuenta.</p>`;
-          }
+          if(userCourses.length > 0) switchCourse(userCourses[0].id);
         } else {
-          document.getElementById('mainView').innerHTML = `<p style="color:#ff5555; text-align:center;">Error conectando a la BD: ${data.error || 'Desconocido'}</p>`;
+          document.getElementById('mainView').innerHTML = `<p style="color:#ff5555; text-align:center;">Error conectando a la BD.</p>`;
         }
       } catch (err) {
-        document.getElementById('mainView').innerHTML = `<p style="color:#ff5555; text-align:center;">Fallo de conexión. Revisa que tu APPS_SCRIPT_URL sea correcta y esté publicada para "Cualquiera".</p>`;
-        console.error(err);
+        document.getElementById('mainView').innerHTML = `<p style="color:#ff5555; text-align:center;">Fallo de conexión. Revisa que tu APPS_SCRIPT_URL sea correcta.</p>`;
       }
     }
 
     function populateCourseSelector(cursos) {
       const selector = document.getElementById('courseSelector');
       selector.innerHTML = '';
-      cursos.forEach(c => {
-        selector.innerHTML += `<option value="${c.id}">${c.nombre}</option>`;
-      });
-      if(cursos.length > 1) {
-        selector.style.display = 'block'; // Muestra el dropdown si hay más de 1 curso
-      }
+      cursos.forEach(c => { selector.innerHTML += `<option value="${c.id}">${c.nombre}</option>`; });
+      if(cursos.length > 1) selector.style.display = 'block';
     }
 
     function switchCourse(courseId) {
@@ -216,12 +166,10 @@
     function changeView(view) {
       currentView = view;
       renderSidebar();
-      
       const mainView = document.getElementById('mainView');
       mainView.classList.remove('animate-fade');
       void mainView.offsetWidth; 
       mainView.classList.add('animate-fade');
-      
       if (view === 'info') renderInfo();
       else if (view === 'biblio') renderBiblio();
       else if (view === 'cert') renderCert();
@@ -230,24 +178,20 @@
 
     function renderSidebar() {
       const navList = document.getElementById('navList');
-      navList.innerHTML = '';
-      
-      navList.innerHTML += `
+      navList.innerHTML = `
         <li class="nav-item ${currentView === 'info' ? 'active' : ''}" onclick="changeView('info')">
           <div class="week-code"><i class="ph ph-house text-xl"></i></div>
           <div class="week-name">Avisos y Sílabo</div>
         </li>
       `;
-      
       activeSyllabus.forEach((item, idx) => {
         navList.innerHTML += `
           <li class="nav-item ${currentView === idx ? 'active' : ''}" onclick="changeView(${idx})">
-            <div class="week-code">${item.code}</div>
-            <div class="week-name">${item.title}</div>
+            <div class="week-code">${item.code || `S${idx+1}`}</div>
+            <div class="week-name">${item.title || 'Módulo'}</div>
           </li>
         `;
       });
-      
       navList.innerHTML += `
         <li class="nav-item ${currentView === 'biblio' ? 'active' : ''}" onclick="changeView('biblio')">
           <div class="week-code"><i class="ph ph-books text-xl"></i></div>
@@ -262,9 +206,7 @@
 
     function renderInfo() {
       const curso = allCursos.find(c => c.id === activeCourseId) || {};
-      const main = document.getElementById('mainView');
-
-      main.innerHTML = `
+      document.getElementById('mainView').innerHTML = `
         <div class="content-header">
           <div>
             <div class="week-code">${curso.categoria || 'VISIÓN GENERAL'}</div>
@@ -272,34 +214,27 @@
             <p class="content-subtitle">Módulo Oficial de Capacitación Tecnológica</p>
           </div>
         </div>
-
         <div class="grid-2" style="grid-template-columns: 1fr 1fr; align-items: start;">
           <div class="card" style="margin-bottom: 2rem;">
-            <img src="${curso.foto || './images/curso-drones.jpg'}" alt="Course" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3);" onerror="this.style.display='none'">
+            <img src="${curso.foto || './images/curso-drones.jpg'}" alt="Course" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem;" onerror="this.style.display='none'">
             <h2 style="color: var(--mecro-text-white); margin-bottom: 1rem; font-size: 1.4rem;">Sobre este programa</h2>
             <p style="color: var(--mecro-text-dim); line-height: 1.6; margin-bottom: 2rem; font-size: 0.95rem;">
-              Programa de desarrollo de competencias técnicas con enfoque en diseño, integración de hardware y pruebas reales de laboratorio.
+              Desarrollo de competencias técnicas con enfoque en diseño, integración y pruebas de laboratorio.
             </p>
             <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--mecro-line); border-radius: 12px; padding: 1.2rem; display: flex; align-items: center; gap: 1rem;">
-              <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--mecro-accent-soft); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--mecro-accent-bright);">
-                <i class="ph ph-user-gear"></i>
-              </div>
+              <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--mecro-accent-soft); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--mecro-accent-bright);"><i class="ph ph-user-gear"></i></div>
               <div>
                 <h4 style="color: var(--mecro-text-white); font-weight: 800; font-size: 1.1rem;">${curso.instructor || 'Staff MECRO'}</h4>
-                <span style="color: var(--mecro-accent-bright); font-size: 0.8rem; font-weight: 600;">Instructor Titular MECRO</span>
+                <span style="color: var(--mecro-accent-bright); font-size: 0.8rem; font-weight: 600;">Instructor Titular</span>
               </div>
             </div>
           </div>
-
           <div class="card" style="padding: 0; overflow: hidden; height: 100%; min-height: 550px; display: flex; flex-direction: column;">
             <div style="padding: 1.5rem; border-bottom: 1px solid var(--mecro-line);">
-              <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-2xl"></i> Sílabo Oficial del Curso</div>
-              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.3rem;">Visualiza el cronograma y temario completo.</p>
+              <div class="card-title" style="margin:0; color:var(--mecro-accent-bright);"><i class="ph ph-file-pdf text-2xl"></i> Sílabo Oficial</div>
             </div>
             <div style="flex: 1; background:#0a0d10; display:flex; align-items:center; justify-content:center;">
-              ${curso.silaboLink && curso.silaboLink.trim() !== "" 
-                ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>` 
-                : `<span style="color:var(--mecro-text-dim); padding: 2rem; text-align:center;">El sílabo se cargará automáticamente al subirlo al Drive.</span>`}
+              ${curso.silaboLink && curso.silaboLink.trim() !== "" ? `<iframe width="100%" height="100%" src="${curso.silaboLink}" frameborder="0" allowfullscreen></iframe>` : `<span style="color:var(--mecro-text-dim); padding: 2rem; text-align:center;">El sílabo se mostrará al cargarlo en Google Sheets.</span>`}
             </div>
           </div>
         </div>
@@ -311,60 +246,84 @@
       const item = activeSyllabus[idx];
 
       const user = JSON.parse(localStorage.getItem('mecro_user'));
-      const userGroup = user ? user.grupo : 'G1'; 
+      let userGroup = user ? user.grupo : 'G1'; 
+      if (!userGroup || userGroup === "undefined") userGroup = "G1"; 
+      userGroup = userGroup.trim().toUpperCase();
 
-      // MAGIA: El sistema busca los links que pusiste en el Excel correspondientes a este grupo
-      const currentMeetLink = (item.meetLinks && item.meetLinks[userGroup]) ? item.meetLinks[userGroup] : "";
-      const currentVideoLink = (item.videoLinks && item.videoLinks[userGroup]) ? item.videoLinks[userGroup] : "";
+      // =========================================================
+      // CÓDIGO BLINDADO: SOPORTA LA API ANTIGUA Y LA NUEVA
+      // =========================================================
+      let currentMeetLink = "";
+      let currentVideoLink = "";
 
-      // ESTADOS VACÍOS CONDICIONALES
-      const btnMeet = currentMeetLink && currentMeetLink.trim() !== ""
+      // INTENTO 1: Buscar si Sheets envió el formato nuevo (Multi-Cursos)
+      if (item.meetLinks && item.meetLinks[userGroup]) {
+        currentMeetLink = item.meetLinks[userGroup];
+      } else {
+        // INTENTO 2: Fallback al formato antiguo por si tu Apps Script no se actualizó
+        if (userGroup === 'G1') currentMeetLink = item.meetLinkG1;
+        if (userGroup === 'G2') currentMeetLink = item.meetLinkG2;
+        if (userGroup === 'G3') currentMeetLink = item.meetLinkG3;
+      }
+
+      // Lo mismo para el video:
+      if (item.videoLinks && item.videoLinks[userGroup]) {
+        currentVideoLink = item.videoLinks[userGroup];
+      } else {
+        if (userGroup === 'G1') currentVideoLink = item.videoLinkG1;
+        if (userGroup === 'G2') currentVideoLink = item.videoLinkG2;
+        if (userGroup === 'G3') currentVideoLink = item.videoLinkG3;
+      }
+
+      // Asegurarnos de que no sea undefined
+      currentMeetLink = currentMeetLink || "";
+      currentVideoLink = currentVideoLink || "";
+      const currentPptLink = item.pptLink || "";
+      const currentPdfLink = item.pdfResumenLink || "";
+
+      // GENERACIÓN DE BOTONES
+      const btnMeet = currentMeetLink.trim() !== ""
         ? `<a href="${currentMeetLink}" target="_blank" class="btn-action"><i class="ph ph-video-camera text-lg"></i> Unirse a la Clase en Vivo</a>` 
         : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> Enlace pendiente</button>`;
       
-      const btnPpt = item.pptLink && item.pptLink.trim() !== ""
-        ? `<a href="${item.pptLink}" target="_blank" class="btn-action btn-secondary"><i class="ph ph-presentation-chart text-lg"></i> Abrir Diapositivas</a>` 
+      const btnPpt = currentPptLink.trim() !== ""
+        ? `<a href="${currentPptLink}" target="_blank" class="btn-action btn-secondary"><i class="ph ph-presentation-chart text-lg"></i> Abrir Diapositivas</a>` 
         : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> PPT pendiente</button>`;
 
       main.innerHTML = `
         <div class="content-header">
           <div>
-            <div class="week-code">${item.code} - LABORATORIO TÉCNICO</div>
-            <h1 class="content-title">${item.title}</h1>
-            <p class="content-subtitle">${item.focus}</p>
+            <div class="week-code">${item.code || 'S'+(idx+1)} - LABORATORIO TÉCNICO</div>
+            <h1 class="content-title">${item.title || 'Módulo'}</h1>
+            <p class="content-subtitle">${item.focus || 'Enfoque técnico'}</p>
           </div>
           <span class="group-badge" style="height: fit-content; margin-top: 0.5rem;"><i class="ph ph-users"></i> GRUPO ${userGroup}</span>
         </div>
 
         <div class="grid-2">
           <div class="card">
-            <div class="card-title"><i class="ph ph-broadcast" style="color:var(--mecro-accent-bright)"></i> Acceso a Clase (Meet)</div>
-            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
-              Ingresa puntual a la sesión asignada para tu grupo.
-            </p>
+            <div class="card-title"><i class="ph ph-broadcast" style="color:var(--mecro-accent-bright)"></i> Acceso a Clase</div>
+            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Ingresa puntual a la sesión asignada.</p>
             ${btnMeet}
           </div>
-
           <div class="card">
             <div class="card-title"><i class="ph ph-chalkboard-teacher" style="color:var(--mecro-accent-bright)"></i> Material Visual</div>
-            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">
-              Esquemáticos y teoría presentada en la clase.
-            </p>
+            <p style="font-size:0.9rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Esquemáticos presentados en clase.</p>
             ${btnPpt}
           </div>
         </div>
 
-        ${item.pdfResumenLink && item.pdfResumenLink.trim() !== "" ? `
+        ${currentPdfLink.trim() !== "" ? `
         <div class="card" style="margin-bottom:2rem; padding:0; overflow:hidden;">
           <div style="padding: 1.5rem; border-bottom: 1px solid var(--mecro-line); display:flex; align-items:center; gap: 0.8rem;">
             <i class="ph ph-file-pdf text-3xl" style="color:#ff4757;"></i>
             <div>
               <div class="card-title" style="margin:0;">Resumen y Preguntas de Clase</div>
-              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.2rem;">Material de lectura post-clase para repasar conceptos clave.</p>
+              <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-top:0.2rem;">Material de lectura post-clase.</p>
             </div>
           </div>
           <div style="background:#0a0d10; height:500px; display:flex; align-items:center; justify-content:center;">
-             <iframe width="100%" height="100%" src="${item.pdfResumenLink}" frameborder="0" allowfullscreen></iframe>
+             <iframe width="100%" height="100%" src="${currentPdfLink}" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
         ` : ''}
@@ -374,77 +333,30 @@
             <div class="card-title" style="margin:0;"><i class="ph ph-film-strip"></i> Grabación de la Sesión (${userGroup})</div>
           </div>
           <div style="background:#000; height:500px; display:flex; align-items:center; justify-content:center; flex-direction: column;">
-            ${currentVideoLink && currentVideoLink.trim() !== "" ? 
+            ${currentVideoLink.trim() !== "" ? 
               `<iframe width="100%" height="100%" src="${currentVideoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
               `<i class="ph ph-video-camera-slash" style="font-size: 4rem; color: var(--mecro-line-light); margin-bottom: 1rem;"></i>
                <span style="color:var(--mecro-text-main); font-size: 1.1rem; font-weight: 600;">Grabación en proceso</span>
-               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px; text-align: center;">El video estará disponible horas después de finalizar la sesión.</span>`}
+               <span style="color:var(--mecro-text-dim); font-size: 0.85rem; margin-top: 0.5rem;">El video estará disponible horas después de finalizar.</span>`}
           </div>
-          ${currentVideoLink && currentVideoLink.trim() !== "" ? `
+          ${currentVideoLink.trim() !== "" ? `
           <div style="padding: 1rem 1.5rem; background: rgba(0,0,0,0.3); text-align:right;">
               <a href="${currentVideoLink.replace('/preview', '/view')}" target="_blank" style="font-size: 0.85rem; color: var(--mecro-accent-bright); text-decoration: none; font-weight: 500;">
                  Abrir externamente en Google Drive ↗
               </a>
           </div>` : ''}
         </div>
-
-        <div class="card">
-          <div class="card-title"><i class="ph ph-chats-circle text-lg" style="color:var(--mecro-accent-bright)"></i> Foro de Ingeniería</div>
-          <p style="font-size:0.85rem; color:var(--mecro-text-dim); margin-bottom:1.5rem;">Deja tu duda sobre conectividad, hardware o control PID.</p>
-          <form id="forumForm" style="margin-bottom:2rem;">
-            <textarea id="forumQuestion" rows="3" class="input-gray" placeholder="Escribe tu consulta detallada..." required></textarea>
-            <div style="display:flex; justify-content: flex-end; margin-top: 0.8rem;">
-              <button type="submit" class="btn-action" style="width:auto; padding:0.6rem 1.4rem;">Publicar <i class="ph ph-paper-plane-right"></i></button>
-            </div>
-          </form>
-          <div id="forumList" style="display:flex; flex-direction:column; gap:1.2rem;">
-             <p style="color: var(--mecro-text-dim); text-align: center; font-size: 0.85rem;"><i class="ph ph-chat-centered-text"></i> Sé el primero en dejar una consulta en este módulo.</p>
-          </div>
-        </div>
       `;
-
-      // Simulación de guardado de foro
-      const forumForm = document.getElementById('forumForm');
-      if (forumForm) {
-        forumForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const txt = document.getElementById('forumQuestion').value;
-          if(!txt.trim()) return;
-
-          const forumList = document.getElementById('forumList');
-          if(forumList.innerHTML.includes('Sé el primero')) forumList.innerHTML = '';
-          
-          const newPost = document.createElement('div');
-          newPost.style.cssText = "background: rgba(255,255,255,0.03); border: 1px solid var(--mecro-line); border-radius: 12px; padding: 1.2rem; animation: fadeUp 0.3s ease-out forwards;";
-          newPost.innerHTML = `
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.8rem;">
-              <strong style="color:var(--mecro-text-white);"><i class="ph ph-user-circle"></i> ${user ? user.nombre : 'Alumno'}</strong>
-              <span style="font-size:0.8rem; color:var(--mecro-accent-bright);">Justo ahora</span>
-            </div>
-            <p style="color:var(--mecro-text-gray); font-size: 0.95rem;">${txt}</p>
-          `;
-          forumList.prepend(newPost);
-          document.getElementById('forumQuestion').value = "";
-        });
-      }
     }
 
     function renderBiblio() {
-      const main = document.getElementById('mainView');
-      main.innerHTML = `
-        <div class="content-header">
-          <div class="week-code">REPOSITORIO</div>
-          <h1 class="content-title">Bibliografía y Software</h1>
-        </div>
+      document.getElementById('mainView').innerHTML = `
+        <div class="content-header"><div class="week-code">REPOSITORIO</div><h1 class="content-title">Bibliografía y Software</h1></div>
         <div class="card">
           <div class="card-title">Descargas Esenciales</div>
-          <p style="color:var(--mecro-text-dim); margin-bottom: 2rem;">Enlaces directos oficiales.</p>
           <ul class="resource-list">
             <li class="resource-item">
-              <div>
-                <h4 style="color:#fff;">Betaflight Configurator</h4>
-                <p style="color:var(--mecro-text-dim); font-size:0.85rem;">Configurador FC.</p>
-              </div>
+              <div><h4 style="color:#fff;">Betaflight Configurator</h4><p style="color:var(--mecro-text-dim); font-size:0.85rem;">Configurador FC.</p></div>
               <a href="https://github.com/betaflight/betaflight-configurator/releases" target="_blank" class="btn-action btn-secondary" style="width:auto; padding:0.4rem 0.8rem;">Descargar</a>
             </li>
           </ul>
@@ -453,21 +365,12 @@
     }
 
     function renderCert() {
-      const main = document.getElementById('mainView');
-      main.innerHTML = `
-        <div class="content-header">
-          <div class="week-code">ACREDITACIÓN MECRO</div>
-          <h1 class="content-title">Certificado de Ingeniería</h1>
-        </div>
+      document.getElementById('mainView').innerHTML = `
+        <div class="content-header"><div class="week-code">ACREDITACIÓN MECRO</div><h1 class="content-title">Certificado Oficial</h1></div>
         <div class="card" style="text-align: center; padding: 4rem 2rem;">
-          <div style="width: 100px; height: 100px; background: rgba(255, 176, 32, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
-            <i class="ph ph-lock-key text-5xl" style="color: var(--mecro-warning);"></i>
-          </div>
+          <div style="width: 100px; height: 100px; background: rgba(255, 176, 32, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;"><i class="ph ph-lock-key text-5xl" style="color: var(--mecro-warning);"></i></div>
           <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 1rem;">Certificado Bloqueado</h2>
-          <p style="color: var(--mecro-text-dim); max-width: 500px; margin: 0 auto 2rem; line-height: 1.6;">
-            Para obtener tu certificado oficial, debes completar el 100% de las sesiones, entregar el proyecto final de estabilización y aprobar el test técnico.
-          </p>
-          <button class="btn-action btn-disabled" style="max-width: 250px;" disabled>Descargar Credencial</button>
+          <p style="color: var(--mecro-text-dim); max-width: 500px; margin: 0 auto 2rem;">Completa el 100% de las sesiones para desbloquear.</p>
         </div>
       `;
     }
