@@ -92,7 +92,7 @@
 
   <script>
     // ⚠️ PON AQUÍ TU LINK DE APPS SCRIPT
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7-IowJiBg_1g6j0uUBRHdIsC62-D5tzJjBfC4He0G_lk-8Nia9KPFY5Gy2jt-WPn-pA/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/TU_LINK_AQUI/exec";
 
     let allCursos = [];
     let allClases = [];
@@ -128,9 +128,8 @@
         
         if (data.success) {
           allCursos = data.cursos || [];
-          allClases = data.clases || data.syllabus || []; // <--- SEGURO PARA LEER API ANTIGUA O NUEVA
+          allClases = data.clases || data.syllabus || []; 
 
-          // Si la API es la antigua, autogenerar un curso por defecto
           if (allCursos.length === 0) {
             allCursos = [{ id: "DRONES", nombre: "Ingeniería de Drones", categoria: "Aeroespacial", instructor: "Staff MECRO", foto: "./images/curso-drones.jpg" }];
             allClases.forEach(c => c.cursoId = "DRONES");
@@ -159,7 +158,7 @@
 
     function switchCourse(courseId) {
       activeCourseId = courseId;
-      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId);
+      activeSyllabus = allClases.filter(cl => cl.cursoId === courseId || !cl.cursoId); // Fallback por si no hay cursoId
       changeView('info');
     }
 
@@ -248,40 +247,36 @@
       const user = JSON.parse(localStorage.getItem('mecro_user'));
       let userGroup = user ? user.grupo : 'G1'; 
       if (!userGroup || userGroup === "undefined") userGroup = "G1"; 
-      userGroup = userGroup.trim().toUpperCase();
+      userGroup = userGroup.trim().toUpperCase(); // G1, G2, G3
 
       // =========================================================
-      // CÓDIGO BLINDADO: SOPORTA LA API ANTIGUA Y LA NUEVA
+      // SOLUCIÓN DEFINITIVA: LEE LA API NUEVA Y LA API VIEJA A LA VEZ
       // =========================================================
       let currentMeetLink = "";
       let currentVideoLink = "";
 
-      // INTENTO 1: Buscar si Sheets envió el formato nuevo (Multi-Cursos)
+      // 1. Intentamos leer en el formato nuevo (Multi-cursos)
       if (item.meetLinks && item.meetLinks[userGroup]) {
         currentMeetLink = item.meetLinks[userGroup];
-      } else {
-        // INTENTO 2: Fallback al formato antiguo por si tu Apps Script no se actualizó
-        if (userGroup === 'G1') currentMeetLink = item.meetLinkG1;
-        if (userGroup === 'G2') currentMeetLink = item.meetLinkG2;
-        if (userGroup === 'G3') currentMeetLink = item.meetLinkG3;
+      } 
+      // 2. Si falla, leemos en el formato antiguo que está enviando tu API
+      else if (item["meetLink" + userGroup]) {
+        currentMeetLink = item["meetLink" + userGroup];
       }
 
-      // Lo mismo para el video:
       if (item.videoLinks && item.videoLinks[userGroup]) {
         currentVideoLink = item.videoLinks[userGroup];
-      } else {
-        if (userGroup === 'G1') currentVideoLink = item.videoLinkG1;
-        if (userGroup === 'G2') currentVideoLink = item.videoLinkG2;
-        if (userGroup === 'G3') currentVideoLink = item.videoLinkG3;
+      } else if (item["videoLink" + userGroup]) {
+        currentVideoLink = item["videoLink" + userGroup];
       }
 
-      // Asegurarnos de que no sea undefined
       currentMeetLink = currentMeetLink || "";
       currentVideoLink = currentVideoLink || "";
       const currentPptLink = item.pptLink || "";
       const currentPdfLink = item.pdfResumenLink || "";
 
-      // GENERACIÓN DE BOTONES
+      // =========================================================
+
       const btnMeet = currentMeetLink.trim() !== ""
         ? `<a href="${currentMeetLink}" target="_blank" class="btn-action"><i class="ph ph-video-camera text-lg"></i> Unirse a la Clase en Vivo</a>` 
         : `<button class="btn-action btn-disabled" disabled><i class="ph ph-lock-key text-lg"></i> Enlace pendiente</button>`;
