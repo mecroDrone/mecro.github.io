@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MECRO - Simulador Paramétrico de Vuelo UAV</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0d0d0d; color: #e0e0e0; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background-color: #1a1a1a; padding: 30px; border-radius: 10px; border-top: 5px solid #d81b60; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        h1 { color: #d81b60; text-align: center; margin-bottom: 5px; font-size: 28px; text-transform: uppercase; letter-spacing: 2px;}
+        .subtitle { text-align: center; color: #888; font-size: 14px; margin-top: 0; margin-bottom: 30px; }
+        h3 { color: #f48fb1; border-bottom: 1px solid #333; padding-bottom: 8px; margin-top: 0; font-size: 16px; }
+        .grid-main { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .panel { background-color: #242424; padding: 20px; border-radius: 8px; border: 1px solid #333; }
+        .form-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        label { font-size: 12px; color: #bbb; flex: 1; }
+        input, select { background-color: #121212; border: 1px solid #444; color: #fff; padding: 6px 10px; border-radius: 4px; width: 80px; text-align: right; font-family: monospace; }
+        input:focus { border-color: #d81b60; outline: none; }
+        button { background-color: #d81b60; color: #fff; border: none; padding: 18px; font-weight: bold; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 30px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 1px;}
+        button:hover { background-color: #ad1457; }
+        .results-panel { margin-top: 30px; background-color: #111; padding: 25px; border-radius: 8px; border-left: 5px solid #d81b60; }
+        .res-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .res-box { background: #1a1a1a; padding: 15px; border-radius: 6px; border: 1px solid #333; }
+        .res-box span { display: block; font-size: 11px; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+        .res-box strong { display: block; font-size: 18px; color: #fff; }
+        .res-box .highlight { color: #d81b60; font-size: 24px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>MECRO Engineering</h1>
+    <p class="subtitle">Modelo Termodinámico y Electromecánico Completo (Hover)</p>
+
+    <div class="grid-main">
+        <!-- Panel Entorno y Frame -->
+        <div class="panel">
+            <h3>1. Entorno y Chasis</h3>
+            <div class="form-group"><label>Altitud (m.s.n.m)</label><input type="number" id="alt" value="150"></div>
+            <div class="form-group"><label>Temp. Ambiente (°C)</label><input type="number" id="temp" value="20"></div>
+            <div class="form-group"><label>N° Rotores</label>
+                <select id="n_rotors">
+                    <option value="4" selected>4 (Quad)</option>
+                    <option value="6">6 (Hexa)</option>
+                    <option value="8">8 (Octo)</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Peso Seco (Frame+Payload) (kg)</label><input type="number" id="m_dry" value="0.6" step="0.1"></div>
+        </div>
+
+        <!-- Panel Motor y ESC -->
+        <div class="panel">
+            <h3>2. Planta Motriz (por unidad)</h3>
+            <div class="form-group"><label>Peso del Motor (g)</label><input type="number" id="m_motor" value="35"></div>
+            <div class="form-group"><label>Motor Kv (RPM/V)</label><input type="number" id="kv" value="1300"></div>
+            <div class="form-group"><label>Corriente en Vacío Io (A)</label><input type="number" id="io" value="0.9" step="0.1"></div>
+            <div class="form-group"><label>Resistencia Interna Rm (Ω)</label><input type="number" id="rm" value="0.045" step="0.001"></div>
+            <div class="form-group"><label>Resistencia del ESC (Ω)</label><input type="number" id="resc" value="0.005" step="0.001"></div>
+        </div>
+
+        <!-- Panel Hélice y Batería -->
+        <div class="panel">
+            <h3>3. Aerodinámica y Energía</h3>
+            <div class="form-group"><label>Diámetro Hélice (in)</label><input type="number" id="prop_d" value="7" step="0.1"></div>
+            <div class="form-group"><label>Paso de Hélice (in)</label><input type="number" id="prop_p" value="4" step="0.1"></div>
+            <div class="form-group"><label>N° Palas por Hélice</label><input type="number" id="blades" value="3"></div>
+            <hr style="border-color:#333; margin:15px 0;">
+            <div class="form-group"><label>Celdas Batería (S)</label><input type="number" id="cells" value="6"></div>
+            <div class="form-group"><label>Capacidad (mAh)</label><input type="number" id="cap" value="4000"></div>
+            <div class="form-group"><label>Peso Batería (kg)</label><input type="number" id="m_bat" value="0.65" step="0.05"></div>
+            <div class="form-group"><label>Resistencia Interna Pack (Ω)</label><input type="number" id="rbat" value="0.015" step="0.001"></div>
+        </div>
+    </div>
+
+    <button onclick="calcular()">Ejecutar Simulación Matemática</button>
+
+    <div class="results-panel" id="results" style="display: none;">
+        <div class="res-grid">
+            <div class="res-box"><span>Empuje Requerido (x Motor)</span><strong id="out_thrust">0 g</strong></div>
+            <div class="res-box"><span>Corriente (x Motor)</span><strong id="out_i">0 A</strong></div>
+            <div class="res-box"><span>RPM en Hover</span><strong id="out_rpm">0</strong></div>
+            <div class="res-box"><span>Eficiencia Motor</span><strong id="out_eff">0 %</strong></div>
+            
+            <div class="res-box"><span>Potencia Mecánica</span><strong id="out_pmec">0 W</strong></div>
+            <div class="res-box"><span>Pérdidas Térmicas (Joule)</span><strong id="out_heat">0 W</strong></div>
+            <div class="res-box"><span>Caída de Voltaje (Sag)</span><strong id="out_sag">0 V</strong></div>
+            <div class="res-box"><span>Tiempo Vuelo Estimado</span><strong class="highlight" id="out_time">0 min</strong></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calcular() {
+        // Entorno
+        const alt = parseFloat(document.getElementById('alt').value);
+        const temp = parseFloat(document.getElementById('temp').value);
+        const T_kelvin = temp + 273.15;
+        const P_atm = 101325 * Math.pow(1 - (0.0065 * alt)/288.15, 5.255);
+        const rho = P_atm / (287.05 * T_kelvin);
+
+        // Masas y Fuerza
+        const n_rotors = parseFloat(document.getElementById('n_rotors').value);
+        const m_dry = parseFloat(document.getElementById('m_dry').value);
+        const m_motor = parseFloat(document.getElementById('m_motor').value) / 1000;
+        const m_bat = parseFloat(document.getElementById('m_bat').value);
+        
+        const m_total = m_dry + m_bat + (n_rotors * m_motor);
+        const thrust_N_total = m_total * 9.81;
+        const thrust_per_motor = thrust_N_total / n_rotors;
+
+        // Aerodinámica (Blade Element Momentum simplificado)
+        const d_in = parseFloat(document.getElementById('prop_d').value);
+        const p_in = parseFloat(document.getElementById('prop_p').value);
+        const blades = parseFloat(document.getElementById('blades').value);
+        
+        const r_m = (d_in * 0.0254) / 2;
+        const A = Math.PI * Math.pow(r_m, 2);
+        
+        // Figure of Merit basado empiricamente en palas y paso
+        // A más palas, menos eficiencia en hover. Mayor paso, mayor arrastre inducido.
+        const FM = 0.78 - (blades * 0.04) - (p_in/d_in * 0.05); 
+        const P_mec_motor = (Math.pow(thrust_per_motor, 1.5) / Math.sqrt(2 * rho * A)) / FM;
+
+        // Estimación de RPM (Basado en teoría de cantidad de movimiento)
+        const v_inducida = Math.sqrt(thrust_per_motor / (2 * rho * A));
+        const rpm = (v_inducida * 60) / (p_in * 0.0254) * 1.5; // Aproximación
+
+        // Circuito Equivalente Motor DC
+        const io = parseFloat(document.getElementById('io').value);
+        const rm = parseFloat(document.getElementById('rm').value);
+        const resc = parseFloat(document.getElementById('resc').value);
+        const rbat = parseFloat(document.getElementById('rbat').value); // R del pack completo
+        
+        const cells = parseFloat(document.getElementById('cells').value);
+        const v_nom = cells * 3.7;
+        const R_tot = rm + resc; // Resistencia de la fase + ESC
+
+        // Resolver I mediante ecuación cuadrática: P_mec = (V_in - I*R_tot)(I - Io)
+        // a*I^2 + b*I + c = 0
+        // Para simplificar y evitar loop circular pesado con R_bat, asumimos V_in = V_nom iterativamente
+        let V_in = v_nom;
+        let I_motor = 0;
+        
+        for(let iter=0; iter<5; iter++){
+            let a = R_tot;
+            let b = -(V_in + io * R_tot);
+            let c = P_mec_motor + V_in * io;
+            
+            // Discriminante
+            let det = Math.pow(b, 2) - 4 * a * c;
+            if(det < 0) {
+                alert("El motor no puede generar suficiente potencia. Se quemará o entrará en pérdida.");
+                return;
+            }
+            I_motor = (-b - Math.sqrt(det)) / (2 * a);
+            // Actualizar voltaje real considerando el sag de la batería (I_total = I_motor * n_rotors)
+            V_in = v_nom - (I_motor * n_rotors * rbat);
+        }
+
+        const voltage_sag = v_nom - V_in;
+        const P_elec_motor = V_in * I_motor;
+        const P_heat_motor = Math.pow(I_motor, 2) * R_tot;
+        const eff_motor = (P_mec_motor / P_elec_motor) * 100;
+
+        // Autonomía
+        const cap_ah = parseFloat(document.getElementById('cap').value) / 1000;
+        const energia_util_Wh = (V_in * cap_ah) * 0.8; // 80% DoD
+        const P_elec_total = P_elec_motor * n_rotors;
+        const t_min = (energia_util_Wh / P_elec_total) * 60;
+
+        // Render HTML
+        document.getElementById('out_thrust').innerText = (thrust_per_motor * 1000 / 9.81).toFixed(0) + " g";
+        document.getElementById('out_i').innerText = I_motor.toFixed(2) + " A";
+        document.getElementById('out_rpm').innerText = rpm.toFixed(0);
+        document.getElementById('out_eff').innerText = eff_motor.toFixed(1) + " %";
+        document.getElementById('out_pmec').innerText = P_mec_motor.toFixed(1) + " W";
+        document.getElementById('out_heat').innerText = P_heat_motor.toFixed(1) + " W";
+        document.getElementById('out_sag').innerText = voltage_sag.toFixed(2) + " V";
+        
+        let t_mins_int = Math.floor(t_min);
+        let t_secs = Math.round((t_min - t_mins_int) * 60);
+        document.getElementById('out_time').innerText = t_mins_int + "m " + t_secs + "s";
+        
+        document.getElementById('results').style.display = 'block';
+    }
+</script>
+</body>
+</html>

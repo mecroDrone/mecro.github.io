@@ -1,0 +1,38 @@
+[
+  {
+    "id":"uav","file":"curso-detalle.html","title":"Arquitectura y Ensamblaje de Sistemas UAV Multirrotor","shortTitle":"Construye tu primer sistema UAV.","category":"Drones y UAVs","categoryId":"drones","level":"Intermedio","hours":36,"units":6,"sessions":12,"weeks":6,"price":349,"image":"images/curso-drones.jpg","imageLabel":"Modelo de referencia","featured":true,
+    "description":"Del dimensionamiento al banco de pruebas: integra un controlador F405, comprende el sistema de propulsión y ajusta el control PID de un multirrotor.",
+    "outcomes":["Dimensionar motores, hélices y baterías para una plataforma multirrotor.","Ensamblar y configurar un stack F405 con sus periféricos.","Comprender los enlaces de radio, la telemetría y el video FPV.","Interpretar el control PID, ajustar filtros y analizar los datos de vuelo."],
+    "requirements":"Recomendado para quienes tienen bases de electrónica y programación. Consulta la lista de herramientas y componentes antes de inscribirte; el hardware se coordina por separado.",
+    "project":"Ensamblaje y configuración de un multirrotor F405 (6S), desde el dimensionamiento eléctrico hasta las pruebas y el análisis de telemetría.",
+    "modules":[
+      {"title":"Fundamentos, aerodinámica y estructuras","lessons":[{"title":"Sesión 1 · Aerodinámica y hélices","topics":["Dinámica de vuelo, sustentación y nomenclatura de hélices: paso y diámetro.","Consumo de corriente según el perfil aerodinámico."]},{"title":"Sesión 2 · Chasis y materiales","topics":["Geometría de frames: True X y Deadcat.","Resonancia de la fibra de carbono e introducción a drones híbridos."]}]},
+      {"title":"Propulsión y dimensionamiento físico","lessons":[{"title":"Sesión 3 · Química y energía","topics":["Curvas de descarga de celdas LiPo (1S a 12S).","Resistencia interna, C-rating y potencia aplicada a la eficiencia térmica."]},{"title":"Sesión 4 · Dimensionamiento de la propulsión","topics":["Lectura de estatores y relación Kv: análisis de motores EMAX 2807.","Relación empuje/peso y efecto Joule en los circuitos."]}]},
+      {"title":"Sistemas embebidos y controladores de vuelo","lessons":[{"title":"Sesión 5 · Arquitectura del controlador","topics":["Diferencias entre STM32 F4, F7 y H7, y su impacto en el tiempo de ciclo.","Buses UART, I2C y SPI."]},{"title":"Sesión 6 · Protocolos de modulación","topics":["Evolución de la comunicación con los ESC.","PWM y protocolo digital DSHOT: tramas y telemetría."]}]},
+      {"title":"Telecomunicaciones, telemetría y FPV","lessons":[{"title":"Sesión 7 · Enlaces de radio","topics":["ExpressLRS y enlaces basados en CC2500.","Latencia y frecuencia de paquetes."]},{"title":"Sesión 8 · Video y antenas","topics":["Transmisión analógica y video digital HD.","Ganancia de antena y polarización circular RHCP/LHCP."]}]},
+      {"title":"Manufactura, materiales y ensamblaje","lessons":[{"title":"Sesión 9 · Cableado y soldadura","topics":["Selección del calibre AWG y conductores.","Aleaciones, flux y elección de temperatura de soldadura según el componente."]},{"title":"Sesión 10 · Ensamblaje del stack F405","topics":["Uso de limitadores de corriente para detectar cortocircuitos.","Ruteo de señales, conexión de periféricos y mitigación de vibraciones."]}]},
+      {"title":"Software, control y pruebas de vuelo","lessons":[{"title":"Sesión 11 · Firmware y lazo PID","topics":["Instalación de Betaflight/INAV.","Control PID para estabilización inercial y filtros giroscópicos."]},{"title":"Sesión 12 · Sintonización y pruebas","topics":["Configuración de failsafe y vuelos de demostración.","Análisis de Blackbox y ajuste del controlador a partir de la telemetría."]}]}
+    ]
+  },
+  {
+    "id":"cohetes","file":"curso-cohetes.html","title":"Diseño y Manufactura de Cohetería Suborbital","shortTitle":"De la simulación al prototipo.","category":"Cohetería experimental","categoryId":"cohetes","level":"Avanzado","hours":30,"units":10,"price":450,"image":"images/laboratorio.webp","imageLabel":"Laboratorio MECRO","featured":true,
+    "description":"Estudia el diseño de un cohete de sondeo: análisis aerodinámico, estructura, aviónica y sistemas de recuperación.",
+    "outcomes":["Comprender la arquitectura de un cohete experimental.","Relacionar el diseño aerodinámico con la simulación.","Estudiar la integración de aviónica y recuperación."],
+    "requirements":"Dirigido a participantes con conocimientos previos de física, electrónica y diseño. Solicita el sílabo y las condiciones de las actividades prácticas antes de matricularte.",
+    "project":"Diseño de un sistema de cohetería experimental, integrando estructura, aviónica y recuperación.","modules":[]
+  },
+  {
+    "id":"esp32","file":"curso-esp32.html","title":"Fundamentos de Programación en ESP32","shortTitle":"Tu primer circuito. Tu primer programa.","category":"Sistemas embebidos","categoryId":"embebidos","level":"Principiante","hours":15,"units":6,"price":250,"image":"images/curso-esp32.jpg","imageLabel":"Plataforma ESP32","featured":true,
+    "description":"Aprende a controlar hardware desde cero: entradas y salidas, lectura de sensores, PWM y comunicación entre dispositivos.",
+    "outcomes":["Configurar entradas y salidas GPIO.","Leer sensores y controlar actuadores con PWM.","Comprender las comunicaciones I2C y SPI."],
+    "requirements":"Un punto de partida para aprender programación de hardware. Consulta el equipo necesario y la compatibilidad de tu computadora con el entorno de desarrollo.",
+    "project":"Programación de circuitos con sensores y actuadores sobre una plataforma ESP32.","modules":[]
+  },
+  {
+    "id":"telemetria","file":"curso-telemetria.html","title":"Sistemas de Telemetría Aeroespacial Avanzada","shortTitle":"Convierte las señales en información.","category":"Aviónica y telemetría","categoryId":"telemetria","level":"Avanzado","hours":20,"units":7,"price":380,"image":"images/telemtriaa.jpg","imageLabel":"Sistemas de telemetría","featured":false,
+    "description":"Explora la arquitectura de aviónica, el registro de datos en MicroSD y la transmisión de información mediante radiofrecuencia LoRa.",
+    "outcomes":["Comprender una arquitectura de adquisición de datos.","Organizar el registro de mediciones en MicroSD.","Integrar conceptos de transmisión de datos por LoRa."],
+    "requirements":"Recomendado para participantes con experiencia previa en microcontroladores y electrónica. Solicita el sílabo y los componentes requeridos para confirmar que el programa se adapta a tu nivel.",
+    "project":"Arquitectura de un sistema de adquisición, almacenamiento y transmisión de datos de telemetría.","modules":[]
+  }
+]

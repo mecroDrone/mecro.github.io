@@ -1,0 +1,12 @@
+{
+  "name":"mecro-web",
+  "version":"1.0.0",
+  "private":true,
+  "type":"module",
+  "scripts":{
+    "build":"node scripts/build.mjs && tailwindcss -i assets/css/lab-source.css -o assets/css/lab-utilities.css --minify",
+    "check":"node scripts/check.mjs",
+    "test":"node --test tests/*.test.mjs"
+  },
+  "devDependencies":{"tailwindcss":"3.4.17"}
+}
