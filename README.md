@@ -6,6 +6,7 @@ Sitio estático compatible con GitHub Pages. No necesita servidor Node en produc
 
 - `content/`: contenido de las páginas públicas, acceso y aula.
 - `data/cursos.json`: fuente única de precios, duración, temarios y fichas.
+- `data/hardware-guides.js`: rutas, componentes, conexiones, pasos, código y preguntas de Hardware & Kits. Consulta [cómo agregar guías](docs/hardware-guides.md).
 - `scripts/build.mjs`: genera el HTML final y comparte navegación y pie.
 - `assets/css/site.css`: identidad visual y estilos adaptables.
 - `assets/js/`: navegación, catálogo, portafolio, acceso y aula.
@@ -19,9 +20,11 @@ npm run check
 npm test
 ```
 
-Publicar los archivos HTML finales y `assets/`, `images/`. GitHub Pages puede servirlos desde la raíz del repositorio, como antes. Las plantillas generan contenido HTML que sigue siendo legible sin JavaScript; los filtros y el aula sí lo necesitan.
+Publicar los archivos HTML finales y las carpetas `assets/`, `images/` y **`data/`**, conservando sus rutas. Hardware & Kits importa `data/hardware-guides.js` directamente en el navegador como módulo ES; omitir esa carpeta impide cargar las guías. GitHub Pages puede servir estos archivos desde la raíz del repositorio, como antes. Las plantillas generan contenido HTML que sigue siendo legible sin JavaScript; los filtros, el aula y las guías interactivas sí lo necesitan.
 
-Los cambios en `content/`, `data/` o el generador requieren `npm run build`. Para cambiar únicamente el estilo general, editar `assets/css/site.css`. El laboratorio usa Tailwind 3 compilado en `assets/css/lab-utilities.css`, sin compilación en el navegador.
+Los cambios en `content/`, `data/cursos.json` o el generador requieren `npm run build`. El contenido de `data/hardware-guides.js` se lee directamente; para agregar una guía a una ruta existente no hace falta regenerar HTML. Para cambiar únicamente el estilo general, editar `assets/css/site.css`. El laboratorio usa Tailwind 3 compilado en `assets/css/lab-utilities.css`, sin compilación en el navegador.
+
+Para revisar los módulos ES localmente, sirve la carpeta por HTTP; no abras `kits.html` con `file://`. Por ejemplo, ejecuta `python -m http.server 8765 --bind 127.0.0.1` desde esta carpeta y visita `http://127.0.0.1:8765/kits.html`.
 
 Las copias optimizadas se entregan en el repositorio; los originales se conservaron. `scripts/optimize-images.mjs` es una utilidad opcional y requiere Sharp (o la ruta del módulo en `SHARP_PATH`), pero no forma parte de la construcción normal.
 

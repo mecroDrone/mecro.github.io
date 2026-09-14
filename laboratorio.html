@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kit MECRO ESP32 — Estación de Ingeniería</title>
+  <title>Laboratorio ESP32 · Hardware & Kits | MECRO</title>
+  <meta name="theme-color" content="#0a0d10">
   
   <!-- Tipografías de Ingeniería -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS & Iconos -->
   <link rel="stylesheet" href="assets/css/lab-utilities.css">
-  <link rel="stylesheet" href="assets/css/lab-responsive.css">
   <link rel="icon" href="images/favicon.png" type="image/png">
   <meta name="description" content="Laboratorio de aprendizaje MECRO ESP32: proyectos, teoría, diagramas, código y simulación.">
   <script src="assets/js/lab-enhancements.js" defer></script>
@@ -19,19 +21,19 @@
   <style>
     :root {
       --bg-dark: #0a0d10;
-      --bg-card: #161a1d;
-      --line: #2a3033;
-      --text-main: #e2e8f0;
-      --text-dim: #94a3b8;
-      --accent: #10b981; /* Verde Esmeralda Ingenieril */
-      --accent-dim: #059669;
-      --accent-glow: rgba(16, 185, 129, 0.15);
+      --bg-card: #12191d;
+      --line: #2b363b;
+      --text-main: #f1f4f2;
+      --text-dim: #aab7b9;
+      --accent: #adf4b4;
+      --accent-dim: #86c991;
+      --accent-glow: rgba(173, 244, 180, 0.08);
       --danger: #ef4444;
       --warning: #f59e0b;
     }
     
     body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
-    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .font-mono { font-family: 'IBM Plex Mono', monospace; }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -46,13 +48,13 @@
     /* Navigation */
     .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; color: var(--text-dim); font-size: 0.8rem; transition: all 0.2s; border-left: 2px solid transparent; margin-bottom: 2px; cursor: pointer; }
     .nav-link:hover { background: rgba(255,255,255,0.03); color: white; }
-    .nav-link.active { background: rgba(16, 185, 129, 0.08); color: var(--accent); border-left-color: var(--accent); }
+    .nav-link.active { background: var(--accent-glow); color: var(--accent); border-left-color: var(--accent); }
     .nav-link.locked { opacity: 0.5; cursor: not-allowed; }
 
     /* Tabs */
     .tab-btn { position: relative; color: var(--text-dim); transition: all 0.3s; background: transparent; }
     .tab-btn:hover { color: var(--text-main); background-color: rgba(255,255,255,0.03); }
-    .tab-btn.active { color: var(--accent); background-color: rgba(16, 185, 129, 0.05); }
+    .tab-btn.active { color: var(--accent); background-color: var(--accent-glow); }
     .tab-btn.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--accent); }
 
     /* Accordion */
@@ -65,7 +67,7 @@
     .c-k { color: #ff7b72; } .c-t { color: #79c0ff; } .c-f { color: #d2a8ff; } 
     .c-c { color: #8b949e; font-style: italic; } .c-n { color: #e5c07b; } 
     .c-s { color: #a5d6ff; } .c-m { color: #ffa657; }
-    .math-block { font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid var(--accent); margin: 1rem 0; font-size: 0.85rem; color: #e2e8f0; }
+    .math-block { font-family: 'IBM Plex Mono', monospace; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid var(--accent); margin: 1rem 0; font-size: 0.85rem; color: #e2e8f0; }
 
     /* Deep Dive Typography */
     .prose h4 { color: white; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1rem; }
@@ -77,53 +79,52 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
   </style>
+  <link rel="stylesheet" href="assets/css/lab-responsive.css">
 </head>
 
 <body class="flex flex-col h-screen overflow-hidden">
+  <a class="lab-skip" href="#main-scroll">Saltar al proyecto</a>
 
   <!-- HEADER -->
-  <header class="flex-none h-16 nav-blur z-50 flex items-center justify-between px-6">
-    <div class="flex items-center gap-3">
-      <div class="w-8 h-8 bg-gradient-to-br from-[var(--accent)] to-[#065f46] rounded flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)]">
-        <i class="ph-bold ph-cpu text-white"></i>
-      </div>
-      <div>
-        <h1 class="font-bold text-lg tracking-tight leading-none text-white">MECRO <span class="text-[var(--accent)]">ACADEMY</span></h1>
-        <span class="text-[10px] text-[var(--text-dim)] uppercase tracking-widest font-medium">Ingeniería de Vuelo</span>
-      </div>
-    </div>
-    <div class="flex items-center gap-4">
-       <a href="kits.html" class="lab-back">← Volver al kit</a>
-    </div>
+  <header class="lab-header nav-blur">
+    <a class="lab-brand" href="index.html" aria-label="MECRO, inicio">
+      <img src="images/brand-mark.png" width="34" height="42" alt="">
+      <span><span class="lab-brand-name">MECRO</span><span class="lab-brand-caption">TECNOLOGÍA AEROESPACIAL</span></span>
+    </a>
+    <button class="lab-menu-toggle" type="button" aria-controls="lab-site-nav" aria-expanded="false">Menú <span aria-hidden="true">☰</span></button>
+    <nav class="lab-site-nav" id="lab-site-nav" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a><a href="kits.html" aria-current="location">Hardware & Kits</a><a href="cursos.html">Cursos</a><a class="lab-portal-link" href="login.html">Aula virtual <span aria-hidden="true">↗</span></a>
+    </nav>
   </header>
 
   <!-- LAYOUT -->
-  <div class="flex flex-1 overflow-hidden">
+  <div class="lab-layout flex flex-1 overflow-hidden">
     
     <!-- SIDEBAR -->
-    <aside class="w-[280px] bg-[#0d1012] border-r border-[var(--line)] overflow-y-auto hidden md:block flex-none">
+    <aside class="lab-sidebar w-[280px] bg-[#0d1012] border-r border-[var(--line)] overflow-y-auto hidden md:block flex-none" aria-label="Proyectos ESP32">
       <div class="p-4 pb-10">
-        <div class="text-xs font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 px-2">Ruta de aprendizaje ESP32</div>
-        <nav class="space-y-6" id="sidebar-nav">
+        <div class="lab-sidebar-intro"><span class="lab-eyebrow">LAB / 01</span><strong>Electrónica con ESP32</strong><p>20 proyectos para aprender construyendo.</p><a href="kits.html#explorar">Explorar otras rutas <span aria-hidden="true">↗</span></a></div>
+        <nav class="space-y-6" id="sidebar-nav" aria-label="Ruta de aprendizaje ESP32">
            <!-- Se llena dinámicamente con JS -->
         </nav>
       </div>
     </aside>
 
     <!-- MAIN -->
-    <main class="flex-1 overflow-y-auto bg-[var(--bg-dark)] relative" id="main-scroll">
-      <div class="lab-mobile-nav"><label for="lab-project">Seleccionar proyecto</label><select id="lab-project"></select></div>
+    <main class="flex-1 overflow-y-auto bg-[var(--bg-dark)] relative" id="main-scroll" tabindex="-1">
+      <div class="lab-mobile-nav"><label for="lab-project">Laboratorio ESP32 · Elegir proyecto</label><select id="lab-project"></select><a href="kits.html#explorar">Explorar todas las rutas <span aria-hidden="true">↗</span></a></div>
       
       <!-- HERO DINÁMICO -->
-      <section class="relative pt-12 pb-8 px-8 border-b border-[var(--line)] overflow-hidden">
+      <section class="lab-project-hero relative pt-12 pb-8 px-8 border-b border-[var(--line)] overflow-hidden" aria-labelledby="p-title">
         <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--accent)] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
         <div class="relative z-10 max-w-5xl mx-auto">
+          <nav class="lab-breadcrumb" aria-label="Ubicación"><a href="kits.html">Hardware & Kits</a><span aria-hidden="true">/</span><span>Laboratorio ESP32</span></nav>
           <div class="inline-flex items-center gap-2 mb-4">
-            <span id="p-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-[#334155] text-white tracking-wide border border-[#475569]">Nivel Iniciación</span>
+            <span id="p-badge" class="lab-level-badge">Nivel 1: Iniciación</span>
             <span class="h-px w-8 bg-[var(--line)]"></span>
-            <span class="text-xs text-[var(--accent)] uppercase tracking-wide font-bold">Proyecto Activo</span>
+            <span id="lab-project-position" class="lab-eyebrow">Proyecto 01 / 20</span>
           </div>
-          <h2 id="p-title" class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">Cargando...</h2>
+          <h1 id="p-title" class="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">Laboratorio ESP32</h1>
           <p id="p-desc" class="text-lg text-[var(--text-dim)] max-w-3xl leading-relaxed">Selecciona un proyecto del menú.</p>
         </div>
       </section>
@@ -131,7 +132,7 @@
       <!-- ÁREA DE TRABAJO -->
       <section class="p-6 md:p-8">
         <div class="max-w-5xl mx-auto">
-          <div class="card-surface overflow-hidden shadow-2xl min-h-[600px] flex flex-col bg-[#0f1114]">
+          <div class="lab-workspace card-surface overflow-hidden min-h-[600px] flex flex-col bg-[#0f1114]">
             
             <!-- TABS -->
             <div class="flex overflow-x-auto border-b border-[var(--line)] bg-[#0d1012]">
@@ -152,15 +153,15 @@
 
               <!-- CODE CONTENT -->
               <div id="content-code" class="hidden p-0 animate-fadeIn h-[600px] flex flex-col">
-                 <div class="bg-[#161b22] p-2 flex justify-end border-b border-[#30363d]">
-                    <button class="text-[10px] bg-[#238636] text-white px-2 py-1 rounded" onclick="copyCode()">Copiar al Portapapeles</button>
+                 <div class="lab-code-toolbar">
+                    <span class="font-mono">ESP32 / Arduino C++</span><button class="lab-copy-button" type="button" onclick="copyCode()">Copiar código <span aria-hidden="true">↗</span></button>
                  </div>
                  <div class="flex-grow bg-[#0d1117] p-4 overflow-auto font-mono text-xs leading-relaxed" id="code-display"></div>
               </div>
 
               <!-- SIM CONTENT -->
               <div id="content-sim" class="hidden h-[600px] animate-fadeIn bg-black p-1">
-                 <iframe id="sim-frame" src="" class="w-full h-full border-none rounded" title="Wokwi"></iframe>
+                 <iframe id="sim-frame" class="w-full h-full border-none rounded" title="Simulación del proyecto ESP32 en Wokwi" loading="lazy"></iframe>
                  <div id="sim-placeholder" class="hidden w-full h-full flex items-center justify-center text-[var(--text-dim)]">
                     Simulación no disponible para este proyecto aún.
                  </div>
@@ -168,11 +169,12 @@
 
             </div>
           </div>
+          <nav class="lab-project-pager" aria-label="Cambiar de proyecto"><button id="lab-previous-project" type="button"><span aria-hidden="true">←</span> Anterior</button><span id="lab-project-count">Proyecto 1 de 20</span><button id="lab-next-project" type="button">Siguiente <span aria-hidden="true">→</span></button></nav>
         </div>
       </section>
       
-      <footer class="py-6 text-center text-xs text-[var(--text-dim)] border-t border-[var(--line)] mt-8">
-        MECRO Academy · Laboratorio ESP32 · <a href="index.html">Inicio</a>
+      <footer class="lab-footer border-t border-[var(--line)]">
+        <div><strong>Tu próximo proyecto empieza aquí.</strong><p>ESP32, Arduino, sistemas UAV y cohetería: sigue explorando el laboratorio.</p><a href="kits.html#explorar">Ver rutas de construcción <span aria-hidden="true">↗</span></a></div><div class="lab-footer-bottom"><span>MECRO · Diseñado y ensamblado en Perú.</span><a href="contacto.html">¿Necesitas orientación?</a></div>
       </footer>
     </main>
   </div>
@@ -3320,7 +3322,8 @@ void loop() {
                 if(isLocked) classes += " locked";
 
                 link.className = classes;
-                link.innerHTML = `<span class="font-mono text-xs opacity-50">${pid < 10 ? '0'+pid : pid}.</span> ${projectDB[pid]?.title.substring(4) || projectNames[pid]}`;
+                link.dataset.projectId = String(pid);
+                link.innerHTML = `<span class="font-mono text-xs">${pid < 10 ? '0'+pid : pid}.</span> ${projectDB[pid]?.title.substring(4) || projectNames[pid]}`;
                 
                 if(isLocked) { link.disabled = true; link.innerHTML += `<i class="ph-fill ph-lock-key ml-auto text-xs"></i>`; }
                 
@@ -3332,19 +3335,21 @@ void loop() {
             });
         });
         
-        loadProject(1); // Cargar proyecto 1 al inicio
+        const requestedProject = Number(new URLSearchParams(window.location.search).get('proyecto'));
+        loadProject(projectDB[requestedProject] ? requestedProject : 1);
     }
 
     function loadProject(id) {
-        currentProjectId = id;
         const data = projectDB[id];
+        if (!data) return;
+        currentProjectId = Number(id);
         
         // Update UI
         document.getElementById('p-badge').innerText = data.level;
         document.getElementById('p-title').innerText = data.title;
         document.getElementById('p-desc').innerHTML = data.desc;
         
-        document.getElementById('content-theory').innerHTML = data.theory;
+        document.getElementById('content-theory').innerHTML = (data.mission || '') + data.theory;
         document.getElementById('content-circuit').innerHTML = data.circuit;
         
         // Escape HTML for code display
@@ -3381,12 +3386,15 @@ void loop() {
         // Re-render Nav to update active state
         const links = document.querySelectorAll('.nav-link');
         links.forEach(l => {
-           l.classList.remove('active');
-           if(l.innerText.includes(`${id < 10 ? '0'+id : id}.`)) l.classList.add('active');
+           const isCurrent = Number(l.dataset.projectId) === currentProjectId;
+           l.classList.toggle('active', isCurrent);
+           if (isCurrent) l.setAttribute('aria-current', 'step');
+           else l.removeAttribute('aria-current');
         });
         switchTab('theory');
         const mobileSelector = document.getElementById('lab-project');
         if (mobileSelector) mobileSelector.value = String(id);
+        document.dispatchEvent(new CustomEvent('mecro:project-change', { detail: { id: currentProjectId } }));
     }
 
     // Tabs Logic
@@ -3406,8 +3414,9 @@ void loop() {
     // Accordion
     function toggleAccordion(id) {
         const el = document.getElementById(id);
-        if (el.classList.contains('open')) el.classList.remove('open');
-        else el.classList.add('open');
+        const isOpen = el.classList.toggle('open');
+        el.inert = !isOpen;
+        document.querySelectorAll('[aria-controls="' + id + '"]').forEach(button => button.setAttribute('aria-expanded', String(isOpen)));
     }
 
     // Copy Code
