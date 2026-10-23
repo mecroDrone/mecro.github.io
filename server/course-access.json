@@ -1,0 +1,5 @@
+{
+  "uav": ["uav"],
+  "cohetes": ["cohetes"],
+  "esp32": ["esp32"]
+}

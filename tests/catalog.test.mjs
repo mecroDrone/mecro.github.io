@@ -16,7 +16,7 @@ test('combina búsqueda, nivel y especialidad; ordena y restablece resultados',(
   const reset=()=>{els['course-search'].value='';els['course-category'].value='all';els['course-level'].value='all';els['course-order'].value='default';};reset();
   els['catalog-filters'].reset=reset;els['course-category'].options=[{value:'all'},{value:'drones'},{value:'embebidos'},{value:'telemetria'},{value:'cohetes'}];
   const data=JSON.parse(fs.readFileSync(new URL('../data/cursos.json',import.meta.url),'utf8'));
-  const cards=data.map((c,i)=>Object.assign(new Element(),{dataset:{search:c.title+' '+c.category+' '+c.description,category:c.categoryId,level:c.level,price:String(c.price),hours:String(c.hours),index:String(i)}}));
+  const cards=data.map((c,i)=>Object.assign(new Element(),{dataset:{search:c.title+' '+c.category+' '+c.description,category:c.categoryId,level:c.level,status:c.status,price:String(c.price),hours:String(c.hours),index:String(i)}}));
   vm.runInNewContext(fs.readFileSync(new URL('../assets/js/catalog.js',import.meta.url),'utf8'),{document:{getElementById:id=>els[id],querySelectorAll:()=>cards},location:{search:''},URLSearchParams});
   assert.equal(els['result-count'].textContent,'4 programas');
   els['course-search'].value='telemetria';els['catalog-filters'].events.input();
@@ -25,7 +25,8 @@ test('combina búsqueda, nivel y especialidad; ordena y restablece resultados',(
   assert.equal(els['catalog-empty'].hidden,false);
   els['clear-filters'].events.click();assert.equal(cards.filter(c=>!c.hidden).length,4);assert.ok(els['course-search'].focused);
   els['course-order'].value='price-asc';els['catalog-filters'].events.change();
-  assert.deepEqual(els['course-grid'].children.map(c=>Number(c.dataset.price)),[250,349,380,450]);
+  assert.deepEqual(els['course-grid'].children.map(c=>Number(c.dataset.price)),[250,349,450,380]);
+  assert.equal(els['course-grid'].children.at(-1).dataset.status,'coming-soon');
   els['course-category'].value='drones';els['course-level'].value='Intermedio';els['catalog-filters'].events.change();
   assert.equal(els['result-count'].textContent,'1 programa');assert.equal(cards[0].hidden,false);
 });

@@ -1,38 +1,538 @@
 [
   {
-    "id":"uav","file":"curso-detalle.html","title":"Arquitectura y Ensamblaje de Sistemas UAV Multirrotor","shortTitle":"Construye tu primer sistema UAV.","category":"Drones y UAVs","categoryId":"drones","level":"Intermedio","hours":36,"units":6,"sessions":12,"weeks":6,"price":349,"image":"images/curso-drones.jpg","imageLabel":"Modelo de referencia","featured":true,
-    "description":"Del dimensionamiento al banco de pruebas: integra un controlador F405, comprende el sistema de propulsión y ajusta el control PID de un multirrotor.",
-    "outcomes":["Dimensionar motores, hélices y baterías para una plataforma multirrotor.","Ensamblar y configurar un stack F405 con sus periféricos.","Comprender los enlaces de radio, la telemetría y el video FPV.","Interpretar el control PID, ajustar filtros y analizar los datos de vuelo."],
-    "requirements":"Recomendado para quienes tienen bases de electrónica y programación. Consulta la lista de herramientas y componentes antes de inscribirte; el hardware se coordina por separado.",
-    "project":"Ensamblaje y configuración de un multirrotor F405 (6S), desde el dimensionamiento eléctrico hasta las pruebas y el análisis de telemetría.",
-    "modules":[
-      {"title":"Fundamentos, aerodinámica y estructuras","lessons":[{"title":"Sesión 1 · Aerodinámica y hélices","topics":["Dinámica de vuelo, sustentación y nomenclatura de hélices: paso y diámetro.","Consumo de corriente según el perfil aerodinámico."]},{"title":"Sesión 2 · Chasis y materiales","topics":["Geometría de frames: True X y Deadcat.","Resonancia de la fibra de carbono e introducción a drones híbridos."]}]},
-      {"title":"Propulsión y dimensionamiento físico","lessons":[{"title":"Sesión 3 · Química y energía","topics":["Curvas de descarga de celdas LiPo (1S a 12S).","Resistencia interna, C-rating y potencia aplicada a la eficiencia térmica."]},{"title":"Sesión 4 · Dimensionamiento de la propulsión","topics":["Lectura de estatores y relación Kv: análisis de motores EMAX 2807.","Relación empuje/peso y efecto Joule en los circuitos."]}]},
-      {"title":"Sistemas embebidos y controladores de vuelo","lessons":[{"title":"Sesión 5 · Arquitectura del controlador","topics":["Diferencias entre STM32 F4, F7 y H7, y su impacto en el tiempo de ciclo.","Buses UART, I2C y SPI."]},{"title":"Sesión 6 · Protocolos de modulación","topics":["Evolución de la comunicación con los ESC.","PWM y protocolo digital DSHOT: tramas y telemetría."]}]},
-      {"title":"Telecomunicaciones, telemetría y FPV","lessons":[{"title":"Sesión 7 · Enlaces de radio","topics":["ExpressLRS y enlaces basados en CC2500.","Latencia y frecuencia de paquetes."]},{"title":"Sesión 8 · Video y antenas","topics":["Transmisión analógica y video digital HD.","Ganancia de antena y polarización circular RHCP/LHCP."]}]},
-      {"title":"Manufactura, materiales y ensamblaje","lessons":[{"title":"Sesión 9 · Cableado y soldadura","topics":["Selección del calibre AWG y conductores.","Aleaciones, flux y elección de temperatura de soldadura según el componente."]},{"title":"Sesión 10 · Ensamblaje del stack F405","topics":["Uso de limitadores de corriente para detectar cortocircuitos.","Ruteo de señales, conexión de periféricos y mitigación de vibraciones."]}]},
-      {"title":"Software, control y pruebas de vuelo","lessons":[{"title":"Sesión 11 · Firmware y lazo PID","topics":["Instalación de Betaflight/INAV.","Control PID para estabilización inercial y filtros giroscópicos."]},{"title":"Sesión 12 · Sintonización y pruebas","topics":["Configuración de failsafe y vuelos de demostración.","Análisis de Blackbox y ajuste del controlador a partir de la telemetría."]}]}
-    ]
+    "id": "uav",
+    "file": "curso-detalle.html",
+    "title": "Ingeniería y Ensamblaje de Drones",
+    "shortTitle": "Construye tu primer sistema UAV.",
+    "category": "Drones y UAVs",
+    "categoryId": "drones",
+    "level": "Intermedio",
+    "hours": 20,
+    "units": 4,
+    "sessions": 8,
+    "weeks": 4,
+    "price": 349,
+    "image": "images/curso-drones.jpg",
+    "imageLabel": "Modelo de referencia",
+    "featured": true,
+    "description": "Selecciona componentes compatibles, comprende el cableado y relaciona Betaflight con el multirrotor. Seis clases online y dos talleres presenciales de demostración.",
+    "outcomes": [
+      "Reconocer los subsistemas y el recorrido de energía y señales.",
+      "Seleccionar motor, hélice, ESC y batería con condiciones de compatibilidad.",
+      "Relacionar puertos, canales y salidas de Betaflight con el hardware.",
+      "Documentar el montaje y justificar una mejora con evidencia."
+    ],
+    "requirements": "Manejo básico de computadora. Se repasan electrónica y conexiones. No necesitas un dron propio; la matrícula no incluye un equipo para llevar ni garantiza práctica individual de vuelo o soldadura.",
+    "project": "Expediente de un multirrotor de referencia: arquitectura, selección de componentes, esquema de conexiones y análisis de las demostraciones del instructor.",
+    "modules": [
+      {
+        "title": "Semana 1",
+        "lessons": [
+          {
+            "title": "Clase 01 · Reconocer el dron y definir qué vamos a construir",
+            "topics": [
+              "Reconocer subsistemas y convertir una necesidad en requisitos para un multirrotor de referencia.",
+              "En línea · 2 horas",
+              "Entrega: Arquitectura funcional, requisitos y tabla preliminar de masas de una referencia."
+            ]
+          },
+          {
+            "title": "Clase 02 · Seleccionar motor, hélice, ESC y batería con criterio",
+            "topics": [
+              "Justificar una cadena de propulsión compatible mediante masa, empuje, corriente y energía.",
+              "En línea · 2 horas",
+              "Entrega: Lista de componentes justificada, presupuesto de masa/empuje y escenario de energía."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 2",
+        "lessons": [
+          {
+            "title": "Clase 03 · Alimentación, cableado y montaje que se puede revisar",
+            "topics": [
+              "Interpretar un esquema de energía y preparar una secuencia de montaje y comprobación antes de alimentar.",
+              "En línea · 2 horas",
+              "Entrega: Mapa de alimentación, tabla de contactos y secuencia de montaje con comprobaciones."
+            ]
+          },
+          {
+            "title": "Clase 04 · Radio, telemetría, vídeo y protocolos de conexión",
+            "topics": [
+              "Relacionar cada enlace con su función y asignar conexiones y puertos sin confundir radio con protocolo.",
+              "En línea · 2 horas",
+              "Entrega: Mapa de comunicaciones, tabla de puertos y diagnóstico argumentado de una ruta."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 3",
+        "lessons": [
+          {
+            "title": "Clase 05 · Betaflight: conectar, respaldar y relacionar pantalla con hardware",
+            "topics": [
+              "Interpretar una configuración Betaflight a partir de la placa, el receptor y las conexiones del banco.",
+              "En línea · 2 horas",
+              "Entrega: Ficha de versiones, respaldo identificado y configuración comentada con tres comprobaciones."
+            ]
+          },
+          {
+            "title": "Clase 06 · Motores, control y comprobaciones antes del taller",
+            "topics": [
+              "Distinguir número, sentido y hélice de cada motor y explicar las comprobaciones de un sistema de control.",
+              "En línea · 2 horas",
+              "Entrega: Tabla de motores y modos, caso de control resuelto y plan de comprobaciones."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 4",
+        "lessons": [
+          {
+            "title": "Clase 07 · Taller presencial 1: ensamblaje visible y primera revisión",
+            "topics": [
+              "Reconstruir la secuencia de ensamblaje y justificar comprobaciones mecánicas, eléctricas y de configuración.",
+              "Presencial demostrativo · 4 horas",
+              "Entrega: Registro del taller: secuencia, esquema contrastado, medidas y acta de pendientes."
+            ]
+          },
+          {
+            "title": "Clase 08 · Taller presencial 2: configuración, prueba y demostración de vuelo",
+            "topics": [
+              "Explicar la aceptación de una configuración y relacionar un vuelo básico o caso equivalente con sus registros.",
+              "Presencial demostrativo · 4 horas",
+              "Entrega: Expediente final, análisis del caso observado y defensa individual de una mejora."
+            ]
+          }
+        ]
+      }
+    ],
+    "status": "available",
+    "syllabusPdf": "assets/programas/silabo-uav.pdf"
   },
   {
-    "id":"cohetes","file":"curso-cohetes.html","title":"Diseño y Manufactura de Cohetería Suborbital","shortTitle":"De la simulación al prototipo.","category":"Cohetería experimental","categoryId":"cohetes","level":"Avanzado","hours":30,"units":10,"price":450,"image":"images/laboratorio.webp","imageLabel":"Laboratorio MECRO","featured":true,
-    "description":"Estudia el diseño de un cohete de sondeo: análisis aerodinámico, estructura, aviónica y sistemas de recuperación.",
-    "outcomes":["Comprender la arquitectura de un cohete experimental.","Relacionar el diseño aerodinámico con la simulación.","Estudiar la integración de aviónica y recuperación."],
-    "requirements":"Dirigido a participantes con conocimientos previos de física, electrónica y diseño. Solicita el sílabo y las condiciones de las actividades prácticas antes de matricularte.",
-    "project":"Diseño de un sistema de cohetería experimental, integrando estructura, aviónica y recuperación.","modules":[]
+    "id": "cohetes",
+    "file": "curso-cohetes.html",
+    "title": "Cohetería Básica e Intermedia",
+    "shortTitle": "De la simulación al prototipo.",
+    "category": "Cohetería experimental",
+    "categoryId": "cohetes",
+    "level": "Intermedio",
+    "hours": 42,
+    "units": 8,
+    "price": 450,
+    "image": "images/laboratorio.webp",
+    "imageLabel": "Laboratorio MECRO",
+    "featured": true,
+    "description": "Diseña y construye un modelo pequeño por equipos: piezas, OpenRocket, impresión 3D, ensamblaje y revisión del proyecto con motor comercial.",
+    "outcomes": [
+      "Reconocer, medir y representar las piezas de un cohete de modelismo.",
+      "Comparar formas, materiales y encajes en OpenRocket y fabricación.",
+      "Integrar estructura y recuperación con un conjunto comercial.",
+      "Conservar observaciones del proyecto y justificar mejoras."
+    ],
+    "requirements": "Uso de regla y calibrador, lectura de planos sencillos y manejo básico de computadora. OpenRocket e impresión 3D se enseñan dentro del programa. Las actividades presenciales y el material se coordinan con MECRO.",
+    "project": "Modelo pequeño por equipos y expediente de diseño: planos, simulaciones, registro de montaje y revisión de la jornada organizada por el docente.",
+    "modules": [
+      {
+        "title": "Semana 1",
+        "lessons": [
+          {
+            "title": "Clase 01 · Tu primer cohete",
+            "topics": [
+              "Reconocer las piezas, medir una maqueta y crear su geometría exterior en OpenRocket.",
+              "En línea · 2 horas",
+              "Entrega: Ficha de piezas y medidas, primer modelo exterior y revisión del equipo."
+            ]
+          },
+          {
+            "title": "Clase 02 · Qué cohete necesitamos y qué nariz elegimos",
+            "topics": [
+              "Elegir una nariz con una misión concreta, comparar alternativas y preparar una muestra de encaje.",
+              "En línea · 2 horas",
+              "Entrega: Tres archivos .ork, ficha comparativa y decisión provisional según misión."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 2",
+        "lessons": [
+          {
+            "title": "Clase 03 · Cuerpo, dimensiones y espacio interior",
+            "topics": [
+              "Elegir un tubo disponible y distribuir componentes sin confundir longitud exterior con espacio útil.",
+              "En línea · 2 horas",
+              "Entrega: Plano de distribución, archivo actualizado y ficha del cuerpo."
+            ]
+          },
+          {
+            "title": "Clase 04 · Aletas: forma, posición y alineación",
+            "topics": [
+              "Comparar contornos de aletas y preparar piezas repetibles con un útil de alineación.",
+              "En línea · 2 horas",
+              "Entrega: Plano, dos versiones .ork, plantilla y propuesta de útil."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 3",
+        "lessons": [
+          {
+            "title": "Clase 05 · Impresión 3D para narices, aletas y útiles",
+            "topics": [
+              "Preparar una pieza para imprimir, revisar su orientación y distinguir aspecto exterior de ajuste funcional.",
+              "En línea · 2 horas",
+              "Entrega: Proyecto de laminador, comparación y solicitud de impresión."
+            ]
+          },
+          {
+            "title": "Clase 06 · Taller 1: medidas, encajes y alineación",
+            "topics": [
+              "Comprobar piezas físicas y corregir el diseño antes del montaje definitivo.",
+              "Presencial · 4 horas",
+              "Entrega: Ficha completa, fotografías, plano y .ork corregidos."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 4",
+        "lessons": [
+          {
+            "title": "Clase 07 · Estabilidad: centro de gravedad y centro de presión",
+            "topics": [
+              "Entender la estabilidad con una maqueta y comprobar que el modelo represente la distribución real de piezas.",
+              "En línea · 2 horas",
+              "Entrega: Archivo con masas, referencia de equilibrio y comparación explicada."
+            ]
+          },
+          {
+            "title": "Clase 08 · Motor comercial, tobera, presión y empuje",
+            "topics": [
+              "Leer un motor comercial y distinguir presión, empuje e impulso usando imágenes y salidas de referencia.",
+              "En línea · 2 horas",
+              "Entrega: Ficha comercial y lectura conceptual de una salida identificada."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 5",
+        "lessons": [
+          {
+            "title": "Clase 09 · Primera simulación completa en OpenRocket",
+            "topics": [
+              "Configurar el modelo completo, ejecutar una simulación guiada y leer sus fases sin confundir predicción con observación.",
+              "En línea · 2 horas",
+              "Entrega: Archivo completo, condiciones, gráficas y CSV exportado."
+            ]
+          },
+          {
+            "title": "Clase 10 · Materiales y compuestos sobre piezas reales",
+            "topics": [
+              "Comparar materiales por función, fabricación y reparación sin asignarles una superioridad universal.",
+              "En línea · 2 horas",
+              "Entrega: Tabla de selección por pieza, fotos y observaciones de banco."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 6",
+        "lessons": [
+          {
+            "title": "Clase 11 · Recuperación y preparación del montaje",
+            "topics": [
+              "Comprender cómo vuelve el cohete y comprobar espacio, uniones y compatibilidad del sistema elegido.",
+              "En línea · 2 horas",
+              "Entrega: Ficha de recuperación, plano preliminar y configuración actualizada."
+            ]
+          },
+          {
+            "title": "Clase 12 · Taller 2: ensamblar y revisar el cohete",
+            "topics": [
+              "Montar el conjunto con referencias claras y actualizar sus medidas y masas finales.",
+              "Presencial · 4 horas",
+              "Entrega: Cohete ensamblado, fotos, medidas y archivo revisado."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 7",
+        "lessons": [
+          {
+            "title": "Clase 13 · El mismo cohete en RockSim",
+            "topics": [
+              "Crear una segunda representación del modelo y comparar entradas antes de comparar resultados.",
+              "En línea · 2 horas",
+              "Entrega: Archivo RockSim, tabla de entradas y comparación con OpenRocket."
+            ]
+          },
+          {
+            "title": "Clase 14 · CanSat: observar una misión científica del docente",
+            "topics": [
+              "Reconocer sensores, registro y transmisión y preparar una observación de datos del demostrador docente.",
+              "En línea · 2 horas",
+              "Entrega: Mapa de datos, análisis del CSV y plan de observación."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 8",
+        "lessons": [
+          {
+            "title": "Clase 15 · Preparar la jornada con el cohete terminado",
+            "topics": [
+              "Relacionar el objeto, el archivo y las comprobaciones pendientes antes de la revisión del responsable.",
+              "En línea · 2 horas",
+              "Entrega: Expediente previo, roles y hoja de observación."
+            ]
+          },
+          {
+            "title": "Clase 16 · Jornada de lanzamiento y revisión del proyecto",
+            "topics": [
+              "Participar en una jornada organizada, conservar observaciones y explicar mejoras del cohete construido.",
+              "Presencial · 8 horas",
+              "Entrega: Ficha final del proyecto, archivos conservados y mejora justificada."
+            ]
+          }
+        ]
+      }
+    ],
+    "status": "available",
+    "sessions": 16,
+    "weeks": 8,
+    "syllabusPdf": "assets/programas/silabo-cohetes.pdf"
   },
   {
-    "id":"esp32","file":"curso-esp32.html","title":"Fundamentos de Programación en ESP32","shortTitle":"Tu primer circuito. Tu primer programa.","category":"Sistemas embebidos","categoryId":"embebidos","level":"Principiante","hours":15,"units":6,"price":250,"image":"images/curso-esp32.jpg","imageLabel":"Plataforma ESP32","featured":true,
-    "description":"Aprende a controlar hardware desde cero: entradas y salidas, lectura de sensores, PWM y comunicación entre dispositivos.",
-    "outcomes":["Configurar entradas y salidas GPIO.","Leer sensores y controlar actuadores con PWM.","Comprender las comunicaciones I2C y SPI."],
-    "requirements":"Un punto de partida para aprender programación de hardware. Consulta el equipo necesario y la compatibilidad de tu computadora con el entorno de desarrollo.",
-    "project":"Programación de circuitos con sensores y actuadores sobre una plataforma ESP32.","modules":[]
+    "id": "esp32",
+    "file": "curso-esp32.html",
+    "title": "Electrónica, Control y Automatización con ESP32",
+    "shortTitle": "Tu primer circuito. Tu primer programa.",
+    "category": "Sistemas embebidos",
+    "categoryId": "embebidos",
+    "level": "Principiante",
+    "hours": 36,
+    "units": 8,
+    "price": 250,
+    "image": "images/curso-esp32.jpg",
+    "imageLabel": "Plataforma ESP32",
+    "featured": true,
+    "description": "Del primer circuito a una estación de pruebas: programación, sensores, actuadores, adquisición de datos y control con ESP32 clásico.",
+    "outcomes": [
+      "Interpretar alimentación, GPIO y límites de una placa ESP32 clásica.",
+      "Programar tareas y estados sin largas esperas.",
+      "Medir ADC, distancia, conteos e IMU con unidades y validez.",
+      "Relacionar PWM, potencia y control realimentado.",
+      "Integrar una estación de banco y defender sus resultados."
+    ],
+    "requirements": "Manejo básico de computadora; la electrónica previa es útil, pero no obligatoria. Acceso con kit propio o simulación y banco compartido en los talleres. Consulta la lista de componentes con MECRO.",
+    "project": "Estación de sensores y pruebas de banco con requisitos, mapa de pines, registro de datos y diagnóstico de fallos.",
+    "modules": [
+      {
+        "title": "Semana 1",
+        "lessons": [
+          {
+            "title": "Clase 01 · Electrónica con ESP32: del circuito al primer programa",
+            "topics": [
+              "Reconocer la placa clásica y construir una salida LED cuya corriente pueda explicar.",
+              "En línea · 2 horas",
+              "Entrega: Esquema del LED, cálculo con unidades, primer firmware y registro de observación."
+            ]
+          },
+          {
+            "title": "Clase 02 · Programación y entradas digitales: botones que significan eventos",
+            "topics": [
+              "Organizar un programa con funciones y detectar una pulsación sin confundir nivel, transición y rebote.",
+              "En línea · 2 horas",
+              "Entrega: Código del botón, tabla nivel/evento y cuatro pruebas de interfaz."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 2",
+        "lessons": [
+          {
+            "title": "Clase 03 · Temporización y máquinas de estados: atender más de una tarea",
+            "topics": [
+              "Construir una secuencia que siga atendiendo eventos mientras transcurre un intervalo.",
+              "En línea · 2 horas",
+              "Entrega: Tabla de estados, variante temporal y registro de atención de eventos."
+            ]
+          },
+          {
+            "title": "Clase 04 · ADC y calibración: de una lectura a una decisión",
+            "topics": [
+              "Interpretar lecturas analógicas, construir una escala de trabajo y justificar dos umbrales de histéresis.",
+              "En línea · 2 horas",
+              "Entrega: CSV de lecturas, sentido del divisor y justificación de umbrales."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 3",
+        "lessons": [
+          {
+            "title": "Clase 05 · PWM, sonido y salidas digitales en serie",
+            "topics": [
+              "Distinguir frecuencia, resolución y ciclo de trabajo, y ampliar salidas con un registro de desplazamiento.",
+              "En línea · 2 horas",
+              "Entrega: Tabla de señales PWM y correspondencia de bits del proyecto 4."
+            ]
+          },
+          {
+            "title": "Clase 06 · Sensores digitales, I2C y pantallas: un dato con identidad",
+            "topics": [
+              "Leer y presentar una variable conservando unidad, instante, estado de la lectura y dirección del dispositivo.",
+              "En línea · 2 horas",
+              "Entrega: Mapa de interfaces y registro de valor, unidad, tiempo y estado."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 4",
+        "lessons": [
+          {
+            "title": "Clase 07 · Distancia: tiempo de vuelo, adaptación de nivel y lecturas inválidas",
+            "topics": [
+              "Convertir un tiempo de eco en distancia y comprobar su coherencia sin confundir falta de eco con distancia cero.",
+              "En línea · 2 horas",
+              "Entrega: Conversión explicada, tabla de contraste y tratamiento de lectura inválida."
+            ]
+          },
+          {
+            "title": "Clase 08 · Taller 1: servomotor y explorador ultrasónico",
+            "topics": [
+              "Coordinar una orden de posición con una lectura de distancia y conservar un registro coherente.",
+              "Presencial · 4 horas",
+              "Entrega: Esquema revisado, tres registros coherentes y diagnóstico de una condición de fallo."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 5",
+        "lessons": [
+          {
+            "title": "Clase 09 · Motores y etapa de potencia: la orden no es la energía",
+            "topics": [
+              "Reconocer un driver y caracterizar un motor DC de banco sin confundir PWM con velocidad medida.",
+              "En línea · 2 horas",
+              "Entrega: Esquema de potencia, registro de mando y explicación de la medida que falta."
+            ]
+          },
+          {
+            "title": "Clase 10 · Encoder e interrupciones: medir velocidad con una definición",
+            "topics": [
+              "Calcular RPM desde pulsos usando el conteo por vuelta y el tiempo realmente transcurrido.",
+              "En línea · 2 horas",
+              "Entrega: Conversión de una fila, definición de cuenta por vuelta y comparación de ventanas."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 6",
+        "lessons": [
+          {
+            "title": "Clase 11 · Control realimentado: P, PI y una introducción a PID",
+            "topics": [
+              "Comparar respuestas ante una perturbación y explicar el papel de P, I y D con tiempo de muestreo y saturación.",
+              "En línea · 2 horas",
+              "Entrega: Gráficas identificadas, caso P/I resuelto y comparación de dos respuestas."
+            ]
+          },
+          {
+            "title": "Clase 12 · IMU y orientación de banco: medir antes de estabilizar",
+            "topics": [
+              "Distinguir aceleración, velocidad angular e inclinación estimada y obtener un registro con unidades.",
+              "En línea · 2 horas",
+              "Entrega: Registro de reposo e inclinación, caso atan2 y convención de unidades."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 7",
+        "lessons": [
+          {
+            "title": "Clase 13 · Mando y control de banco: interpretar el proyecto de vuelo",
+            "topics": [
+              "Transformar un joystick a una referencia normalizada y relacionarla con una medida y una acción proporcional declaradas.",
+              "En línea · 2 horas",
+              "Entrega: Calibración de mando, tres casos resueltos y diagrama de bloques del banco."
+            ]
+          },
+          {
+            "title": "Clase 14 · Datos en tierra: Wi-Fi, HTTP y marcas de tiempo",
+            "topics": [
+              "Publicar o registrar una lectura con su origen temporal y diferenciar conectividad, recepción y dato válido.",
+              "En línea · 2 horas",
+              "Entrega: Formato de datos, prueba de adquisición y transporte, y nota del entorno utilizado."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Semana 8",
+        "lessons": [
+          {
+            "title": "Clase 15 · Proyecto integrador: una estación de pruebas para UAV",
+            "topics": [
+              "Integrar módulos ya estudiados en un sistema de banco con requisitos y pruebas trazables.",
+              "En línea · 2 horas",
+              "Entrega: Primera versión integrada, mapa de pines, cuatro hitos y plan de demostración."
+            ]
+          },
+          {
+            "title": "Clase 16 · Taller final: pruebas, diagnóstico y clase maestra de cierre",
+            "topics": [
+              "Demostrar el sistema, explicar una condición de fallo y defender una mejora con evidencia.",
+              "Presencial · 4 horas",
+              "Entrega: Expediente final, matriz de pruebas, registro y defensa individual."
+            ]
+          }
+        ]
+      }
+    ],
+    "status": "available",
+    "sessions": 16,
+    "weeks": 8,
+    "syllabusPdf": "assets/programas/silabo-esp32.pdf"
   },
   {
-    "id":"telemetria","file":"curso-telemetria.html","title":"Sistemas de Telemetría Aeroespacial Avanzada","shortTitle":"Convierte las señales en información.","category":"Aviónica y telemetría","categoryId":"telemetria","level":"Avanzado","hours":20,"units":7,"price":380,"image":"images/telemtriaa.jpg","imageLabel":"Sistemas de telemetría","featured":false,
-    "description":"Explora la arquitectura de aviónica, el registro de datos en MicroSD y la transmisión de información mediante radiofrecuencia LoRa.",
-    "outcomes":["Comprender una arquitectura de adquisición de datos.","Organizar el registro de mediciones en MicroSD.","Integrar conceptos de transmisión de datos por LoRa."],
-    "requirements":"Recomendado para participantes con experiencia previa en microcontroladores y electrónica. Solicita el sílabo y los componentes requeridos para confirmar que el programa se adapta a tu nivel.",
-    "project":"Arquitectura de un sistema de adquisición, almacenamiento y transmisión de datos de telemetría.","modules":[]
+    "id": "telemetria",
+    "file": "curso-telemetria.html",
+    "title": "Sistemas de Telemetría Aeroespacial Avanzada",
+    "shortTitle": "Convierte las señales en información.",
+    "category": "Aviónica y telemetría",
+    "categoryId": "telemetria",
+    "level": "Avanzado",
+    "hours": 20,
+    "units": 7,
+    "price": 380,
+    "image": "images/telemtriaa.jpg",
+    "imageLabel": "Sistemas de telemetría",
+    "featured": false,
+    "description": "Explora la arquitectura de aviónica, el registro de datos en MicroSD y la transmisión de información mediante radiofrecuencia LoRa.",
+    "outcomes": [
+      "Comprender una arquitectura de adquisición de datos.",
+      "Organizar el registro de mediciones en MicroSD.",
+      "Integrar conceptos de transmisión de datos por LoRa."
+    ],
+    "requirements": "Recomendado para participantes con experiencia previa en microcontroladores y electrónica. Solicita el sílabo y los componentes requeridos para confirmar que el programa se adapta a tu nivel.",
+    "project": "Arquitectura de un sistema de adquisición, almacenamiento y transmisión de datos de telemetría.",
+    "modules": [],
+    "status": "coming-soon"
   }
 ]

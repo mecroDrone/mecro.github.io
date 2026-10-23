@@ -14,7 +14,7 @@
       const match=normalize(card.dataset.search).includes(query)&&(category.value==='all'||card.dataset.category===category.value)&&(level.value==='all'||card.dataset.level===level.value);
       card.hidden=!match;if(match)count++;
     });
-    [...cards].sort((a,b)=>order.value==='price-asc'?Number(a.dataset.price)-Number(b.dataset.price):order.value==='price-desc'?Number(b.dataset.price)-Number(a.dataset.price):order.value==='hours'?Number(a.dataset.hours)-Number(b.dataset.hours):Number(a.dataset.index)-Number(b.dataset.index)).forEach(card=>grid.append(card));
+    [...cards].sort((a,b)=>a.dataset.status!==b.dataset.status?(a.dataset.status==='coming-soon'?1:-1):order.value==='price-asc'?Number(a.dataset.price)-Number(b.dataset.price):order.value==='price-desc'?Number(b.dataset.price)-Number(a.dataset.price):order.value==='hours'?Number(a.dataset.hours)-Number(b.dataset.hours):Number(a.dataset.index)-Number(b.dataset.index)).forEach(card=>grid.append(card));
     document.getElementById('result-count').textContent=`${count} ${count===1?'programa':'programas'}`;
     document.getElementById('catalog-empty').hidden=count>0;
   }

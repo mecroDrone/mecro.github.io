@@ -1,0 +1,876 @@
+{
+  "edition": "2026-10-21",
+  "courses": [
+    {
+      "id": "uav",
+      "title": "Ingeniería y Ensamblaje de Drones",
+      "image": "images/curso-drones.jpg",
+      "hours": 20,
+      "weeks": 4,
+      "syllabusPdf": "assets/programas/silabo-uav.pdf",
+      "lessons": [
+        {
+          "n": 1,
+          "week": 1,
+          "title": "Reconocer el dron y definir qué vamos a construir",
+          "goal": "Reconocer subsistemas y convertir una necesidad en requisitos para un multirrotor de referencia.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Arquitectura funcional, requisitos y tabla preliminar de masas de una referencia.",
+          "reading": "lecciones/01.json",
+          "pdf": "descargas/MECRO_Drones_Clase_01.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_01.pptx",
+          "presentation": "presentaciones/semana-01.json",
+          "topics": [
+            "El dron sobre la mesa",
+            "Misión, tamaño y forma de operación",
+            "Masa, empuje y área que barre la hélice",
+            "Las compatibilidades que gobiernan la compra",
+            "Laboratorio de arquitectura y requisitos",
+            "Qué debemos saber antes de la siguiente clase"
+          ]
+        },
+        {
+          "n": 2,
+          "week": 1,
+          "title": "Seleccionar motor, hélice, ESC y batería con criterio",
+          "goal": "Justificar una cadena de propulsión compatible mediante masa, empuje, corriente y energía.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Lista de componentes justificada, presupuesto de masa/empuje y escenario de energía.",
+          "reading": "lecciones/02.json",
+          "pdf": "descargas/MECRO_Drones_Clase_02.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_01.pptx",
+          "presentation": "presentaciones/semana-01.json",
+          "topics": [
+            "El conjunto se selecciona como una cadena",
+            "Un presupuesto de empuje que se puede explicar",
+            "Cómo leer una tabla de ensayo",
+            "Energía y autonomía estimada",
+            "Laboratorio de selección y descarte",
+            "La compra que queda justificada"
+          ]
+        },
+        {
+          "n": 3,
+          "week": 2,
+          "title": "Alimentación, cableado y montaje que se puede revisar",
+          "goal": "Interpretar un esquema de energía y preparar una secuencia de montaje y comprobación antes de alimentar.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Mapa de alimentación, tabla de contactos y secuencia de montaje con comprobaciones.",
+          "reading": "lecciones/03.json",
+          "pdf": "descargas/MECRO_Drones_Clase_03.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_02.pptx",
+          "presentation": "presentaciones/semana-02.json",
+          "topics": [
+            "Batería, ESC, regulador y controladora",
+            "La tensión máxima y el presupuesto del regulador",
+            "Corriente, pérdidas y calidad de la unión",
+            "Montaje mecánico y orden de trabajo",
+            "Laboratorio de esquema y primera alimentación",
+            "Del esquema a una revisión útil"
+          ]
+        },
+        {
+          "n": 4,
+          "week": 2,
+          "title": "Radio, telemetría, vídeo y protocolos de conexión",
+          "goal": "Relacionar cada enlace con su función y asignar conexiones y puertos sin confundir radio con protocolo.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Mapa de comunicaciones, tabla de puertos y diagnóstico argumentado de una ruta.",
+          "reading": "lecciones/04.json",
+          "pdf": "descargas/MECRO_Drones_Clase_04.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_02.pptx",
+          "presentation": "presentaciones/semana-02.json",
+          "topics": [
+            "Tres cadenas que no significan lo mismo",
+            "UART, CRSF, SBUS y MAVLink en su lugar",
+            "El puerto físico y la función seleccionada",
+            "Propagación y antenas: una cuenta introductoria",
+            "Laboratorio de trazado y diagnóstico",
+            "La comunicación que queda documentada"
+          ]
+        },
+        {
+          "n": 5,
+          "week": 3,
+          "title": "Betaflight: conectar, respaldar y relacionar pantalla con hardware",
+          "goal": "Interpretar una configuración Betaflight a partir de la placa, el receptor y las conexiones del banco.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Ficha de versiones, respaldo identificado y configuración comentada con tres comprobaciones.",
+          "reading": "lecciones/05.json",
+          "pdf": "descargas/MECRO_Drones_Clase_05.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_03.pptx",
+          "presentation": "presentaciones/semana-03.json",
+          "topics": [
+            "Aplicación, firmware y placa son tres cosas",
+            "Conexión USB y respaldo que se puede identificar",
+            "Orientación de la placa y referencia de ejes",
+            "Receptor, canales y modos de operación",
+            "Laboratorio de configuración comentada",
+            "Una pantalla útil para el ensamblador"
+          ]
+        },
+        {
+          "n": 6,
+          "week": 3,
+          "title": "Motores, control y comprobaciones antes del taller",
+          "goal": "Distinguir número, sentido y hélice de cada motor y explicar las comprobaciones de un sistema de control.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Tabla de motores y modos, caso de control resuelto y plan de comprobaciones.",
+          "reading": "lecciones/06.json",
+          "pdf": "descargas/MECRO_Drones_Clase_06.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_03.pptx",
+          "presentation": "presentaciones/semana-03.json",
+          "topics": [
+            "Tres preguntas por motor",
+            "ESC, protocolo y prueba de salidas",
+            "Control: referencia, medición y corrección",
+            "El mismo principio en el dron con autopiloto",
+            "Enlace perdido y decisiones de configuración",
+            "Qué se simula y qué se comprueba en el objeto"
+          ]
+        },
+        {
+          "n": 7,
+          "week": 4,
+          "title": "Taller presencial 1: ensamblaje visible y primera revisión",
+          "goal": "Reconstruir la secuencia de ensamblaje y justificar comprobaciones mecánicas, eléctricas y de configuración.",
+          "hours": 4,
+          "mode": "Presencial demostrativo",
+          "delivery": "Registro del taller: secuencia, esquema contrastado, medidas y acta de pendientes.",
+          "reading": "lecciones/07.json",
+          "pdf": "descargas/MECRO_Drones_Clase_07.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_04.pptx",
+          "presentation": "presentaciones/semana-04.json",
+          "topics": [
+            "El expediente entra al taller",
+            "Agenda de cuatro horas",
+            "Ensamblaje: las decisiones que deben verse",
+            "Revisión eléctrica y encendido controlado",
+            "Configuración que corresponde al montaje",
+            "Cierre y discusión del taller"
+          ]
+        },
+        {
+          "n": 8,
+          "week": 4,
+          "title": "Taller presencial 2: configuración, prueba y demostración de vuelo",
+          "goal": "Explicar la aceptación de una configuración y relacionar un vuelo básico o caso equivalente con sus registros.",
+          "hours": 4,
+          "mode": "Presencial demostrativo",
+          "delivery": "Expediente final, análisis del caso observado y defensa individual de una mejora.",
+          "reading": "lecciones/08.json",
+          "pdf": "descargas/MECRO_Drones_Clase_08.pdf",
+          "ppt": "descargas/MECRO_Drones_Semana_04.pptx",
+          "presentation": "presentaciones/semana-04.json",
+          "topics": [
+            "Comprobar antes de demostrar",
+            "Agenda de cuatro horas y alternativa de clase",
+            "El dron grande en Mission Planner",
+            "Observar el vuelo con preguntas concretas",
+            "Un registro para aprender a analizar",
+            "Defensa del expediente y siguiente ruta"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cohetes",
+      "title": "Cohetería Básica e Intermedia",
+      "image": "images/laboratorio.webp",
+      "hours": 42,
+      "weeks": 8,
+      "syllabusPdf": "assets/programas/silabo-cohetes.pdf",
+      "lessons": [
+        {
+          "n": 1,
+          "week": 1,
+          "title": "Tu primer cohete",
+          "goal": "Reconocer las piezas, medir una maqueta y crear su geometría exterior en OpenRocket.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Ficha de piezas y medidas, primer modelo exterior y revisión del equipo.",
+          "reading": "lecciones/01.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_01.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_01.pptx",
+          "presentation": "presentaciones/semana-01.json",
+          "topics": [
+            "El cohete que construiremos",
+            "Nariz y aletas: entender la forma antes de elegirla",
+            "El cuerpo: las medidas mandan sobre el dibujo",
+            "Qué imprimir y qué comprar",
+            "OpenRocket, primera práctica: nariz y cuerpo",
+            "OpenRocket, segunda práctica: aletas y revisión",
+            "Cómo continuaremos después de esta clase"
+          ]
+        },
+        {
+          "n": 2,
+          "week": 1,
+          "title": "Qué cohete necesitamos y qué nariz elegimos",
+          "goal": "Elegir una nariz con una misión concreta, comparar alternativas y preparar una muestra de encaje.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Tres archivos .ork, ficha comparativa y decisión provisional según misión.",
+          "reading": "lecciones/02.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_02.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_01.pptx",
+          "presentation": "presentaciones/semana-01.json",
+          "topics": [
+            "Antes de elegir una forma, define la misión",
+            "Reconocer narices sin buscar una ganadora universal",
+            "Comparar dos preguntas diferentes",
+            "Práctica en OpenRocket: tres versiones de nariz",
+            "Práctica de fabricación: primero el encaje",
+            "La elección cambia con la misión"
+          ]
+        },
+        {
+          "n": 3,
+          "week": 2,
+          "title": "Cuerpo, dimensiones y espacio interior",
+          "goal": "Elegir un tubo disponible y distribuir componentes sin confundir longitud exterior con espacio útil.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Plano de distribución, archivo actualizado y ficha del cuerpo.",
+          "reading": "lecciones/03.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_03.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_02.pptx",
+          "presentation": "presentaciones/semana-02.json",
+          "topics": [
+            "El cuerpo organiza el proyecto",
+            "Diámetro y longitud cumplen funciones diferentes",
+            "Un plano sencillo que sí ayuda a fabricar",
+            "OpenRocket: representar el tubo real",
+            "Del tubo disponible al corte y al montaje",
+            "Elegir un cuerpo para la misión del equipo"
+          ]
+        },
+        {
+          "n": 4,
+          "week": 2,
+          "title": "Aletas: forma, posición y alineación",
+          "goal": "Comparar contornos de aletas y preparar piezas repetibles con un útil de alineación.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Plano, dos versiones .ork, plantilla y propuesta de útil.",
+          "reading": "lecciones/04.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_04.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_02.pptx",
+          "presentation": "presentaciones/semana-02.json",
+          "topics": [
+            "Por qué el cohete lleva aletas atrás",
+            "Comparar contornos con criterios de taller",
+            "Tres o cuatro aletas: también cambia el montaje",
+            "OpenRocket: cambiar una cosa cada vez",
+            "Práctica: plantilla y útil de alineación",
+            "Qué aleta conviene para cada misión"
+          ]
+        },
+        {
+          "n": 5,
+          "week": 3,
+          "title": "Impresión 3D para narices, aletas y útiles",
+          "goal": "Preparar una pieza para imprimir, revisar su orientación y distinguir aspecto exterior de ajuste funcional.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Proyecto de laminador, comparación y solicitud de impresión.",
+          "reading": "lecciones/05.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_05.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_03.pptx",
+          "presentation": "presentaciones/semana-03.json",
+          "topics": [
+            "De un archivo bonito a una pieza útil",
+            "La orientación cambia lo que se fabrica",
+            "Paredes, relleno y masa",
+            "Práctica en el laminador",
+            "Organizar la cola de impresión del curso",
+            "Aceptar una impresión por su función"
+          ]
+        },
+        {
+          "n": 6,
+          "week": 3,
+          "title": "Taller 1: medidas, encajes y alineación",
+          "goal": "Comprobar piezas físicas y corregir el diseño antes del montaje definitivo.",
+          "hours": 4,
+          "mode": "Presencial",
+          "delivery": "Ficha completa, fotografías, plano y .ork corregidos.",
+          "reading": "lecciones/06.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_06.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_03.pptx",
+          "presentation": "presentaciones/semana-03.json",
+          "topics": [
+            "Qué debe llegar a la mesa de cada equipo",
+            "Estación de medición: un dato que otro pueda repetir",
+            "Estación de presentación: el conjunto sin pegar",
+            "Actualizar el modelo desde la pieza",
+            "Cómo se reparten las cuatro horas",
+            "Qué queda listo para la clase siguiente"
+          ]
+        },
+        {
+          "n": 7,
+          "week": 4,
+          "title": "Estabilidad: centro de gravedad y centro de presión",
+          "goal": "Entender la estabilidad con una maqueta y comprobar que el modelo represente la distribución real de piezas.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Archivo con masas, referencia de equilibrio y comparación explicada.",
+          "reading": "lecciones/07.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_07.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_04.pptx",
+          "presentation": "presentaciones/semana-04.json",
+          "topics": [
+            "Equilibrar la maqueta antes de ver símbolos",
+            "El aire actúa de otra manera que el peso",
+            "Leer el margen sin convertirlo en una receta",
+            "OpenRocket con las masas del taller",
+            "Comparación de la maqueta y el archivo",
+            "Una conclusión con piezas y condiciones"
+          ]
+        },
+        {
+          "n": 8,
+          "week": 4,
+          "title": "Motor comercial, tobera, presión y empuje",
+          "goal": "Leer un motor comercial y distinguir presión, empuje e impulso usando imágenes y salidas de referencia.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Ficha comercial y lectura conceptual de una salida identificada.",
+          "reading": "lecciones/08.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_08.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_04.pptx",
+          "presentation": "presentaciones/semana-04.json",
+          "topics": [
+            "El motor forma parte de un conjunto elegido",
+            "Qué hace una tobera, explicado con un dibujo",
+            "Una curva explica algo que la letra no cuenta",
+            "Qué veremos en openMotor",
+            "La selección comercial se conecta con el vehículo",
+            "Explicar el motor con palabras de modelismo"
+          ]
+        },
+        {
+          "n": 9,
+          "week": 5,
+          "title": "Primera simulación completa en OpenRocket",
+          "goal": "Configurar el modelo completo, ejecutar una simulación guiada y leer sus fases sin confundir predicción con observación.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Archivo completo, condiciones, gráficas y CSV exportado.",
+          "reading": "lecciones/09.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_09.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_05.pptx",
+          "presentation": "presentaciones/semana-05.json",
+          "topics": [
+            "Qué debe estar completo antes de simular",
+            "Leer el vuelo como una secuencia",
+            "Preparar una configuración identificada",
+            "Práctica: ejecutar, mirar y exportar",
+            "Una comparación que no mezcle cambios",
+            "Interpretar sin prometer el vuelo real"
+          ]
+        },
+        {
+          "n": 10,
+          "week": 5,
+          "title": "Materiales y compuestos sobre piezas reales",
+          "goal": "Comparar materiales por función, fabricación y reparación sin asignarles una superioridad universal.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Tabla de selección por pieza, fotos y observaciones de banco.",
+          "reading": "lecciones/10.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_10.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_05.pptx",
+          "presentation": "presentaciones/semana-05.json",
+          "topics": [
+            "Una mesa de muestras, no una lista de materiales famosos",
+            "Madera, cartón y polímeros impresos",
+            "Qué significa compuesto",
+            "Comparar con una tarea sencilla y definida",
+            "La decisión se toma pieza por pieza",
+            "Misión de aprendizaje, reutilización o carga"
+          ]
+        },
+        {
+          "n": 11,
+          "week": 6,
+          "title": "Recuperación y preparación del montaje",
+          "goal": "Comprender cómo vuelve el cohete y comprobar espacio, uniones y compatibilidad del sistema elegido.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Ficha de recuperación, plano preliminar y configuración actualizada.",
+          "reading": "lecciones/11.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_11.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_06.pptx",
+          "presentation": "presentaciones/semana-06.json",
+          "topics": [
+            "El proyecto también incluye el descenso",
+            "Paracaídas y cinta: comparar funciones",
+            "Cordones, bordes y acceso",
+            "Representar el sistema en OpenRocket",
+            "Ensayo de banco con el sistema inerte",
+            "Llegar preparados al montaje presencial"
+          ]
+        },
+        {
+          "n": 12,
+          "week": 6,
+          "title": "Taller 2: ensamblar y revisar el cohete",
+          "goal": "Montar el conjunto con referencias claras y actualizar sus medidas y masas finales.",
+          "hours": 4,
+          "mode": "Presencial",
+          "delivery": "Cohete ensamblado, fotos, medidas y archivo revisado.",
+          "reading": "lecciones/12.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_12.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_06.pptx",
+          "presentation": "presentaciones/semana-06.json",
+          "topics": [
+            "Antes de unir: piezas y revisión",
+            "Montar sin perder las referencias",
+            "Revisar lo que luego quedará oculto",
+            "Medir el conjunto ensamblado",
+            "Cuatro horas para montar y comprobar",
+            "Prototipo terminado y expediente actualizado"
+          ]
+        },
+        {
+          "n": 13,
+          "week": 7,
+          "title": "El mismo cohete en RockSim",
+          "goal": "Crear una segunda representación del modelo y comparar entradas antes de comparar resultados.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Archivo RockSim, tabla de entradas y comparación con OpenRocket.",
+          "reading": "lecciones/13.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_13.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_07.pptx",
+          "presentation": "presentaciones/semana-07.json",
+          "topics": [
+            "Una segunda herramienta para el mismo objeto",
+            "El árbol de piezas también necesita referencias",
+            "Tabla de equivalencia antes de simular",
+            "Ejecutar y comparar pocos resultados",
+            "Qué investigar si no coinciden",
+            "Elegir por misión con dos representaciones"
+          ]
+        },
+        {
+          "n": 14,
+          "week": 7,
+          "title": "CanSat: observar una misión científica del docente",
+          "goal": "Reconocer sensores, registro y transmisión y preparar una observación de datos del demostrador docente.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Mapa de datos, análisis del CSV y plan de observación.",
+          "reading": "lecciones/14.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_14.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_07.pptx",
+          "presentation": "presentaciones/semana-07.json",
+          "topics": [
+            "Qué es un CanSat y qué haremos nosotros",
+            "La cadena de una observación",
+            "Datos que se puedan reconocer después",
+            "Práctica de banco y lectura del archivo",
+            "Contar recepción sin confundir mensajes y muestras",
+            "Qué observar en la jornada docente"
+          ]
+        },
+        {
+          "n": 15,
+          "week": 8,
+          "title": "Preparar la jornada con el cohete terminado",
+          "goal": "Relacionar el objeto, el archivo y las comprobaciones pendientes antes de la revisión del responsable.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Expediente previo, roles y hoja de observación.",
+          "reading": "lecciones/15.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_15.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_08.pptx",
+          "presentation": "presentaciones/semana-08.json",
+          "topics": [
+            "La revisión comienza con el objeto que existe",
+            "Una lista de revisión que se pueda demostrar",
+            "Organizar responsabilidades",
+            "Preparar observaciones que después sirvan",
+            "La jornada también necesita alternativas",
+            "Explicar el estado en dos minutos"
+          ]
+        },
+        {
+          "n": 16,
+          "week": 8,
+          "title": "Jornada de lanzamiento y revisión del proyecto",
+          "goal": "Participar en una jornada organizada, conservar observaciones y explicar mejoras del cohete construido.",
+          "hours": 8,
+          "mode": "Presencial",
+          "delivery": "Ficha final del proyecto, archivos conservados y mejora justificada.",
+          "reading": "lecciones/16.json",
+          "pdf": "descargas/MECRO_Coheteria_Clase_16.pdf",
+          "ppt": "descargas/MECRO_Coheteria_Semana_08.pptx",
+          "presentation": "presentaciones/semana-08.json",
+          "topics": [
+            "Un día completo para observar el proyecto",
+            "Antes de cada actividad",
+            "Observar sin inventar una medición",
+            "Después de recuperar: inspeccionar el objeto",
+            "Comparar lo previsto y lo observado",
+            "Cerrar el proyecto y proponer la siguiente versión"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "esp32",
+      "title": "Electrónica, Control y Automatización con ESP32",
+      "image": "images/curso-esp32.jpg",
+      "hours": 36,
+      "weeks": 8,
+      "syllabusPdf": "assets/programas/silabo-esp32.pdf",
+      "lessons": [
+        {
+          "n": 1,
+          "week": 1,
+          "title": "Electrónica con ESP32: del circuito al primer programa",
+          "goal": "Reconocer la placa clásica y construir una salida LED cuya corriente pueda explicar.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Esquema del LED, cálculo con unidades, primer firmware y registro de observación.",
+          "reading": "lecciones/01.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_01.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_01.pptx",
+          "presentation": "presentaciones/semana-01.json",
+          "topics": [
+            "Qué estamos construyendo",
+            "Voltaje, corriente y resistencia con unidades",
+            "Un cálculo que decide una pieza",
+            "El recorrido del programa hasta el pin",
+            "Laboratorio: medir, ejecutar y explicar",
+            "Aplicación a drones y lectura de investigación"
+          ]
+        },
+        {
+          "n": 2,
+          "week": 1,
+          "title": "Programación y entradas digitales: botones que significan eventos",
+          "goal": "Organizar un programa con funciones y detectar una pulsación sin confundir nivel, transición y rebote.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Código del botón, tabla nivel/evento y cuatro pruebas de interfaz.",
+          "reading": "lecciones/02.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_02.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_01.pptx",
+          "presentation": "presentaciones/semana-01.json",
+          "topics": [
+            "Entrada, decisión y salida",
+            "Tipos, condiciones y funciones que ayudan a pensar",
+            "Pull-up y rebote: dos problemas diferentes",
+            "Lectura del antirrebote incluido",
+            "Laboratorio y reto del dado",
+            "Un contrato para las entradas humanas"
+          ]
+        },
+        {
+          "n": 3,
+          "week": 2,
+          "title": "Temporización y máquinas de estados: atender más de una tarea",
+          "goal": "Construir una secuencia que siga atendiendo eventos mientras transcurre un intervalo.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Tabla de estados, variante temporal y registro de atención de eventos.",
+          "reading": "lecciones/03.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_03.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_02.pptx",
+          "presentation": "presentaciones/semana-02.json",
+          "topics": [
+            "Por qué un programa correcto puede responder tarde",
+            "Tiempo transcurrido y retorno del contador",
+            "Estado, evento y transición",
+            "Lectura de una transición pequeña",
+            "Laboratorio de respuesta y variación",
+            "Tres estados para un banco de sensores"
+          ]
+        },
+        {
+          "n": 4,
+          "week": 2,
+          "title": "ADC y calibración: de una lectura a una decisión",
+          "goal": "Interpretar lecturas analógicas, construir una escala de trabajo y justificar dos umbrales de histéresis.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "CSV de lecturas, sentido del divisor y justificación de umbrales.",
+          "reading": "lecciones/04.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_04.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_02.pptx",
+          "presentation": "presentaciones/semana-02.json",
+          "topics": [
+            "Qué convierte un ADC",
+            "La escala ideal y la escala calibrada",
+            "Ruido, promedio e histéresis",
+            "Código que conserva una decisión",
+            "Laboratorio con una referencia visible",
+            "Aplicación: observar batería sin conectar una batería al ADC"
+          ]
+        },
+        {
+          "n": 5,
+          "week": 3,
+          "title": "PWM, sonido y salidas digitales en serie",
+          "goal": "Distinguir frecuencia, resolución y ciclo de trabajo, y ampliar salidas con un registro de desplazamiento.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Tabla de señales PWM y correspondencia de bits del proyecto 4.",
+          "reading": "lecciones/05.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_05.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_03.pptx",
+          "presentation": "presentaciones/semana-03.json",
+          "topics": [
+            "Una salida digital puede expresar más que encendido y apagado",
+            "Periodo, frecuencia y resolución",
+            "El 74HC595 y una palabra de ocho bits",
+            "Un código y dos familias de API",
+            "Laboratorio: un efecto y una secuencia",
+            "Cómo se transfiere la idea a un UAV"
+          ]
+        },
+        {
+          "n": 6,
+          "week": 3,
+          "title": "Sensores digitales, I2C y pantallas: un dato con identidad",
+          "goal": "Leer y presentar una variable conservando unidad, instante, estado de la lectura y dirección del dispositivo.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Mapa de interfaces y registro de valor, unidad, tiempo y estado.",
+          "reading": "lecciones/06.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_06.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_03.pptx",
+          "presentation": "presentaciones/semana-03.json",
+          "topics": [
+            "El valor no viaja solo",
+            "Qué ofrece un bus I2C",
+            "Validez y antigüedad",
+            "Cómo investigar una conexión",
+            "Laboratorio de adquisición y presentación",
+            "De la estación ambiental a una carga de sensores"
+          ]
+        },
+        {
+          "n": 7,
+          "week": 4,
+          "title": "Distancia: tiempo de vuelo, adaptación de nivel y lecturas inválidas",
+          "goal": "Convertir un tiempo de eco en distancia y comprobar su coherencia sin confundir falta de eco con distancia cero.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Conversión explicada, tabla de contraste y tratamiento de lectura inválida.",
+          "reading": "lecciones/07.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_07.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_04.pptx",
+          "presentation": "presentaciones/semana-04.json",
+          "topics": [
+            "Qué observa el sensor ultrasónico",
+            "Una fórmula con ida y vuelta",
+            "La señal de 5 V y la entrada de 3,3 V",
+            "Tiempo de espera y ausencia de dato",
+            "Laboratorio de contraste y fallos",
+            "Aplicación y límites de una medida de proximidad"
+          ]
+        },
+        {
+          "n": 8,
+          "week": 4,
+          "title": "Taller 1: servomotor y explorador ultrasónico",
+          "goal": "Coordinar una orden de posición con una lectura de distancia y conservar un registro coherente.",
+          "hours": 4,
+          "mode": "Presencial",
+          "delivery": "Esquema revisado, tres registros coherentes y diagnóstico de una condición de fallo.",
+          "reading": "lecciones/08.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_08.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_04.pptx",
+          "presentation": "presentaciones/semana-04.json",
+          "topics": [
+            "Tres cosas diferentes: mando, posición y medida",
+            "Ancho de pulso y respuesta del servo",
+            "Alimentación y montaje de banco",
+            "Secuencia del explorador",
+            "Agenda de cuatro horas y evidencias",
+            "Qué se acepta al cerrar el taller"
+          ]
+        },
+        {
+          "n": 9,
+          "week": 5,
+          "title": "Motores y etapa de potencia: la orden no es la energía",
+          "goal": "Reconocer un driver y caracterizar un motor DC de banco sin confundir PWM con velocidad medida.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Esquema de potencia, registro de mando y explicación de la medida que falta.",
+          "reading": "lecciones/09.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_09.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_05.pptx",
+          "presentation": "presentaciones/semana-05.json",
+          "topics": [
+            "Una cadena con funciones separadas",
+            "Puente H, habilitación y alimentación",
+            "Caracterizar antes de controlar",
+            "Mando explícito y estado inicial",
+            "Laboratorio de mando y respuesta",
+            "Comparación con la arquitectura de drones"
+          ]
+        },
+        {
+          "n": 10,
+          "week": 5,
+          "title": "Encoder e interrupciones: medir velocidad con una definición",
+          "goal": "Calcular RPM desde pulsos usando el conteo por vuelta y el tiempo realmente transcurrido.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Conversión de una fila, definición de cuenta por vuelta y comparación de ventanas.",
+          "reading": "lecciones/10.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_10.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_05.pptx",
+          "presentation": "presentaciones/semana-05.json",
+          "topics": [
+            "Contar no es todavía medir RPM",
+            "Conversión con unidades",
+            "Resolución temporal y de conteo",
+            "Qué hace la interrupción y qué hace loop()",
+            "Laboratorio de una vuelta y una ventana",
+            "Qué necesita el controlador de esta medición"
+          ]
+        },
+        {
+          "n": 11,
+          "week": 6,
+          "title": "Control realimentado: P, PI y una introducción a PID",
+          "goal": "Comparar respuestas ante una perturbación y explicar el papel de P, I y D con tiempo de muestreo y saturación.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Gráficas identificadas, caso P/I resuelto y comparación de dos respuestas.",
+          "reading": "lecciones/11.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_11.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_06.pptx",
+          "presentation": "presentaciones/semana-06.json",
+          "topics": [
+            "La pregunta que abre el lazo cerrado",
+            "Qué añade cada acción",
+            "Un modelo transparente para comparar",
+            "Saturación y acumulación integral",
+            "Laboratorio de comparación con una perturbación",
+            "Relación con drones y siguiente paso"
+          ]
+        },
+        {
+          "n": 12,
+          "week": 6,
+          "title": "IMU y orientación de banco: medir antes de estabilizar",
+          "goal": "Distinguir aceleración, velocidad angular e inclinación estimada y obtener un registro con unidades.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Registro de reposo e inclinación, caso atan2 y convención de unidades.",
+          "reading": "lecciones/12.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_12.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_06.pptx",
+          "presentation": "presentaciones/semana-06.json",
+          "topics": [
+            "Qué significa seis ejes",
+            "Un ángulo a partir de la gravedad del banco",
+            "Sesgo, ruido y configuración",
+            "Lectura del firmware de IMU",
+            "Laboratorio de orientación lenta",
+            "Por qué este bloque precede al mando"
+          ]
+        },
+        {
+          "n": 13,
+          "week": 7,
+          "title": "Mando y control de banco: interpretar el proyecto de vuelo",
+          "goal": "Transformar un joystick a una referencia normalizada y relacionarla con una medida y una acción proporcional declaradas.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Calibración de mando, tres casos resueltos y diagrama de bloques del banco.",
+          "reading": "lecciones/13.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_13.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_07.pptx",
+          "presentation": "presentaciones/semana-07.json",
+          "topics": [
+            "Qué hace el proyecto y cómo lo vamos a usar",
+            "Centro, escala y zona muerta del joystick",
+            "Una referencia y una medida comparables",
+            "Ordenar el programa por bloques",
+            "Laboratorio: mover una cosa cada vez",
+            "Lo que demuestra el banco y qué amplía la formación"
+          ]
+        },
+        {
+          "n": 14,
+          "week": 7,
+          "title": "Datos en tierra: Wi-Fi, HTTP y marcas de tiempo",
+          "goal": "Publicar o registrar una lectura con su origen temporal y diferenciar conectividad, recepción y dato válido.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Formato de datos, prueba de adquisición y transporte, y nota del entorno utilizado.",
+          "reading": "lecciones/14.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_14.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_07.pptx",
+          "presentation": "presentaciones/semana-07.json",
+          "topics": [
+            "Qué añadimos al conectar el equipo",
+            "Dirección, solicitud y respuesta",
+            "Tiempo relativo y hora UTC",
+            "Una respuesta pequeña que se puede inspeccionar",
+            "Laboratorio de recepción y antigüedad",
+            "La extensión BLE y el siguiente nivel"
+          ]
+        },
+        {
+          "n": 15,
+          "week": 8,
+          "title": "Proyecto integrador: una estación de pruebas para UAV",
+          "goal": "Integrar módulos ya estudiados en un sistema de banco con requisitos y pruebas trazables.",
+          "hours": 2,
+          "mode": "En línea",
+          "delivery": "Primera versión integrada, mapa de pines, cuatro hitos y plan de demostración.",
+          "reading": "lecciones/15.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_15.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_08.pptx",
+          "presentation": "presentaciones/semana-08.json",
+          "topics": [
+            "El proyecto empieza en las clases anteriores",
+            "Requisitos que permiten ensayar",
+            "Módulos y responsabilidades",
+            "Lectura del ejemplo integrado",
+            "Laboratorio de integración por hitos",
+            "Preparación de la defensa"
+          ]
+        },
+        {
+          "n": 16,
+          "week": 8,
+          "title": "Taller final: pruebas, diagnóstico y clase maestra de cierre",
+          "goal": "Demostrar el sistema, explicar una condición de fallo y defender una mejora con evidencia.",
+          "hours": 4,
+          "mode": "Presencial",
+          "delivery": "Expediente final, matriz de pruebas, registro y defensa individual.",
+          "reading": "lecciones/16.json",
+          "pdf": "descargas/MECRO_ESP32_Clase_16.pdf",
+          "ppt": "descargas/MECRO_ESP32_Semana_08.pptx",
+          "presentation": "presentaciones/semana-08.json",
+          "topics": [
+            "Qué se demuestra al terminar",
+            "Agenda del taller y roles",
+            "Una matriz de pruebas que produce conclusiones",
+            "Leer el registro de una prueba",
+            "Evaluación y defensa individual",
+            "Lo que sigue después de este curso"
+          ]
+        }
+      ]
+    }
+  ]
+}

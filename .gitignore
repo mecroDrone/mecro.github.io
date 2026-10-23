@@ -1,2 +1,5 @@
 node_modules/
 .sites-runtime/
+materiales/
+.course-work/
+dist/

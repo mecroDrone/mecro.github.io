@@ -47,10 +47,13 @@ for(const course of courses){
   localTarget(course.image,path.join(root,'index.html'));localTarget(course.file,path.join(root,'index.html'));
   const detail=fs.readFileSync(path.join(root,course.file),'utf8');
   const catalog=fs.readFileSync(path.join(root,'cursos.html'),'utf8');
-  for(const text of [course.title,`${course.hours} horas`,`S/ ${course.price.toFixed(2)}`]){
+  const expected=course.status==='coming-soon'?[course.title,'Próximamente']:[course.title,`${course.hours} horas`,`S/ ${course.price.toFixed(2)}`];
+  for(const text of expected){
     if(!detail.toLowerCase().includes(text.toLowerCase()))fail(`${course.id}: detalle no coincide con los datos (${text})`);
     if(!catalog.includes(text))fail(`${course.id}: catálogo no coincide con los datos (${text})`);
   }
+  if(course.status==='coming-soon'&&(detail.includes('Consultar inscripción')||detail.includes(`S/ ${course.price.toFixed(2)}`)))fail(`${course.id}: inscripción o precio publicados para un curso próximo`);
+  if(course.syllabusPdf)localTarget(course.syllabusPdf,path.join(root,'index.html'));
 }
 if(failures.length){console.error(failures.join('\n'));process.exit(1);}
 console.log(`OK: ${pages.length} páginas, rutas y anclas locales, scripts, recursos y coherencia de ${courses.length} cursos.`);

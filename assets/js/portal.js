@@ -91,6 +91,7 @@ function heading(title,subtitle=''){
 }
 function overview(){
   heading('Todo tu programa, en un lugar.','Consulta el material y las sesiones disponibles para tu matrícula.');
+  const campus=el('section','resource-card');campus.append(el('h3','','Tu mesa de trabajo MECRO'),el('p','','Lecturas completas, presentaciones, prácticas y bitácora personal, dentro del aula.'),link('Abrir el campus integrado ↗','aula.html','btn'));view.append(campus);
   const grid=el('div','course-overview');const copy=el('div');
   copy.append(el('h3','',activeCourse.nombre));
   if(typeof activeCourse.instructor==='string')copy.append(el('p','',`Instructor: ${activeCourse.instructor}`));
