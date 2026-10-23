@@ -1,6 +1,6 @@
 // Existing Apps Script deployment. Server-side authorization must be audited
 // separately; browser-side filtering is presentation, not an access boundary.
-export const API_URL='https://script.google.com/macros/s/AKfycbzEdJPv7-0e2qUuU0C2Fo4lpwj0He-cSXPS7azl6742j-yqasn1CkZ9ozI799ojsY-EEg/exec';
+export const API_URL='https://script.google.com/macros/s/AKfycbypUA1lLlPLM4sX43i4RfJfZ0mxWvMTpGVTNM3Ba4rni_nIADyjK2EDzoLXWPviDcLsWQ/exec';
 const SESSION_KEY='mecro_session';
 export function normalizeIds(value){
   if(Array.isArray(value))return [...new Set(value.filter(v=>typeof v==='string'||typeof v==='number').map(v=>String(v).trim()).filter(Boolean))];
