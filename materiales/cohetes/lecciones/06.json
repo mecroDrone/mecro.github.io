@@ -1,0 +1,363 @@
+{
+  "n": 6,
+  "week": 3,
+  "title": "Taller 1: medidas, encajes y alineación",
+  "goal": "Comprobar piezas físicas y corregir el diseño antes del montaje definitivo.",
+  "mission": "Conseguir que las piezas fabricadas correspondan al plano y puedan presentarse juntas.",
+  "pages": [
+    {
+      "title": "Qué debe llegar a la mesa de cada equipo",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Este es el primer encuentro presencial de cuatro horas. El trabajo comienza con tubos identificados, narices o muestras de encaje, aletas, un útil y los archivos correspondientes. Todavía no se trata de cerrar el cohete. Se trata de descubrir diferencias entre lo dibujado y lo fabricado cuando aún se pueden corregir."
+        },
+        {
+          "type": "table",
+          "title": "Material listo antes del taller",
+          "headers": [
+            "Objeto",
+            "Estado esperado"
+          ],
+          "rows": [
+            [
+              "Tubo",
+              "Identificado, sin deformación evidente"
+            ],
+            [
+              "Muestras de encaje",
+              "Etiquetadas con su revisión"
+            ],
+            [
+              "Aletas o plantillas",
+              "Contorno y medidas declarados"
+            ],
+            [
+              "Útil",
+              "Compatible con el tubo previsto"
+            ],
+            [
+              "Archivos",
+              "CAD, laminador y .ork disponibles"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El docente prepara una estación de medición y otra de presentación. Cada equipo mantiene un responsable del objeto y otro del registro. Al intercambiar tareas se evita que una sola persona aprenda a usar las herramientas mientras los demás observan."
+        },
+        {
+          "type": "note",
+          "text": "La revisión del objeto se hace con sus medidas reales. Si falta una pieza, se identifica y se decide qué comprobación puede hacerse con una muestra equivalente."
+        },
+        {
+          "type": "p",
+          "text": "Un taller con varias estaciones funciona cuando todos conservan el nombre de la pieza y el significado de la medida. El mismo número puede corresponder al diámetro exterior, al interior o a una cota del plano. Antes de registrar una cifra, el alumno señala el lugar que está midiendo. Otro compañero verifica la referencia y anota la unidad. Este intercambio sencillo evita muchas correcciones de CAD que en realidad nacen de haber comparado dimensiones diferentes."
+        }
+      ]
+    },
+    {
+      "title": "Estación de medición: un dato que otro pueda repetir",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Antes de medir se comprueba el cero del instrumento, la unidad y las superficies que se tomarán como referencia. El calibrador se apoya sin deformar el tubo. Una pieza ovalada puede ofrecer valores diferentes según la orientación. No se elige únicamente la lectura que coincide con el archivo."
+        },
+        {
+          "type": "table",
+          "title": "Registro de una interfaz",
+          "headers": [
+            "Dato",
+            "Qué escribir"
+          ],
+          "rows": [
+            [
+              "Tubo",
+              "Identificador y orientación de medida"
+            ],
+            [
+              "Abertura",
+              "Dimensión observada y unidad"
+            ],
+            [
+              "Muestra",
+              "Identificador y dimensión real"
+            ],
+            [
+              "Encaje",
+              "Entra, se traba o presenta juego"
+            ],
+            [
+              "Revisión",
+              "Cambio que se propone y motivo"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "La muestra no se comporta como el CAD",
+          "problem": "Ejercicio: dos muestras se dibujaron iguales, pero una entra y otra no.",
+          "answer": "Compara primero dimensiones reales, borde, acabado y referencia del tubo. La igualdad de archivos no demuestra igualdad de objetos. Cambiar un número sin identificar la diferencia puede ocultar el problema."
+        },
+        {
+          "type": "p",
+          "text": "Si el borde está dañado, registra esa condición antes de trabajar sobre él. Después de preparar una superficie según el método del taller, repite la comprobación y conserva el antes y el después. Así la corrección tiene un motivo visible."
+        },
+        {
+          "type": "p",
+          "text": "Una lectura repetida desde la misma referencia ayuda a encontrar errores de apoyo o de manipulación. Si dos compañeros obtienen resultados diferentes, primero comparan cómo colocaron el instrumento. El objetivo de esta estación no es calcular una estadística avanzada, sino que ambos sepan describir la misma dimensión de la misma pieza. Se puede anotar el intervalo observado sin esconder la diferencia en un promedio que nadie sabe interpretar."
+        },
+        {
+          "type": "p",
+          "text": "En el calibrador se comprueba primero el cero y se eligen las superficies de contacto que corresponden a la medida. El instrumento debe apoyarse sin deformar la pieza. Si el tubo parece ovalado, se observa más de una dirección y se identifica cómo se tomó cada lectura. La balanza requiere una condición igualmente clara: recipiente o soporte, puesta a cero y componentes incluidos. La calidad del registro depende tanto de estas condiciones como del número de decimales que muestra la pantalla."
+        }
+      ]
+    },
+    {
+      "title": "Estación de presentación: el conjunto sin pegar",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_back",
+          "caption": "Vista posterior del ejemplo de OpenRocket. En el taller se compara la distribución dibujada con la presentación real.",
+          "width": 100
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Presenta la nariz y el cuerpo para observar continuidad y longitud exterior.",
+            "Coloca el útil sin forzar el tubo. Presenta todas las aletas según su referencia.",
+            "Observa la distribución desde atrás y la posición desde un lateral.",
+            "Comprueba que ninguna pieza haya quedado invertida o en una referencia diferente al plano.",
+            "Fotografía las vistas necesarias y escribe un resultado concreto por vista."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La presentación también permite discutir cómo sostener el objeto mientras se fabrica. Si el útil impide acceder a una unión o tapa una referencia necesaria, debe corregirse. Una herramienta de montaje se evalúa por el trabajo que permite hacer."
+        }
+      ]
+    },
+    {
+      "title": "Actualizar el modelo desde la pieza",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_override",
+          "caption": "Pestaña de ajustes de masa en el manual de OpenRocket. Se usa con datos identificados, sin duplicar componentes.",
+          "width": 100
+        },
+        {
+          "type": "p",
+          "text": "Una pieza puede conservar la geometría dibujada y tener una masa diferente a la estimada. Antes de introducir la medida en el programa, se define qué se pesó: pieza sola, conjunto o pieza con acabado. Si se ajusta la masa de una pieza y además se añade otra masa que representa lo mismo, el modelo la cuenta dos veces."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Pesa la pieza identificada y anota qué incluye.",
+            "Compara el resultado con la estimación del modelo.",
+            "Actualiza la representación de esa pieza según la versión del programa.",
+            "Revisa el total y conserva una copia anterior.",
+            "Añade en el comentario la fecha y el origen de la medida."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "No se utiliza el ajuste de masa para obtener un resultado de vuelo deseado. Se utiliza para representar mejor el objeto que se está construyendo. [OR1]"
+        },
+        {
+          "type": "p",
+          "text": "Una masa calculada y otra pesada responden a métodos diferentes. Si la geometría y el material del archivo producen una estimación, se conserva su origen. Si el equipo pesa una pieza, anota si incluye pintura, unión o accesorio. El ajuste del modelo usa esa medida solo cuando corresponde a la pieza y a la condición representadas. Una corrección de masa puede mejorar la representación sin corregir todavía el encaje o la forma física."
+        }
+      ]
+    },
+    {
+      "title": "Cómo se reparten las cuatro horas",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Horario del taller 1",
+          "headers": [
+            "Minutos",
+            "Trabajo",
+            "Producto"
+          ],
+          "rows": [
+            [
+              "0–30",
+              "Demostración de herramientas y referencias",
+              "Todos reconocen las medidas"
+            ],
+            [
+              "30–105",
+              "Medición y series de encaje",
+              "Ficha por interfaz"
+            ],
+            [
+              "105–180",
+              "Presentación, útiles y correcciones",
+              "Fotos y cambios propuestos"
+            ],
+            [
+              "180–240",
+              "Actualización digital y revisión",
+              "Plano y archivo revisados"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las impresiones largas se preparan fuera del encuentro. Durante la sesión se priorizan comprobaciones, correcciones de archivo y, si el equipo lo permite, una muestra corta. El docente dispone de piezas de reserva para que un fallo de impresión no impida aprender a medir y revisar."
+        },
+        {
+          "type": "case",
+          "title": "Una corrección documentada",
+          "problem": "El hombro se traba solo al final del recorrido y la medida inicial parecía correcta.",
+          "answer": "Revisa el tramo completo y el borde, no únicamente la entrada. Registra dónde aparece el problema. El nuevo archivo debe mostrar qué dimensión o forma se corrigió y qué muestra comprobará el cambio."
+        },
+        {
+          "type": "p",
+          "text": "Al terminar una estación, otro integrante explica el resultado. No basta mostrar la fotografía: debe indicar qué decisión se tomó y qué evidencia la respalda."
+        },
+        {
+          "type": "p",
+          "text": "Las correcciones se agrupan por causa para no gastar la impresora en cambios sin comprobar. Por ejemplo, una familia de muestras puede resolver un diámetro de encaje y otra un apoyo del útil. Antes de solicitar una nueva impresión, el equipo muestra la diferencia observada, el cambio de archivo y la comprobación que hará al recibirla. El docente puede entonces decidir qué muestra pequeña responde mejor a la pregunta del taller."
+        }
+      ]
+    },
+    {
+      "title": "Qué queda listo para la clase siguiente",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El taller termina con un conjunto que puede presentarse de forma coherente y con sus correcciones pendientes identificadas. Aún faltan integración final, recuperación y revisión para vuelo. El próximo bloque utilizará las piezas y masas conocidas para entender la estabilidad del modelo completo."
+        },
+        {
+          "type": "table",
+          "title": "Salida del taller",
+          "headers": [
+            "Entrega",
+            "Revisión breve"
+          ],
+          "rows": [
+            [
+              "Ficha de encaje",
+              "Tubo y muestra identificados"
+            ],
+            [
+              "Medidas y masas",
+              "Unidad y objeto pesado claros"
+            ],
+            [
+              "Fotografías",
+              "Vista lateral y posterior"
+            ],
+            [
+              "Archivos",
+              "Misma revisión que la pieza"
+            ],
+            [
+              "Pendientes",
+              "Responsable y comprobación siguiente"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Pieza que no debe pasar sin revisión",
+          "problem": "Una aleta presenta una separación visible entre capas, aunque entra en el útil.",
+          "answer": "El ajuste al útil no resuelve la integridad de la pieza. El equipo deja la aceptación pendiente y revisa fabricación o reemplazo con el docente. Cada comprobación responde una pregunta distinta."
+        },
+        {
+          "type": "p",
+          "text": "Investiga una diferencia entre tu primera predicción de encaje y el objeto real. Explica qué aprendiste del proceso y qué cambiarías en la siguiente impresión. La entrega debe permitir que otra persona repita tu comprobación."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Preparar las dos estaciones y rotar roles.",
+    "Medir y registrar interfaces antes de corregirlas.",
+    "Presentar nariz, cuerpo y aletas sin montaje definitivo.",
+    "Actualizar archivos y acordar una comprobación por pendiente."
+  ],
+  "qas": [
+    [
+      "¿Una pieza que entra en el útil ya está aceptada para vuelo?",
+      "No. El encaje es una comprobación parcial."
+    ],
+    [
+      "¿Qué incluye una masa medida útil?",
+      "Identificador, unidad y descripción de las piezas o acabado incluidos."
+    ],
+    [
+      "¿Qué se conserva al corregir?",
+      "Dato anterior, cambio y nueva comprobación."
+    ]
+  ],
+  "delivery": "Ficha completa, fotografías, plano y .ork corregidos.",
+  "refs": [
+    "PR1",
+    "OR1",
+    "NASA"
+  ],
+  "opening": "Pon una pieza y su plano sobre la mesa: pregunta qué podríamos comprobar antes de usar pegamento.",
+  "hours": 4,
+  "mode": "Presencial",
+  "references": {
+    "PR1": [
+      "Prusa Research",
+      "Modeling with 3D printing in mind",
+      "https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "NASA": [
+      "NASA Glenn",
+      "Model Rockets",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/model-rockets/"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

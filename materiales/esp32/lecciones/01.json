@@ -1,0 +1,325 @@
+{
+  "n": 1,
+  "week": 1,
+  "title": "Electrónica con ESP32: del circuito al primer programa",
+  "goal": "Reconocer la placa clásica y construir una salida LED cuya corriente pueda explicar.",
+  "mission": "Un indicador de estado en una estación de drones debe comunicar una condición mediante un circuito y un programa que se entiendan.",
+  "projects": [
+    1
+  ],
+  "pages": [
+    {
+      "title": "Qué estamos construyendo",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El primer objeto del curso es un LED externo con su resistencia. Parece sencillo, pero reúne las cuatro decisiones que repetiremos: de dónde sale la energía, por dónde circula la corriente, qué señal controla el comportamiento y cómo comprobaremos el resultado. El ESP32 es un microcontrolador: ejecuta instrucciones y dispone de periféricos para relacionarlas con entradas y salidas. La placa de desarrollo añade alimentación, conexiones y una interfaz de programación. El módulo metálico y el conector USB cumplen funciones diferentes."
+        },
+        {
+          "type": "image",
+          "name": "proyecto1",
+          "width": 145,
+          "caption": "MECRO, proyecto 01. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+        },
+        {
+          "type": "p",
+          "text": "Identifica el texto del módulo antes de elegir la placa en el entorno. El curso usa ESP32 clásico, confirmado para el kit MECRO. Una placa S3 requiere otra selección y otro mapa de pines. En el protoboard, los grupos de contactos y los rieles de alimentación no son todos continuos. Con el circuito desconectado, sigue con el dedo el camino GPIO, resistencia, LED y GND. Si el camino termina en una fila sin continuidad, ningún cambio de código lo completará."
+        },
+        {
+          "type": "p",
+          "text": "La referencia GND permite interpretar el voltaje de una señal. Medir 3,3 V significa medir una diferencia respecto a esa referencia; no significa que el pin pueda entregar cualquier corriente. Un GPIO representa una orden de baja potencia. Durante las primeras prácticas separaremos esa función de la energía que necesitan servos y motores. Esta distinción será fundamental al reconocer el controlador, los ESC y la batería de un dron."
+        }
+      ]
+    },
+    {
+      "title": "Voltaje, corriente y resistencia con unidades",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El voltaje expresa diferencia de potencial y se mide en voltios. La corriente expresa flujo de carga y se mide en amperios. La resistencia relaciona ambos en un elemento resistivo bajo el modelo que usamos en clase. La analogía del agua ayuda a imaginar presión y caudal, pero el circuito se resuelve con magnitudes eléctricas. La corriente se expresa con frecuencia en miliamperios: 5 mA son 0,005 A. Convertir correctamente la unidad evita seleccionar una resistencia mil veces distinta."
+        },
+        {
+          "type": "equation",
+          "tex": "V_R=IR,\\qquad P_R=V_R I=I^2R",
+          "text": "La ley de Ohm se aplica a la resistencia. El LED tiene una caída de tensión propia; no es una resistencia ideal.",
+          "image": "assets/eq_01_1_1.png"
+        },
+        {
+          "type": "table",
+          "title": "Magnitudes que vamos a distinguir",
+          "headers": [
+            "Magnitud",
+            "Unidad",
+            "Qué pregunta responde"
+          ],
+          "rows": [
+            [
+              "Voltaje",
+              "V",
+              "Diferencia entre dos nodos"
+            ],
+            [
+              "Corriente",
+              "A o mA",
+              "Cuánta carga circula"
+            ],
+            [
+              "Resistencia",
+              "ohm",
+              "Relación V/I del resistor"
+            ],
+            [
+              "Potencia",
+              "W",
+              "Energía por segundo"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El LED tiene polaridad y una curva corriente–tensión. Para el cálculo inicial tomamos una caída de tensión aproximada del componente y dejamos el resto a la resistencia. Esa aproximación debe declararse: un LED rojo y uno azul no tienen necesariamente la misma caída. El valor que medimos en el GPIO también puede diferir del ideal cuando entrega corriente. El cálculo sirve para proponer el circuito y la medición sirve para contrastar la propuesta."
+        }
+      ]
+    },
+    {
+      "title": "Un cálculo que decide una pieza",
+      "blocks": [
+        {
+          "type": "case",
+          "title": "LED rojo del ejercicio",
+          "problem": "Supón GPIO de 3,3 V, LED con caída aproximada de 2,0 V y objetivo de 5 mA. ¿Qué resistencia propones?",
+          "answer": "La resistencia recibe 1,3 V. R = 1,3 / 0,005 = 260 ohm. Con 330 ohm, la corriente ideal sería 1,3 / 330 = 3,94 mA. La potencia del resistor sería aproximadamente 5,1 mW. Son cifras del modelo de aula; se comprueban con las piezas reales."
+        },
+        {
+          "type": "equation",
+          "tex": "R=\\frac{V_{GPIO}-V_F}{I},\\qquad I_{330}=\\frac{3.3-2.0}{330}\\approx3.94\\,\\mathrm{mA}",
+          "text": "Se elige un valor comercial razonable y se comprueba el conjunto, sin tratar el límite absoluto de un pin como corriente de trabajo.",
+          "image": "assets/eq_01_2_1.png"
+        },
+        {
+          "type": "p",
+          "text": "Medimos tensión en paralelo con el componente. Para comenzar basta medir la caída en la resistencia y calcular su corriente. No se coloca el multímetro en modo corriente directamente entre alimentación y GND: esa conexión altera radicalmente el circuito. El docente muestra las puntas, la función y los puntos de medida antes de energizar. El registro debe indicar qué dos nodos se compararon, porque “medí 1,3 V” sin esa referencia no explica el circuito."
+        },
+        {
+          "type": "table",
+          "title": "Ficha del primer LED",
+          "headers": [
+            "Dato",
+            "Predicción de aula",
+            "Dato del equipo"
+          ],
+          "rows": [
+            [
+              "Resistencia",
+              "330 ohm",
+              "Leer y medir"
+            ],
+            [
+              "Caída en resistor",
+              "1,3 V ideal",
+              "Medir nodos"
+            ],
+            [
+              "Corriente",
+              "3,94 mA ideal",
+              "Calcular con V/R"
+            ],
+            [
+              "Estado lógico",
+              "HIGH / LOW",
+              "Observar salida"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "El recorrido del programa hasta el pin",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "VS Code es el editor; PlatformIO organiza el proyecto y sus herramientas; Arduino es el framework que aporta funciones de programación. El archivo platformio.ini declara placa, plataforma y bibliotecas. El curso incluye una versión de referencia fijada para ESP32 clásico. Compilar convierte el programa en firmware; cargarlo lo transfiere a la placa; abrir el monitor serie permite observar mensajes. Un error de compilación y un circuito mal conectado requieren comprobaciones diferentes."
+        },
+        {
+          "type": "code",
+          "title": "Fragmento del primer ejemplo",
+          "text": "constexpr uint8_t LED = 23;\nuint32_t last = 0;\nbool on = false;\nvoid setup() {\n  pinMode(LED, OUTPUT);\n}\nvoid loop() {\n  uint32_t now = millis();\n  if (uint32_t(now-last) >= 500) {\n    last = now;\n    on = !on;\n    digitalWrite(LED, on);\n  }\n}",
+          "short": "constexpr uint8_t LED = 23;\nuint32_t last = 0;\nbool on = false;\nvoid setup() {\n  pinMode(LED, OUTPUT);\n}\nvoid loop() {\n  uint32_t now = millis();\n  if (uint32_t(now-last) >= 500) {\n    last = now;\n    on = !on;\n    digitalWrite(LED, on);\n  }\n}"
+        },
+        {
+          "type": "p",
+          "text": "setup() prepara la ejecución y loop() vuelve a evaluar la lógica. El nombre LED ayuda a relacionar el esquema con un GPIO concreto. La función digitalWrite() ordena un nivel; el camino eléctrico determina qué ocurre con ese nivel. La versión completa c01_led también emite mensajes. En esta clase reconocemos el patrón temporal; en la tercera explicaremos por qué permite atender otros eventos. Antes de cambiarlo, predice cuánto dura cada estado y cuánto dura el ciclo completo."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio: medir, ejecutar y explicar",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Identifica módulo, placa y GPIO23. Revisa la configuración de referencia antes de compilar c01_led.",
+            "Dibuja el camino de corriente. Coloca LED y resistencia con la alimentación desconectada.",
+            "Comprueba continuidad del protoboard y polaridad. Pide una revisión cruzada del esquema.",
+            "Ejecuta primero la versión equivalente en Wokwi y localiza qué variable representa cada componente.",
+            "En hardware, mide tensión en el resistor y calcula corriente. Anota qué valor de resistencia utilizaste.",
+            "Cambia el tiempo de 500 a 250 ms. Predice el periodo total antes de observarlo.",
+            "Conserva esquema, código y una explicación individual del resultado."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Un parpadeo correcto demuestra que esa configuración produjo el comportamiento observado. Para aprender más, cambia una sola condición: tiempo, valor de resistencia o pin documentado. La misma comprobación se hace con el código y con el circuito delante. Si el LED permanece apagado, comienza por alimentación, referencia, polaridad y camino de corriente. Si los mensajes cambian pero la luz no, ya existe una pista que permite separar la ejecución del programa de su salida física."
+        }
+      ]
+    },
+    {
+      "title": "Aplicación a drones y lectura de investigación",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un sistema UAV utiliza indicadores para distinguir alimentación, enlace, registro o estado del equipo. Un LED aislado puede indicar que hay energía, pero el software puede usarlo para comunicar otra condición. En una estación de banco, un patrón lento podría significar espera y otro representar una lectura pendiente. Esa convención debe estar documentada: el color no explica automáticamente el estado. El alumno propone un indicador para una función del mercado de MECRO y describe qué señal necesitaría para activarlo."
+        },
+        {
+          "type": "table",
+          "title": "Del circuito sencillo al sistema",
+          "headers": [
+            "Hoy",
+            "Aplicación posterior",
+            "Qué añade el sistema"
+          ],
+          "rows": [
+            [
+              "GPIO y LED",
+              "Indicador de estado",
+              "Condición documentada"
+            ],
+            [
+              "GND y tensión",
+              "Interfaz de sensor",
+              "Niveles compatibles"
+            ],
+            [
+              "Resistor calculado",
+              "Etapa de salida",
+              "Balance de potencia"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Para investigar, localiza en la guía de tu placa la función del USB, de EN y de BOOT. Distingue alimentación del módulo y señal de programación. Después revisa la ficha de un LED concreto y busca la condición de corriente a la que se especifica su caída típica. El objetivo no es memorizar toda la hoja de datos, sino reconocer que una cifra técnica viene acompañada de una condición."
+        },
+        {
+          "type": "case",
+          "title": "Comprobación final",
+          "problem": "¿HIGH equivale a una fuente ideal que alimenta cualquier carga?",
+          "answer": "HIGH expresa un estado de salida dentro de límites eléctricos. La corriente y la carga deben ser compatibles con el GPIO y con el circuito."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar la placa y seguir el camino de corriente antes de abrir el programa.",
+    "Resolver el LED de 330 ohm y comparar con el resistor disponible.",
+    "Ejecutar c01_led y modificar su periodo.",
+    "Registrar una medida y explicar la relación V/R."
+  ],
+  "qas": [
+    [
+      "¿Dónde se aplica V = IR?",
+      "En el resistor del modelo; el LED se representa con su caída de tensión aproximada."
+    ],
+    [
+      "¿500 ms por cambio producen un ciclo de 500 ms?",
+      "No. Encendido y apagado duran 500 ms cada uno: el ciclo completo dura 1 s."
+    ],
+    [
+      "¿Qué confirma compilar?",
+      "Que el código se pudo construir para la configuración elegida; el circuito todavía se comprueba aparte."
+    ]
+  ],
+  "delivery": "Esquema del LED, cálculo con unidades, primer firmware y registro de observación.",
+  "refs": [
+    "MECRO",
+    "BOARD",
+    "GPIO",
+    "PIO",
+    "MIT"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar la placa y seguir el camino de corriente antes de abrir el programa.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "BOARD": [
+      "Espressif Systems",
+      "ESP32-DevKitC V4: guía de la placa",
+      "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html"
+    ],
+    "GPIO": [
+      "Espressif Systems",
+      "GPIO y restricciones de ESP32 clásico",
+      "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+    ],
+    "PIO": [
+      "PlatformIO",
+      "Plataforma Espressif 32, versión fijada 6.9.0",
+      "https://github.com/platformio/platform-espressif32/blob/v6.9.0/platform.json"
+    ],
+    "MIT": [
+      "Agarwal y Lang / MIT OpenCourseWare",
+      "6.002 Circuits and Electronics; texto: Foundations of Analog and Digital Electronic Circuits (2005)",
+      "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

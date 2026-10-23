@@ -1,0 +1,349 @@
+{
+  "n": 6,
+  "week": 3,
+  "title": "Motores, control y comprobaciones antes del taller",
+  "goal": "Distinguir número, sentido y hélice de cada motor y explicar las comprobaciones de un sistema de control.",
+  "mission": "Una aeronave se prepara comprobando correspondencias entre el objeto, la configuración y la respuesta esperada.",
+  "pages": [
+    {
+      "title": "Tres preguntas por motor",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Qué motor se activa, en qué sentido gira y qué hélice le corresponde son tres preguntas distintas. Corregir una no demuestra las otras. La geometría de un quad y su sistema de control usan una asignación de salidas; el número de motor se interpreta según firmware y configuración. Por eso se conserva el esquema que pertenece al equipo mostrado y se marca su frente antes de comparar."
+        },
+        {
+          "type": "image",
+          "name": "bf_props",
+          "width": 145,
+          "caption": "Referencia Betaflight de sentidos de giro. Se interpreta junto con el mezclador y la configuración reales; no sustituye la identificación de cada salida. Fuente: Betaflight, documentación oficial. https://betaflight.com/docs/wiki/getting-started/setup-guide"
+        },
+        {
+          "type": "table",
+          "title": "Pruebas que se mantienen separadas",
+          "headers": [
+            "Pregunta",
+            "Evidencia",
+            "Condición de banco"
+          ],
+          "rows": [
+            [
+              "¿Cuál se activa?",
+              "Salida y posición observadas",
+              "Prueba del docente sin hélices"
+            ],
+            [
+              "¿En qué sentido gira?",
+              "Sentido de ese motor",
+              "Comprobación individual"
+            ],
+            [
+              "¿Qué hélice corresponde?",
+              "Forma, orientación y sentido",
+              "Revisión con energía desconectada"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Cambiar una opción de dirección en la pantalla no demuestra por sí solo que el ESC haya cambiado el giro físico. El resultado se observa y se registra. La hélice no se instala para investigar con la mano si una salida empuja. La sesión 7 completa el montaje; las pruebas energizadas usan el procedimiento docente y el área de banco controlada."
+        }
+      ]
+    },
+    {
+      "title": "ESC, protocolo y prueba de salidas",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "bf_motors",
+          "width": 145,
+          "caption": "Pestaña Motors de Betaflight. Captura oficial de referencia; las pruebas físicas requieren el equipo identificado y las hélices retiradas. Fuente: Betaflight, documentación oficial. https://betaflight.com/docs/wiki/app/motors-tab"
+        },
+        {
+          "type": "p",
+          "text": "El ESC interpreta órdenes del controlador y gobierna la conmutación del motor. PWM analógico y DShot no se configuran como si fueran el mismo protocolo. Los endpoints de un sistema analógico pueden necesitar el procedimiento correspondiente; no se aplica automáticamente una calibración de gas analógica a DShot. La disponibilidad de telemetría también depende del firmware y hardware del ESC."
+        },
+        {
+          "type": "p",
+          "text": "Primero se confirma compatibilidad de protocolo y conexión. Después se comprueba cada salida con el método del fabricante y del firmware. El curso no prescribe un porcentaje universal de prueba ni una frecuencia única para todos los equipos. La evidencia es una tabla de posición, salida y sentido, obtenida en el banco que prepara Gerard."
+        },
+        {
+          "type": "case",
+          "title": "Una opción y una observación",
+          "problem": "Se cambió “dirección invertida” en el mezclador. ¿Podemos afirmar que todos los motores físicos invirtieron su giro?",
+          "answer": "No. La opción y el giro observado pertenecen a comprobaciones relacionadas, pero distintas. Debe verificarse cada motor y conservar la correspondencia con el esquema."
+        }
+      ]
+    },
+    {
+      "title": "Control: referencia, medición y corrección",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un sistema de control compara una referencia con una medición o estimación y genera una acción. En un quad, la IMU aporta información de movimiento; el firmware organiza la estabilización y distribuye las órdenes entre motores. Este curso enseña a reconocer esa cadena y a identificar errores de montaje que la contradicen. No pretende diseñar un autopiloto desde cero dentro de ocho sesiones."
+        },
+        {
+          "type": "equation",
+          "tex": "e=\\phi_{\\mathrm{ref}}-\\hat\\phi,\\qquad u_P=K_Pe",
+          "text": "Ejemplo proporcional de aula. Las unidades y el signo deben declararse. No es la ecuación completa del controlador implementado en Betaflight o ArduPilot.",
+          "image": "assets/eq_06_2_1.png"
+        },
+        {
+          "type": "case",
+          "title": "Una corrección con unidades",
+          "problem": "Para referencia 5° y estimación 3°, con Kp = 2 unidades/°, ¿cuál es la acción proporcional del ejemplo?",
+          "answer": "El error es 2° y la acción es 4 unidades. El signo físico depende de la convención y de cómo se asignen las salidas. No se traducen esas unidades directamente a un porcentaje de motor."
+        },
+        {
+          "type": "table",
+          "title": "Qué aporta cada término",
+          "headers": [
+            "Término",
+            "Idea introductoria",
+            "Qué revisar"
+          ],
+          "rows": [
+            [
+              "P",
+              "Respuesta al error presente",
+              "Signo y ganancia"
+            ],
+            [
+              "I",
+              "Acumulación del error en el tiempo",
+              "Saturación y condición de uso"
+            ],
+            [
+              "D",
+              "Respuesta al cambio de una variable",
+              "Ruido y filtrado"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una vibración no se diagnostica cambiando ganancias al azar. Primero se revisan hélices, uniones, montaje, ejes, configuración y registro. PID y filtros requieren un bloque posterior de ajuste con el equipo identificado; aquí se conservan como conceptos que ayudan a comprender la puesta en marcha."
+        }
+      ]
+    },
+    {
+      "title": "El mismo principio en el dron con autopiloto",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "ap_quad",
+          "width": 145,
+          "caption": "Esquema QUAD X de ArduPilot. Frente, números y letras de prueba se leen en esta referencia, sin copiar la numeración de Betaflight. Fuente: ArduPilot, documentación CC BY-SA 3.0. https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+        },
+        {
+          "type": "p",
+          "text": "Pixhawk describe una familia de hardware; ArduCopter es el firmware para multirrotores de ArduPilot; Mission Planner es la estación de tierra utilizada para configuración y observación. El equipo grande del curso muestra cómo se añaden módulo de potencia, GPS, brújula y telemetría según sus componentes. No todas las placas o versiones tienen las mismas conexiones ni funciones."
+        },
+        {
+          "type": "p",
+          "text": "Se presenta el esquema de ArduPilot y se contrasta con el equipo pequeño. El principio es común: sensor orientado, mando interpretado y salidas correspondientes. La numeración y los parámetros cambian. Se consultan también selección de bastidor, calibraciones y estado previo al armado del equipo real; los mensajes de condición se investigan en lugar de ocultarlos para que la demostración continúe."
+        },
+        {
+          "type": "note",
+          "text": "GPS Rescue de Betaflight y los modos RTL/Auto de ArduPilot tienen alcances y requisitos diferentes. Tener un módulo GPS no convierte ambas plataformas en la misma herramienta de navegación."
+        }
+      ]
+    },
+    {
+      "title": "Enlace perdido y decisiones de configuración",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La respuesta a una pérdida de mando se define por el sistema y por la operación. El receptor y la controladora deben comunicar esa condición de forma coherente. Una recepción que conserva valores aparentemente normales puede ocultar el problema a la FC. Se consulta el manual de la combinación y se comprueba la condición en el banco preparado, sin hélices y sin trasladarla a un ensayo de pérdida de enlace en vuelo."
+        },
+        {
+          "type": "table",
+          "title": "Revisión antes de los presenciales",
+          "headers": [
+            "Elemento",
+            "Qué debe quedar identificado"
+          ],
+          "rows": [
+            [
+              "Armado / desarmado",
+              "Control y estado del sistema"
+            ],
+            [
+              "Canales y modos",
+              "Asignación y respuesta previstas"
+            ],
+            [
+              "Ausencia de enlace",
+              "Indicación y comportamiento documentados"
+            ],
+            [
+              "Energía y batería",
+              "Configuración y medida coherentes"
+            ],
+            [
+              "Salidas",
+              "Motor, posición y sentido registrados"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Completa la tabla de motores desde el esquema específico.",
+            "Explica una discrepancia entre salida y posición, y otra entre sentido y hélice.",
+            "Distingue la prueba de enlace de la prueba de motores.",
+            "Resuelve la acción proporcional del caso y relaciona error de ejes con respuesta equivocada.",
+            "Prepara las preguntas que observarás en el taller de ensamblaje."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Al terminar la sexta sesión, el expediente debe permitir anticipar las comprobaciones, no declarar un vehículo apto sin examinarlo. Las sesiones 7 y 8 convierten esas expectativas en observaciones y diagnóstico."
+        }
+      ]
+    },
+    {
+      "title": "Qué se simula y qué se comprueba en el objeto",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Mission Planner puede utilizar SITL, una simulación de software de ArduPilot. Sirve para observar estados y explorar una misión de ejemplo sin usar una aeronave física. El modelo y la versión de simulación también se registran: la documentación indica que esta ruta puede utilizar código de desarrollo. Sus resultados no prueban la calidad de una soldadura, la alimentación o la respuesta de un ESC del dron real."
+        },
+        {
+          "type": "table",
+          "title": "Herramienta y evidencia",
+          "headers": [
+            "Recurso",
+            "Qué permite estudiar",
+            "Qué se comprueba aparte"
+          ],
+          "rows": [
+            [
+              "Betaflight App",
+              "Configuración y estado de una FC",
+              "Dinámica real y montaje"
+            ],
+            [
+              "SITL + Mission Planner",
+              "Comportamiento del modelo de software",
+              "Hardware y entorno físico"
+            ],
+            [
+              "Banco sin hélices",
+              "Conexiones y correspondencias observadas",
+              "Vuelo del conjunto"
+            ],
+            [
+              "Demostración de vuelo",
+              "Comportamiento observado en ese caso",
+              "Otras condiciones no ensayadas"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La simulación es una extensión guiada y se prepara antes de clase. El docente conserva un caso funcional y una alternativa de capturas si una descarga falla. La ruta principal no depende de que veinticinco alumnos instalen y solucionen simultáneamente un entorno nuevo durante la demostración. El siguiente bloque se concentra en el ensamblaje visible de los equipos de MECRO."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Distinguir motor activado, giro y hélice antes de la prueba.",
+    "Mostrar una pantalla Motors y explicar sus correspondencias físicas.",
+    "Resolver el ejemplo de error y acción proporcional.",
+    "Contrastar Betaflight, ArduPilot y SITL sin mezclar sus evidencias."
+  ],
+  "qas": [
+    [
+      "¿Se copia el orden de motores entre firmwares?",
+      "No. Se comprueba el esquema, el bastidor y la configuración de cada uno."
+    ],
+    [
+      "¿DShot exige por defecto la calibración analógica del gas?",
+      "No. Se sigue el procedimiento específico del protocolo y ESC compatibles."
+    ],
+    [
+      "¿Una simulación valida una soldadura?",
+      "No. El hardware requiere sus propias comprobaciones."
+    ]
+  ],
+  "delivery": "Tabla de motores y modos, caso de control resuelto y plan de comprobaciones.",
+  "refs": [
+    "MOTORS",
+    "APMOTOR",
+    "APCONFIG",
+    "FAIL",
+    "GPS",
+    "SITL",
+    "BOOK"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Distinguir motor activado, giro y hélice antes de la prueba.",
+  "references": {
+    "MOTORS": [
+      "Betaflight",
+      "Motors Tab",
+      "https://betaflight.com/docs/wiki/app/motors-tab"
+    ],
+    "APMOTOR": [
+      "ArduPilot",
+      "Conexión, orden y sentido de motores",
+      "https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+    ],
+    "APCONFIG": [
+      "ArduPilot",
+      "Mandatory Hardware Configuration",
+      "https://ardupilot.org/copter/docs/configuring-hardware.html"
+    ],
+    "FAIL": [
+      "Betaflight",
+      "Failsafe",
+      "https://betaflight.com/docs/wiki/guides/current/Failsafe"
+    ],
+    "GPS": [
+      "Betaflight",
+      "GPS y funciones asociadas",
+      "https://betaflight.com/docs/wiki/guides/current/Gps"
+    ],
+    "SITL": [
+      "ArduPilot",
+      "Mission Planner Simulation",
+      "https://ardupilot.org/planner/docs/mission-planner-simulation.html"
+    ],
+    "BOOK": [
+      "Beard y McLain",
+      "Small Unmanned Aircraft: Theory and Practice, Princeton University Press, 2012; referencia de profundización en dinámica y control",
+      "https://press.princeton.edu/books/hardcover/9780691149219/small-unmanned-aircraft"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

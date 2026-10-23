@@ -1,0 +1,325 @@
+{
+  "n": 2,
+  "week": 1,
+  "title": "Seleccionar motor, hélice, ESC y batería con criterio",
+  "goal": "Justificar una cadena de propulsión compatible mediante masa, empuje, corriente y energía.",
+  "mission": "La lista de compra debe explicar por qué las piezas funcionan juntas y qué ensayo del fabricante respalda la selección.",
+  "pages": [
+    {
+      "title": "El conjunto se selecciona como una cadena",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El motor no produce una cifra única de empuje. La tabla de ensayo debe identificar hélice, tensión, corriente y condiciones. Cambiar una de esas condiciones modifica la carga. El ESC debe admitir la alimentación y el esfuerzo eléctrico y térmico del conjunto; la batería y sus conexiones deben sostener la demanda prevista. La selección funciona de fuera hacia dentro: misión y masa, hélice que cabe, combinación ensayada, alimentación y control compatibles."
+        },
+        {
+          "type": "table",
+          "title": "Datos que deben viajar juntos",
+          "headers": [
+            "Elemento",
+            "Dato necesario",
+            "Error frecuente"
+          ],
+          "rows": [
+            [
+              "Motor",
+              "Tamaño, KV, tabla y límites",
+              "Elegir solo por KV"
+            ],
+            [
+              "Hélice",
+              "Diámetro, paso, palas y sentido",
+              "Usar solo diámetro"
+            ],
+            [
+              "ESC",
+              "Tensión, corriente y protocolo",
+              "Tomar ráfaga como continua"
+            ],
+            [
+              "Batería",
+              "Química, S, capacidad y masa",
+              "Suponer que más mAh siempre ayuda"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "KV aproxima la velocidad sin carga por voltio bajo una convención del motor. No es una unidad de potencia ni una promesa del régimen con hélice. El tamaño del estator y la construcción también importan. El paso de hélice describe una geometría; tampoco garantiza una velocidad de avance del dron. Estas cifras permiten comparar fichas, pero la selección debe volver a una prueba de la combinación real."
+        },
+        {
+          "type": "p",
+          "text": "Para los tres equipos de MECRO se utilizará la misma plantilla. Una ficha de 5 pulgadas no se escala multiplicando todas sus cifras por 12/5. La alimentación, el soporte, el empuje y el espacio cambian de forma distinta."
+        }
+      ]
+    },
+    {
+      "title": "Un presupuesto de empuje que se puede explicar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Primero se estima la masa de despegue con todos los componentes. Después se define una relación de empuje máximo a peso como hipótesis de diseño. En aula usaremos 2 para aprender el método. Esa cifra no es una ley universal ni una garantía de vuelo: la misión, las condiciones y la respuesta del vehículo requieren su propia justificación."
+        },
+        {
+          "type": "equation",
+          "tex": "T_{\\mathrm{max,total}}=k\\,mg,\\qquad T_{\\mathrm{max,motor}}=\\frac{k\\,mg}{4}",
+          "text": "k es una hipótesis declarada. Si se expresa la tabla en gramos fuerza, se mantiene esa unidad durante la comparación y se diferencia de gramos de masa.",
+          "image": "assets/eq_02_1_1.png"
+        },
+        {
+          "type": "case",
+          "title": "Quad de 800 g del ejercicio",
+          "problem": "Con cuatro motores y k = 2, ¿qué empuje máximo por motor buscamos en la tabla?",
+          "answer": "El objetivo total es 1600 gf y por motor 400 gf. En estacionario ideal corresponde aproximadamente a 200 gf por motor. 400 gf equivalen aproximadamente a 3,92 N. Son objetivos de selección del caso, no medidas de un equipo MECRO."
+        },
+        {
+          "type": "p",
+          "text": "La reserva permite distinguir la condición de sostenerse de la capacidad de cambiar el movimiento. No basta con que la tabla alcance 400 gf una sola vez: importa cómo se obtuvo, durante cuánto tiempo y con qué consumo y temperatura. Además, el peso final puede ser mayor que la estimación. Una revisión del presupuesto evita que la batería y los soportes aparezcan al final como masa sorpresa."
+        }
+      ]
+    },
+    {
+      "title": "Cómo leer una tabla de ensayo",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Tabla sintética para aprender la comparación",
+          "headers": [
+            "Caso a 22,2 V",
+            "Empuje / gf",
+            "Corriente / A"
+          ],
+          "rows": [
+            [
+              "A · combinación de aula",
+              "450",
+              "6"
+            ],
+            [
+              "B · combinación de aula",
+              "600",
+              "10"
+            ],
+            [
+              "C · combinación de aula",
+              "750",
+              "16"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Estas filas son datos didácticos y no recomiendan un producto. Cada una representa una combinación diferente bajo una tensión declarada. Si el requisito cambia a 500 gf, A no alcanza el objetivo mostrado; B y C sí lo alcanzan. Esa primera selección todavía no compara masa, régimen térmico, dimensiones y disponibilidad. El componente con más empuje máximo no es automáticamente la mejor elección."
+        },
+        {
+          "type": "equation",
+          "tex": "P_{\\mathrm{in}}=VI,\\qquad \\eta_{T,\\mathrm{comparativa}}=\\frac{T_{\\mathrm{gf}}}{P_{\\mathrm{in}}}",
+          "text": "gf/W es un indicador comparativo de empuje por potencia en una condición de ensayo; no es eficiencia energética adimensional.",
+          "image": "assets/eq_02_2_2.png"
+        },
+        {
+          "type": "case",
+          "title": "B frente a C",
+          "problem": "¿Qué potencia eléctrica y qué gf/W resultan de las filas B y C?",
+          "answer": "B: 22,2 × 10 = 222 W y 600/222 ≈ 2,70 gf/W. C: 22,2 × 16 = 355,2 W y 750/355,2 ≈ 2,11 gf/W. La comparación exige conservar condiciones; no describe por sí sola todo el rango de operación."
+        },
+        {
+          "type": "p",
+          "text": "Investiga dónde publicó el fabricante el ensayo y anota su referencia. Si una tienda solo muestra una cifra de empuje sin hélice o tensión, el expediente conserva esa ausencia y busca el dato primario."
+        },
+        {
+          "type": "image",
+          "name": "propulsion_comparacion",
+          "width": 145,
+          "caption": "Tabla sintética a 22,2 V: tres combinaciones de aula. La comparación necesita condiciones de ensayo identificadas."
+        }
+      ]
+    },
+    {
+      "title": "Energía y autonomía estimada",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La capacidad en Ah expresa carga eléctrica; al multiplicarla por una tensión nominal obtenemos una aproximación de energía en Wh. La energía aprovechable depende de condiciones de uso. Para el ejercicio reservamos 20 % y suponemos potencia media constante. Es un modelo transparente para comparar, no una predicción validada de tiempo de vuelo. La tensión cambia bajo carga y la masa de otra batería también cambia la demanda."
+        },
+        {
+          "type": "equation",
+          "tex": "E_{\\mathrm{nom}}=V_{\\mathrm{nom}}C_{\\mathrm{Ah}},\\qquad t_{\\mathrm{min}}\\approx60\\frac{f E_{\\mathrm{nom}}}{P_{\\mathrm{media}}}",
+          "text": "f es la fracción aprovechable asumida. Este modelo no sustituye un registro real de consumo y las reservas de la operación.",
+          "image": "assets/eq_02_3_1.png"
+        },
+        {
+          "type": "case",
+          "title": "Batería del ejercicio",
+          "problem": "Una batería convencional 6S de 1,3 Ah tiene tensión nominal aproximada de 22,2 V. Con f = 0,8 y 250 W medios, ¿qué tiempo arroja el modelo?",
+          "answer": "La energía nominal es 28,86 Wh; la fracción del ejercicio es 23,088 Wh. El tiempo resulta 60 × 23,088 / 250 ≈ 5,54 min. A 150 W serían 9,24 min; a 350 W, 3,96 min. Son escenarios calculados."
+        },
+        {
+          "type": "p",
+          "text": "S indica celdas en serie; no todas las químicas tienen la misma tensión por celda. Para una LiPo convencional se distingue nominal de plena carga, y se consulta el paquete real. La cifra C comercial tampoco elimina la necesidad de comprobar corriente, temperatura, conectores y caída de tensión del conjunto."
+        },
+        {
+          "type": "image",
+          "name": "energia_comparacion",
+          "width": 145,
+          "caption": "6S convencional, 1,3 Ah, 22,2 V nominales y fracción aprovechable asumida de 0,8. No son tiempos de vuelo medidos."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de selección y descarte",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Completa la masa prevista del caso y nombra las estimaciones.",
+            "Declara una relación empuje/peso y calcula objetivo por motor con unidades.",
+            "Busca una ficha primaria de motor con la hélice y tensión identificadas. No extrapoles una fila incompleta.",
+            "Comprueba ESC, batería, conector y regulador contra la alimentación y corriente previstas.",
+            "Compara dos alternativas: cuál cumple, cuál se descarta y qué dato falta.",
+            "Calcula una autonomía de escenario con potencia media declarada y explica sus límites.",
+            "Entrega la lista con modelo, revisión, cantidad y fuente; deja el precio separado de la compatibilidad."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El docente resuelve primero el caso sintético. Después muestra cómo se identifica la condición en una tabla de fabricante del motor que realmente posee. Los estudiantes sin hardware pueden completar la decisión documental. El resultado no es una compra automática: es un argumento revisable que diferencia la evidencia disponible de lo que falta confirmar en banco."
+        },
+        {
+          "type": "p",
+          "text": "Si se consulta un precio, se registra fecha, moneda y contenido del conjunto. Un motor suelto y una combinación con ESC no son ofertas equivalentes. El precio no debe ocultar la revisión de tensión o montaje. Este paquete no fija precios actuales de componentes."
+        }
+      ]
+    },
+    {
+      "title": "La compra que queda justificada",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Antes de cerrar una combinación",
+          "headers": [
+            "Pregunta",
+            "Qué conserva el expediente"
+          ],
+          "rows": [
+            [
+              "¿Cabe y se monta?",
+              "Plano, eje y tornillería"
+            ],
+            [
+              "¿Alcanza el objetivo?",
+              "Fila de ensayo y cálculo"
+            ],
+            [
+              "¿Admite la energía?",
+              "Tensión máxima y demanda"
+            ],
+            [
+              "¿Se puede configurar?",
+              "Protocolo y target"
+            ],
+            [
+              "¿Qué queda pendiente?",
+              "Prueba concreta o dato primario"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Un error útil de clase consiste en proponer un motor aparentemente correcto con una tensión de ensayo distinta de la batería elegida. El alumno debe detectar que comparar números sin sus condiciones no resuelve la selección. Otro consiste en aumentar capacidad sin actualizar masa. Ambas situaciones enseñan a mantener coherente la lista completa."
+        },
+        {
+          "type": "p",
+          "text": "Para ampliar, compara cómo cambian diámetro y paso dentro de una misma familia de hélices y busca la tabla correspondiente del fabricante. No se pide ensayar hélices en una mesa abierta. El trabajo inicial consiste en interpretar documentación y preparar el banco docente adecuado. En la siguiente sesión construiremos el mapa de alimentación que une las piezas seleccionadas."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Resolver el presupuesto de 800 g antes de abrir una tienda.",
+    "Comparar las tres filas sintéticas con unidades y condiciones.",
+    "Calcular energía y tres escenarios de potencia media.",
+    "Revisar una combinación propuesta y un descarte argumentado."
+  ],
+  "qas": [
+    [
+      "¿KV indica potencia del motor?",
+      "No. Relaciona régimen sin carga y tensión bajo su convención; falta el conjunto y su ensayo."
+    ],
+    [
+      "¿C comercial sustituye comprobar corriente y conexiones?",
+      "No. El conjunto necesita límites y evidencia bajo condiciones reales."
+    ],
+    [
+      "¿Duplicar mAh duplica siempre el tiempo?",
+      "No. Cambian masa, demanda y condiciones; hay que revisar el modelo y medir."
+    ]
+  ],
+  "delivery": "Lista de componentes justificada, presupuesto de masa/empuje y escenario de energía.",
+  "refs": [
+    "AP",
+    "MOTORS",
+    "LIPO",
+    "VOLT",
+    "BOOK"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Resolver el presupuesto de 800 g antes de abrir una tienda.",
+  "references": {
+    "AP": [
+      "ArduPilot",
+      "Copter: First Time Setup",
+      "https://ardupilot.org/copter/docs/initial-setup.html"
+    ],
+    "MOTORS": [
+      "Betaflight",
+      "Motors Tab",
+      "https://betaflight.com/docs/wiki/app/motors-tab"
+    ],
+    "LIPO": [
+      "Tattu / Gens Ace",
+      "Manual de baterías UAV y manejo del paquete",
+      "https://genstattu.com/content/instock/Tattu-Soft-UAV-pack-Manual.pdf"
+    ],
+    "VOLT": [
+      "Adafruit",
+      "Li-Ion & LiPoly Batteries: Voltages",
+      "https://learn.adafruit.com/li-ion-and-lipoly-batteries/voltages"
+    ],
+    "BOOK": [
+      "Beard y McLain",
+      "Small Unmanned Aircraft: Theory and Practice, Princeton University Press, 2012; referencia de profundización en dinámica y control",
+      "https://press.princeton.edu/books/hardcover/9780691149219/small-unmanned-aircraft"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

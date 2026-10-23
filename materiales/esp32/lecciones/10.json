@@ -1,0 +1,310 @@
+{
+  "n": 10,
+  "week": 5,
+  "title": "Encoder e interrupciones: medir velocidad con una definición",
+  "goal": "Calcular RPM desde pulsos usando el conteo por vuelta y el tiempo realmente transcurrido.",
+  "mission": "La instrumentación de un mecanismo UAV exige una medida antes de poder hablar de realimentación.",
+  "projects": [
+    15
+  ],
+  "pages": [
+    {
+      "title": "Contar no es todavía medir RPM",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un encoder transforma movimiento en señales que el programa puede contar. El número de pulsos solo tiene significado de velocidad cuando sabemos cuánto movimiento representa y en qué tiempo ocurrió. Un sensor puede especificar pulsos por revolución del eje del motor, mientras el proyecto observa el eje de salida de una reducción. Además, una biblioteca puede contar un flanco, ambos flancos o transiciones de dos canales. La definición que importa es la cuenta efectiva por vuelta de la referencia observada."
+        },
+        {
+          "type": "table",
+          "title": "Datos necesarios",
+          "headers": [
+            "Dato",
+            "Pregunta",
+            "Unidad"
+          ],
+          "rows": [
+            [
+              "Cuenta efectiva por vuelta",
+              "¿Qué flancos cuenta?",
+              "cuentas/vuelta"
+            ],
+            [
+              "Ventana real",
+              "¿Cuánto tiempo pasó?",
+              "s o ms"
+            ],
+            [
+              "Referencia mecánica",
+              "¿Qué eje se observa?",
+              "Identificador"
+            ],
+            [
+              "Conteo",
+              "¿Qué ocurrió en la ventana?",
+              "cuentas"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El proyecto de motor de la web no incluye esta medición, por eso se añade como práctica nueva. Se puede comenzar con un generador de pulsos del banco o un modelo de señal. Después se relaciona con un encoder real identificado. No se asignan 20 cuentas por vuelta a cualquier motor: ese número es una constante de ejercicio que se sustituye al caracterizar el dispositivo."
+        }
+      ]
+    },
+    {
+      "title": "Conversión con unidades",
+      "blocks": [
+        {
+          "type": "equation",
+          "tex": "n_{rpm}=\\frac{60\\,\\Delta N}{N_{vuelta}\\,\\Delta t_s}=\\frac{60000\\,\\Delta N}{N_{vuelta}\\,\\Delta t_{ms}}",
+          "text": "Nvuelta corresponde al método de conteo y al eje declarados.",
+          "image": "assets/eq_10_1_0.png"
+        },
+        {
+          "type": "case",
+          "title": "Doce cuentas en una ventana",
+          "problem": "Se cuentan 12 flancos durante 100 ms. La referencia comprobada es 20 flancos por vuelta del eje observado. ¿Qué velocidad media representa?",
+          "answer": "12/20 = 0,6 vueltas en 0,1 s. Son 6 vueltas por segundo y, por tanto, 360 RPM."
+        },
+        {
+          "type": "p",
+          "text": "Si realmente transcurrieron 110 ms, usar 100 ms en la cuenta sobreestimaría la velocidad. El código conserva elapsed = now-last y utiliza esa duración. La ventana aporta una media durante un intervalo; no es una velocidad instantánea perfecta. En un cambio rápido, una ventana larga mezcla estados anteriores con el más reciente."
+        },
+        {
+          "type": "table",
+          "title": "Una misma cuenta y dos referencias",
+          "headers": [
+            "Referencia",
+            "Duración",
+            "Resultado"
+          ],
+          "rows": [
+            [
+              "20 cuentas/vuelta",
+              "100 ms, 12 cuentas",
+              "360 RPM"
+            ],
+            [
+              "20 cuentas/vuelta",
+              "110 ms, 12 cuentas",
+              "327,3 RPM"
+            ],
+            [
+              "40 cuentas/vuelta",
+              "100 ms, 12 cuentas",
+              "180 RPM"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Resolución temporal y de conteo",
+      "blocks": [
+        {
+          "type": "equation",
+          "tex": "\\Delta n=\\frac{60}{N_{vuelta}\\,T_s}",
+          "text": "Una cuenta adicional cambia la estimación en esa cantidad de RPM para la ventana dada.",
+          "image": "assets/eq_10_2_0.png"
+        },
+        {
+          "type": "p",
+          "text": "Con 20 cuentas por vuelta y ventana de 0,1 s, una sola cuenta representa 30 RPM. Un número con muchos decimales no añade información que el conteo no tiene. Una ventana de 0,25 s reduce ese salto a 12 RPM, pero tarda más en describir un cambio. El equipo compara esa compensación con el comportamiento que desea observar."
+        },
+        {
+          "type": "table",
+          "title": "Caso didáctico, 20 cuentas/vuelta",
+          "headers": [
+            "Ventana",
+            "Salto por cuenta",
+            "Compensación"
+          ],
+          "rows": [
+            [
+              "50 ms",
+              "60 RPM",
+              "Respuesta más frecuente"
+            ],
+            [
+              "100 ms",
+              "30 RPM",
+              "Condición de referencia"
+            ],
+            [
+              "250 ms",
+              "12 RPM",
+              "Promedio más prolongado"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Un encoder de dos canales también puede permitir conocer dirección mediante la relación entre sus señales. La primera práctica cuenta solo flancos ascendentes de un canal para que su denominador sea transparente. La cuadratura se deja como ampliación después de verificar una vuelta y un método. Añadir canales sin revisar el factor de conteo puede multiplicar por dos o cuatro una lectura aparente."
+        },
+        {
+          "type": "image",
+          "name": "encoder_ventana",
+          "width": 145,
+          "caption": "Cálculo con veinte cuentas efectivas por vuelta. Ventana mayor mejora el paso de lectura y agrega espera."
+        }
+      ]
+    },
+    {
+      "title": "Qué hace la interrupción y qué hace loop()",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Reparto de tareas en c10_encoder",
+          "text": "void IRAM_ATTR edge() {\n  portENTER_CRITICAL_ISR(&mux);\n  ++edges;\n  portEXIT_CRITICAL_ISR(&mux);\n}\n// En loop(): copiar y poner a cero como una operacion.\nportENTER_CRITICAL(&mux);\nuint32_t count = edges;\nedges = 0;\nportEXIT_CRITICAL(&mux);",
+          "short": "void IRAM_ATTR edge() {\n  portENTER_CRITICAL_ISR(&mux);\n  ++edges;\n  portEXIT_CRITICAL_ISR(&mux);\n}\n// En loop(): copiar y poner a cero como una operacion.\nportENTER_CRITICAL(&mux);\nuint32_t count = edges;\nedges = 0;\nportEXIT_CRITICAL(&mux);"
+        },
+        {
+          "type": "p",
+          "text": "La rutina de interrupción realiza una tarea breve: conservar el evento de conteo. La conversión, impresión y decisión se hacen fuera. volatile evita ciertas suposiciones del compilador sobre accesos, pero no convierte una secuencia de copiar y poner a cero en una operación indivisible. Por eso el ejemplo protege ese intercambio de manera explícita."
+        },
+        {
+          "type": "p",
+          "text": "La señal debe tener niveles compatibles y una forma que el sistema pueda interpretar. Un encoder con salida de colector abierto puede necesitar polarización; otro módulo puede entregar una señal que requiere adaptación. El banco identifica ese tipo de salida antes de conectar. Las transiciones espurias y el ruido no se corrigen inventando un nuevo número de cuentas por vuelta: se investiga la señal y el montaje."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de una vuelta y una ventana",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Identifica el eje y la convención de conteo que utilizarás.",
+            "Antes de convertir a RPM, comprueba las cuentas de una vuelta observada o de una señal conocida.",
+            "Ejecuta c10_encoder con el generador de pulsos o el encoder preparado.",
+            "Calcula manualmente una fila del registro con elapsed real.",
+            "Compara ventanas de 50, 100 y 250 ms sin cambiar a la vez el método de conteo.",
+            "Busca un error de factor dos o cuatro en un caso de prueba del docente.",
+            "Conserva fuente de señal, condiciones y resultado con unidades."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El alumno sin encoder resuelve el conjunto de pulsos del curso y explica qué falta para trasladarlo a un motor real. En el taller compartido se contrasta el método con hardware disponible. Esta organización permite estudiar la medida antes de comprar un componente adicional y evita anunciar un encoder como parte del kit cuando su inventario aún no se ha confirmado."
+        }
+      ]
+    },
+    {
+      "title": "Qué necesita el controlador de esta medición",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El lazo de control recibirá una estimación de velocidad con su periodo, dispersión y posibilidad de fallo. Un valor cero puede corresponder a motor parado, una ventana sin pulsos o una señal ausente. La interpretación exige contexto. La aplicación conoce si ordenó movimiento, cuánto tiempo pasó y qué otras comprobaciones existen. Esos datos ayudan a formular un estado de diagnóstico, aunque no convierten cualquier ausencia de pulsos en una causa demostrada."
+        },
+        {
+          "type": "case",
+          "title": "Precisión aparente",
+          "problem": "El monitor muestra 360,000 RPM con un salto de 30 RPM por cuenta. ¿Qué comunican esos tres decimales?",
+          "answer": "No demuestran una precisión milésima. El formato de impresión debe respetar la información y las limitaciones del método."
+        },
+        {
+          "type": "p",
+          "text": "Investiga qué significa PPR o CPR en la ficha concreta de un encoder. Copia la definición, no solo el número. Si hay una reducción, señala a qué eje pertenece. Prepara una frase completa de tu método: “cuento flancos ascendentes de A, con tantas cuentas por vuelta del eje de salida, durante el intervalo registrado”. Esa frase será parte de la entrega del lazo cerrado."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar una señal de pulsos antes de convertir unidades.",
+    "Resolver 12 cuentas y contrastar dos duraciones reales.",
+    "Separar ISR y cálculo con el programa incluido.",
+    "Comprobar definición de vuelta, conteo y ventana."
+  ],
+  "qas": [
+    [
+      "¿PPR basta sin saber qué cuenta la biblioteca?",
+      "No. Se necesita la cuenta efectiva del método y la referencia mecánica."
+    ],
+    [
+      "¿volatile protege copiar y reiniciar un contador?",
+      "No garantiza que la secuencia sea indivisible; se coordina el acceso compartido."
+    ],
+    [
+      "¿Ventana mayor mejora todo?",
+      "Reduce el salto de conteo, pero prolonga el promedio y cambia la respuesta temporal."
+    ]
+  ],
+  "delivery": "Conversión de una fila, definición de cuenta por vuelta y comparación de ventanas.",
+  "refs": [
+    "MECRO",
+    "GPIO",
+    "UART",
+    "FBS"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar una señal de pulsos antes de convertir unidades.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "GPIO": [
+      "Espressif Systems",
+      "GPIO y restricciones de ESP32 clásico",
+      "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+    ],
+    "UART": [
+      "Espressif Systems",
+      "Arduino-ESP32: Serial/UART",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html"
+    ],
+    "FBS": [
+      "Åström y Murray",
+      "Feedback Systems: An Introduction for Scientists and Engineers; edición electrónica de los autores",
+      "https://www.cds.caltech.edu/~murray/books/AM08/"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

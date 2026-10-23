@@ -1,0 +1,335 @@
+{
+  "n": 4,
+  "week": 2,
+  "title": "Radio, telemetría, vídeo y protocolos de conexión",
+  "goal": "Relacionar cada enlace con su función y asignar conexiones y puertos sin confundir radio con protocolo.",
+  "mission": "El constructor debe explicar por dónde llegan las órdenes y por dónde vuelven los datos del dron.",
+  "pages": [
+    {
+      "title": "Tres cadenas que no significan lo mismo",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El enlace de mando permite al piloto enviar órdenes. La telemetría devuelve estados o medidas. El vídeo transporta imágenes. Pueden compartir parte del equipo o funcionar por rutas distintas. Un receptor RC puede llevar telemetría hacia la radio del piloto, y un módem puede comunicar el autopiloto con Mission Planner. Antes de conectar, se define qué información necesita circular y quién la consume."
+        },
+        {
+          "type": "image",
+          "name": "ap_radio",
+          "width": 145,
+          "caption": "Ejemplo documental de equipos de telemetría. La foto sirve para reconocer una cadena de datos; no identifica frecuencia ni modelo del banco MECRO. Fuente: ArduPilot, documentación CC BY-SA 3.0. https://ardupilot.org/copter/docs/common-telemetry-landingpage.html"
+        },
+        {
+          "type": "table",
+          "title": "Función antes que nombre comercial",
+          "headers": [
+            "Cadena",
+            "Información",
+            "Prueba de aula"
+          ],
+          "rows": [
+            [
+              "Mando",
+              "Canales y estado del enlace",
+              "Mover un control y observar su canal"
+            ],
+            [
+              "Telemetría",
+              "Batería, estado o posición",
+              "Reconocer una medida recibida"
+            ],
+            [
+              "Vídeo",
+              "Imagen y, si existe, OSD",
+              "Distinguir imagen de datos superpuestos"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Que la imagen se vea bien no prueba que el mando esté disponible. Que Mission Planner reciba datos no prueba que todos los modos estén configurados. El curso propone una evidencia distinta para cada cadena, con los motores inmóviles y según el banco preparado por el docente."
+        }
+      ]
+    },
+    {
+      "title": "UART, CRSF, SBUS y MAVLink en su lugar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "UART describe una interfaz serial usada por muchos periféricos. El protocolo y el nivel eléctrico determinan qué significa la información. En una conexión UART convencional, el transmisor de un equipo llega al receptor del otro y se revisa la referencia común; los puertos reales pueden tener particularidades. CRSF utiliza una interfaz serial para mando y telemetría en receptores compatibles. SBUS tiene requisitos de señal que no se resuelven seleccionando cualquier pad RX."
+        },
+        {
+          "type": "table",
+          "title": "Capas que conviene separar",
+          "headers": [
+            "Término",
+            "Qué representa",
+            "Qué no resuelve solo"
+          ],
+          "rows": [
+            [
+              "UART",
+              "Interfaz serial de la placa",
+              "Protocolo y niveles"
+            ],
+            [
+              "CRSF / SBUS",
+              "Formato de mando según sistema",
+              "Banda de radio utilizada"
+            ],
+            [
+              "MAVLink",
+              "Mensajes entre sistemas compatibles",
+              "Enlace RF o alimentación"
+            ],
+            [
+              "GPS / GNSS",
+              "Obtención de posición y tiempo",
+              "Canal de mando del piloto"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una FC puede dedicar distintos UART a receptor, GPS y otros periféricos. Se conserva una tabla con función, puerto y configuración. No se activa MSP como interruptor genérico de todos los puertos. La documentación actual de Betaflight diferencia Serial RX de otras funciones y detecta conflictos de asignación. Los parámetros se contrastan con la combinación real del banco."
+        },
+        {
+          "type": "case",
+          "title": "Banda y formato",
+          "problem": "Un receptor trabaja en una banda determinada y entrega CRSF por cable. ¿CRSF es el nombre de esa frecuencia?",
+          "answer": "No. La banda corresponde al enlace de radio; CRSF identifica el protocolo utilizado en la interfaz de ese sistema."
+        }
+      ]
+    },
+    {
+      "title": "El puerto físico y la función seleccionada",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "bf_ports",
+          "width": 145,
+          "caption": "Pestaña Ports de la documentación Betaflight. Las filas y opciones dependen de versión y placa; la captura no constituye una configuración para copiar. Fuente: Betaflight, documentación oficial. https://betaflight.com/docs/wiki/app/ports-tab"
+        },
+        {
+          "type": "p",
+          "text": "El punto de partida es el esquema: receptor conectado al puerto identificado, señal compatible y alimentación correcta. Después se asigna la función correspondiente en el programa. Si el receptor está en UART2 y Serial RX se habilita en UART1, el nombre comercial correcto no arregla la ruta. De la misma manera, dos periféricos no comparten una función por conectarlos a pads físicamente cercanos."
+        },
+        {
+          "type": "table",
+          "title": "Registro de asignación del caso",
+          "headers": [
+            "Periférico",
+            "Puerto físico",
+            "Función a comprobar"
+          ],
+          "rows": [
+            [
+              "Receptor del ejemplo",
+              "Por identificar en el manual",
+              "Serial RX y proveedor compatible"
+            ],
+            [
+              "GPS del ejemplo",
+              "Por identificar en el manual",
+              "Entrada de posición y configuración"
+            ],
+            [
+              "Telemetría del autopiloto",
+              "Puerto del modelo exacto",
+              "Mensajes y estación de tierra"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El alumno puede resolver el caso con documentación si no dispone de una FC. Debe mostrar de dónde sale la asignación. Es más útil un campo pendiente explicado que escribir UART1 por costumbre."
+        }
+      ]
+    },
+    {
+      "title": "Propagación y antenas: una cuenta introductoria",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una antena, su orientación y el entorno afectan el enlace. Estructuras conductoras, obstáculos, posición de las antenas y alimentación pueden modificar la recepción. La pérdida de espacio libre es una referencia ideal para comprender tendencias; no predice el alcance seguro de un sistema real ni sustituye sus pruebas y condiciones de operación."
+        },
+        {
+          "type": "equation",
+          "tex": "\\Delta L_{\\mathrm{espacio\\ libre}}=20\\log_{10}\\left(\\frac{d_2}{d_1}\\right)",
+          "text": "Comparación ideal a la misma frecuencia. El curso no transforma este cálculo en una distancia de operación autorizada ni en una garantía de enlace.",
+          "image": "assets/eq_04_3_1.png"
+        },
+        {
+          "type": "case",
+          "title": "Duplicar la distancia",
+          "problem": "En el modelo ideal, ¿cuánto cambia la pérdida al duplicar la separación?",
+          "answer": "20 log10(2) ≈ 6,02 dB. Cuadruplicarla produce aproximadamente 12,04 dB adicionales. Obstáculos, orientación y sistema real pueden cambiar mucho el resultado."
+        },
+        {
+          "type": "p",
+          "text": "RSSI, LQ y SNR no son etiquetas intercambiables. Se consulta qué mide el sistema y cómo lo presenta. Un porcentaje no se convierte automáticamente en metros. En clase se reconoce la tendencia del indicador y su relación con la prueba realizada, sin fabricar un umbral universal para radios distintas."
+        },
+        {
+          "type": "p",
+          "text": "Se documenta la ubicación de antenas y los conectores de acuerdo con el fabricante. La selección de banda, potencia y uso del espectro se contrasta con las condiciones aplicables al lugar y al equipo, sin copiar valores de otro país o de una captura antigua."
+        },
+        {
+          "type": "image",
+          "name": "propagacion_comparacion",
+          "width": 145,
+          "caption": "Espacio libre, misma frecuencia. No es una predicción de alcance de radio ni un plan de operación."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de trazado y diagnóstico",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Separa en un dibujo mando, telemetría y vídeo del equipo mostrado.",
+            "Completa una tabla de receptor y periféricos con puerto, tensión, señal y protocolo.",
+            "En una captura Ports, localiza qué función se asignó a cada UART.",
+            "Resuelve un caso con receptor conectado al puerto distinto del configurado.",
+            "Calcula el cambio ideal de pérdida al duplicar distancia y explica por qué no da alcance real.",
+            "Observa con el docente el cambio de un canal y una medida de telemetría.",
+            "Propón una prueba independiente para cada cadena y conserva sus resultados por separado."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El diagnóstico avanza por capas: alimentación del periférico, conexión eléctrica, asignación del puerto, formato y dato observado. Una falta de movimiento de canales puede deberse a diferentes capas. La práctica no consiste en cambiar proveedores al azar hasta que aparezca algo. Se plantea una hipótesis y se busca la evidencia que la confirma o la descarta."
+        },
+        {
+          "type": "p",
+          "text": "Si un equipo usa vídeo, se reconoce cámara, transmisor y receptor de imagen. El curso no exige que todos compren gafas. La promesa principal sigue siendo selección y ensamblaje; el vídeo se integra como un subsistema cuyo consumo, interfaz y sujeción también deben constar en la lista."
+        }
+      ]
+    },
+    {
+      "title": "La comunicación que queda documentada",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Preguntas de revisión",
+          "headers": [
+            "Pregunta",
+            "Respuesta que se debe demostrar"
+          ],
+          "rows": [
+            [
+              "¿De dónde viene la orden?",
+              "Control, receptor y canal"
+            ],
+            [
+              "¿Qué cable lleva el dato?",
+              "Puerto y referencia de contactos"
+            ],
+            [
+              "¿Qué entiende la FC?",
+              "Protocolo y configuración"
+            ],
+            [
+              "¿Qué vuelve al operador?",
+              "Medida y receptor de telemetría"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Como investigación, elige un periférico del equipo de MECRO y busca su manual. Identifica si necesita una o dos líneas de datos, si tiene una alimentación separada y qué protocolo entrega. Una denominación “GPS” no decide automáticamente el conector ni la tensión de todos los módulos. La solución se presenta con una referencia que otro compañero pueda verificar."
+        },
+        {
+          "type": "p",
+          "text": "La siguiente sesión utilizará estas tablas para navegar Betaflight con propósito. El alumno ya debe poder explicar por qué una pestaña de puertos existe y qué debe coincidir con el montaje. Esa relación entre pantalla y objeto será el centro de la práctica de configuración."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar las tres cadenas con funciones diferentes.",
+    "Trazar un receptor desde el manual hasta su UART y proveedor.",
+    "Resolver el caso de puerto equivocado y el cálculo de distancia relativa.",
+    "Comprobar un canal y una medida de telemetría en la demostración."
+  ],
+  "qas": [
+    [
+      "¿MAVLink es una frecuencia de radio?",
+      "No. Es un protocolo de mensajes que necesita un transporte compatible."
+    ],
+    [
+      "¿Ver vídeo prueba que llega mando?",
+      "No. Son cadenas que requieren comprobaciones independientes."
+    ],
+    [
+      "¿6 dB de pérdida adicional dan un alcance garantizado?",
+      "No. Es una comparación ideal; faltan entorno, antenas y sistema real."
+    ]
+  ],
+  "delivery": "Mapa de comunicaciones, tabla de puertos y diagnóstico argumentado de una ruta.",
+  "refs": [
+    "PORTS",
+    "RX",
+    "RADIO",
+    "BF",
+    "APCONFIG"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar las tres cadenas con funciones diferentes.",
+  "references": {
+    "PORTS": [
+      "Betaflight",
+      "Ports Tab",
+      "https://betaflight.com/docs/wiki/app/ports-tab"
+    ],
+    "RX": [
+      "Betaflight",
+      "Receiver Tab",
+      "https://betaflight.com/docs/wiki/app/receiver-tab"
+    ],
+    "RADIO": [
+      "ArduPilot",
+      "Opciones de telemetría",
+      "https://ardupilot.org/copter/docs/common-telemetry-landingpage.html"
+    ],
+    "BF": [
+      "Betaflight",
+      "Setup Guide: organización de la puesta en marcha",
+      "https://betaflight.com/docs/wiki/getting-started/setup-guide"
+    ],
+    "APCONFIG": [
+      "ArduPilot",
+      "Mandatory Hardware Configuration",
+      "https://ardupilot.org/copter/docs/configuring-hardware.html"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

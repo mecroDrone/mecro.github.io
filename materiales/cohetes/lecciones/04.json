@@ -1,0 +1,357 @@
+{
+  "n": 4,
+  "week": 2,
+  "title": "Aletas: forma, posición y alineación",
+  "goal": "Comparar contornos de aletas y preparar piezas repetibles con un útil de alineación.",
+  "mission": "Aprender a fabricar superficies estabilizadoras que el equipo pueda colocar y revisar.",
+  "pages": [
+    {
+      "title": "Por qué el cohete lleva aletas atrás",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Las aletas son superficies sobre las que actúa el aire cuando cambia la orientación del cohete. Su contribución a la estabilidad depende del conjunto y de su ubicación. Para nuestro primer diseño interesa que todas tengan la geometría definida y queden alineadas. Una buena silueta en el programa no corrige una pieza torcida en el montaje."
+        },
+        {
+          "type": "image",
+          "name": "aleta_nakka",
+          "caption": "Formas de aleta, Richard Nakka. Root indica raíz, tip borde exterior y S semienvergadura. Las proporciones de la ilustración no son medidas del proyecto.",
+          "width": 115
+        },
+        {
+          "type": "p",
+          "text": "La raíz se une al cuerpo. La punta del trapecio es el borde exterior paralelo a la raíz. La semienvergadura es la distancia radial desde el cuerpo. El barrido desplaza la punta hacia atrás. Esas medidas deben poder señalarse en un recorte, localizarse en CAD e introducirse en OpenRocket."
+        },
+        {
+          "type": "note",
+          "text": "Antes de abrir el programa, cada integrante señala raíz y semienvergadura en una misma pieza. Esto evita copiar cinco números correctos en cinco campos equivocados. [NK, OR1]"
+        },
+        {
+          "type": "p",
+          "text": "Imagina el cohete avanzando y desviando ligeramente su punta. El aire llega con otra dirección relativa y actúa sobre las superficies exteriores. Las aletas posteriores contribuyen a la respuesta aerodinámica del vehículo. Su papel depende de su tamaño, posición y del conjunto del cohete. Para comprenderlo basta relacionar una vista lateral con la ubicación de las superficies. Las clases de estabilidad retomarán esa observación; hoy nos interesa que las aletas construidas correspondan a las que aparecen en el modelo."
+        }
+      ]
+    },
+    {
+      "title": "Comparar contornos con criterios de taller",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Qué ofrecen formas habituales",
+          "headers": [
+            "Contorno",
+            "Para aprender a construir",
+            "Detalle que revisar"
+          ],
+          "rows": [
+            [
+              "Triangular",
+              "Trazado sencillo y pocas referencias",
+              "Punta y longitud de unión"
+            ],
+            [
+              "Trapezoidal",
+              "Raíz y punta se cambian por separado",
+              "Barrido y repetición"
+            ],
+            [
+              "Elíptico",
+              "Contorno continuo para comparar",
+              "Corte o impresión fiel al plano"
+            ],
+            [
+              "Muy barrido",
+              "Permite discutir posición y protección de bordes",
+              "Parte que sobresale y posibles golpes"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Cambiar forma también puede cambiar área, masa y superficie de unión. Por eso no basta decir “la triangular vuela mejor”. Primero debemos saber si se mantuvieron las otras medidas y qué misión se comparó. En un taller inicial puede pesar más la facilidad de repetir tres piezas iguales que una pequeña diferencia del modelo aerodinámico."
+        },
+        {
+          "type": "case",
+          "title": "La forma más simple evita otro problema",
+          "problem": "Un equipo puede cortar tres trapecios iguales con una plantilla, pero sus tres aletas curvas salen diferentes.",
+          "answer": "Para el primer montaje, el trapecio ofrece una ventaja de repetibilidad. La decisión se basa en el proceso disponible. No afirma una superioridad universal del trapecio ni reemplaza la revisión de estabilidad."
+        },
+        {
+          "type": "p",
+          "text": "Conserva una plantilla maestra y utiliza la misma referencia de medida. Si comparas dos contornos, mantén definida la forma de unirlos al cuerpo y documenta su masa. El nombre de la figura no resume todo el diseño."
+        },
+        {
+          "type": "p",
+          "text": "Una comparación de contornos requiere mirar también el área. Como ejemplo de geometría plana, un trapecio con raíz de 50 mm, punta de 25 mm y semienvergadura de 22 mm tiene un área de (50 + 25) × 22 / 2 = 825 mm². Un triángulo de raíz 50 mm y altura 22 mm tiene 550 mm². Aunque comparten dos medidas, no tienen la misma área. Si luego cambia una predicción, la palabra “triangular” no explica por sí sola qué cambió."
+        },
+        {
+          "type": "p",
+          "text": "La raíz es el borde de referencia cercano al cuerpo. La punta o cuerda de punta es el borde exterior en un contorno trapezoidal. Los bordes de ataque y de salida encuentran y dejan el flujo en el sentido de avance. La semienvergadura mide cuánto sobresale la aleta desde el cuerpo. Una forma barrida desplaza parte de esa superficie hacia atrás. Estos nombres sirven para señalar el plano y detectar diferencias entre dos piezas, incluso antes de usar cualquier cálculo."
+        }
+      ]
+    },
+    {
+      "title": "Tres o cuatro aletas: también cambia el montaje",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Tres aletas equiespaciadas se separan 120° alrededor del cuerpo. Cuatro se separan 90°. Una vista lateral puede esconder una pieza; por eso la distribución se revisa también desde atrás. El útil de alineación ayuda a conservar ángulos y dirección mientras el conjunto se monta según el proceso aprobado."
+        },
+        {
+          "type": "table",
+          "title": "Comparación para un mismo taller",
+          "headers": [
+            "Opción",
+            "Lo que cambia",
+            "Qué observar"
+          ],
+          "rows": [
+            [
+              "Tres aletas",
+              "Tres piezas y tres uniones",
+              "Separación 120° y simetría"
+            ],
+            [
+              "Cuatro aletas",
+              "Una pieza y una unión adicionales",
+              "Separación 90° y masa total"
+            ],
+            [
+              "Aleta integrada impresa",
+              "Posición fijada por el archivo y la impresión",
+              "Deformación, masa y posibilidad de reparación"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Masa de un cambio de cantidad",
+          "problem": "En un ejercicio, cada aleta pesa 2 g. Tres suman 6 g y cuatro suman 8 g.",
+          "answer": "El cambio añade 2 g en esa parte del vehículo, además de cualquier diferencia de unión. No permite calcular cuánto cambia la estabilidad o la altura. Para eso se actualiza el conjunto y se compara con iguales condiciones."
+        },
+        {
+          "type": "p",
+          "text": "No confundas cantidad con alineación. Cuatro piezas torcidas no se vuelven correctas por ser cuatro. Si el útil deja una aleta inclinada respecto al eje, hay que corregir el útil o el montaje antes de atribuir al contorno un comportamiento inesperado."
+        }
+      ]
+    },
+    {
+      "title": "OpenRocket: cambiar una cosa cada vez",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_aletas",
+          "caption": "Geometría del ejemplo oficial de OpenRocket. La captura permite reconocer aletas y posición, no fija el diseño del alumno.",
+          "width": 150
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Abre el modelo y guarda ALETAS_A. Selecciona el conjunto y registra cantidad, raíz, punta, semienvergadura, barrido y espesor.",
+            "Haz una copia ALETAS_B y cambia solamente el contorno que deseas comparar. Si cambian otras medidas, escríbelas en la tabla.",
+            "Revisa la posición de la raíz respecto al extremo del cuerpo. Comprueba la referencia usada por el programa.",
+            "Usa vista posterior para revisar cantidad y distribución. Después observa la vista lateral.",
+            "Conserva las dos versiones. La comparación de vuelo se completará después de introducir materiales y masas reales."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Si un contorno libre resulta difícil de reproducir en CAD o fabricar, vuelve a una forma que puedas comprobar. La libertad del programa sirve para representar tu pieza; no obliga a complicarla. [OR1]"
+        },
+        {
+          "type": "p",
+          "text": "La alineación se revisa en dos vistas. En una vista posterior interesa la separación alrededor del tubo. En la vista lateral interesa la dirección y la posición longitudinal de las raíces. Un útil que solo fija el ángulo entre aletas puede dejar libre otra desviación. Por eso conviene presentar el conjunto sin pegarlo y observarlo desde ambos lados. El útil facilita repetir una posición; su presencia no demuestra por sí sola que todas las referencias sean correctas."
+        }
+      ]
+    },
+    {
+      "title": "Práctica: plantilla y útil de alineación",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La plantilla define el contorno de la aleta. El útil define cómo se coloca respecto al tubo y al eje del vehículo. Son piezas distintas: una aleta bien cortada puede montarse mal, y un útil preciso no repara un contorno diferente al plano. En impresión 3D, el útil puede ser una de las aplicaciones más útiles del taller."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Dibuja el contorno con las cotas que se conservarán en el archivo de OpenRocket. Identifica raíz y cara de referencia.",
+            "Comprueba las piezas una sobre otra o con la plantilla, sin forzar ni dar por iguales medidas que no se han tomado.",
+            "Presenta el útil sobre el tubo real y observa si altera su forma.",
+            "Revisa posición de las raíces, separación angular y dirección de las piezas sin pegarlas.",
+            "Anota una corrección del útil o de la pieza. El docente aprueba el proceso de unión correspondiente al material."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Qué debe mostrar la fotografía del equipo",
+          "headers": [
+            "Vista",
+            "Qué permite revisar"
+          ],
+          "rows": [
+            [
+              "Lateral",
+              "Posición longitudinal y orientación"
+            ],
+            [
+              "Posterior",
+              "Cantidad y separación regular"
+            ],
+            [
+              "Detalle de raíz",
+              "Presentación de la unión"
+            ],
+            [
+              "Con plantilla",
+              "Coincidencia de contornos"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La fotografía necesita una referencia y un ángulo útil. Una imagen oblicua atractiva puede ocultar desalineación. Conserva al menos una vista lateral y otra posterior."
+        },
+        {
+          "type": "p",
+          "text": "El útil y la plantilla deben compartir las referencias del plano. Una marca puede corresponder al comienzo de la raíz y otra al extremo del cuerpo. Si la pieza impresa incorpora pestañas o detalles de montaje, estos deben aparecer en su CAD y ser compatibles con la solución de unión aprobada. El contorno que ve el aire y el detalle usado para montar no se confunden al introducir las medidas exteriores del modelo."
+        }
+      ]
+    },
+    {
+      "title": "Qué aleta conviene para cada misión",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Una elección que se pueda comprobar",
+          "headers": [
+            "Misión",
+            "Criterio principal",
+            "Comprobación"
+          ],
+          "rows": [
+            [
+              "Primer montaje",
+              "Piezas repetibles",
+              "Plantilla y útil"
+            ],
+            [
+              "Reutilización",
+              "Reparación y protección de bordes",
+              "Revisión tras montaje y uso"
+            ],
+            [
+              "Carga docente",
+              "Compatibilidad con masa y configuración",
+              "Modelo completo y revisión del responsable"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La conclusión del equipo debe distinguir geometría, fabricación y funcionamiento. “Elegimos tres trapecios porque los repetimos y alineamos con nuestro útil” es una decisión de fabricación. “El conjunto simulado cumple las condiciones revisadas por el docente” es otra afirmación y requiere el archivo completo. Todavía no se debe convertir una en la otra."
+        },
+        {
+          "type": "case",
+          "title": "Qué harías ante una discrepancia",
+          "problem": "El modelo usa tres aletas simétricas, pero la fotografía muestra una raíz más adelantada que las demás.",
+          "answer": "Primero corrige o representa la fabricación real. No cambies un coeficiente del programa para ocultar la diferencia. El archivo y el objeto deben describir el mismo conjunto."
+        },
+        {
+          "type": "p",
+          "text": "Entrega la comparación de contornos, el plano de la alternativa elegida y el útil de alineación. Identifica qué se revisará físicamente en el taller 1. La fabricación deja de ser una lista de instrucciones cuando el equipo puede explicar cómo comprobó cada decisión."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Identificar y medir las partes de una aleta.",
+    "Crear dos alternativas conservando las condiciones de comparación.",
+    "Dibujar una plantilla y un útil compatible con el tubo.",
+    "Preparar las vistas necesarias para revisar alineación."
+  ],
+  "qas": [
+    [
+      "¿Tres aletas se separan 90°?",
+      "No. Si están equiespaciadas, 360/3 = 120°."
+    ],
+    [
+      "¿Comparar siluetas prueba cuál vuela mejor?",
+      "No. También importan medidas, posición, masa y conjunto."
+    ],
+    [
+      "¿Qué resuelve el útil?",
+      "Ayuda a conservar la posición y orientación durante el montaje."
+    ]
+  ],
+  "delivery": "Plano, dos versiones .ork, plantilla y propuesta de útil.",
+  "refs": [
+    "NK",
+    "OR1",
+    "BODY",
+    "PR1"
+  ],
+  "opening": "Muestra dos aletas iguales y una torcida: pide que identifiquen qué puede y qué no puede mostrar el archivo digital.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "NK": [
+      "Richard Nakka",
+      "Fins for Rocket Stability",
+      "https://www.nakka-rocketry.net/fins.html"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "BODY": [
+      "OpenRocket",
+      "Body Components Basics",
+      "https://wiki.openrocket.info/Body_Components_Basics"
+    ],
+    "PR1": [
+      "Prusa Research",
+      "Modeling with 3D printing in mind",
+      "https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "n": 6,
+  "week": 3,
+  "title": "Sensores digitales, I2C y pantallas: un dato con identidad",
+  "goal": "Leer y presentar una variable conservando unidad, instante, estado de la lectura y dirección del dispositivo.",
+  "mission": "La instrumentación de drones necesita saber qué sensor produjo cada dato y si sigue siendo utilizable.",
+  "projects": [
+    7,
+    16
+  ],
+  "pages": [
+    {
+      "title": "El valor no viaja solo",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una lectura de temperatura necesita unidad, instante y origen. El número 24 puede significar grados Celsius, un código de conversión o un valor anterior que quedó en la pantalla. El proyecto de estación de clima permite comenzar con esa distinción. El sensor adquiere; el programa interpreta; la pantalla presenta. Una actualización de pantalla no demuestra que haya ocurrido una adquisición nueva."
+        },
+        {
+          "type": "image",
+          "name": "proyecto7",
+          "width": 145,
+          "caption": "MECRO, proyecto 07. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+        },
+        {
+          "type": "p",
+          "text": "Separar tareas ayuda a organizarlas a velocidades distintas. Un sensor lento puede actualizarse cada cierto intervalo mientras la interfaz responde a un botón más a menudo. La última lectura se almacena junto a un indicador de validez y su tiempo. Cuando falla la adquisición, la aplicación puede mostrar FALLO o una lectura anterior con su antigüedad. Reemplazar todo error por cero confunde una ausencia de dato con una medida legítima."
+        },
+        {
+          "type": "p",
+          "text": "La estación de clima del laboratorio usa un sensor DHT y una pantalla OLED. El sensor DHT no se convierte en I2C por compartir una placa con la pantalla. Cada conexión sigue su propio protocolo. Más adelante, la IMU sí compartirá I2C con una pantalla si direcciones y condiciones eléctricas son compatibles."
+        }
+      ]
+    },
+    {
+      "title": "Qué ofrece un bus I2C",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "I2C utiliza una línea de datos y una de reloj con dispositivos identificados mediante dirección. En el perfil clásico de las prácticas usamos SDA21 y SCL22, cuando ese montaje lo permita. Esas conexiones sustituyen el semáforo que usaba algunos de los mismos pines: los ejercicios son configuraciones diferentes, no un único circuito acumulado de manera automática. La dirección se comprueba con el dispositivo real y con su biblioteca."
+        },
+        {
+          "type": "table",
+          "title": "Tres comunicaciones del banco",
+          "headers": [
+            "Interfaz",
+            "Organización",
+            "Ejemplo"
+          ],
+          "rows": [
+            [
+              "UART",
+              "Flujo de bytes",
+              "Monitor serie"
+            ],
+            [
+              "I2C",
+              "Bus con direcciones",
+              "OLED y MPU6050"
+            ],
+            [
+              "DHT",
+              "Señal y temporización propias",
+              "Temperatura y humedad"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las líneas I2C necesitan condiciones de polarización compatibles. Algunos módulos ya incluyen resistencias pull-up y al conectarlos en paralelo cambia la resistencia equivalente. Lo importante para el primer montaje es identificar dónde van esas resistencias y a qué tensión se conectan. No se supone que cualquier módulo alimentado con 5 V produzca señales seguras para el ESP32. La ficha del módulo y las medidas del banco completan el esquema."
+        },
+        {
+          "type": "case",
+          "title": "Dos dispositivos, una dirección",
+          "problem": "Dos módulos responden con la misma dirección fija. ¿Basta conectar ambos en paralelo y darles nombres distintos en C++?",
+          "answer": "No. Los nombres del programa no cambian la dirección del bus. Se revisan opciones de dirección o una arquitectura de bus adecuada."
+        }
+      ]
+    },
+    {
+      "title": "Validez y antigüedad",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un registro mínimo puede contener valor, unidad, tiempo e indicador válido. Para tratar antigüedad se resta el tiempo de la última adquisición aceptada al tiempo actual. El umbral permitido depende de la misión y de la velocidad del sensor. Un dato ambiental de hace un segundo y uno de orientación de hace un segundo pueden tener utilidades muy diferentes. El curso pide nombrar el criterio de cada uno."
+        },
+        {
+          "type": "equation",
+          "tex": "edad_{ms}=t_{actual}-t_{ultima\\ lectura\\ valida}",
+          "text": "El instante se actualiza al aceptar una lectura nueva, no simplemente al redibujar la pantalla.",
+          "image": "assets/eq_06_2_1.png"
+        },
+        {
+          "type": "table",
+          "title": "Tres situaciones de presentación",
+          "headers": [
+            "Entrada",
+            "Pantalla útil",
+            "Registro"
+          ],
+          "rows": [
+            [
+              "Lectura reciente",
+              "Valor y unidad",
+              "Instante nuevo"
+            ],
+            [
+              "Lectura inválida",
+              "FALLO o aviso",
+              "Estado de error"
+            ],
+            [
+              "Lectura antigua",
+              "Valor con edad",
+              "Última adquisición válida"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En bibliotecas que representan una lectura inválida mediante NaN, una comparación numérica corriente puede no comportarse como se espera. Hay que consultar la condición de validez y tratarla antes de decidir una salida. El ejemplo de clima ya contiene una comprobación isnan(); la clase explica para qué sirve y qué debe conservar el resto de la aplicación cuando se activa."
+        }
+      ]
+    },
+    {
+      "title": "Cómo investigar una conexión",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Fragmento de diagnóstico I2C",
+          "text": "Wire.begin(21, 22);\nWire.beginTransmission(0x68);\nuint8_t status = Wire.endTransmission();\nbool acknowledged = (status == 0);",
+          "short": "Wire.begin(21, 22);\nWire.beginTransmission(0x68);\nuint8_t status = Wire.endTransmission();\nbool acknowledged = (status == 0);"
+        },
+        {
+          "type": "p",
+          "text": "Una respuesta en la dirección 0x68 indica que algún dispositivo reconoció esa dirección en esa prueba. No certifica por sí sola la identidad, la escala ni la calidad de sus medidas. La identificación de registro o el procedimiento de la biblioteca aporta otra comprobación. El diagnóstico se realiza primero sin mezclarlo con pantallas complejas, gráficas y múltiples sensores."
+        },
+        {
+          "type": "p",
+          "text": "Una pantalla OLED se organiza mediante un controlador y una biblioteca que traduce texto o píxeles a comandos. La dirección habitual del ejemplo puede diferir en otro módulo. También hay pantallas de aspecto parecido con controladores distintos. Antes de cambiar el código del sensor, el equipo identifica si el problema pertenece al bus, al controlador de pantalla o a la lógica de presentación."
+        },
+        {
+          "type": "case",
+          "title": "Pantalla congelada",
+          "problem": "La pantalla sigue mostrando 24,0 °C después de desconectar el sensor. ¿Qué dato del software falta consultar?",
+          "answer": "La validez y el instante de la última adquisición. El valor mostrado puede ser una copia antigua; hace falta una política explícita para ese estado."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de adquisición y presentación",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Abre el proyecto 7 y localiza sensor, pantalla y protocolos.",
+            "Registra el tipo exacto de sensor que usa el archivo del simulador; no lo supongas por el título.",
+            "Localiza periodo de lectura, periodo de pantalla y condición de fallo.",
+            "Añade al registro una marca temporal y un estado de validez.",
+            "Identifica los dispositivos I2C y sus direcciones con la prueba preparada por el docente.",
+            "Provoca una ausencia de lectura en la simulación o con el procedimiento de banco indicado.",
+            "Explica cómo cambia la presentación y qué valor conserva el registro."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En un montaje físico se revisa el circuito desconectado y se aplica el procedimiento de comprobación del banco. Si el sensor no puede desconectarse durante operación, se simula la condición por software y se declara ese origen. La finalidad del ejercicio es que la aplicación distinga dato y estado. No se presenta una inyección de error como una medición de fallo real del componente."
+        }
+      ]
+    },
+    {
+      "title": "De la estación ambiental a una carga de sensores",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una carga de sensores para un UAV puede utilizar una arquitectura semejante: adquisición, procesamiento, almacenamiento y presentación. Los requisitos de tiempo y precisión cambian con la variable. La organización de módulos que aprendemos hoy permite añadir la IMU sin convertir todo el programa en una única función extensa. Cada dato llega acompañado de la información que permite usarlo con criterio."
+        },
+        {
+          "type": "table",
+          "title": "Preguntas para cualquier sensor nuevo",
+          "headers": [
+            "Pregunta",
+            "Dónde buscar"
+          ],
+          "rows": [
+            [
+              "¿Qué variable entrega?",
+              "Hoja de datos y biblioteca"
+            ],
+            [
+              "¿Con qué unidad?",
+              "API y escala configurada"
+            ],
+            [
+              "¿Cada cuánto es nueva?",
+              "Adquisición y marcas de tiempo"
+            ],
+            [
+              "¿Cómo informa fallo?",
+              "Resultado de la operación"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Investiga la diferencia entre dirección del bus, número de pin y nombre de la variable. Son referencias de niveles distintos. Para ampliar, compara UART, I2C y SPI con una tabla de líneas, organización y dispositivo de ejemplo. No necesitas implementar tres protocolos completos en una sesión: sí debes poder explicar por qué conectar la pantalla a un pin de sensor DHT no cumple la misma función."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar un valor en pantalla y preguntar de cuándo es.",
+    "Separar DHT, OLED e I2C en el esquema del proyecto.",
+    "Agregar tiempo y validez al registro del clima.",
+    "Relacionar el resultado con el futuro banco de IMU."
+  ],
+  "qas": [
+    [
+      "¿Actualizar OLED equivale a adquirir un dato?",
+      "No. Pueden ejecutarse con agendas distintas."
+    ],
+    [
+      "¿Una respuesta I2C confirma una medida correcta?",
+      "Confirma reconocimiento de dirección en esa prueba; faltan identidad, configuración y lectura."
+    ],
+    [
+      "¿Qué comunica mejor un fallo: cero o un estado?",
+      "Un estado explícito evita confundir ausencia con una medida numérica legítima."
+    ]
+  ],
+  "delivery": "Mapa de interfaces y registro de valor, unidad, tiempo y estado.",
+  "refs": [
+    "MECRO",
+    "WIRE",
+    "UART",
+    "IMU",
+    "WOKWI"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar un valor en pantalla y preguntar de cuándo es.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "WIRE": [
+      "Espressif Systems",
+      "Arduino-ESP32: I2C",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2c.html"
+    ],
+    "UART": [
+      "Espressif Systems",
+      "Arduino-ESP32: Serial/UART",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html"
+    ],
+    "IMU": [
+      "Adafruit",
+      "MPU6050: biblioteca, cableado y lectura",
+      "https://learn.adafruit.com/mpu6050-6-dof-accelerometer-and-gyro/arduino"
+    ],
+    "WOKWI": [
+      "Wokwi",
+      "ESP32 Simulation: periféricos y límites",
+      "https://docs.wokwi.com/guides/esp32"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

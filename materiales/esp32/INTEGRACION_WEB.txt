@@ -1,0 +1,1 @@
+Abrir index.html o copiar esta carpeta completa dentro del sitio MECRO, conservando subcarpetas. Funciona sin bibliotecas externas ni servidor para las lecturas. Las referencias Wokwi y bibliográficas requieren conexión. Las descargas son locales. La opción de kit y las fechas se completan según la convocatoria. No se ha modificado ni publicado el sitio existente.

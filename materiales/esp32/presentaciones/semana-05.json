@@ -1,0 +1,611 @@
+{
+  "week": 5,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Motores y etapa de potencia: la orden no es la energía",
+        "MECRO   SEMANA 5   CLASE 09   01/24",
+        "Reconocer un driver y caracterizar un motor DC de banco sin confundir PWM con velocidad medida.",
+        "La cadena controlador, etapa de potencia y motor permite entender la arquitectura de propulsión y de mecanismos auxiliares de un UAV.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-05-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Una cadena con funciones separadas",
+        "MECRO   SEMANA 5   CLASE 09   02/24",
+        "El ESP32 produce señales de mando; la etapa de potencia dirige energía hacia la carga. Un motor DC puede consumir corrientes muy superiores a las de un GPIO y generar perturbaciones al conmutar o cambiar de movimiento. Por eso no se conecta como si fuera otro LED. El banco del curso identifica fuente, driver, motor, referencia y señal. Cada elemento aparece en el esquema antes de ejecutar el programa."
+      ],
+      "image": "assets/slide-05-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Cadena del banco DC",
+        "MECRO   SEMANA 5   CLASE 09   03/24",
+        "Elemento",
+        "Función",
+        "Evidencia que se busca",
+        "ESP32",
+        "Generar la orden",
+        "Pin y configuración",
+        "Driver",
+        "Conmutar energía",
+        "Referencia y conexiones",
+        "Fuente",
+        "Aportar potencia",
+        "Condición de alimentación",
+        "Motor",
+        "Producir movimiento",
+        "Estado y respuesta"
+      ],
+      "image": "assets/slide-05-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · Una cadena con funciones separadas",
+        "MECRO   SEMANA 5   CLASE 09   04/24",
+        "El proyecto 15 del laboratorio aporta una base de control de dirección y PWM con L293D, pero al revisar la página su enlace de simulación está vacío y su imagen no se encuentra en la ruta publicada. El curso no depende de ese recurso ausente: aporta un ejemplo nuevo de mando de banco, una tabla de interfaz y una práctica virtual numérica. El montaje con motor se organiza con el material confirmado o en banco compartido.",
+        "",
+        "Un motor DC de escobillas no representa toda la electrónica de un motor BLDC de dron. El primero sirve aquí para ver la separación entre orden y potencia y para aprender medición y realimentación. El ESC de un BLDC cumple otra interfaz y controla sus fases. Se compara la arquitectura sin trasladar automáticamente conexiones ni parámetros de un dispositivo al otro."
+      ],
+      "image": "assets/slide-05-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Puente H, habilitación y alimentación",
+        "MECRO   SEMANA 5   CLASE 09   05/24",
+        "Un puente H permite aplicar distintas condiciones a los extremos de un motor. Las entradas de dirección y la habilitación deben interpretarse con la hoja del driver concreto. Deshabilitar, dejar libre y frenar no son necesariamente el mismo estado eléctrico. La clase comienza con movimiento en un solo sentido y parada de mando, de manera que la observación sea fácil de relacionar con las señales."
+      ],
+      "image": "assets/slide-05-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Perfil de conexiones del ejemplo nuevo",
+        "MECRO   SEMANA 5   CLASE 09   06/24",
+        "Señal",
+        "GPIO clásico",
+        "Papel",
+        "ENABLE",
+        "25",
+        "PWM de mando",
+        "IN1",
+        "26",
+        "Dirección del banco",
+        "IN2",
+        "27",
+        "Dirección del banco",
+        "GND",
+        "Referencia",
+        "Según esquema del driver"
+      ],
+      "image": "assets/slide-05-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Una tensión que desaparece",
+        "MECRO   SEMANA 5   CLASE 09   07/24",
+        "La fuente entrega una tensión, pero en los bornes del motor se observa menos durante el movimiento. ¿La diferencia demuestra que el ADC falla?",
+        "No. Primero se identifica qué se midió y se considera la caída de tensión en la etapa de potencia y en las conexiones bajo esa carga. El circuito se estudia antes de atribuir el síntoma a otro subsistema."
+      ],
+      "image": "assets/slide-05-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Caracterizar antes de controlar",
+        "MECRO   SEMANA 5   CLASE 09   08/24",
+        "La misma orden PWM no garantiza la misma velocidad con distintas cargas, tensiones o condiciones de arranque. Puede existir una zona en la que el motor aún no inicia movimiento y otra en la que sí continúa girando después de haber arrancado. Para estudiar esa respuesta se conservan fuente, montaje y sentido. Primero registramos el efecto observado; la próxima clase añadirá un método explícito de medición de RPM."
+      ],
+      "image": "assets/slide-05-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Datos sintéticos para practicar lectura",
+        "MECRO   SEMANA 5   CLASE 09   09/24",
+        "Mando / %",
+        "Velocidad / RPM",
+        "Condición",
+        "0",
+        "0",
+        "Modelo didáctico",
+        "20",
+        "80",
+        "Modelo didáctico",
+        "60",
+        "570",
+        "Modelo didáctico",
+        "100",
+        "950",
+        "Modelo didáctico"
+      ],
+      "image": "assets/slide-05-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Mismo motor: PWM y velocidad no son iguales",
+        "MECRO   SEMANA 5   CLASE 09   10/24",
+        "Datos sintéticos del caso de clase. El banco real debe caracterizarse con su fuente, motor, driver y carga."
+      ],
+      "image": "assets/slide-05-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Mando explícito y estado inicial",
+        "MECRO   SEMANA 5   CLASE 09   11/24",
+        "El ejemplo completo inicia con el driver deshabilitado y acepta órdenes por el monitor serie. El mando de aula se limita y vence si no se renueva. Ese comportamiento se documenta para evitar interpretar una parada temporal como un fallo del driver. La versión incluida trabaja en un solo sentido: el alumno estudia la tabla del componente antes de ampliar una inversión."
+      ],
+      "image": "assets/slide-05-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Núcleo del banco c09_motor",
+        "MECRO   SEMANA 5   CLASE 09   12/24",
+        "// El mando inicia en cero.",
+        "if (command == '+') duty = min(160, duty+20);",
+        "if (command == 's') duty = 0;",
+        "if (uint32_t(now-commandAt) > 2000) duty = 0;",
+        "motor.write(duty);",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-05-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Interpretación · Mando explícito y estado inicial",
+        "MECRO   SEMANA 5   CLASE 09   13/24",
+        "La frecuencia de PWM es una elección de diseño del banco. No se enseña que 5 kHz sea una frecuencia “ideal” universal para L293D. El efecto audible, las pérdidas de conmutación y el comportamiento del conjunto pueden cambiar con la frecuencia. El docente elige una condición de referencia compatible con su montaje y la mantiene durante la primera comparación. Cambiar frecuencia y carga simultáneamente no produce una prueba fácil de interpretar."
+      ],
+      "image": "assets/slide-05-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio de mando y respuesta",
+        "MECRO   SEMANA 5   CLASE 09   14/24",
+        "La comparación se realiza con motor de baja tensión sujeto en el banco y bajo el procedimiento docente. El alumno sin motor puede estudiar la señal de habilitación y resolver los registros sintéticos; la evidencia del ensayo físico queda a cargo del equipo que lo ejecuta. El propósito común es explicar la cadena completa, no afirmar que un movimiento visto en pantalla valida corriente o temperatura del hardware."
+      ],
+      "image": "assets/slide-05-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 5   CLASE 09   15/24",
+        "¿Dos fuentes implican aislamiento galvánico?",
+        "Identificar qué falta para hablar de RPM medidas."
+      ],
+      "image": "assets/slide-05-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio de mando y respuesta",
+        "MECRO   SEMANA 5   CLASE 09   16/24",
+        "1. Presenta el esquema de la etapa y señala por dónde circula la energía del motor.",
+        "",
+        "2. Comprueba alimentación lógica, alimentación de potencia e interfaz del componente.",
+        "",
+        "3. Ejecuta c09_motor primero con la salida observada y sin una carga no revisada.",
+        "",
+        "4. En el banco docente, ordena incrementos pequeños dentro del límite previsto y observa el inicio de movimiento.",
+        "",
+        "5. Comprueba parada por orden y vencimiento del mando.",
+        "",
+        "6. Registra configuración, orden, tensión observada y descripción del movimiento.",
+        "",
+        "7. Prepara qué variable y qué sensor faltan para informar RPM."
+      ],
+      "image": "assets/slide-05-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Comparación con la arquitectura de drones",
+        "MECRO   SEMANA 5   CLASE 09   17/24",
+        "Para una carga mecánica auxiliar de UAV, elegir el actuador empieza por la función: posicionar un soporte, accionar una pieza o sostener una velocidad. El tipo de motor y la información que entrega su sistema cambian la arquitectura. En lugar de escoger por apariencia, el equipo escribe qué orden recibe y qué observación necesitaría para verificar su función."
+      ],
+      "image": "assets/slide-05-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Dispositivos que no se intercambian por nombre",
+        "MECRO   SEMANA 5   CLASE 09   18/24",
+        "Sistema",
+        "Interfaz de potencia",
+        "Qué se aprende aquí",
+        "DC de escobillas",
+        "Puente H o etapa adecuada",
+        "Mando y energía",
+        "Servo de posición",
+        "Control interno propio",
+        "Pulso y posición",
+        "BLDC con ESC",
+        "Conmutación electrónica",
+        "Cadena de interfaces"
+      ],
+      "image": "assets/slide-05-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Interpretación · Comparación con la arquitectura de drones",
+        "MECRO   SEMANA 5   CLASE 09   19/24",
+        "Investiga en la hoja del driver el nombre y la condición de cada alimentación. Compara luego un estado deshabilitado con uno de frenado según su tabla funcional. Describe la diferencia sin generalizarla a todos los puentes H. El siguiente paso consiste en obtener una medida de movimiento cuya unidad y referencia podamos defender."
+      ],
+      "image": "assets/slide-05-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 5   CLASE 09   20/24",
+        "1. Separar señal, fuente y carga en el esquema antes de mostrar el código.",
+        "",
+        "2. Revisar las alimentaciones de la hoja del driver.",
+        "",
+        "3. Comparar orden PWM y respuesta del banco o del caso sintético.",
+        "",
+        "4. Identificar qué falta para hablar de RPM medidas."
+      ],
+      "image": "assets/slide-05-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 5   CLASE 09   21/24",
+        "La cadena controlador, etapa de potencia y motor permite entender la arquitectura de propulsión y de mecanismos auxiliares de un UAV.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-05-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 5   CLASE 09   22/24",
+        "1. ¿PWM es una lectura de velocidad?",
+        "",
+        "2. ¿Dos fuentes implican aislamiento galvánico?",
+        "",
+        "3. ¿El L293D se alimenta lógicamente a 3,3 V por usar ESP32?"
+      ],
+      "image": "assets/slide-05-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 5   CLASE 09   23/24",
+        "1. No. Es un mando; la velocidad requiere un método de observación.",
+        "",
+        "2. No. Depende de las conexiones y de la arquitectura de interfaz.",
+        "",
+        "3. No. Se respeta la condición de VCC1 del fabricante y se revisan las entradas por separado."
+      ],
+      "image": "assets/slide-05-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 5   CLASE 09   24/24",
+        "Esquema de potencia, registro de mando y explicación de la medida que falta.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-05-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Encoder e interrupciones: medir velocidad con una definición",
+        "MECRO   SEMANA 5   CLASE 10   01/24",
+        "Calcular RPM desde pulsos usando el conteo por vuelta y el tiempo realmente transcurrido.",
+        "La instrumentación de un mecanismo UAV exige una medida antes de poder hablar de realimentación.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-05-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Contar no es todavía medir RPM",
+        "MECRO   SEMANA 5   CLASE 10   02/24",
+        "Un encoder transforma movimiento en señales que el programa puede contar. El número de pulsos solo tiene significado de velocidad cuando sabemos cuánto movimiento representa y en qué tiempo ocurrió. Un sensor puede especificar pulsos por revolución del eje del motor, mientras el proyecto observa el eje de salida de una reducción. Además, una biblioteca puede contar un flanco, ambos flancos o transiciones de dos canales. La definición que importa es la cuenta efectiva por vuelta de la referencia observada."
+      ],
+      "image": "assets/slide-05-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Datos necesarios",
+        "MECRO   SEMANA 5   CLASE 10   03/24",
+        "Dato",
+        "Pregunta",
+        "Unidad",
+        "Cuenta efectiva por vuelta",
+        "¿Qué flancos cuenta?",
+        "cuentas/vuelta",
+        "Ventana real",
+        "¿Cuánto tiempo pasó?",
+        "s o ms",
+        "Referencia mecánica",
+        "¿Qué eje se observa?",
+        "Identificador",
+        "Conteo",
+        "¿Qué ocurrió en la ventana?",
+        "cuentas"
+      ],
+      "image": "assets/slide-05-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · Contar no es todavía medir RPM",
+        "MECRO   SEMANA 5   CLASE 10   04/24",
+        "El proyecto de motor de la web no incluye esta medición, por eso se añade como práctica nueva. Se puede comenzar con un generador de pulsos del banco o un modelo de señal. Después se relaciona con un encoder real identificado. No se asignan 20 cuentas por vuelta a cualquier motor: ese número es una constante de ejercicio que se sustituye al caracterizar el dispositivo."
+      ],
+      "image": "assets/slide-05-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Conversión con unidades",
+        "MECRO   SEMANA 5   CLASE 10   05/24",
+        "Si realmente transcurrieron 110 ms, usar 100 ms en la cuenta sobreestimaría la velocidad. El código conserva elapsed = now-last y utiliza esa duración. La ventana aporta una media durante un intervalo; no es una velocidad instantánea perfecta. En un cambio rápido, una ventana larga mezcla estados anteriores con el más reciente."
+      ],
+      "image": "assets/slide-05-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Una misma cuenta y dos referencias",
+        "MECRO   SEMANA 5   CLASE 10   06/24",
+        "Referencia",
+        "Duración",
+        "Resultado",
+        "20 cuentas/vuelta",
+        "100 ms, 12 cuentas",
+        "360 RPM",
+        "20 cuentas/vuelta",
+        "110 ms, 12 cuentas",
+        "327,3 RPM",
+        "40 cuentas/vuelta",
+        "100 ms, 12 cuentas",
+        "180 RPM"
+      ],
+      "image": "assets/slide-05-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Doce cuentas en una ventana",
+        "MECRO   SEMANA 5   CLASE 10   07/24",
+        "12/20 = 0,6 vueltas en 0,1 s. Son 6 vueltas por segundo y, por tanto, 360 RPM.",
+        "Nvuelta corresponde al método de conteo y al eje declarados."
+      ],
+      "image": "assets/slide-05-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Resolución temporal y de conteo",
+        "MECRO   SEMANA 5   CLASE 10   08/24",
+        "Con 20 cuentas por vuelta y ventana de 0,1 s, una sola cuenta representa 30 RPM. Un número con muchos decimales no añade información que el conteo no tiene. Una ventana de 0,25 s reduce ese salto a 12 RPM, pero tarda más en describir un cambio. El equipo compara esa compensación con el comportamiento que desea observar."
+      ],
+      "image": "assets/slide-05-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Caso didáctico, 20 cuentas/vuelta",
+        "MECRO   SEMANA 5   CLASE 10   09/24",
+        "Ventana",
+        "Salto por cuenta",
+        "Compensación",
+        "50 ms",
+        "60 RPM",
+        "Respuesta más frecuente",
+        "100 ms",
+        "30 RPM",
+        "Condición de referencia",
+        "250 ms",
+        "12 RPM",
+        "Promedio más prolongado"
+      ],
+      "image": "assets/slide-05-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Una cuenta cambia la lectura de velocidad",
+        "MECRO   SEMANA 5   CLASE 10   10/24",
+        "Cálculo con veinte cuentas efectivas por vuelta. Ventana mayor mejora el paso de lectura y agrega espera."
+      ],
+      "image": "assets/slide-05-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Qué hace la interrupción y qué hace loop()",
+        "MECRO   SEMANA 5   CLASE 10   11/24",
+        "La rutina de interrupción realiza una tarea breve: conservar el evento de conteo. La conversión, impresión y decisión se hacen fuera. volatile evita ciertas suposiciones del compilador sobre accesos, pero no convierte una secuencia de copiar y poner a cero en una operación indivisible. Por eso el ejemplo protege ese intercambio de manera explícita."
+      ],
+      "image": "assets/slide-05-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Reparto de tareas en c10_encoder",
+        "MECRO   SEMANA 5   CLASE 10   12/24",
+        "void IRAM_ATTR edge() {",
+        "  portENTER_CRITICAL_ISR(&mux);",
+        "  ++edges;",
+        "  portEXIT_CRITICAL_ISR(&mux);",
+        "}",
+        "// En loop(): copiar y poner a cero como una operacion.",
+        "portENTER_CRITICAL(&mux);",
+        "uint32_t count = edges;",
+        "edges = 0;",
+        "portEXIT_CRITICAL(&mux);",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-05-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Interpretación · Qué hace la interrupción y qué hace loop()",
+        "MECRO   SEMANA 5   CLASE 10   13/24",
+        "La señal debe tener niveles compatibles y una forma que el sistema pueda interpretar. Un encoder con salida de colector abierto puede necesitar polarización; otro módulo puede entregar una señal que requiere adaptación. El banco identifica ese tipo de salida antes de conectar. Las transiciones espurias y el ruido no se corrigen inventando un nuevo número de cuentas por vuelta: se investiga la señal y el montaje."
+      ],
+      "image": "assets/slide-05-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Laboratorio de una vuelta y una ventana",
+        "MECRO   SEMANA 5   CLASE 10   14/24",
+        "El alumno sin encoder resuelve el conjunto de pulsos del curso y explica qué falta para trasladarlo a un motor real. En el taller compartido se contrasta el método con hardware disponible. Esta organización permite estudiar la medida antes de comprar un componente adicional y evita anunciar un encoder como parte del kit cuando su inventario aún no se ha confirmado."
+      ],
+      "image": "assets/slide-05-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 5   CLASE 10   15/24",
+        "¿volatile protege copiar y reiniciar un contador?",
+        "Comprobar definición de vuelta, conteo y ventana."
+      ],
+      "image": "assets/slide-05-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Laboratorio de una vuelta y una ventana",
+        "MECRO   SEMANA 5   CLASE 10   16/24",
+        "1. Identifica el eje y la convención de conteo que utilizarás.",
+        "",
+        "2. Antes de convertir a RPM, comprueba las cuentas de una vuelta observada o de una señal conocida.",
+        "",
+        "3. Ejecuta c10_encoder con el generador de pulsos o el encoder preparado.",
+        "",
+        "4. Calcula manualmente una fila del registro con elapsed real.",
+        "",
+        "5. Compara ventanas de 50, 100 y 250 ms sin cambiar a la vez el método de conteo.",
+        "",
+        "6. Busca un error de factor dos o cuatro en un caso de prueba del docente.",
+        "",
+        "7. Conserva fuente de señal, condiciones y resultado con unidades."
+      ],
+      "image": "assets/slide-05-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Qué necesita el controlador de esta medición",
+        "MECRO   SEMANA 5   CLASE 10   17/24",
+        "El lazo de control recibirá una estimación de velocidad con su periodo, dispersión y posibilidad de fallo. Un valor cero puede corresponder a motor parado, una ventana sin pulsos o una señal ausente. La interpretación exige contexto. La aplicación conoce si ordenó movimiento, cuánto tiempo pasó y qué otras comprobaciones existen. Esos datos ayudan a formular un estado de diagnóstico, aunque no convierten cualquier ausencia de pulsos en una causa demostrada."
+      ],
+      "image": "assets/slide-05-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 5   CLASE 10   18/24",
+        "El monitor muestra 360,000 RPM con un salto de 30 RPM por cuenta. ¿Qué comunican esos tres decimales?",
+        "Investiga qué significa PPR o CPR en la ficha concreta de un encoder. Copia la definición, no solo el número. Si hay una reducción, señala a qué eje pertenece. Prepara una frase completa de tu método: “cuento flancos ascendentes de A, con tantas cuentas por vuelta del eje de salida, durante el intervalo registrado”. Esa frase será parte de la entrega del lazo cerrado."
+      ],
+      "image": "assets/slide-05-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Precisión aparente",
+        "MECRO   SEMANA 5   CLASE 10   19/24",
+        "El monitor muestra 360,000 RPM con un salto de 30 RPM por cuenta. ¿Qué comunican esos tres decimales?",
+        "No demuestran una precisión milésima. El formato de impresión debe respetar la información y las limitaciones del método."
+      ],
+      "image": "assets/slide-05-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 5   CLASE 10   20/24",
+        "1. Mostrar una señal de pulsos antes de convertir unidades.",
+        "",
+        "2. Resolver 12 cuentas y contrastar dos duraciones reales.",
+        "",
+        "3. Separar ISR y cálculo con el programa incluido.",
+        "",
+        "4. Comprobar definición de vuelta, conteo y ventana."
+      ],
+      "image": "assets/slide-05-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 5   CLASE 10   21/24",
+        "La instrumentación de un mecanismo UAV exige una medida antes de poder hablar de realimentación.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-05-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 5   CLASE 10   22/24",
+        "1. ¿PPR basta sin saber qué cuenta la biblioteca?",
+        "",
+        "2. ¿volatile protege copiar y reiniciar un contador?",
+        "",
+        "3. ¿Ventana mayor mejora todo?"
+      ],
+      "image": "assets/slide-05-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 5   CLASE 10   23/24",
+        "1. No. Se necesita la cuenta efectiva del método y la referencia mecánica.",
+        "",
+        "2. No garantiza que la secuencia sea indivisible; se coordina el acceso compartido.",
+        "",
+        "3. Reduce el salto de conteo, pero prolonga el promedio y cambia la respuesta temporal."
+      ],
+      "image": "assets/slide-05-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 5   CLASE 10   24/24",
+        "Conversión de una fila, definición de cuenta por vuelta y comparación de ventanas.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-05-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-05.pdf",
+  "ppt": "descargas/MECRO_ESP32_Semana_05.pptx"
+}

@@ -1,0 +1,388 @@
+{
+  "n": 16,
+  "week": 8,
+  "title": "Taller final: pruebas, diagnóstico y clase maestra de cierre",
+  "goal": "Demostrar el sistema, explicar una condición de fallo y defender una mejora con evidencia.",
+  "mission": "El cierre forma a un constructor que puede presentar y revisar un sistema de banco relacionado con UAV.",
+  "projects": [
+    16,
+    17,
+    15
+  ],
+  "pages": [
+    {
+      "title": "Qué se demuestra al terminar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La demostración final reúne construcción, programación y explicación. Se presenta una configuración identificada con un objetivo y un método de prueba. Una aplicación que solo muestra números bonitos puede ocultar referencias equivocadas; una que documenta su estado y sus datos permite investigar lo ocurrido. El taller evalúa ese criterio con el equipo delante."
+        },
+        {
+          "type": "table",
+          "title": "Paquete de entrega",
+          "headers": [
+            "Elemento",
+            "Qué permite revisar"
+          ],
+          "rows": [
+            [
+              "Esquema vigente",
+              "Energía, señal y referencia"
+            ],
+            [
+              "Código y entorno",
+              "Reproducir la construcción"
+            ],
+            [
+              "Registro",
+              "Tiempo, unidad y estado"
+            ],
+            [
+              "Pruebas",
+              "Condiciones y observaciones"
+            ],
+            [
+              "Defensa",
+              "Decisiones del estudiante"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El proyecto principal se demuestra en banco; no se plantea como firmware de vuelo. Un equipo que trabajó por simulación identifica sus resultados como tales y participa en las comprobaciones compartidas disponibles. La evaluación conserva esa diferencia para que un certificado del curso no prometa una experiencia física que no se documentó."
+        },
+        {
+          "type": "p",
+          "text": "Antes de energizar se revisa que el montaje corresponda al esquema de esa versión. Las modificaciones realizadas después de una prueba pueden afectar la referencia, los pines o el estado inicial. El expediente no necesita ser complicado: debe permitir reconocer qué sistema se examinó y qué condiciones se conservaron."
+        }
+      ]
+    },
+    {
+      "title": "Agenda del taller y roles",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Taller presencial 2: cuatro horas",
+          "headers": [
+            "Minutos",
+            "Actividad",
+            "Producto"
+          ],
+          "rows": [
+            [
+              "0–25",
+              "Revisión de versiones",
+              "Lista de equipos"
+            ],
+            [
+              "25–80",
+              "Prueba normal y registro",
+              "Evidencia de funcionamiento"
+            ],
+            [
+              "80–140",
+              "Pruebas de fallo",
+              "Diagnóstico observado"
+            ],
+            [
+              "140–195",
+              "Demostraciones y defensa",
+              "Explicación individual"
+            ],
+            [
+              "195–220",
+              "Correcciones pequeñas",
+              "Revisión de cambio"
+            ],
+            [
+              "220–240",
+              "Cierre y siguiente ruta",
+              "Informe final"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Los roles de montaje, software, medición y registro rotan a lo largo del curso. En el cierre, cada integrante explica al menos un dato y una decisión. El docente puede pedir una modificación pequeña y controlada o presentar un caso nuevo del registro. No se trata de memorizar el programa del equipo, sino de poder usar sus conceptos para responder una pregunta cercana."
+        },
+        {
+          "type": "p",
+          "text": "Los bancos compartidos se programan según recursos reales. Si hay más equipos que puestos, unos ejecutan la prueba mientras otros revisan registros y preparan la defensa. El plan docente conserva quién realizó cada operación y quién participó como observador. Esa organización mantiene una evaluación justa para alumnos con y sin kit propio."
+        }
+      ]
+    },
+    {
+      "title": "Una matriz de pruebas que produce conclusiones",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Casos del proyecto principal",
+          "headers": [
+            "Caso",
+            "Qué se observa",
+            "Resultado esperado"
+          ],
+          "rows": [
+            [
+              "Inicio normal",
+              "Sensor y registro",
+              "Dato nuevo identificado"
+            ],
+            [
+              "Sensor ausente al inicio",
+              "Estado de inicialización",
+              "Fallo explícito"
+            ],
+            [
+              "Muestra vencida",
+              "Edad del último dato",
+              "Dejar de declararlo reciente"
+            ],
+            [
+              "Entrada al extremo",
+              "Mando y límites",
+              "Rango definido"
+            ],
+            [
+              "Registro repetido",
+              "Secuencia e instante",
+              "Reconocer duplicación"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Cada caso necesita un método. La ausencia inicial puede ensayarse con una configuración preparada por el docente. La muestra vencida puede inyectarse por software sin intervenir el cableado durante operación. Un resultado de inyección se identifica como tal y permite comprobar la lógica específica. El método no demuestra automáticamente todas las causas físicas de fallo del sensor."
+        },
+        {
+          "type": "case",
+          "title": "Fallo observado y causa propuesta",
+          "problem": "La IMU no aparece en el inicio. ¿Se puede concluir inmediatamente “el sensor se quemó”?",
+          "answer": "No. Se revisan alimentación, referencia, conexión, dirección y configuración. El resultado demuestra que no se obtuvo la condición de inicialización; la causa requiere más evidencia."
+        },
+        {
+          "type": "p",
+          "text": "La matriz convierte una afirmación amplia de funcionamiento en condiciones verificables. Si el resultado no coincide, se conserva la observación antes de cambiar código o cables. La comparación entre lo esperado y lo obtenido guía el diagnóstico y deja una evidencia que otro equipo puede entender."
+        }
+      ]
+    },
+    {
+      "title": "Leer el registro de una prueba",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Ejemplo sintético de formato CSV",
+          "text": "seq,t_ms,state,data_valid,roll_deg,pitch_deg\n10,1000,1,1,2.1,-0.3\n11,1100,1,1,2.2,-0.3\n12,1400,2,0,2.2,-0.3",
+          "short": "seq,t_ms,state,data_valid,roll_deg,pitch_deg\n10,1000,1,1,2.1,-0.3\n11,1100,1,1,2.2,-0.3\n12,1400,2,0,2.2,-0.3"
+        },
+        {
+          "type": "p",
+          "text": "La última fila conserva un valor numérico, pero lo marca como no válido en esa condición. Si alguien grafica solo roll_deg podría interpretar que nada cambió. El estado y el tiempo cuentan otra parte de la historia. Los datos de este ejemplo son sintéticos y se usan para enseñar lectura de registros; los del equipo se sustituyen por su ejecución identificada."
+        },
+        {
+          "type": "p",
+          "text": "En el banco de velocidad se revisan también referencia, RPM, mando, ventana y límites. Una respuesta lenta puede relacionarse con la planta, con la medida o con el controlador. El informe separa observación e hipótesis y propone qué nueva prueba ayudaría a distinguir causas. No se cambia todo a la vez hasta lograr una curva estéticamente agradable."
+        },
+        {
+          "type": "case",
+          "title": "Una mejora con una pregunta",
+          "problem": "El equipo propone “poner más filtros” porque vio ruido. ¿Qué debe comprobar?",
+          "answer": "Qué variación quiere reducir, con qué referencia la distingue y qué retardo o pérdida de detalle introduce la propuesta. La mejora se evalúa por función y evidencia."
+        }
+      ]
+    },
+    {
+      "title": "Evaluación y defensa individual",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Evaluación del curso",
+          "headers": [
+            "Componente",
+            "Peso",
+            "Qué se valora"
+          ],
+          "rows": [
+            [
+              "Portafolio individual",
+              "30%",
+              "Predicción y explicación"
+            ],
+            [
+              "Prácticas y registros",
+              "25%",
+              "Método y evidencia"
+            ],
+            [
+              "Proyecto integrado",
+              "35%",
+              "Requisitos y pruebas"
+            ],
+            [
+              "Defensa individual",
+              "10%",
+              "Comprensión y transferencia"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Presenta propósito y configuración en un minuto.",
+            "Señala energía, una entrada, una transformación y una salida.",
+            "Explica una fila del registro con unidades y referencia temporal.",
+            "Muestra una prueba de fallo y su alcance.",
+            "Defiende una modificación propia con su comparación.",
+            "Declara una limitación y la prueba que harías después."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El docente distingue entre un cálculo correcto, un programa que compila, una simulación ejecutada y una comprobación física. Son evidencias complementarias. El alumnado recibe retroalimentación sobre qué logró demostrar y qué puede mejorar. Esa información sirve para elegir la siguiente ruta de formación y para presentar el proyecto de manera profesional."
+        }
+      ]
+    },
+    {
+      "title": "Lo que sigue después de este curso",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La ruta siguiente puede profundizar en aviónica y telemetría, registro MicroSD, comunicaciones dedicadas, estimación de orientación o diseño de control. Otra ruta puede desarrollar mecanismos y robótica. La base obtenida permite elegir con criterio: el estudiante ya conoce entradas y salidas, tiempos, medida, potencia, referencias y pruebas. No necesita afirmar dominio de todos los subsistemas de un UAV para presentar un buen proyecto introductorio."
+        },
+        {
+          "type": "table",
+          "title": "Interés del estudiante",
+          "headers": [
+            "Interés",
+            "Base del curso",
+            "Siguiente profundización"
+          ],
+          "rows": [
+            [
+              "Sensores de UAV",
+              "Adquisición y unidades",
+              "Calibración y estimación"
+            ],
+            [
+              "Mecanismos",
+              "Señal, potencia y medida",
+              "Control y diseño mecánico"
+            ],
+            [
+              "Datos en tierra",
+              "Registros y HTTP",
+              "Telemetría y almacenamiento"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La entrega final incluye una propuesta de siguiente versión con una sola mejora prioritaria. Debe nombrar el problema observado, el cambio propuesto y una comprobación. Un proyecto pequeño puede tener gran valor formativo si su constructor entiende lo que mide, lo que decide y lo que todavía necesita estudiar. Ese es el criterio que MECRO conserva al ampliar su oferta."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Revisar la configuración antes de la demostración.",
+    "Ejecutar prueba normal y matriz de fallos con evidencia.",
+    "Relacionar una fila del registro con el estado del sistema.",
+    "Defender una mejora y proponer la siguiente ruta."
+  ],
+  "qas": [
+    [
+      "¿Compilar equivale a haber probado hardware?",
+      "No. Son evidencias distintas y se identifican por su alcance."
+    ],
+    [
+      "¿Un valor retenido puede seguir impreso con data_valid=0?",
+      "Sí, si el formato lo explica; no debe presentarse como una adquisición reciente."
+    ],
+    [
+      "¿Qué debe contener una mejora?",
+      "Problema observado, cambio con motivo y prueba para contrastarlo."
+    ]
+  ],
+  "delivery": "Expediente final, matriz de pruebas, registro y defensa individual.",
+  "refs": [
+    "MECRO",
+    "GPIO",
+    "WIRE",
+    "FBS",
+    "WOKWI"
+  ],
+  "hours": 4,
+  "mode": "Presencial",
+  "opening": "Revisar la configuración antes de la demostración.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "GPIO": [
+      "Espressif Systems",
+      "GPIO y restricciones de ESP32 clásico",
+      "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+    ],
+    "WIRE": [
+      "Espressif Systems",
+      "Arduino-ESP32: I2C",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/i2c.html"
+    ],
+    "FBS": [
+      "Åström y Murray",
+      "Feedback Systems: An Introduction for Scientists and Engineers; edición electrónica de los autores",
+      "https://www.cds.caltech.edu/~murray/books/AM08/"
+    ],
+    "WOKWI": [
+      "Wokwi",
+      "ESP32 Simulation: periféricos y límites",
+      "https://docs.wokwi.com/guides/esp32"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

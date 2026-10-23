@@ -1,0 +1,626 @@
+{
+  "week": 8,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Preparar la jornada con el cohete terminado",
+        "MECRO   SEMANA 8   CLASE 15   01/24",
+        "Relacionar el objeto, el archivo y las comprobaciones pendientes antes de la revisión del responsable.",
+        "Llegar al día de campo con un conjunto identificado y un equipo organizado.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-08-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "La revisión comienza con el objeto que existe",
+        "MECRO   SEMANA 8   CLASE 15   02/24",
+        "Antes de la jornada, cada equipo reúne el cohete, la revisión final del archivo, el plano y el registro de montaje. Una modificación posterior al taller debe aparecer en los documentos. Si se cambió una nariz o una aleta, el expediente anterior deja de describir por completo el objeto actual."
+      ],
+      "image": "assets/slide-08-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Tres referencias que deben corresponder",
+        "MECRO   SEMANA 8   CLASE 15   03/24",
+        "Referencia",
+        "Qué contiene",
+        "Objeto",
+        "Piezas y estado final",
+        "Archivo",
+        "Geometría, masas y configuración",
+        "Registro",
+        "Comprobaciones y cambios"
+      ],
+      "image": "assets/slide-08-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "La revisión comienza con el objeto que existe",
+        "MECRO   SEMANA 8   CLASE 15   04/24",
+        "Preparar una jornada consiste en conectar el estado del objeto con un expediente vigente y con el trabajo de las personas. El equipo debe poder mostrar cuál es su revisión, qué comprobaciones realizó y qué queda pendiente. Una ficha marcada antes de cambiar una pieza puede haber perdido parte de su valor. La revisión previa identifica esas relaciones y permite al responsable decidir con información sobre el conjunto que realmente se presenta."
+      ],
+      "image": "assets/slide-08-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Una lista de revisión que se pueda demostrar",
+        "MECRO   SEMANA 8   CLASE 15   05/24",
+        "El estado “pendiente” debe conservarse cuando falta información. Marcar todo como terminado para que el expediente se vea bien impide organizar la jornada. Si una condición importante no se puede cerrar, el equipo participa en la observación y el análisis de los otros proyectos mientras resuelve su caso."
+      ],
+      "image": "assets/slide-08-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Revisión del equipo",
+        "MECRO   SEMANA 8   CLASE 15   06/24",
+        "Punto",
+        "Evidencia concreta",
+        "Identificación",
+        "Nombre de equipo y revisión",
+        "Piezas y alineación",
+        "Vistas y observación actual",
+        "Masas y dimensiones",
+        "Registro de la condición medida",
+        "Recuperación",
+        "Comprobación de banco correspondiente",
+        "Conjunto comercial",
+        "Referencia e instrucciones",
+        "Pendientes",
+        "Corrección y revisión posterior"
+      ],
+      "image": "assets/slide-08-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Un cambio pequeño que importa",
+        "MECRO   SEMANA 8   CLASE 15   07/24",
+        "El equipo sustituyó una pieza después de la última simulación, pero afirma que se parece mucho.",
+        "¿Qué evidencia permite cerrar cada punto?"
+      ],
+      "image": "assets/slide-08-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Organizar responsabilidades",
+        "MECRO   SEMANA 8   CLASE 15   08/24",
+        "En una jornada hay actividades de operación, observación y recuperación. No todos los participantes manipulan el conjunto al mismo tiempo. El equipo docente establece las funciones y los límites de intervención. Cada grupo de alumnos puede asignar responsable de expediente, observación, registro audiovisual y análisis de datos."
+      ],
+      "image": "assets/slide-08-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Roles de aprendizaje",
+        "MECRO   SEMANA 8   CLASE 15   09/24",
+        "Rol",
+        "Responsabilidad",
+        "Expediente",
+        "Conservar la configuración y registrar cambios",
+        "Observación",
+        "Anotar eventos reconocibles",
+        "Imagen",
+        "Registrar con referencias útiles",
+        "Datos",
+        "Relacionar archivos y preguntas",
+        "Portavoz",
+        "Explicar el estado del proyecto"
+      ],
+      "image": "assets/slide-08-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Todo el equipo quiere grabar",
+        "MECRO   SEMANA 8   CLASE 15   10/24",
+        "Nadie anotó qué revisión del cohete se utilizó ni qué archivo estaba asociado.",
+        "¿Quién registra la configuración?"
+      ],
+      "image": "assets/slide-08-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Preparar observaciones que después sirvan",
+        "MECRO   SEMANA 8   CLASE 15   11/24",
+        "Una observación visual puede describir una fase sin medir una altura. No se convierte una impresión del espectador en un número exacto de metros. El demostrador docente con CanSat tiene otra fuente de datos y otro expediente."
+      ],
+      "image": "assets/slide-08-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Preparar observaciones que después sirvan",
+        "MECRO   SEMANA 8   CLASE 15   12/24",
+        "¿Qué eventos se podrán observar realmente?",
+        "NASA Glenn: secuencia de eventos para preparar una hoja de observación. No se usa la figura para estimar alturas del proyecto."
+      ],
+      "image": "assets/slide-08-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Práctica: Preparar observaciones que después sirvan",
+        "MECRO   SEMANA 8   CLASE 15   13/24",
+        "1. Escribe la identificación del modelo y su configuración de referencia.",
+        "",
+        "2. Define qué eventos reconocerá el observador: salida, subida, recuperación visible y contacto con el suelo cuando sea observable.",
+        "",
+        "3. Declara el origen de tiempo de la grabación o del registro.",
+        "",
+        "4. Anota qué magnitudes se podrán medir y cuáles solo describir cualitativamente.",
+        "",
+        "5. Prepara espacio para un evento no observado o una interrupción del registro."
+      ],
+      "image": "assets/slide-08-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "La jornada también necesita alternativas",
+        "MECRO   SEMANA 8   CLASE 15   14/24",
+        "La agenda reserva tiempo para revisión, desplazamientos organizados, pausas y análisis. El día completo no es una secuencia ininterrumpida de lanzamientos. Si el curso quiere enseñar a construir de forma responsable, también debe enseñar a conservar una decisión de aplazamiento y su motivo."
+      ],
+      "image": "assets/slide-08-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Alternativas previstas",
+        "MECRO   SEMANA 8   CLASE 15   15/24",
+        "Situación",
+        "Decisión de organización",
+        "Aprendizaje posible",
+        "Condición de campo no aceptada",
+        "Adaptar o aplazar operaciones",
+        "Revisar predicciones y registros de banco",
+        "Pendiente del vehículo",
+        "Conservar la revisión abierta",
+        "Observar y comparar otros proyectos",
+        "Falta de un registro",
+        "Identificar el dato ausente",
+        "Mejorar la pauta de observación"
+      ],
+      "image": "assets/slide-08-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica: La jornada también necesita alternativas",
+        "MECRO   SEMANA 8   CLASE 15   16/24",
+        "1. Revisa que las piezas y archivos tengan copia y transporte identificado.",
+        "",
+        "2. Prepara fichas, cámara y medios de registro necesarios para la función del equipo.",
+        "",
+        "3. Confirma los horarios y la organización de campo con el docente.",
+        "",
+        "4. Comprueba qué se hará si el proyecto no puede operar en la ventana prevista.",
+        "",
+        "5. Conserva una lista de pendientes que todavía requiera cierre."
+      ],
+      "image": "assets/slide-08-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Explicar el estado en dos minutos",
+        "MECRO   SEMANA 8   CLASE 15   17/24",
+        "Cada equipo prepara una explicación corta con el objeto delante: qué construyó, por qué eligió nariz y aletas, qué comprobó y qué falta. El docente puede pedir una medida o abrir una entrada del archivo para contrastar la respuesta. La defensa se apoya en el proyecto, no en memorizar fórmulas."
+      ],
+      "image": "assets/slide-08-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Presentación previa a la jornada",
+        "MECRO   SEMANA 8   CLASE 15   18/24",
+        "Pregunta",
+        "Apoyo que debe mostrarse",
+        "¿Qué misión tiene?",
+        "Criterios de selección",
+        "¿Por qué esas piezas?",
+        "Comparativas y fabricación",
+        "¿Qué representa el archivo?",
+        "Configuración y masas",
+        "¿Qué comprobamos?",
+        "Fotos y fichas de banco",
+        "¿Qué sigue pendiente?",
+        "Acción y revisión"
+      ],
+      "image": "assets/slide-08-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Qué llevar como conclusión",
+        "MECRO   SEMANA 8   CLASE 15   19/24",
+        "“Este es el estado revisado de nuestro prototipo. Estas son las comprobaciones hechas y estos los cambios posteriores al taller”.",
+        "¿Puedes explicar el estado con el cohete delante?"
+      ],
+      "image": "assets/slide-08-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 8   CLASE 15   20/24",
+        "1. Comparar objeto, archivo y registro de montaje.",
+        "",
+        "2. Cerrar o conservar pendientes con evidencia.",
+        "",
+        "3. Distribuir roles de observación y documentación.",
+        "",
+        "4. Preparar una defensa breve y una alternativa de aprendizaje."
+      ],
+      "image": "assets/slide-08-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 8   CLASE 15   21/24",
+        "Llegar al día de campo con un conjunto identificado y un equipo organizado.",
+        "¿Puedes explicar el estado con el cohete delante?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-08-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 8   CLASE 15   22/24",
+        "1. ¿Un resultado de simulación autoriza la operación?",
+        "",
+        "2. ¿Una impresión visual da una altura exacta?",
+        "",
+        "3. ¿Qué hacer si el modelo conserva un pendiente?"
+      ],
+      "image": "assets/slide-08-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 8   CLASE 15   23/24",
+        "1. No. La aceptación y las condiciones corresponden al responsable.",
+        "",
+        "2. No. Hay que distinguir observación y medición.",
+        "",
+        "3. Documentarlo, resolverlo con el docente y participar según la organización."
+      ],
+      "image": "assets/slide-08-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 8   CLASE 15   24/24",
+        "Expediente previo, roles y hoja de observación.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-08-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Jornada de lanzamiento y revisión del proyecto",
+        "MECRO   SEMANA 8   CLASE 16   01/24",
+        "Participar en una jornada organizada, conservar observaciones y explicar mejoras del cohete construido.",
+        "Cerrar el aprendizaje con el objeto, sus registros y una comparación honesta con la predicción.",
+        "PRESENCIAL   8 HORAS"
+      ],
+      "image": "assets/slide-08-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Un día completo para observar el proyecto",
+        "MECRO   SEMANA 8   CLASE 16   02/24",
+        "El encuentro final dura ocho horas e incluye organización, revisión de modelos, una ventana de operaciones y análisis. Los equipos llegan con sus prototipos y expedientes. El responsable decide qué conjuntos y qué condiciones permiten operar. El curso no garantiza un lanzamiento por alumno ni por equipo al margen de esa revisión."
+      ],
+      "image": "assets/slide-08-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Agenda de la jornada",
+        "MECRO   SEMANA 8   CLASE 16   03/24",
+        "Minutos",
+        "Actividad",
+        "0–60",
+        "Organización y revisión del lugar",
+        "60–150",
+        "Revisión de conjuntos y funciones",
+        "150–330",
+        "Ventana de operaciones según condiciones",
+        "330–390",
+        "Pausa y recuperación organizada",
+        "390–480",
+        "Revisión de objetos, datos y conclusiones"
+      ],
+      "image": "assets/slide-08-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Un día completo para observar el proyecto",
+        "MECRO   SEMANA 8   CLASE 16   04/24",
+        "Una jornada de curso reúne operación, observación y aprendizaje. La participación del equipo incluye presentar el modelo, explicar sus decisiones y conservar un registro del caso. La operación se realiza bajo la dirección del responsable. Si una condición no permite continuar, el trabajo formativo puede seguir con revisión del objeto y análisis de otros registros. La evaluación conserva el vínculo con las evidencias que cada equipo produjo durante todo el curso."
+      ],
+      "image": "assets/slide-08-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Antes de cada actividad",
+        "MECRO   SEMANA 8   CLASE 16   05/24",
+        "El expediente debe corresponder al objeto que se presenta. Si se reemplazó una pieza durante la jornada, el equipo lo indica antes de la siguiente revisión. Los registros necesitan un identificador de caso o intento para distinguir operaciones que usan el mismo nombre de equipo."
+      ],
+      "image": "assets/slide-08-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Hoja de caso",
+        "MECRO   SEMANA 8   CLASE 16   06/24",
+        "Campo",
+        "Contenido",
+        "Identificador",
+        "Equipo, modelo y caso",
+        "Configuración",
+        "Revisión y referencia comercial",
+        "Registro",
+        "Archivo de imagen o datos",
+        "Condiciones",
+        "Notas del responsable",
+        "Resultado observable",
+        "Descripción y referencias"
+      ],
+      "image": "assets/slide-08-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Práctica: Antes de cada actividad",
+        "MECRO   SEMANA 8   CLASE 16   07/24",
+        "1. Identifica modelo, revisión y caso de la actividad.",
+        "",
+        "2. Confirma los roles de observación y registro definidos por la organización.",
+        "",
+        "3. Conserva el archivo y la configuración de referencia asociados al objeto.",
+        "",
+        "4. Anota cambios y pendientes revisados por el responsable.",
+        "",
+        "5. Permanece en la zona y función indicadas para la actividad."
+      ],
+      "image": "assets/slide-08-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Observar sin inventar una medición",
+        "MECRO   SEMANA 8   CLASE 16   08/24",
+        "El observador puede reconocer salida, subida, recuperación visible y estado de descenso cuando las condiciones permiten verlo. Si pierde el modelo de vista, registra ese hecho. Una observación parcial sigue siendo útil si se conserva su límite."
+      ],
+      "image": "assets/slide-08-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 8   CLASE 16   09/24",
+        "¿Qué tramo del evento no se observó?",
+        "En el caso docente con CanSat se conservan el registro local y la recepción de tierra cuando estén disponibles. Un dato de ese vehículo no se atribuye a los modelos de alumnos. Cada conclusión debe corresponder a su objeto y su caso."
+      ],
+      "image": "assets/slide-08-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "El video no muestra todo",
+        "MECRO   SEMANA 8   CLASE 16   10/24",
+        "La cámara registra la salida, después pierde al cohete y vuelve a mostrar el descenso.",
+        "¿Qué tramo del evento no se observó?"
+      ],
+      "image": "assets/slide-08-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Después de recuperar: inspeccionar el objeto",
+        "MECRO   SEMANA 8   CLASE 16   11/24",
+        "La recuperación del conjunto permite observar piezas y conservar evidencia del estado posterior. La organización determina cuándo y cómo se realiza la recuperación. El alumno no persigue un objeto ni accede a un lugar de riesgo por completar la tarea. Una vez autorizado el trabajo sobre el modelo, se identifica y fotografía antes de cambiarlo."
+      ],
+      "image": "assets/slide-08-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Qué describir en la inspección",
+        "MECRO   SEMANA 8   CLASE 16   12/24",
+        "Zona",
+        "Observación concreta",
+        "Nariz",
+        "Borde, unión y marcas visibles",
+        "Cuerpo",
+        "Forma, superficie y acceso",
+        "Aletas",
+        "Posición, unión y daños visibles",
+        "Recuperación",
+        "Estado y continuidad de sus partes",
+        "Datos",
+        "Archivo disponible e identificación"
+      ],
+      "image": "assets/slide-08-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Práctica: Después de recuperar: inspeccionar el objeto",
+        "MECRO   SEMANA 8   CLASE 16   13/24",
+        "1. Relaciona el objeto recuperado con su identificador de caso.",
+        "",
+        "2. Registra el estado de nariz, cuerpo, aletas y sistema de recuperación.",
+        "",
+        "3. Fotografía una diferencia respecto al estado previo, si existe.",
+        "",
+        "4. Conserva los archivos o registros de datos que correspondan.",
+        "",
+        "5. Consulta al docente antes de reparar o preparar otra actividad."
+      ],
+      "image": "assets/slide-08-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Comparar lo previsto y lo observado",
+        "MECRO   SEMANA 8   CLASE 16   14/24",
+        "El informe final distingue tres fuentes: predicción del programa, medición disponible y observación cualitativa. Si el alumno no dispone de un altímetro o de un método de medida revisado, no tiene que inventar un apogeo para completar una tabla. Puede comparar eventos, recuperación y estado de la pieza con un alcance claro."
+      ],
+      "image": "assets/slide-08-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Comparación final del caso",
+        "MECRO   SEMANA 8   CLASE 16   15/24",
+        "Pregunta",
+        "Predicción o plan",
+        "Evidencia disponible",
+        "Fases",
+        "Eventos del modelo",
+        "Video y observación",
+        "Recuperación",
+        "Sistema previsto",
+        "Estado y evento visible",
+        "Altura",
+        "Predicción declarada",
+        "Solo medida si existe",
+        "Pieza",
+        "Estado y función esperados",
+        "Inspección posterior"
+      ],
+      "image": "assets/slide-08-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Una conclusión útil con pocos datos",
+        "MECRO   SEMANA 8   CLASE 16   16/24",
+        "“No medimos altura, pero registramos la recuperación visible y el estado de las tres aletas. Una unión presenta una diferencia respecto al registro previo”.",
+        "¿Qué fuente respalda cada afirmación?"
+      ],
+      "image": "assets/slide-08-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Cerrar el proyecto y proponer la siguiente versión",
+        "MECRO   SEMANA 8   CLASE 16   17/24",
+        "El aprendizaje no depende únicamente de que el cohete salga en una operación. Un proyecto con un pendiente bien detectado puede demostrar buenas decisiones y comprensión. La evaluación considera el trabajo construido, su representación y la capacidad de explicar qué se comprobó."
+      ],
+      "image": "assets/slide-08-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Evaluación del aprendizaje",
+        "MECRO   SEMANA 8   CLASE 16   18/24",
+        "Aspecto",
+        "Peso propuesto",
+        "Decisiones según misión",
+        "25%",
+        "Modelo digital y representación",
+        "25%",
+        "Fabricación y comprobaciones",
+        "30%",
+        "Explicación con evidencias",
+        "20%"
+      ],
+      "image": "assets/slide-08-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "La próxima versión tiene una razón",
+        "MECRO   SEMANA 8   CLASE 16   19/24",
+        "El equipo propone cambiar la nariz porque la actual se repone con dificultad, o rediseñar el útil porque una referencia fue incómoda durante el montaje.",
+        "¿Qué cambio comprobarás en la siguiente versión?"
+      ],
+      "image": "assets/slide-08-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 8   CLASE 16   20/24",
+        "1. Preparar caso, roles y configuración antes de la ventana de operaciones.",
+        "",
+        "2. Registrar únicamente eventos y magnitudes que se puedan sostener.",
+        "",
+        "3. Inspeccionar el modelo recuperado según la organización.",
+        "",
+        "4. Comparar fuentes y proponer una mejora por equipo."
+      ],
+      "image": "assets/slide-08-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 8   CLASE 16   21/24",
+        "Cerrar el aprendizaje con el objeto, sus registros y una comparación honesta con la predicción.",
+        "¿Qué cambio comprobarás en la siguiente versión?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-08-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 8   CLASE 16   22/24",
+        "1. ¿Qué se escribe si el video pierde al cohete?",
+        "",
+        "2. ¿Una marca revela automáticamente su causa?",
+        "",
+        "3. ¿Qué define una mejora útil?"
+      ],
+      "image": "assets/slide-08-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 8   CLASE 16   23/24",
+        "1. Se identifica el tramo no observado, sin inventar eventos o alturas.",
+        "",
+        "2. No. Se describe y se contrasta con otras evidencias.",
+        "",
+        "3. Un problema de misión identificado y una forma de comprobar el cambio."
+      ],
+      "image": "assets/slide-08-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 8   CLASE 16   24/24",
+        "Ficha final del proyecto, archivos conservados y mejora justificada.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-08-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-08.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_08.pptx"
+}

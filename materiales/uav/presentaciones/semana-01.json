@@ -1,0 +1,576 @@
+{
+  "week": 1,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Reconocer el dron y definir qué vamos a construir",
+        "MECRO   SEMANA 1   CLASE 01   01/24",
+        "Reconocer subsistemas y convertir una necesidad en requisitos para un multirrotor de referencia.",
+        "El primer resultado es un plano funcional del equipo, con propósito, tamaño de hélice y componentes identificados.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-01-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "El dron sobre la mesa",
+        "MECRO   SEMANA 1   CLASE 01   02/24",
+        "Antes de comprar o soldar, necesitamos saber qué función cumple cada pieza. El bastidor sostiene y posiciona los componentes; el conjunto motor–hélice produce empuje; el ESC conmuta la energía que recibe de la batería; la controladora estima el estado del vehículo y genera órdenes. El receptor aporta el mando del piloto. Una cámara y un transmisor de vídeo, si existen, forman otra cadena. Esta separación ayuda a investigar un fallo: que haya vídeo no demuestra que el receptor esté entregando mando."
+      ],
+      "image": "assets/slide-01-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "El dron sobre la mesa",
+        "MECRO   SEMANA 1   CLASE 01   03/24",
+        "Sigue la energía y el mando. ¿Qué función cumple cada pieza visible?",
+        "Imagen pública de MECRO para reconocer estructura, motores y distribución. No identifica por sí sola los modelos exactos del banco del curso."
+      ],
+      "image": "assets/slide-01-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · El dron sobre la mesa",
+        "MECRO   SEMANA 1   CLASE 01   04/24",
+        "MECRO comparará sus equipos de 5, 7 y 12 pulgadas. Aquí la cifra describe el diámetro de hélice usado como referencia de clase; no es la longitud total de la aeronave ni la diagonal del bastidor. El equipo grande mostrará una arquitectura con autopiloto tipo Pixhawk. Los pequeños permitirán trabajar principalmente Betaflight. Ninguna de esas asociaciones constituye una regla universal: el fabricante y el modelo concreto deciden qué puede instalarse.",
+        "",
+        "Dibuja dos recorridos sobre una fotografía: energía desde batería a ESC y motor, e información desde mando a receptor y controladora. El mismo conector puede llevar energía y señal, pero esas funciones siguen siendo diferentes. Una etiqueta legible y una referencia de modelo valen más que reconocer una pieza por su color."
+      ],
+      "image": "assets/slide-01-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Misión, tamaño y forma de operación",
+        "MECRO   SEMANA 1   CLASE 01   05/24",
+        "Una misión de aprendizaje debe ser concreta. “Quiero el mejor dron” no permite elegir componentes. “Quiero aprender a ensamblar un quad y demostrar vuelo básico con el docente” permite priorizar documentación, compatibilidad y facilidad de revisión. Una cámara, una carga o una autonomía deseada cambian el presupuesto de masa y energía. El expediente empieza por requisitos y se actualiza cuando la selección de piezas revela una limitación."
+      ],
+      "image": "assets/slide-01-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Tres referencias del curso",
+        "MECRO   SEMANA 1   CLASE 01   06/24",
+        "Referencia",
+        "Qué permite estudiar",
+        "Qué falta conocer",
+        "5 pulgadas",
+        "Distribución compacta y configuración Betaflight",
+        "Bastidor, motor, FC y batería exactos",
+        "7 pulgadas",
+        "Cambio de hélice, masa y energía",
+        "Tabla motor–hélice y espacio disponible",
+        "12 pulgadas",
+        "Autopiloto, alimentación y GPS",
+        "Modelo del autopiloto y conexiones reales"
+      ],
+      "image": "assets/slide-01-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Tamaño y función",
+        "MECRO   SEMANA 1   CLASE 01   07/24",
+        "Dos drones llevan hélices de 7 pulgadas. Uno tiene vídeo y el otro no. ¿Son la misma arquitectura?",
+        "Comparten una dimensión de referencia, pero pueden tener distintas controladoras, interfaces, alimentación y modos. La comparación necesita la lista real de componentes."
+      ],
+      "image": "assets/slide-01-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Masa, empuje y área que barre la hélice",
+        "MECRO   SEMANA 1   CLASE 01   08/24",
+        "La masa incluye batería, cableado, tornillería y carga, además de las piezas grandes. En vuelo estacionario, el empuje vertical total compensa aproximadamente el peso. Es una condición de equilibrio útil para seleccionar, no una descripción completa de maniobras o viento. El peso se expresa en newtons; las tablas comerciales suelen usar gramos fuerza. La lectura siempre identifica qué unidad está utilizando."
+      ],
+      "image": "assets/slide-01-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 1   CLASE 01   09/24",
+        "¿Aumentar el diámetro de 5 a 7 pulgadas aumenta el área en 40 %?",
+        "El diámetro por sí solo no selecciona un motor. El paso, número de palas, régimen de giro, alimentación y geometría modifican la carga. Un bastidor debe admitir la hélice y dejar espacio al cableado. El proyecto no consiste en poner piezas más grandes sobre el mismo dibujo: cada cambio obliga a comprobar el sistema que las conecta."
+      ],
+      "image": "assets/slide-01-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "El área cambia con el cuadrado del diámetro",
+        "MECRO   SEMANA 1   CLASE 01   10/24",
+        "Cálculo geométrico ideal de aula. No compara empuje ni autonomía de los drones MECRO."
+      ],
+      "image": "assets/slide-01-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Las compatibilidades que gobiernan la compra",
+        "MECRO   SEMANA 1   CLASE 01   11/24",
+        "Una controladora anunciada como F405 utiliza un tipo de microcontrolador, pero esa descripción no identifica todos sus sensores, pines ni archivos de firmware. Dos placas con el mismo procesador pueden necesitar targets diferentes. Un cable entre un ESC 4 en 1 y una FC también puede tener la misma forma física y otro orden de contactos. El conector no es una prueba de compatibilidad eléctrica."
+      ],
+      "image": "assets/slide-01-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Cuatro comprobaciones distintas",
+        "MECRO   SEMANA 1   CLASE 01   12/24",
+        "Compatibilidad",
+        "Ejemplo",
+        "Evidencia",
+        "Mecánica",
+        "Hélice, eje, tornillo y patrón de montaje",
+        "Cotas y prueba en seco",
+        "Eléctrica",
+        "Batería, ESC, regulador y periférico",
+        "Tensiones y límites documentados",
+        "De señal",
+        "FC y ESC; receptor y UART",
+        "Protocolo, nivel y puerto",
+        "De software",
+        "Placa y firmware",
+        "Target exacto y versión compatible"
+      ],
+      "image": "assets/slide-01-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Misma forma, distinto cable",
+        "MECRO   SEMANA 1   CLASE 01   13/24",
+        "Un arnés entra entre FC y ESC. ¿Se conecta para probar?",
+        "Primero se comparan los contactos y tensiones de ambos extremos. Encajar es una comprobación mecánica; falta demostrar compatibilidad eléctrica."
+      ],
+      "image": "assets/slide-01-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio de arquitectura y requisitos",
+        "MECRO   SEMANA 1   CLASE 01   14/24",
+        "Para trabajar en línea basta la fotografía y la documentación. Si el docente muestra un equipo armado, se conserva su configuración como referencia y se anotan los elementos que no pueden verse. Una carcasa, una etiqueta tapada o una revisión de placa diferente puede cambiar una conclusión. La primera práctica se entrega como una hoja clara, no como una colección de capturas sin relación."
+      ],
+      "image": "assets/slide-01-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 1   CLASE 01   15/24",
+        "¿FPV es un firmware?",
+        "La revisión entre compañeros consiste en seguir un recorrido completo: una orden humana debe llegar a una salida prevista y la energía debe alimentar las etapas correspondientes. Si faltó un retorno, una interfaz o el componente que genera la orden, el dibujo ayuda a descubrirlo antes del taller."
+      ],
+      "image": "assets/slide-01-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio de arquitectura y requisitos",
+        "MECRO   SEMANA 1   CLASE 01   16/24",
+        "1. Observa las fotografías o el dron del docente. Identifica bastidor, propulsión, energía, control y enlace.",
+        "",
+        "2. Elige 5, 7 o 12 pulgadas para el expediente de aula y explica el propósito. No implica comprar ese equipo.",
+        "",
+        "3. Crea una tabla de masas preliminares y separa dato medido, dato de fabricante y estimación.",
+        "",
+        "4. Dibuja energía y señal con referencias de origen y destino. Marca los componentes opcionales.",
+        "",
+        "5. Registra tres condiciones necesarias y dos preferencias. Una condición debe poder comprobarse.",
+        "",
+        "6. Selecciona una incompatibilidad posible y explica qué documento la resolvería."
+      ],
+      "image": "assets/slide-01-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Qué debemos saber antes de la siguiente clase",
+        "MECRO   SEMANA 1   CLASE 01   17/24",
+        "Un constructor necesita vocabulario para plantear decisiones. Bastidor no equivale a aeronave completa; controladora no equivale a ESC; tamaño no equivale a carga útil. La siguiente clase utilizará esta separación para seleccionar motor, hélice y batería con un caso numérico. El objetivo es explicar una combinación y sus límites, en lugar de memorizar una receta de compras."
+      ],
+      "image": "assets/slide-01-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Investigación breve",
+        "MECRO   SEMANA 1   CLASE 01   18/24",
+        "Pregunta",
+        "Dónde buscar",
+        "Resultado esperado",
+        "¿Qué hélice admite el bastidor?",
+        "Plano o ficha del bastidor",
+        "Dimensión y condición",
+        "¿Qué firmware admite la FC?",
+        "Manual y target del proyecto",
+        "Placa exacta",
+        "¿Qué entra en masa total?",
+        "Lista y balanza",
+        "Inventario coherente"
+      ],
+      "image": "assets/slide-01-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Interpretación · Qué debemos saber antes de la siguiente clase",
+        "MECRO   SEMANA 1   CLASE 01   19/24",
+        "Como lectura de profundización se propone Beard y McLain para reconocer cómo se organizan dinámica, sensores y control. Es una referencia avanzada de UAV, con énfasis en ala fija; no se convierte en prerrequisito de cálculo para este curso de ensamblaje multirrotor. Los manuales del fabricante del equipo real son la referencia inmediata para límites y conectores."
+      ],
+      "image": "assets/slide-01-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 1   CLASE 01   20/24",
+        "1. Presentar un dron completo y recorrer energía y señal.",
+        "",
+        "2. Comparar las tres dimensiones de referencia sin asignarles capacidades universales.",
+        "",
+        "3. Resolver el cambio de área de 5 a 7 pulgadas.",
+        "",
+        "4. Revisar requisitos y una incompatibilidad por estudiante."
+      ],
+      "image": "assets/slide-01-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión de ensamblaje",
+        "MECRO   SEMANA 1   CLASE 01   21/24",
+        "El primer resultado es un plano funcional del equipo, con propósito, tamaño de hélice y componentes identificados.",
+        "Explica una decisión con una pieza, el esquema o un dato. ¿Qué falta comprobar?"
+      ],
+      "image": "assets/slide-01-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 1   CLASE 01   22/24",
+        "1. ¿5 pulgadas describe necesariamente el bastidor?",
+        "",
+        "2. ¿FPV es un firmware?",
+        "",
+        "3. ¿F405 basta para elegir firmware?"
+      ],
+      "image": "assets/slide-01-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 1   CLASE 01   23/24",
+        "1. En la referencia del curso describe la hélice. Se comprueban las cotas reales del bastidor.",
+        "",
+        "2. No. Es una forma de obtener vista desde la aeronave; puede coexistir con diferentes sistemas.",
+        "",
+        "3. No. Hace falta identificar la placa, revisión y target exactos."
+      ],
+      "image": "assets/slide-01-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 1   CLASE 01   24/24",
+        "Arquitectura funcional, requisitos y tabla preliminar de masas de una referencia.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-01-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Seleccionar motor, hélice, ESC y batería con criterio",
+        "MECRO   SEMANA 1   CLASE 02   01/24",
+        "Justificar una cadena de propulsión compatible mediante masa, empuje, corriente y energía.",
+        "La lista de compra debe explicar por qué las piezas funcionan juntas y qué ensayo del fabricante respalda la selección.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-01-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "El conjunto se selecciona como una cadena",
+        "MECRO   SEMANA 1   CLASE 02   02/24",
+        "El motor no produce una cifra única de empuje. La tabla de ensayo debe identificar hélice, tensión, corriente y condiciones. Cambiar una de esas condiciones modifica la carga. El ESC debe admitir la alimentación y el esfuerzo eléctrico y térmico del conjunto; la batería y sus conexiones deben sostener la demanda prevista. La selección funciona de fuera hacia dentro: misión y masa, hélice que cabe, combinación ensayada, alimentación y control compatibles."
+      ],
+      "image": "assets/slide-01-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Datos que deben viajar juntos",
+        "MECRO   SEMANA 1   CLASE 02   03/24",
+        "Elemento",
+        "Dato necesario",
+        "Error frecuente",
+        "Motor",
+        "Tamaño, KV, tabla y límites",
+        "Elegir solo por KV",
+        "Hélice",
+        "Diámetro, paso, palas y sentido",
+        "Usar solo diámetro",
+        "ESC",
+        "Tensión, corriente y protocolo",
+        "Tomar ráfaga como continua",
+        "Batería",
+        "Química, S, capacidad y masa",
+        "Suponer que más mAh siempre ayuda"
+      ],
+      "image": "assets/slide-01-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · El conjunto se selecciona como una cadena",
+        "MECRO   SEMANA 1   CLASE 02   04/24",
+        "KV aproxima la velocidad sin carga por voltio bajo una convención del motor. No es una unidad de potencia ni una promesa del régimen con hélice. El tamaño del estator y la construcción también importan. El paso de hélice describe una geometría; tampoco garantiza una velocidad de avance del dron. Estas cifras permiten comparar fichas, pero la selección debe volver a una prueba de la combinación real.",
+        "",
+        "Para los tres equipos de MECRO se utilizará la misma plantilla. Una ficha de 5 pulgadas no se escala multiplicando todas sus cifras por 12/5. La alimentación, el soporte, el empuje y el espacio cambian de forma distinta."
+      ],
+      "image": "assets/slide-01-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Un presupuesto de empuje que se puede explicar",
+        "MECRO   SEMANA 1   CLASE 02   05/24",
+        "Primero se estima la masa de despegue con todos los componentes. Después se define una relación de empuje máximo a peso como hipótesis de diseño. En aula usaremos 2 para aprender el método. Esa cifra no es una ley universal ni una garantía de vuelo: la misión, las condiciones y la respuesta del vehículo requieren su propia justificación."
+      ],
+      "image": "assets/slide-01-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 1   CLASE 02   06/24",
+        "Con cuatro motores y k = 2, ¿qué empuje máximo por motor buscamos en la tabla?",
+        "La reserva permite distinguir la condición de sostenerse de la capacidad de cambiar el movimiento. No basta con que la tabla alcance 400 gf una sola vez: importa cómo se obtuvo, durante cuánto tiempo y con qué consumo y temperatura. Además, el peso final puede ser mayor que la estimación. Una revisión del presupuesto evita que la batería y los soportes aparezcan al final como masa sorpresa."
+      ],
+      "image": "assets/slide-01-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Quad de 800 g del ejercicio",
+        "MECRO   SEMANA 1   CLASE 02   07/24",
+        "El objetivo total es 1600 gf y por motor 400 gf. En estacionario ideal corresponde aproximadamente a 200 gf por motor. 400 gf equivalen aproximadamente a 3,92 N. Son objetivos de selección del caso, no medidas de un equipo MECRO.",
+        "k es una hipótesis declarada. Si se expresa la tabla en gramos fuerza, se mantiene esa unidad durante la comparación y se diferencia de gramos de masa."
+      ],
+      "image": "assets/slide-01-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Cómo leer una tabla de ensayo",
+        "MECRO   SEMANA 1   CLASE 02   08/24",
+        "Estas filas son datos didácticos y no recomiendan un producto. Cada una representa una combinación diferente bajo una tensión declarada. Si el requisito cambia a 500 gf, A no alcanza el objetivo mostrado; B y C sí lo alcanzan. Esa primera selección todavía no compara masa, régimen térmico, dimensiones y disponibilidad. El componente con más empuje máximo no es automáticamente la mejor elección."
+      ],
+      "image": "assets/slide-01-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Tabla sintética para aprender la comparación",
+        "MECRO   SEMANA 1   CLASE 02   09/24",
+        "Caso a 22,2 V",
+        "Empuje / gf",
+        "Corriente / A",
+        "A · combinación de aula",
+        "450",
+        "6",
+        "B · combinación de aula",
+        "600",
+        "10",
+        "C · combinación de aula",
+        "750",
+        "16"
+      ],
+      "image": "assets/slide-01-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Más empuje máximo no decide toda la selección",
+        "MECRO   SEMANA 1   CLASE 02   10/24",
+        "Tabla sintética a 22,2 V: tres combinaciones de aula. La comparación necesita condiciones de ensayo identificadas."
+      ],
+      "image": "assets/slide-01-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Energía y autonomía estimada",
+        "MECRO   SEMANA 1   CLASE 02   11/24",
+        "La capacidad en Ah expresa carga eléctrica; al multiplicarla por una tensión nominal obtenemos una aproximación de energía en Wh. La energía aprovechable depende de condiciones de uso. Para el ejercicio reservamos 20 % y suponemos potencia media constante. Es un modelo transparente para comparar, no una predicción validada de tiempo de vuelo. La tensión cambia bajo carga y la masa de otra batería también cambia la demanda."
+      ],
+      "image": "assets/slide-01-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 1   CLASE 02   12/24",
+        "Una batería convencional 6S de 1,3 Ah tiene tensión nominal aproximada de 22,2 V. Con f = 0,8 y 250 W medios, ¿qué tiempo arroja el modelo?",
+        "S indica celdas en serie; no todas las químicas tienen la misma tensión por celda. Para una LiPo convencional se distingue nominal de plena carga, y se consulta el paquete real. La cifra C comercial tampoco elimina la necesidad de comprobar corriente, temperatura, conectores y caída de tensión del conjunto."
+      ],
+      "image": "assets/slide-01-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Autonomía del modelo según potencia media",
+        "MECRO   SEMANA 1   CLASE 02   13/24",
+        "6S convencional, 1,3 Ah, 22,2 V nominales y fracción aprovechable asumida de 0,8. No son tiempos de vuelo medidos."
+      ],
+      "image": "assets/slide-01-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Laboratorio de selección y descarte",
+        "MECRO   SEMANA 1   CLASE 02   14/24",
+        "El docente resuelve primero el caso sintético. Después muestra cómo se identifica la condición en una tabla de fabricante del motor que realmente posee. Los estudiantes sin hardware pueden completar la decisión documental. El resultado no es una compra automática: es un argumento revisable que diferencia la evidencia disponible de lo que falta confirmar en banco."
+      ],
+      "image": "assets/slide-01-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 1   CLASE 02   15/24",
+        "¿C comercial sustituye comprobar corriente y conexiones?",
+        "Si se consulta un precio, se registra fecha, moneda y contenido del conjunto. Un motor suelto y una combinación con ESC no son ofertas equivalentes. El precio no debe ocultar la revisión de tensión o montaje. Este paquete no fija precios actuales de componentes."
+      ],
+      "image": "assets/slide-01-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Laboratorio de selección y descarte",
+        "MECRO   SEMANA 1   CLASE 02   16/24",
+        "1. Completa la masa prevista del caso y nombra las estimaciones.",
+        "2. Declara una relación empuje/peso y calcula objetivo por motor con unidades.",
+        "3. Busca una ficha primaria de motor con la hélice y tensión identificadas. No extrapoles una fila incompleta.",
+        "4. Comprueba ESC, batería, conector y regulador contra la alimentación y corriente previstas.",
+        "5. Compara dos alternativas: cuál cumple, cuál se descarta y qué dato falta.",
+        "6. Calcula una autonomía de escenario con potencia media declarada y explica sus límites.",
+        "7. Entrega la lista con modelo, revisión, cantidad y fuente; deja el precio separado de la compatibilidad."
+      ],
+      "image": "assets/slide-01-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "La compra que queda justificada",
+        "MECRO   SEMANA 1   CLASE 02   17/24",
+        "Un error útil de clase consiste en proponer un motor aparentemente correcto con una tensión de ensayo distinta de la batería elegida. El alumno debe detectar que comparar números sin sus condiciones no resuelve la selección. Otro consiste en aumentar capacidad sin actualizar masa. Ambas situaciones enseñan a mantener coherente la lista completa."
+      ],
+      "image": "assets/slide-01-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Antes de cerrar una combinación",
+        "MECRO   SEMANA 1   CLASE 02   18/24",
+        "Pregunta",
+        "Qué conserva el expediente",
+        "¿Cabe y se monta?",
+        "Plano, eje y tornillería",
+        "¿Alcanza el objetivo?",
+        "Fila de ensayo y cálculo",
+        "¿Admite la energía?",
+        "Tensión máxima y demanda",
+        "¿Se puede configurar?",
+        "Protocolo y target",
+        "¿Qué queda pendiente?",
+        "Prueba concreta o dato primario"
+      ],
+      "image": "assets/slide-01-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Interpretación · La compra que queda justificada",
+        "MECRO   SEMANA 1   CLASE 02   19/24",
+        "Para ampliar, compara cómo cambian diámetro y paso dentro de una misma familia de hélices y busca la tabla correspondiente del fabricante. No se pide ensayar hélices en una mesa abierta. El trabajo inicial consiste en interpretar documentación y preparar el banco docente adecuado. En la siguiente sesión construiremos el mapa de alimentación que une las piezas seleccionadas."
+      ],
+      "image": "assets/slide-01-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 1   CLASE 02   20/24",
+        "1. Resolver el presupuesto de 800 g antes de abrir una tienda.",
+        "",
+        "2. Comparar las tres filas sintéticas con unidades y condiciones.",
+        "",
+        "3. Calcular energía y tres escenarios de potencia media.",
+        "",
+        "4. Revisar una combinación propuesta y un descarte argumentado."
+      ],
+      "image": "assets/slide-01-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión de ensamblaje",
+        "MECRO   SEMANA 1   CLASE 02   21/24",
+        "La lista de compra debe explicar por qué las piezas funcionan juntas y qué ensayo del fabricante respalda la selección.",
+        "Explica una decisión con una pieza, el esquema o un dato. ¿Qué falta comprobar?"
+      ],
+      "image": "assets/slide-01-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 1   CLASE 02   22/24",
+        "1. ¿KV indica potencia del motor?",
+        "",
+        "2. ¿C comercial sustituye comprobar corriente y conexiones?",
+        "",
+        "3. ¿Duplicar mAh duplica siempre el tiempo?"
+      ],
+      "image": "assets/slide-01-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 1   CLASE 02   23/24",
+        "1. No. Relaciona régimen sin carga y tensión bajo su convención; falta el conjunto y su ensayo.",
+        "",
+        "2. No. El conjunto necesita límites y evidencia bajo condiciones reales.",
+        "",
+        "3. No. Cambian masa, demanda y condiciones; hay que revisar el modelo y medir."
+      ],
+      "image": "assets/slide-01-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 1   CLASE 02   24/24",
+        "Lista de componentes justificada, presupuesto de masa/empuje y escenario de energía.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-01-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-01.pdf",
+  "ppt": "descargas/MECRO_Drones_Semana_01.pptx"
+}

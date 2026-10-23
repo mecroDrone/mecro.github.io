@@ -1,0 +1,580 @@
+{
+  "week": 6,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Control realimentado: P, PI y una introducción a PID",
+        "MECRO   SEMANA 6   CLASE 11   01/24",
+        "Comparar respuestas ante una perturbación y explicar el papel de P, I y D con tiempo de muestreo y saturación.",
+        "La estabilización y el control de mecanismos UAV se apoyan en medidas, referencias y actuadores; el banco permite reconocer esas funciones.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-06-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "La pregunta que abre el lazo cerrado",
+        "MECRO   SEMANA 6   CLASE 11   02/24",
+        "En lazo abierto se fija un mando y se observa qué ocurre. En lazo cerrado se mide una salida, se compara con una referencia y se actualiza el mando usando esa diferencia. No se vuelve perfecto por añadir la palabra PID. El controlador trabaja con un sensor, un actuador, retardos y límites. Si la referencia es imposible para el conjunto, el algoritmo no puede crear capacidad física que el actuador no tiene."
+      ],
+      "image": "assets/slide-06-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Elementos del banco",
+        "MECRO   SEMANA 6   CLASE 11   03/24",
+        "Elemento",
+        "Ejemplo",
+        "Qué representa",
+        "Referencia r",
+        "500 RPM",
+        "Objetivo declarado",
+        "Medida y",
+        "RPM del encoder",
+        "Salida observada",
+        "Error e",
+        "r menos y",
+        "Diferencia de seguimiento",
+        "Mando u",
+        "Código PWM",
+        "Acción sobre el banco"
+      ],
+      "image": "assets/slide-06-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · La pregunta que abre el lazo cerrado",
+        "MECRO   SEMANA 6   CLASE 11   04/24",
+        "La práctica nueva usa primero una planta matemática de aula y luego el banco físico disponible. El modelo es de primer orden y declara su ganancia y su constante de tiempo. Sus respuestas no se presentan como medidas del kit MECRO. La ventaja didáctica consiste en poder introducir una perturbación conocida y repetir exactamente las condiciones."
+      ],
+      "image": "assets/slide-06-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Qué añade cada acción",
+        "MECRO   SEMANA 6   CLASE 11   05/24",
+        "En un banco de velocidad puede bastar PI para el objetivo introductorio. PID nombra una familia, no la obligación de usar tres términos distintos de cero. La derivada se estudia con un caso de ruido para comprender su coste. El ajuste se hace sobre una configuración identificada y se conserva una curva por cambio."
+      ],
+      "image": "assets/slide-06-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Acciones y observaciones",
+        "MECRO   SEMANA 6   CLASE 11   06/24",
+        "Acción",
+        "Qué relaciona",
+        "Qué hay que vigilar",
+        "P",
+        "Error actual y mando",
+        "Error persistente y ganancia",
+        "I",
+        "Acumulación temporal",
+        "Acumulación en saturación",
+        "D",
+        "Cambio de la medida",
+        "Ruido y diferencia temporal"
+      ],
+      "image": "assets/slide-06-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Qué añade cada acción",
+        "MECRO   SEMANA 6   CLASE 11   07/24",
+        "Las ganancias tienen unidades que dependen de referencia, medida y mando. Conservar Δt evita cambiar el controlador sin querer al cambiar el periodo.",
+        "Las ganancias tienen unidades que dependen de referencia, medida y mando. Conservar Δt evita cambiar el controlador sin querer al cambiar el periodo."
+      ],
+      "image": "assets/slide-06-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Un modelo transparente para comparar",
+        "MECRO   SEMANA 6   CLASE 11   08/24",
+        "La referencia del ejercicio pasa de cero a 500 RPM. Después se aplica una perturbación equivalente de 100 RPM. El mando base es r/4. La comparación incluye lazo abierto, P con ese mando base y PI. Como las entradas del modelo se conservan, una diferencia entre respuestas puede relacionarse con el controlador elegido. Las curvas y el CSV del curso se generan a partir de estas ecuaciones con paso declarado."
+      ],
+      "image": "assets/slide-06-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 6   CLASE 11   09/24",
+        "Si el error es 50 RPM, Kp vale 0,12 cuentas/RPM, Ki vale 0,6 cuentas/(RPM·s) y Δt = 0,02 s, ¿qué contribuciones obtienes?",
+        "Sin integral, el modelo con mando base y P necesita un error persistente para compensar la perturbación. En régimen del caso, e = 100/(1 + 4 × 0,12), aproximadamente 67,6 RPM. La integral puede aportar la acción mantenida que reduce ese error si el sistema tiene capacidad y el ajuste resulta adecuado. La conclusión pertenece a este modelo y a esas condiciones."
+      ],
+      "image": "assets/slide-06-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Una cuenta de controlador",
+        "MECRO   SEMANA 6   CLASE 11   10/24",
+        "P aporta 6 cuentas. El incremento de I es 0,6 × 50 × 0,02 = 0,6 cuentas en ese paso. El acumulado I depende de los pasos anteriores.",
+        "Modelo sintético: y en RPM, u en cuentas de 0 a 255 y L como perturbación equivalente en RPM. No representa un motor identificado."
+      ],
+      "image": "assets/slide-06-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Saturación y acumulación integral",
+        "MECRO   SEMANA 6   CLASE 11   11/24",
+        "El mando tiene un intervalo. Si se sigue acumulando integral mientras el actuador ya está en un extremo y el error exige avanzar todavía más, puede demorarse la recuperación al cambiar la situación. El fragmento conserva el incremento cuando la salida está dentro o cuando ayuda a regresar del límite. Es una estrategia introductoria que debe estudiarse con su definición exacta; no se llama anti-windup a cualquier recorte sin explicar qué ocurre con el estado integral."
+      ],
+      "image": "assets/slide-06-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Acumulación condicionada del ejemplo",
+        "MECRO   SEMANA 6   CLASE 11   12/24",
+        "float trial = integral + Ki * error * dt;",
+        "float unsat = base + Kp * error + trial;",
+        "bool inside = unsat >= 0 && unsat <= 255;",
+        "bool returning = (unsat > 255 && error < 0)",
+        "              || (unsat < 0 && error > 0);",
+        "if (inside || returning) integral = trial;",
+        "float u = constrain(base + Kp*error + integral,",
+        "                    0.0f, 255.0f);",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-06-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Respuesta de un modelo: abierto, P y PI",
+        "MECRO   SEMANA 6   CLASE 11   13/24",
+        "Modelo sintético: τ = 0,35 s, ganancia 4 RPM/cuenta, dt = 20 ms; carga de 100 RPM equivalentes desde 4 s."
+      ],
+      "image": "assets/slide-06-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio de comparación con una perturbación",
+        "MECRO   SEMANA 6   CLASE 11   14/24",
+        "Las curvas se leen con ejes y unidades. Un cruce de la referencia puede ser sobrepaso; una respuesta rápida no es necesariamente la mejor si produce oscilación o exige mando saturado. El alumno escribe una conclusión que incluya una ventaja y una condición observada del caso, sin convertir una única cifra en un ranking universal."
+      ],
+      "image": "assets/slide-06-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Qué comparar en una respuesta",
+        "MECRO   SEMANA 6   CLASE 11   15/24",
+        "Pregunta",
+        "Dato que la apoya",
+        "¿Sigue la referencia?",
+        "Error y evolución",
+        "¿Compensa la perturbación?",
+        "Estado antes y después",
+        "¿Satura?",
+        "Mando y límites",
+        "¿El cambio es repetible?",
+        "Condiciones conservadas"
+      ],
+      "image": "assets/slide-06-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio de comparación con una perturbación",
+        "MECRO   SEMANA 6   CLASE 11   16/24",
+        "1. Dibuja referencia, controlador, planta, medida y perturbación.",
+        "",
+        "2. Abre el CSV sintético y localiza el escalón de referencia y el cambio de carga.",
+        "",
+        "3. Compara lazo abierto y P conservando el mando base y las mismas condiciones.",
+        "",
+        "4. Compara P y PI; describe error persistente y evolución temporal.",
+        "",
+        "5. Introduce un caso de saturación y observa el estado integral.",
+        "",
+        "6. Estudia D con una medida que contiene una variación rápida; explica por qué puede amplificarla.",
+        "",
+        "7. En el banco docente disponible, repite primero una prueba pequeña con referencia alcanzable."
+      ],
+      "image": "assets/slide-06-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Relación con drones y siguiente paso",
+        "MECRO   SEMANA 6   CLASE 11   17/24",
+        "En un UAV puede haber varios lazos y estimaciones entre el mando humano, la orientación y la actuación. El curso no los condensa en una receta de tres ganancias. Enseña las piezas conceptuales que permiten hacer mejores preguntas: qué variable se controla, qué sensor la informa, a qué frecuencia se actualiza y qué límites tiene la acción. El proyecto 17 se revisará como demostración de mando y control proporcional de banco, con su alcance corregido."
+      ],
+      "image": "assets/slide-06-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 6   CLASE 11   18/24",
+        "Un programa calcula error × kp y guarda el resultado en pid_roll. ¿Qué acción implementa?",
+        "Para ampliar, consulta Feedback Systems de Åström y Murray en sus secciones de realimentación y PID. Lee el esquema de bloques junto a un caso del banco. La meta de esta primera aproximación es explicar por qué se produjo una respuesta y qué dato permitiría revisar una hipótesis. Las ganancias y las curvas forman parte de esa explicación, no un sustituto de ella."
+      ],
+      "image": "assets/slide-06-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Un número llamado pid",
+        "MECRO   SEMANA 6   CLASE 11   19/24",
+        "Un programa calcula error × kp y guarda el resultado en pid_roll. ¿Qué acción implementa?",
+        "Una acción proporcional. El nombre de la variable no añade integral ni derivada."
+      ],
+      "image": "assets/slide-06-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 6   CLASE 11   20/24",
+        "1. Mostrar que el mismo PWM puede producir otra velocidad al cambiar la carga.",
+        "",
+        "2. Resolver una contribución P y un incremento I con unidades.",
+        "",
+        "3. Comparar el modelo de referencia en CSV con idénticas entradas.",
+        "",
+        "4. Explicar límites y transferencia al banco físico."
+      ],
+      "image": "assets/slide-06-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 6   CLASE 11   21/24",
+        "La estabilización y el control de mecanismos UAV se apoyan en medidas, referencias y actuadores; el banco permite reconocer esas funciones.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-06-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 6   CLASE 11   22/24",
+        "1. ¿error × kp es PID completo?",
+        "",
+        "2. ¿Qué ocurre si se omite Δt en I?",
+        "",
+        "3. ¿Una referencia imposible se resuelve subiendo ganancias?"
+      ],
+      "image": "assets/slide-06-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 6   CLASE 11   23/24",
+        "1. Es proporcional, aunque la variable se llame pid.",
+        "",
+        "2. La acumulación cambia al cambiar la frecuencia de ejecución.",
+        "",
+        "3. No. Se revisan capacidad, saturación, medida y objetivo."
+      ],
+      "image": "assets/slide-06-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 6   CLASE 11   24/24",
+        "Gráficas identificadas, caso P/I resuelto y comparación de dos respuestas.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-06-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "IMU y orientación de banco: medir antes de estabilizar",
+        "MECRO   SEMANA 6   CLASE 12   01/24",
+        "Distinguir aceleración, velocidad angular e inclinación estimada y obtener un registro con unidades.",
+        "La IMU es una entrada esencial para comprender cómo se observa el movimiento de un UAV.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-06-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Qué significa seis ejes",
+        "MECRO   SEMANA 6   CLASE 12   02/24",
+        "La IMU del proyecto MPU6050 combina tres componentes de aceleración y tres de velocidad angular. Esos seis canales no equivalen a seis ángulos medidos directamente. El acelerómetro y el giróscopo responden a magnitudes distintas. Antes de interpretar un número se necesita un sistema de ejes ligado al montaje, una unidad y una configuración de rango."
+      ],
+      "image": "assets/slide-06-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Qué significa seis ejes",
+        "MECRO   SEMANA 6   CLASE 12   03/24",
+        "Identifica los ejes de la IMU y las líneas SDA/SCL. ¿Qué unidad leerá el programa?",
+        "MECRO, proyecto 16. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-06-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · Qué significa seis ejes",
+        "MECRO   SEMANA 6   CLASE 12   04/24",
+        "En reposo, la lectura del acelerómetro permite observar la dirección asociada a gravedad bajo las condiciones del banco. Durante movimiento se añaden otros efectos y esa lectura no se interpreta automáticamente como inclinación. El giróscopo aporta velocidad angular; al integrarla se obtiene una estimación de cambio angular que también acumula error por sesgo. Ambas observaciones pueden complementarse, pero ninguna se vuelve una orientación completa por cambiar el nombre de una variable.",
+        "",
+        "La clase separa los atributos del simulador de las unidades que devuelve una biblioteca. En Wokwi se pueden introducir valores en g y grados por segundo. La biblioteca Adafruit utilizada presenta aceleración en m/s² y giro en rad/s. Ese cambio de representación debe reconocerse antes de aplicar fórmulas o escalas."
+      ],
+      "image": "assets/slide-06-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Un ángulo a partir de la gravedad del banco",
+        "MECRO   SEMANA 6   CLASE 12   05/24",
+        "Estas expresiones se usan en la práctica cuasiestática, con la referencia de ejes declarada. atan2 considera la relación entre componentes y su cuadrante. Multiplicar aceleración por una constante no representa en general esa geometría. Cerca de una inclinación pequeña puede parecer que dos curvas se parecen, pero la coincidencia local no demuestra una conversión universal."
+      ],
+      "image": "assets/slide-06-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Magnitud y unidad de la biblioteca",
+        "MECRO   SEMANA 6   CLASE 12   06/24",
+        "Variable",
+        "Unidad",
+        "Interpretación",
+        "a.acceleration.x",
+        "m/s²",
+        "Componente del acelerómetro",
+        "g.gyro.x",
+        "rad/s",
+        "Velocidad angular",
+        "Ángulo calculado",
+        "rad o grados",
+        "Estimación bajo hipótesis"
+      ],
+      "image": "assets/slide-06-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Inclinación de 30 grados",
+        "MECRO   SEMANA 6   CLASE 12   07/24",
+        "Aproximadamente 30°. Multiplicar ay por 5 produciría 24,5 sin una justificación general de unidades ni de geometría.",
+        "Convención del ejemplo: los resultados de atan2 están en radianes; se convierten a grados si se van a presentar así. La orientación de ejes y el signo se comprueban en el montaje."
+      ],
+      "image": "assets/slide-06-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Sesgo, ruido y configuración",
+        "MECRO   SEMANA 6   CLASE 12   08/24",
+        "El sesgo es una desviación sistemática de la lectura. Una lectura con variación pequeña puede conservar un sesgo grande: repetir bien no equivale a medir correctamente. En un ensayo de reposo se observan muestras y se explica qué referencia permite interpretar cada eje. Para el giróscopo, una media distinta de cero en un montaje realmente quieto puede orientar una estimación de sesgo bajo esas condiciones."
+      ],
+      "image": "assets/slide-06-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Tres comprobaciones iniciales",
+        "MECRO   SEMANA 6   CLASE 12   09/24",
+        "Prueba",
+        "Qué observar",
+        "Qué no concluye sola",
+        "Reposo",
+        "Norma y giro medio",
+        "Exactitud completa",
+        "Inclinación lenta",
+        "Signo y orientación",
+        "Actitud dinámica de vuelo",
+        "Movimiento rápido",
+        "Cambios y dispersión",
+        "Separación perfecta de efectos"
+      ],
+      "image": "assets/slide-06-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Multiplicar aceleración por cinco no da el ángulo",
+        "MECRO   SEMANA 6   CLASE 12   10/24",
+        "Caso estático ideal: ay = g sen(roll). atan2(ay, az) recupera el ángulo bajo las hipótesis de la lectura."
+      ],
+      "image": "assets/slide-06-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Lectura del firmware de IMU",
+        "MECRO   SEMANA 6   CLASE 12   11/24",
+        "El archivo completo prepara I2C21/22, verifica inicialización, configura rangos y registra tiempo con los valores. El alumno identifica cuál de sus variables es una medida y cuál es una transformación. Cambiar la orientación física del módulo puede invertir signos o intercambiar ejes; la corrección se documenta como una convención del montaje, no como un ajuste secreto para que una pantalla parezca correcta."
+      ],
+      "image": "assets/slide-06-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Fragmento de c12_imu",
+        "MECRO   SEMANA 6   CLASE 12   12/24",
+        "sensors_event_t a, g, temp;",
+        "imu.getEvent(&a, &g, &temp);",
+        "float roll = atan2f(a.acceleration.y,",
+        "                   a.acceleration.z) * 180.0f/PI;",
+        "float gx_rad_s = g.gyro.x;",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-06-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Interpretación · Lectura del firmware de IMU",
+        "MECRO   SEMANA 6   CLASE 12   13/24",
+        "El proyecto de mouse aéreo aporta una aplicación de velocidad angular. Antes de probar BLE se puede observar cómo cambia gx_rad_s en serie. La radio Bluetooth no está implementada en el simulador ESP32 de Wokwi consultado; la experiencia de mouse requiere hardware y una biblioteca compatible. La existencia del enlace del proyecto no garantiza que ese perfil inalámbrico pueda demostrarse dentro de la simulación."
+      ],
+      "image": "assets/slide-06-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Laboratorio de orientación lenta",
+        "MECRO   SEMANA 6   CLASE 12   14/24",
+        "El modelo de Wokwi permite explorar componentes y verificar conversiones conocidas. En el banco físico se describen el movimiento realizado y la referencia disponible. Una regla o soporte angular puede ayudar a contrastar un caso lento. No se inventa una medida de inclinación exacta cuando el método solo permitió observar el sentido y una variación aproximada."
+      ],
+      "image": "assets/slide-06-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 6   CLASE 12   15/24",
+        "¿La biblioteca Adafruit devuelve giro en grados/s?",
+        "Contrastar inclinación lenta, movimiento dinámico y aplicación de mouse."
+      ],
+      "image": "assets/slide-06-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Laboratorio de orientación lenta",
+        "MECRO   SEMANA 6   CLASE 12   16/24",
+        "1. Identifica ejes, alimentación y conexiones del módulo utilizado.",
+        "",
+        "2. En el simulador, reconoce las unidades de los atributos y compáralas con la biblioteca.",
+        "",
+        "3. Ejecuta c12_imu y conserva un registro de reposo.",
+        "",
+        "4. Realiza inclinaciones lentas de referencia y comprueba signo y tendencia.",
+        "",
+        "5. Calcula un caso a mano con atan2 y conserva la convención.",
+        "",
+        "6. Muestra un movimiento dinámico y explica por qué la interpretación cambia.",
+        "",
+        "7. Distingue validez de la comunicación de validez de una estimación angular."
+      ],
+      "image": "assets/slide-06-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Por qué este bloque precede al mando",
+        "MECRO   SEMANA 6   CLASE 12   17/24",
+        "El controlador de la clase siguiente comparará una referencia y una estimación. Si ambas usan escalas o ejes distintos, el error numérico puede tener un significado falso aunque el programa compile. Por eso primero se aprende a leer la IMU. El estudiante debe poder señalar de dónde salió cada número antes de proponer una acción correctiva."
+      ],
+      "image": "assets/slide-06-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 6   CLASE 12   18/24",
+        "¿Un gráfico suave prueba actitud correcta?",
+        "Investiga cómo se acumula un sesgo pequeño del giróscopo al integrar durante varios segundos. Como caso ideal, 0,5 grados/s sostenidos durante 10 s producen 5 grados de cambio estimado aunque el equipo no haya girado. Relaciona ese cálculo con la necesidad de referencias y calibración. El curso introduce el problema sin convertirlo en una implementación completa de estimación de vuelo."
+      ],
+      "image": "assets/slide-06-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Por qué este bloque precede al mando",
+        "MECRO   SEMANA 6   CLASE 12   19/24",
+        "Investiga cómo se acumula un sesgo pequeño del giróscopo al integrar durante varios segundos. Como caso ideal, 0,5 grados/s sostenidos durante 10 s producen 5 grados de cambio estimado aunque el equipo no haya girado. Relaciona ese cálculo con la necesidad de referencias y calibración. El curso introduce el problema sin convertirlo en una implementación completa de estimación de vuelo.",
+        "Comparar la norma con una referencia gravitatoria en un ensayo de banco aporta contexto; no constituye por sí solo un detector universal de actitud válida."
+      ],
+      "image": "assets/slide-06-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 6   CLASE 12   20/24",
+        "1. Presentar acelerómetro y giróscopo como magnitudes diferentes.",
+        "",
+        "2. Resolver el caso estático de 30° con la convención de ejes.",
+        "",
+        "3. Comprobar c12_imu y su registro de unidades.",
+        "",
+        "4. Contrastar inclinación lenta, movimiento dinámico y aplicación de mouse."
+      ],
+      "image": "assets/slide-06-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 6   CLASE 12   21/24",
+        "La IMU es una entrada esencial para comprender cómo se observa el movimiento de un UAV.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-06-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 6   CLASE 12   22/24",
+        "1. ¿Seis ejes equivalen a seis ángulos directos?",
+        "",
+        "2. ¿La biblioteca Adafruit devuelve giro en grados/s?",
+        "",
+        "3. ¿Un gráfico suave prueba actitud correcta?"
+      ],
+      "image": "assets/slide-06-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 6   CLASE 12   23/24",
+        "1. No. Son componentes de aceleración y velocidad angular.",
+        "",
+        "2. En el evento utilizado devuelve rad/s; se convierte explícitamente si hace falta otra unidad.",
+        "",
+        "3. No. Hay que revisar hipótesis, ejes, movimiento y referencia."
+      ],
+      "image": "assets/slide-06-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 6   CLASE 12   24/24",
+        "Registro de reposo e inclinación, caso atan2 y convención de unidades.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-06-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-06.pdf",
+  "ppt": "descargas/MECRO_ESP32_Semana_06.pptx"
+}

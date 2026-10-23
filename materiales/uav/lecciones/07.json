@@ -1,0 +1,346 @@
+{
+  "n": 7,
+  "week": 4,
+  "title": "Taller presencial 1: ensamblaje visible y primera revisión",
+  "goal": "Reconstruir la secuencia de ensamblaje y justificar comprobaciones mecánicas, eléctricas y de configuración.",
+  "mission": "El estudiante observa un montaje real y entrega su secuencia de armado y revisión vinculada a las piezas mostradas.",
+  "pages": [
+    {
+      "title": "El expediente entra al taller",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El montaje comienza con un objeto identificado: estructura, componentes, revisiones y documentación preparada. El docente tiene un equipo de demostración desmontado hasta el nivel que puede completar en cuatro horas y otro conjunto de referencia o de reserva cuando esté disponible. La práctica muestra decisiones y comprobaciones; no depende de construir simultáneamente un dron por cada uno de los 25–30 alumnos."
+        },
+        {
+          "type": "table",
+          "title": "Roles de observación por equipo",
+          "headers": [
+            "Rol",
+            "Qué registra",
+            "Qué explica"
+          ],
+          "rows": [
+            [
+              "Componentes",
+              "Modelo y revisión mostrados",
+              "Compatibilidad elegida"
+            ],
+            [
+              "Montaje",
+              "Orden y acceso",
+              "Razón de la secuencia"
+            ],
+            [
+              "Electricidad",
+              "Origen, destino y medida",
+              "Esperado frente a observado"
+            ],
+            [
+              "Configuración",
+              "Pantalla y correspondencia",
+              "Qué está representado"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Los alumnos se organizan en aproximadamente seis equipos de cuatro o cinco. Rotan los roles de observación y registro. Gerard conserva el control del banco energizado y de las herramientas de demostración; no se planifican varias estaciones de soldadura atendidas simultáneamente por un único docente. Si se habilita una práctica breve individual, se organiza aparte sobre muestras y según la capacidad real de supervisión."
+        },
+        {
+          "type": "p",
+          "text": "El resultado académico de este presencial es explicar el proceso y sus pruebas con evidencia. Se distingue haber observado una técnica de haberla practicado personalmente. Esa precisión permite enseñar bien con los recursos disponibles y describir honestamente la experiencia del curso."
+        }
+      ]
+    },
+    {
+      "title": "Agenda de cuatro horas",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Taller presencial 1",
+          "headers": [
+            "Minutos",
+            "Demostración",
+            "Evidencia del alumno"
+          ],
+          "rows": [
+            [
+              "0–25",
+              "Inventario y revisión del expediente",
+              "Lista contrastada"
+            ],
+            [
+              "25–70",
+              "Presentación mecánica y fijaciones",
+              "Secuencia y fotos identificadas"
+            ],
+            [
+              "70–115",
+              "Preparación de conductores y soldadura",
+              "Criterios de una unión"
+            ],
+            [
+              "115–160",
+              "Arnés y revisión sin energía",
+              "Tabla origen–destino"
+            ],
+            [
+              "160–215",
+              "Primera alimentación e inspección USB",
+              "Resultado esperado y observado"
+            ],
+            [
+              "215–240",
+              "Correcciones y cierre",
+              "Acta y preguntas para sesión 8"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las piezas y los conductores se preparan con anticipación, dejando visible una muestra completa de la operación que se desea enseñar. Una demostración de soldadura es más útil si se ve la superficie, el aporte y la revisión que si el grupo solo observa una placa ya terminada. La cámara de detalle o una pantalla permite que el fondo del aula siga el proceso."
+        },
+        {
+          "type": "p",
+          "text": "El instructor prepara también un caso sin energía que represente un error: un cable sin etiqueta, un conector de referencia invertida en la ficha o una unión defectuosa sobre muestra. La discusión termina con un criterio de corrección, sin introducir ese defecto en el vehículo que se pretende volar. El calendario deja el vuelo para la sesión 8."
+        }
+      ]
+    },
+    {
+      "title": "Ensamblaje: las decisiones que deben verse",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Presenta bastidor, motores, FC, ESC y batería con sus referencias. Separa tornillería por función.",
+            "Comprueba encajes, longitud de tornillos, paso de cables y acceso al USB antes de fijar definitivamente.",
+            "Define orientación de la FC y posición de módulos, antenas y batería. Registra el frente del vehículo.",
+            "Prepara conductores y uniones según la herramienta y material del banco. Muestra una unión completa en una muestra.",
+            "Une las rutas previstas, inspecciona puentes y hilos, y aplica aislamiento y alivio de esfuerzo donde corresponda.",
+            "Contrasta el conjunto con el esquema y conserva una foto legible de lo que quedará oculto."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "No se establece un par de apriete universal ni se recomienda un fijador para todos los materiales. La demostración usa las indicaciones del fabricante y la herramienta apropiada. El alumno aprende a localizar el dato o a declarar que necesita consultarlo. Una pieza aparentemente firme puede seguir teniendo un montaje incorrecto si un tornillo invade el motor o una arista actúa sobre un cable."
+        },
+        {
+          "type": "case",
+          "title": "La evidencia que se pierde",
+          "problem": "Una placa tapa el arnés al cerrar el bastidor. ¿Qué conviene conservar antes?",
+          "answer": "La correspondencia de contactos, la inspección y una foto del recorrido con las referencias visibles. No se reemplaza el esquema por una fotografía borrosa."
+        }
+      ]
+    },
+    {
+      "title": "Revisión eléctrica y encendido controlado",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "ap_outputs",
+          "width": 145,
+          "caption": "Salidas numeradas de un Pixhawk de referencia documental. Se usa para explicar identificación de contactos; el arnés real del taller se verifica con su propio manual. Fuente: ArduPilot, documentación CC BY-SA 3.0. https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+        },
+        {
+          "type": "p",
+          "text": "Con el conjunto sin batería se revisan polaridad, continuidad según circuito, contactos y aislamiento. Después se observa una primera alimentación con el método de limitación o supervisión apropiado al banco. Se comprueban las tensiones de las líneas que alimentarán cargas sensibles. Un comportamiento inesperado se registra y se investiga antes de continuar. La lectura del multímetro necesita indicar los dos puntos medidos."
+        },
+        {
+          "type": "table",
+          "title": "Registro de primera alimentación",
+          "headers": [
+            "Dato",
+            "Esperado",
+            "Observado"
+          ],
+          "rows": [
+            [
+              "Entrada del sistema",
+              "Según paquete y manual",
+              "Medida del taller"
+            ],
+            [
+              "Línea regulada",
+              "Especificación de esa salida",
+              "Medida y referencia"
+            ],
+            [
+              "Estado de la FC",
+              "Inicio reconocido",
+              "Indicadores y conexión"
+            ],
+            [
+              "Comportamiento anormal",
+              "Criterio de interrupción",
+              "Síntoma y acción"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Se separa esta etapa de una prueba de motores. La primera alimentación demuestra un conjunto acotado de condiciones, no la aceptación de vuelo. Para cambiar una conexión se retira la energía y se conserva la referencia de la modificación."
+        }
+      ]
+    },
+    {
+      "title": "Configuración que corresponde al montaje",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una vez identificada la alimentación, la conexión USB permite contrastar placa, versión y estado con el expediente. Se recupera la copia de configuración adecuada al vehículo, se verifica orientación y se relaciona el puerto del receptor con el esquema. Los cambios se anotan. No se carga un archivo de otro dron solo porque ambos tienen cuatro motores."
+        },
+        {
+          "type": "table",
+          "title": "Traspaso a la última sesión",
+          "headers": [
+            "Elemento",
+            "Qué debe quedar listo"
+          ],
+          "rows": [
+            [
+              "Montaje",
+              "Fijaciones y recorrido revisados"
+            ],
+            [
+              "Electricidad",
+              "Pinout y primera alimentación documentados"
+            ],
+            [
+              "Software",
+              "Equipo, versión y copia identificados"
+            ],
+            [
+              "Pendientes",
+              "Causa y comprobación siguiente"
+            ],
+            [
+              "Vuelo",
+              "Vehículo de demostración elegido por el docente"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Armado y aceptado",
+          "problem": "El dron enciende y la aplicación conecta. ¿Ya pasó todas las pruebas?",
+          "answer": "No. Falta contrastar canales, salidas, sentidos, modos y las condiciones previstas para la demostración. La sesión 8 parte del acta de este taller."
+        },
+        {
+          "type": "p",
+          "text": "El vehículo utilizado para vuelo no tiene que ser el que quedó recién ensamblado delante del grupo. Gerard puede usar un equipo preparado y revisado con anticipación, mientras el conjunto didáctico conserva pendientes explicados. Así el alumno ve la diferencia entre terminar un montaje y aceptar una configuración para una operación concreta."
+        }
+      ]
+    },
+    {
+      "title": "Cierre y discusión del taller",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Cada equipo presenta una decisión de montaje y la evidencia que la respalda.",
+            "Señala una medida con unidad y referencia.",
+            "Identifica una operación observada y otra realizada personalmente, si la hubo.",
+            "Explica un cambio aplicado y el criterio que permitió aceptarlo.",
+            "Conserva la lista de pendientes para la sesión 8 y quién los resolverá."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La evaluación valora la explicación del proceso y la calidad del registro. Una fotografía de una soldadura no demuestra por sí sola que su autor domine la técnica. Si más adelante MECRO ofrece un taller de práctica individual, tendrá otra organización de puestos, herramientas y supervisión. En este curso la descripción comercial conserva el carácter demostrativo de ambos presenciales."
+        },
+        {
+          "type": "p",
+          "text": "Para investigar, elige un cambio de integración pequeño: acceso al USB, sujeción de batería o identificación de arnés. Explica qué mejoraría y cómo lo comprobarías. No se propone añadir piezas por cantidad. La última sesión revisará cómo esas decisiones se relacionan con el funcionamiento y con una demostración de vuelo básico."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar un inventario que coincida con el objeto preparado.",
+    "Demostrar presentación mecánica y una unión sobre muestra visible.",
+    "Contrastar arnés y alimentación con el esquema, antes de energizar.",
+    "Cerrar un acta de montaje con pendientes y vehículo de demostración."
+  ],
+  "qas": [
+    [
+      "¿Observar una soldadura equivale a haberla practicado?",
+      "No. Se registra por separado la experiencia observada y la ejecutada."
+    ],
+    [
+      "¿Encender prueba aptitud de vuelo?",
+      "No. Es una comprobación parcial dentro de una secuencia."
+    ],
+    [
+      "¿Debe volar el conjunto recién ensamblado?",
+      "Solo si ha pasado las comprobaciones; puede utilizarse otro equipo ya preparado."
+    ]
+  ],
+  "delivery": "Registro del taller: secuencia, esquema contrastado, medidas y acta de pendientes.",
+  "refs": [
+    "BF",
+    "APPOWER",
+    "APMOTOR",
+    "LIPO",
+    "SOLDER"
+  ],
+  "hours": 4,
+  "mode": "Presencial demostrativo",
+  "opening": "Mostrar un inventario que coincida con el objeto preparado.",
+  "references": {
+    "BF": [
+      "Betaflight",
+      "Setup Guide: organización de la puesta en marcha",
+      "https://betaflight.com/docs/wiki/getting-started/setup-guide"
+    ],
+    "APPOWER": [
+      "ArduPilot",
+      "Powering the Pixhawk: ejemplo específico de alimentación",
+      "https://ardupilot.org/copter/docs/common-powering-the-pixhawk.html"
+    ],
+    "APMOTOR": [
+      "ArduPilot",
+      "Conexión, orden y sentido de motores",
+      "https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+    ],
+    "LIPO": [
+      "Tattu / Gens Ace",
+      "Manual de baterías UAV y manejo del paquete",
+      "https://genstattu.com/content/instock/Tattu-Soft-UAV-pack-Manual.pdf"
+    ],
+    "SOLDER": [
+      "Bill Earl / Adafruit",
+      "Adafruit Guide To Excellent Soldering: Making a good solder joint",
+      "https://learn.adafruit.com/adafruit-guide-excellent-soldering/making-a-good-solder-joint"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

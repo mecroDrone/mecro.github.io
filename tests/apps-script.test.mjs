@@ -77,4 +77,10 @@ test('doPost supports web admin actions and DRONES_102 legacy enrollment receive
  const catalog=post({action:'catalog',token:login.catalogToken});
  assert.equal(catalog.success,true);assert.equal(catalog.cursos[0].id,'DRONES_101');
  assert.match(catalog.clases[0].videoLinks.G2,/other/);
+ const sched=post({action:'adminSaveSchedule',token:admin.result.token,input:{course:'DRONES_101',group:'G2',schedule:'Martes y Jueves 7:00 pm'}});
+ assert.equal(sched.success,true);
+ const catalogWithSched=post({action:'catalog',token:login.catalogToken});
+ assert.equal(catalogWithSched.horarios.DRONES_101,'Martes y Jueves 7:00 pm');
+ const sync=post({action:'adminSyncCatalog',token:admin.result.token});
+ assert.equal(sync.success,true);assert.equal(sync.result.addedCourses,1);assert.equal(sync.result.addedClasses,16);
 });

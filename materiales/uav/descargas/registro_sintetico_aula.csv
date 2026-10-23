@@ -1,0 +1,5 @@
+﻿t_s,tension_V,corriente_A,potencia_W,procedencia
+0,22.2,0,0.0,datos_sinteticos_no_vuelo_MECRO
+30,21.8,10,218.0,datos_sinteticos_no_vuelo_MECRO
+60,21.1,14,295.4,datos_sinteticos_no_vuelo_MECRO
+90,20.9,9,188.1,datos_sinteticos_no_vuelo_MECRO

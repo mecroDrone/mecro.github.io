@@ -1,0 +1,583 @@
+{
+  "week": 4,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Estabilidad: centro de gravedad y centro de presión",
+        "MECRO   SEMANA 4   CLASE 07   01/24",
+        "Entender la estabilidad con una maqueta y comprobar que el modelo represente la distribución real de piezas.",
+        "Preparar un vehículo que el docente pueda revisar como conjunto.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-04-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Equilibrar la maqueta antes de ver símbolos",
+        "MECRO   SEMANA 4   CLASE 07   02/24",
+        "Sostén una maqueta inerte y busca el lugar donde puede quedar equilibrada. Ese punto se relaciona con la distribución de masa. Si cambias una pieza delantera por otra más pesada, el equilibrio puede desplazarse. La observación permite entender qué representa el centro de gravedad antes de escribir una fórmula."
+      ],
+      "image": "assets/slide-04-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Equilibrar la maqueta antes de ver símbolos",
+        "MECRO   SEMANA 4   CLASE 07   03/24",
+        "¿Qué observas al equilibrar la maqueta?",
+        "NASA Glenn: distribución de pesos y centro de gravedad. La clase parte de una maqueta inerte, sin reproducir la derivación del gráfico."
+      ],
+      "image": "assets/slide-04-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Equilibrar la maqueta antes de ver símbolos",
+        "MECRO   SEMANA 4   CLASE 07   04/24",
+        "El centro de gravedad es un punto que resume cómo se distribuye el peso del conjunto en una condición determinada. Para encontrarlo en una maqueta inerte, se busca el apoyo donde no domina la tendencia a caer hacia un extremo. Si desplazas una pieza hacia la nariz, puede cambiar ese punto aunque la masa total permanezca igual. Así se introduce una idea útil: importa cuánto pesa cada componente y también dónde está."
+      ],
+      "image": "assets/slide-04-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "El aire actúa de otra manera que el peso",
+        "MECRO   SEMANA 4   CLASE 07   05/24",
+        "El centro de presión, CP, resume en el modelo dónde actúa la resultante aerodinámica para las condiciones consideradas. No se encuentra pesando el cohete. Las aletas influyen en esa respuesta y la posición relativa de CG y CP permite estudiar si una pequeña desviación tiende a corregirse o a aumentar."
+      ],
+      "image": "assets/slide-04-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "El aire actúa de otra manera que el peso",
+        "MECRO   SEMANA 4   CLASE 07   06/24",
+        "¿Cómo se diferencia el CP del equilibrio?",
+        "NASA: esquema cualitativo de estabilidad, reproducido en Apogee 629. Ayuda a reconocer la relación entre perturbación, CG y acción aerodinámica."
+      ],
+      "image": "assets/slide-04-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "No confundir las dos observaciones",
+        "MECRO   SEMANA 4   CLASE 07   07/24",
+        "Concepto",
+        "Cómo se trabaja aquí",
+        "CG",
+        "Distribución de masa y equilibrio de maqueta",
+        "CP",
+        "Resultado aerodinámico de un modelo",
+        "Estabilidad de vuelo",
+        "Revisión del conjunto y sus condiciones"
+      ],
+      "image": "assets/slide-04-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Leer el margen sin convertirlo en una receta",
+        "MECRO   SEMANA 4   CLASE 07   08/24",
+        "El programa puede expresar la separación longitudinal entre CP y CG dividida por un diámetro de referencia. Esa unidad recibe habitualmente el nombre de calibre. El indicador facilita comparar el mismo modelo bajo condiciones definidas. No reemplaza el análisis del docente ni impone por sí solo un valor universal de aceptación."
+      ],
+      "image": "assets/slide-04-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Qué puede cambiar el resultado",
+        "MECRO   SEMANA 4   CLASE 07   09/24",
+        "Cambio",
+        "Qué revisar",
+        "Otra nariz",
+        "Masa, forma y posición",
+        "Otra aleta",
+        "Geometría, masa y ubicación",
+        "Añadir una carga",
+        "Masa y distribución del conjunto",
+        "Cambiar de motor comercial",
+        "Masa y configuración seleccionadas"
+      ],
+      "image": "assets/slide-04-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Una lectura de pantalla",
+        "MECRO   SEMANA 4   CLASE 07   10/24",
+        "Ejercicio de interpretación: el CP está 40 mm detrás del CG y el diámetro de referencia es 32 mm.",
+        "¿Qué condición acompaña al valor de calibre?"
+      ],
+      "image": "assets/slide-04-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "OpenRocket con las masas del taller",
+        "MECRO   SEMANA 4   CLASE 07   11/24",
+        "Si todavía falta una pieza importante, la revisión sigue siendo preliminar. No ocultes el dato faltante asignando al azar una masa que haga aparecer un margen atractivo. [OR1, OR3]"
+      ],
+      "image": "assets/slide-04-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "OpenRocket con las masas del taller",
+        "MECRO   SEMANA 4   CLASE 07   12/24",
+        "¿Has contado dos veces una masa?",
+        "Ajustes de masa de la documentación oficial. El dato medido debe corresponder al componente seleccionado."
+      ],
+      "image": "assets/slide-04-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Práctica: OpenRocket con las masas del taller",
+        "MECRO   SEMANA 4   CLASE 07   13/24",
+        "1. Abre la revisión posterior al taller 1. Comprueba que todos los componentes presentes estén representados.",
+        "",
+        "2. Introduce las masas conocidas con su origen. Evita contar dos veces adhesivo, acabado o una carga añadida.",
+        "",
+        "3. Localiza CG, CP y la condición que muestra el programa. Guarda una captura con esos datos visibles.",
+        "",
+        "4. Crea una copia y representa una modificación real que el docente haya propuesto para comparar.",
+        "",
+        "5. Escribe qué permaneció igual, qué cambió y qué se desplazó. Vuelve a la configuración de referencia al terminar."
+      ],
+      "image": "assets/slide-04-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Comparación de la maqueta y el archivo",
+        "MECRO   SEMANA 4   CLASE 07   14/24",
+        "La comprobación física del equilibrio exige definir el conjunto que se observa. Pesar o equilibrar piezas sueltas responde preguntas diferentes a equilibrar una maqueta ensamblada. El docente puede utilizar un conjunto inerte equivalente para que el alumnado entienda la distribución sin realizar operaciones del motor."
+      ],
+      "image": "assets/slide-04-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 4   CLASE 07   15/24",
+        "¿Qué representa cada masa inerte?",
+        "La revisión de estabilidad para el vuelo pertenece al conjunto final, con la configuración comercial y las condiciones que el responsable apruebe. La maqueta enseña el concepto y permite encontrar errores de representación."
+      ],
+      "image": "assets/slide-04-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica: Comparación de la maqueta y el archivo",
+        "MECRO   SEMANA 4   CLASE 07   16/24",
+        "1. Describe qué incluye la maqueta inerte y qué representa cada elemento.",
+        "",
+        "2. Busca su equilibrio con el método de banco mostrado por el docente y marca una referencia temporal.",
+        "",
+        "3. Mide la posición desde el mismo origen utilizado en el plano.",
+        "",
+        "4. Compara con la representación digital y busca primero piezas, masas o posiciones omitidas.",
+        "",
+        "5. Conserva el resultado y una explicación de la discrepancia que hayas identificado."
+      ],
+      "image": "assets/slide-04-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Una conclusión con piezas y condiciones",
+        "MECRO   SEMANA 4   CLASE 07   17/24",
+        "Un modelo más completo puede dar una conclusión distinta a la primera geometría de la clase 1. Eso es esperable: al principio faltaban soporte, recuperación y masas reales. La mejora consiste en representar el proyecto con mayor fidelidad, no en proteger el primer número que apareció en pantalla."
+      ],
+      "image": "assets/slide-04-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Formas de explicar lo aprendido",
+        "MECRO   SEMANA 4   CLASE 07   18/24",
+        "Frase incompleta",
+        "Explicación más útil",
+        "“La marca se movió”",
+        "Cambió la masa de la nariz y se desplazó el CG",
+        "“El programa dice estable”",
+        "Se revisó esta configuración con estas entradas",
+        "“El CP se pesó”",
+        "Se observó equilibrio para CG; CP procede del modelo"
+      ],
+      "image": "assets/slide-04-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Qué hacer ante una coincidencia",
+        "MECRO   SEMANA 4   CLASE 07   19/24",
+        "El equilibrio de la maqueta y el CG del archivo coinciden aproximadamente.",
+        "¿Qué evidencia aporta la coincidencia del CG?"
+      ],
+      "image": "assets/slide-04-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 4   CLASE 07   20/24",
+        "1. Equilibrar la maqueta inerte según la demostración.",
+        "",
+        "2. Actualizar las masas del archivo sin duplicaciones.",
+        "",
+        "3. Interpretar CG, CP y calibre con un ejemplo sencillo.",
+        "",
+        "4. Comparar una modificación identificada y justificar el resultado."
+      ],
+      "image": "assets/slide-04-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 4   CLASE 07   21/24",
+        "Preparar un vehículo que el docente pueda revisar como conjunto.",
+        "¿Qué evidencia aporta la coincidencia del CG?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-04-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 4   CLASE 07   22/24",
+        "1. ¿El CP se encuentra con la balanza?",
+        "",
+        "2. ¿1,25 calibres autoriza automáticamente un vuelo?",
+        "",
+        "3. ¿Qué revisas primero si el CG no coincide?"
+      ],
+      "image": "assets/slide-04-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 4   CLASE 07   23/24",
+        "1. No. La balanza ayuda a conocer masa; CP procede del modelo aerodinámico.",
+        "",
+        "2. No. Hay que revisar configuración y condiciones.",
+        "",
+        "3. Piezas, masas, posiciones y qué incluye el conjunto físico."
+      ],
+      "image": "assets/slide-04-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 4   CLASE 07   24/24",
+        "Archivo con masas, referencia de equilibrio y comparación explicada.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-04-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Motor comercial, tobera, presión y empuje",
+        "MECRO   SEMANA 4   CLASE 08   01/24",
+        "Leer un motor comercial y distinguir presión, empuje e impulso usando imágenes y salidas de referencia.",
+        "Comprender la propulsión del proyecto sin fabricar ni modificar el motor.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-04-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "El motor forma parte de un conjunto elegido",
+        "MECRO   SEMANA 4   CLASE 08   02/24",
+        "Un motor comercial es un componente con identificación y documentación propias. La elección del proyecto requiere compatibilidad física, masa de conjunto y sistema de recuperación, además del comportamiento de vuelo esperado. Tener una letra pequeña en la etiqueta no resuelve por sí solo toda esa selección."
+      ],
+      "image": "assets/slide-04-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "El motor forma parte de un conjunto elegido",
+        "MECRO   SEMANA 4   CLASE 08   03/24",
+        "¿Qué datos diferentes contiene C6-3?",
+        "Selección de motor del ejemplo de OpenRocket. La captura del manual no constituye una recomendación de motor para el proyecto."
+      ],
+      "image": "assets/slide-04-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "El motor forma parte de un conjunto elegido",
+        "MECRO   SEMANA 4   CLASE 08   04/24",
+        "La denominación de un motor comercial reúne información con funciones distintas. La letra corresponde a un intervalo de impulso total. El número siguiente expresa el empuje medio nominal según la nomenclatura utilizada. El último número identifica el retardo nominal en un producto que lo incorpore. Leer la etiqueta abre preguntas que se responden con la ficha específica del fabricante: referencia exacta, datos de funcionamiento y compatibilidad prevista. El código abreviado no reemplaza esa documentación."
+      ],
+      "image": "assets/slide-04-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Qué hace una tobera, explicado con un dibujo",
+        "MECRO   SEMANA 4   CLASE 08   05/24",
+        "La combustión genera gases calientes dentro del motor. La tobera conduce y acelera su salida. El intercambio de cantidad de movimiento produce empuje sobre el vehículo. La garganta es la sección estrecha del esquema. La forma completa responde a un diseño especializado que aquí se reconoce de manera conceptual."
+      ],
+      "image": "assets/slide-04-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Qué hace una tobera, explicado con un dibujo",
+        "MECRO   SEMANA 4   CLASE 08   06/24",
+        "¿Presión y empuje tienen la misma unidad?",
+        "NASA Glenn: cámara, salida de gases y tobera. Se usa para reconocer el proceso físico; no se dimensiona un motor en esta clase."
+      ],
+      "image": "assets/slide-04-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Palabras que aparecen en la explicación",
+        "MECRO   SEMANA 4   CLASE 08   07/24",
+        "Término",
+        "Idea para reconocer",
+        "Cámara",
+        "Zona donde se generan los gases",
+        "Tobera",
+        "Paso que conduce y acelera la salida",
+        "Presión",
+        "Fuerza por área",
+        "Empuje",
+        "Fuerza que recibe el vehículo"
+      ],
+      "image": "assets/slide-04-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Una curva explica algo que la letra no cuenta",
+        "MECRO   SEMANA 4   CLASE 08   08/24",
+        "Una curva de empuje muestra cómo cambia la fuerza con el tiempo. El impulso total es el área bajo esa curva. Dos curvas pueden compartir un intervalo de impulso y repartirlo de forma diferente. Por eso un número de clase no permite imaginar toda la salida del motor ni decidir su compatibilidad con cualquier vehículo."
+      ],
+      "image": "assets/slide-04-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Qué buscar en la documentación comercial",
+        "MECRO   SEMANA 4   CLASE 08   09/24",
+        "Dato",
+        "Por qué interesa en el curso",
+        "Identificación completa",
+        "Relacionar el objeto con su ficha",
+        "Dimensiones y masa",
+        "Comprobar compatibilidad del conjunto",
+        "Curva e impulso",
+        "Entender la entrega de empuje",
+        "Recuperación y retardo",
+        "Revisar el sistema previsto",
+        "Instrucciones de uso",
+        "Usar el componente según el fabricante"
+      ],
+      "image": "assets/slide-04-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Leer tres datos diferentes",
+        "MECRO   SEMANA 4   CLASE 08   10/24",
+        "En una explicación de etiqueta aparecen clase C, empuje medio nominal 6 N y retardo de 3 s.",
+        "¿La letra determina una curva única?"
+      ],
+      "image": "assets/slide-04-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Qué veremos en openMotor",
+        "MECRO   SEMANA 4   CLASE 08   11/24",
+        "openMotor es un simulador de balística interna: estudia el motor, mientras OpenRocket y RockSim representan el vehículo. El programa puede mostrar presión y empuje calculados. Para esta introducción el docente prepara una salida de referencia identificada y se trabaja sobre su significado, sin convertirla en instrucciones de diseño o fabricación de motor."
+      ],
+      "image": "assets/slide-04-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Cada programa dentro del trabajo",
+        "MECRO   SEMANA 4   CLASE 08   12/24",
+        "Programa",
+        "Objeto de estudio",
+        "Uso del equipo",
+        "openMotor",
+        "Motor y resultados internos",
+        "Lectura conceptual guiada",
+        "OpenRocket",
+        "Vehículo completo",
+        "Configuración y simulación",
+        "RockSim",
+        "Vehículo completo",
+        "Comparación posterior"
+      ],
+      "image": "assets/slide-04-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Práctica: Qué veremos en openMotor",
+        "MECRO   SEMANA 4   CLASE 08   13/24",
+        "1. Abre la instalación y localiza las áreas de resultados y sus unidades. Distingue el modelo del motor del archivo de vehículo.",
+        "",
+        "2. Con la salida de referencia del docente, identifica qué gráfica muestra presión y cuál empuje.",
+        "",
+        "3. Lee un instante y una unidad. Comprueba si el eje vertical está en Pa, MPa, N u otra unidad declarada.",
+        "",
+        "4. Explica qué dato de esa salida serviría para describir empuje y qué información de vehículo todavía falta.",
+        "",
+        "5. Registra programa, versión y origen de la salida. Una imagen sin procedencia no es una validación del motor comercial."
+      ],
+      "image": "assets/slide-04-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "La selección comercial se conecta con el vehículo",
+        "MECRO   SEMANA 4   CLASE 08   14/24",
+        "El empuje llega al cuerpo a través de sus interfaces. El motor debe corresponder al soporte y a la retención previstos, y el conjunto debe revisarse con la recuperación que se utilizará. En un curso inicial conviene estudiar una solución comercial definida y bien documentada en lugar de combinar piezas elegidas de forma independiente."
+      ],
+      "image": "assets/slide-04-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "La selección comercial se conecta con el vehículo",
+        "MECRO   SEMANA 4   CLASE 08   15/24",
+        "¿Que el componente entre resuelve toda su integración?",
+        "Soporte e interfaces interiores del ejemplo de OpenRocket. La solución real se elige con el conjunto comercial y sus instrucciones."
+      ],
+      "image": "assets/slide-04-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica: La selección comercial se conecta con el vehículo",
+        "MECRO   SEMANA 4   CLASE 08   16/24",
+        "1. Identifica la referencia comercial que el docente ha propuesto para el proyecto.",
+        "",
+        "2. Comprueba su envolvente con el plano y el soporte correspondiente.",
+        "",
+        "3. Anota qué masa y qué configuración se usarán en la simulación.",
+        "",
+        "4. Relaciona la recuperación prevista con la documentación del conjunto.",
+        "",
+        "5. Deja registrada cualquier incompatibilidad antes de continuar al montaje."
+      ],
+      "image": "assets/slide-04-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Explicar el motor con palabras de modelismo",
+        "MECRO   SEMANA 4   CLASE 08   17/24",
+        "El alumno debe distinguir tres niveles: qué ocurre físicamente en el motor, qué dice su documentación comercial y qué necesita el vehículo completo. Un dibujo de tobera responde a la primera pregunta. Una etiqueta y una ficha responden a parte de la segunda. La simulación y el montaje del modelo ayudan a resolver la tercera."
+      ],
+      "image": "assets/slide-04-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Conclusiones y límites de esta clase",
+        "MECRO   SEMANA 4   CLASE 08   18/24",
+        "Podemos explicar",
+        "Todavía requiere otra evidencia",
+        "Qué representan presión y empuje",
+        "Comportamiento real de un motor concreto",
+        "Cómo leer una etiqueta habitual",
+        "Compatibilidad de cualquier combinación",
+        "Qué gráfica corresponde a una magnitud",
+        "Validación de un cálculo interno",
+        "Qué dato falta en el vehículo",
+        "Aceptación del conjunto para volar"
+      ],
+      "image": "assets/slide-04-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Pregunta de cierre",
+        "MECRO   SEMANA 4   CLASE 08   19/24",
+        "¿Un valor de presión mayor significa automáticamente que nuestro cohete volará mejor?",
+        "¿Qué dato del motor se lleva al modelo del vehículo?"
+      ],
+      "image": "assets/slide-04-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 4   CLASE 08   20/24",
+        "1. Reconocer el código y la ficha del componente comercial.",
+        "",
+        "2. Explicar cámara, tobera y salida con el esquema.",
+        "",
+        "3. Leer unidades de una salida de referencia de openMotor preparada por el docente.",
+        "",
+        "4. Completar la ficha de compatibilidad con el vehículo."
+      ],
+      "image": "assets/slide-04-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 4   CLASE 08   21/24",
+        "Comprender la propulsión del proyecto sin fabricar ni modificar el motor.",
+        "¿Qué dato del motor se lleva al modelo del vehículo?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-04-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 4   CLASE 08   22/24",
+        "1. ¿El retardo del código equivale al tiempo de empuje?",
+        "",
+        "2. ¿Impulso y energía tienen las mismas unidades?",
+        "",
+        "3. ¿openMotor sustituye a OpenRocket?"
+      ],
+      "image": "assets/slide-04-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 4   CLASE 08   23/24",
+        "1. No. Son tiempos diferentes.",
+        "",
+        "2. No. El impulso se expresa en N·s y la energía en J.",
+        "",
+        "3. No. Representan objetos de estudio diferentes."
+      ],
+      "image": "assets/slide-04-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 4   CLASE 08   24/24",
+        "Ficha comercial y lectura conceptual de una salida identificada.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-04-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-04.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_04.pptx"
+}

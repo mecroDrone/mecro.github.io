@@ -1,0 +1,9 @@
+﻿raw,ideal_VFS_3V_voltios,estado_hist,procedencia
+0,0.0,OFF,ideal_no_calibracion_hardware
+1000,0.7326,OFF,ideal_no_calibracion_hardware
+1500,1.0989,OFF,ideal_no_calibracion_hardware
+1650,1.2088,conserva,ideal_no_calibracion_hardware
+1800,1.3187,ON,ideal_no_calibracion_hardware
+2048,1.5004,ON,ideal_no_calibracion_hardware
+3000,2.1978,ON,ideal_no_calibracion_hardware
+4095,3.0,ON,ideal_no_calibracion_hardware

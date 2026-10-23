@@ -1,0 +1,635 @@
+{
+  "week": 4,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Taller presencial 1: ensamblaje visible y primera revisión",
+        "MECRO   SEMANA 4   CLASE 07   01/24",
+        "Reconstruir la secuencia de ensamblaje y justificar comprobaciones mecánicas, eléctricas y de configuración.",
+        "El estudiante observa un montaje real y entrega su secuencia de armado y revisión vinculada a las piezas mostradas.",
+        "PRESENCIAL DEMOSTRATIVO   4 HORAS"
+      ],
+      "image": "assets/slide-04-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "El expediente entra al taller",
+        "MECRO   SEMANA 4   CLASE 07   02/24",
+        "El montaje comienza con un objeto identificado: estructura, componentes, revisiones y documentación preparada. El docente tiene un equipo de demostración desmontado hasta el nivel que puede completar en cuatro horas y otro conjunto de referencia o de reserva cuando esté disponible. La práctica muestra decisiones y comprobaciones; no depende de construir simultáneamente un dron por cada uno de los 25–30 alumnos."
+      ],
+      "image": "assets/slide-04-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Roles de observación por equipo",
+        "MECRO   SEMANA 4   CLASE 07   03/24",
+        "Rol",
+        "Qué registra",
+        "Qué explica",
+        "Componentes",
+        "Modelo y revisión mostrados",
+        "Compatibilidad elegida",
+        "Montaje",
+        "Orden y acceso",
+        "Razón de la secuencia",
+        "Electricidad",
+        "Origen, destino y medida",
+        "Esperado frente a observado",
+        "Configuración",
+        "Pantalla y correspondencia",
+        "Qué está representado"
+      ],
+      "image": "assets/slide-04-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · El expediente entra al taller",
+        "MECRO   SEMANA 4   CLASE 07   04/24",
+        "Los alumnos se organizan en aproximadamente seis equipos de cuatro o cinco. Rotan los roles de observación y registro. Gerard conserva el control del banco energizado y de las herramientas de demostración; no se planifican varias estaciones de soldadura atendidas simultáneamente por un único docente. Si se habilita una práctica breve individual, se organiza aparte sobre muestras y según la capacidad real de supervisión.",
+        "",
+        "El resultado académico de este presencial es explicar el proceso y sus pruebas con evidencia. Se distingue haber observado una técnica de haberla practicado personalmente. Esa precisión permite enseñar bien con los recursos disponibles y describir honestamente la experiencia del curso."
+      ],
+      "image": "assets/slide-04-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Agenda de cuatro horas",
+        "MECRO   SEMANA 4   CLASE 07   05/24",
+        "Las piezas y los conductores se preparan con anticipación, dejando visible una muestra completa de la operación que se desea enseñar. Una demostración de soldadura es más útil si se ve la superficie, el aporte y la revisión que si el grupo solo observa una placa ya terminada. La cámara de detalle o una pantalla permite que el fondo del aula siga el proceso."
+      ],
+      "image": "assets/slide-04-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Taller presencial 1",
+        "MECRO   SEMANA 4   CLASE 07   06/24",
+        "Minutos",
+        "Demostración",
+        "Evidencia del alumno",
+        "0–25",
+        "Inventario y revisión del expediente",
+        "Lista contrastada",
+        "25–70",
+        "Presentación mecánica y fijaciones",
+        "Secuencia y fotos identificadas",
+        "70–115",
+        "Preparación de conductores y soldadura",
+        "Criterios de una unión",
+        "115–160",
+        "Arnés y revisión sin energía",
+        "Tabla origen–destino",
+        "160–215",
+        "Primera alimentación e inspección USB",
+        "Resultado esperado y observado",
+        "215–240",
+        "Correcciones y cierre",
+        "Acta y preguntas para sesión 8"
+      ],
+      "image": "assets/slide-04-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Interpretación · Agenda de cuatro horas",
+        "MECRO   SEMANA 4   CLASE 07   07/24",
+        "El instructor prepara también un caso sin energía que represente un error: un cable sin etiqueta, un conector de referencia invertida en la ficha o una unión defectuosa sobre muestra. La discusión termina con un criterio de corrección, sin introducir ese defecto en el vehículo que se pretende volar. El calendario deja el vuelo para la sesión 8."
+      ],
+      "image": "assets/slide-04-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Ensamblaje: las decisiones que deben verse",
+        "MECRO   SEMANA 4   CLASE 07   08/24",
+        "No se establece un par de apriete universal ni se recomienda un fijador para todos los materiales. La demostración usa las indicaciones del fabricante y la herramienta apropiada. El alumno aprende a localizar el dato o a declarar que necesita consultarlo. Una pieza aparentemente firme puede seguir teniendo un montaje incorrecto si un tornillo invade el motor o una arista actúa sobre un cable."
+      ],
+      "image": "assets/slide-04-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 4   CLASE 07   09/24",
+        "Una placa tapa el arnés al cerrar el bastidor. ¿Qué conviene conservar antes?",
+        "Contrastar arnés y alimentación con el esquema, antes de energizar."
+      ],
+      "image": "assets/slide-04-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "La evidencia que se pierde",
+        "MECRO   SEMANA 4   CLASE 07   10/24",
+        "Una placa tapa el arnés al cerrar el bastidor. ¿Qué conviene conservar antes?",
+        "La correspondencia de contactos, la inspección y una foto del recorrido con las referencias visibles. No se reemplaza el esquema por una fotografía borrosa."
+      ],
+      "image": "assets/slide-04-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Revisión eléctrica y encendido controlado",
+        "MECRO   SEMANA 4   CLASE 07   11/24",
+        "Con el conjunto sin batería se revisan polaridad, continuidad según circuito, contactos y aislamiento. Después se observa una primera alimentación con el método de limitación o supervisión apropiado al banco. Se comprueban las tensiones de las líneas que alimentarán cargas sensibles. Un comportamiento inesperado se registra y se investiga antes de continuar. La lectura del multímetro necesita indicar los dos puntos medidos."
+      ],
+      "image": "assets/slide-04-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Revisión eléctrica y encendido controlado",
+        "MECRO   SEMANA 4   CLASE 07   12/24",
+        "Los contactos pertenecen al equipo ilustrado. Contrasta el manual del modelo real.",
+        "Salidas numeradas de un Pixhawk de referencia documental. Se usa para explicar identificación de contactos; el arnés real del taller se verifica con su propio manual."
+      ],
+      "image": "assets/slide-04-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Registro de primera alimentación",
+        "MECRO   SEMANA 4   CLASE 07   13/24",
+        "Dato",
+        "Esperado",
+        "Observado",
+        "Entrada del sistema",
+        "Según paquete y manual",
+        "Medida del taller",
+        "Línea regulada",
+        "Especificación de esa salida",
+        "Medida y referencia",
+        "Estado de la FC",
+        "Inicio reconocido",
+        "Indicadores y conexión",
+        "Comportamiento anormal",
+        "Criterio de interrupción",
+        "Síntoma y acción"
+      ],
+      "image": "assets/slide-04-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Configuración que corresponde al montaje",
+        "MECRO   SEMANA 4   CLASE 07   14/24",
+        "Una vez identificada la alimentación, la conexión USB permite contrastar placa, versión y estado con el expediente. Se recupera la copia de configuración adecuada al vehículo, se verifica orientación y se relaciona el puerto del receptor con el esquema. Los cambios se anotan. No se carga un archivo de otro dron solo porque ambos tienen cuatro motores."
+      ],
+      "image": "assets/slide-04-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Traspaso a la última sesión",
+        "MECRO   SEMANA 4   CLASE 07   15/24",
+        "Elemento",
+        "Qué debe quedar listo",
+        "Montaje",
+        "Fijaciones y recorrido revisados",
+        "Electricidad",
+        "Pinout y primera alimentación documentados",
+        "Software",
+        "Equipo, versión y copia identificados",
+        "Pendientes",
+        "Causa y comprobación siguiente",
+        "Vuelo",
+        "Vehículo de demostración elegido por el docente"
+      ],
+      "image": "assets/slide-04-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Armado y aceptado",
+        "MECRO   SEMANA 4   CLASE 07   16/24",
+        "El dron enciende y la aplicación conecta. ¿Ya pasó todas las pruebas?",
+        "No. Falta contrastar canales, salidas, sentidos, modos y las condiciones previstas para la demostración. La sesión 8 parte del acta de este taller."
+      ],
+      "image": "assets/slide-04-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Cierre y discusión del taller",
+        "MECRO   SEMANA 4   CLASE 07   17/24",
+        "La evaluación valora la explicación del proceso y la calidad del registro. Una fotografía de una soldadura no demuestra por sí sola que su autor domine la técnica. Si más adelante MECRO ofrece un taller de práctica individual, tendrá otra organización de puestos, herramientas y supervisión. En este curso la descripción comercial conserva el carácter demostrativo de ambos presenciales."
+      ],
+      "image": "assets/slide-04-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 4   CLASE 07   18/24",
+        "¿Debe volar el conjunto recién ensamblado?",
+        "Para investigar, elige un cambio de integración pequeño: acceso al USB, sujeción de batería o identificación de arnés. Explica qué mejoraría y cómo lo comprobarías. No se propone añadir piezas por cantidad. La última sesión revisará cómo esas decisiones se relacionan con el funcionamiento y con una demostración de vuelo básico."
+      ],
+      "image": "assets/slide-04-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Práctica · Cierre y discusión del taller",
+        "MECRO   SEMANA 4   CLASE 07   19/24",
+        "1. Cada equipo presenta una decisión de montaje y la evidencia que la respalda.",
+        "",
+        "2. Señala una medida con unidad y referencia.",
+        "",
+        "3. Identifica una operación observada y otra realizada personalmente, si la hubo.",
+        "",
+        "4. Explica un cambio aplicado y el criterio que permitió aceptarlo.",
+        "",
+        "5. Conserva la lista de pendientes para la sesión 8 y quién los resolverá."
+      ],
+      "image": "assets/slide-04-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 4   CLASE 07   20/24",
+        "1. Mostrar un inventario que coincida con el objeto preparado.",
+        "",
+        "2. Demostrar presentación mecánica y una unión sobre muestra visible.",
+        "",
+        "3. Contrastar arnés y alimentación con el esquema, antes de energizar.",
+        "",
+        "4. Cerrar un acta de montaje con pendientes y vehículo de demostración."
+      ],
+      "image": "assets/slide-04-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión de ensamblaje",
+        "MECRO   SEMANA 4   CLASE 07   21/24",
+        "El estudiante observa un montaje real y entrega su secuencia de armado y revisión vinculada a las piezas mostradas.",
+        "Explica una decisión con una pieza, el esquema o un dato. ¿Qué falta comprobar?"
+      ],
+      "image": "assets/slide-04-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 4   CLASE 07   22/24",
+        "1. ¿Observar una soldadura equivale a haberla practicado?",
+        "",
+        "2. ¿Encender prueba aptitud de vuelo?",
+        "",
+        "3. ¿Debe volar el conjunto recién ensamblado?"
+      ],
+      "image": "assets/slide-04-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 4   CLASE 07   23/24",
+        "1. No. Se registra por separado la experiencia observada y la ejecutada.",
+        "",
+        "2. No. Es una comprobación parcial dentro de una secuencia.",
+        "",
+        "3. Solo si ha pasado las comprobaciones; puede utilizarse otro equipo ya preparado."
+      ],
+      "image": "assets/slide-04-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 4   CLASE 07   24/24",
+        "Registro del taller: secuencia, esquema contrastado, medidas y acta de pendientes.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-04-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Taller presencial 2: configuración, prueba y demostración de vuelo",
+        "MECRO   SEMANA 4   CLASE 08   01/24",
+        "Explicar la aceptación de una configuración y relacionar un vuelo básico o caso equivalente con sus registros.",
+        "El cierre muestra cómo el ensamblaje y la configuración sostienen una demostración observada y una decisión de mejora.",
+        "PRESENCIAL DEMOSTRATIVO   4 HORAS"
+      ],
+      "image": "assets/slide-04-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Comprobar antes de demostrar",
+        "MECRO   SEMANA 4   CLASE 08   02/24",
+        "La última sesión parte del acta de montaje y de una configuración identificada. Gerard selecciona una aeronave preparada para la demostración y presenta qué se revisó. No se intenta volar todos los tamaños por cumplir una lista: los equipos de 5, 7 y 12 pulgadas aportan comparaciones, y el vuelo básico puede concentrarse en uno que represente los objetivos del curso."
+      ],
+      "image": "assets/slide-04-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Cuatro correspondencias finales",
+        "MECRO   SEMANA 4   CLASE 08   03/24",
+        "Revisión",
+        "Qué se contrasta",
+        "Evidencia",
+        "Mecánica",
+        "Montaje y configuración documentados",
+        "Inspección y versión",
+        "Entradas",
+        "Mandos y estados previstos",
+        "Canales y modos",
+        "Salidas",
+        "Posición y sentido de cada motor",
+        "Prueba sin hélices",
+        "Operación",
+        "Equipo y condiciones del caso",
+        "Decisión del docente"
+      ],
+      "image": "assets/slide-04-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · Comprobar antes de demostrar",
+        "MECRO   SEMANA 4   CLASE 08   04/24",
+        "Las pruebas de salidas y enlace se realizan en el banco preparado sin hélices. La instalación final de hélices pertenece a otra fase, con energía retirada y revisión de sentido y fijación. Se organiza una única actividad energizada a la vez con el docente a cargo. El grupo conserva separación y roles de observación; no queda un banco de motores activo sin supervisión mientras el instructor explica otro equipo.",
+        "",
+        "El vuelo es una demostración del instructor, sujeta a preparación del vehículo y condiciones del lugar. El certificado del curso no se presenta como una licencia de piloto ni como entrenamiento individual garantizado de vuelo."
+      ],
+      "image": "assets/slide-04-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Agenda de cuatro horas y alternativa de clase",
+        "MECRO   SEMANA 4   CLASE 08   05/24",
+        "El bloque de vuelo contempla desplazamiento y organización local según el lugar. La cohorte debe saber de antemano dónde se reúne y cómo se desarrolla esa actividad. Si el clima, el lugar o el estado de un equipo impiden el vuelo, se mantiene el aprendizaje con revisión en banco y análisis de un registro o demostración previamente identificados. Una observación grabada se presenta como grabada, y una simulación se identifica como simulación."
+      ],
+      "image": "assets/slide-04-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Taller presencial 2",
+        "MECRO   SEMANA 4   CLASE 08   06/24",
+        "Minutos",
+        "Actividad",
+        "Resultado",
+        "0–30",
+        "Revisión del acta y configuración",
+        "Estado del equipo identificado",
+        "30–75",
+        "Entradas y salidas de banco",
+        "Correspondencias observadas",
+        "75–110",
+        "Autopiloto y Mission Planner",
+        "Comparación con equipo grande",
+        "110–165",
+        "Demostración de vuelo o caso alternativo",
+        "Registro de eventos",
+        "165–215",
+        "Análisis y diagnóstico",
+        "Conclusión respaldada",
+        "215–240",
+        "Defensa y cierre",
+        "Expediente final"
+      ],
+      "image": "assets/slide-04-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Interpretación · Agenda de cuatro horas y alternativa de clase",
+        "MECRO   SEMANA 4   CLASE 08   07/24",
+        "No se convierten las cuatro horas finales en una sesión improvisada para reparar todo el ensamblaje. La preparación previa conserva un equipo funcional de demostración y un caso alternativo. Las correcciones nuevas se acotan y documentan; un resultado pendiente no se disimula con una explicación de otra versión."
+      ],
+      "image": "assets/slide-04-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "El dron grande en Mission Planner",
+        "MECRO   SEMANA 4   CLASE 08   08/24",
+        "El instructor relaciona autopiloto, módulo de potencia, GPS, brújula, receptor y telemetría con la estación de tierra. Explica dónde se observa estado y qué configuración pertenece a ese modelo. No hace falta enseñar una misión autónoma completa para demostrar la diferencia entre construir la cadena y obtener una solución de navegación válida. La lectura de una pantalla se relaciona con el montaje que está delante del grupo."
+      ],
+      "image": "assets/slide-04-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "El dron grande en Mission Planner",
+        "MECRO   SEMANA 4   CLASE 08   09/24",
+        "ArduPilot ofrece distintas convenciones. ¿Qué frame está configurado en el caso?",
+        "ArduPilot publica también configuraciones con convención Betaflight. La existencia de esta variante refuerza que se debe leer el tipo de bastidor elegido; no adivinar el orden por el tamaño del dron."
+      ],
+      "image": "assets/slide-04-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Comparación de alcance de aprendizaje",
+        "MECRO   SEMANA 4   CLASE 08   10/24",
+        "Equipo pequeño",
+        "Equipo con autopiloto",
+        "Principio compartido",
+        "Placa y target Betaflight",
+        "Autopiloto y firmware ArduCopter",
+        "Identificación exacta",
+        "Receptor, modos y salidas",
+        "Entradas, calibraciones y modos",
+        "Correspondencia con el objeto",
+        "Datos disponibles del sistema",
+        "Estado y telemetría en Mission Planner",
+        "Interpretación con condiciones"
+      ],
+      "image": "assets/slide-04-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Observar el vuelo con preguntas concretas",
+        "MECRO   SEMANA 4   CLASE 08   11/24",
+        "Antes de la demostración, el alumno predice qué evento podrá observar: inicio, armado, despegue, vuelo básico, aterrizaje y cierre según el caso elegido. La misión de la clase es relacionar decisiones de ensamblaje y configuración con el comportamiento mostrado. No se exige aprender maniobras FPV ni operar varios modos nuevos a la vez. El instructor define qué observa el grupo y qué datos puede registrar realmente."
+      ],
+      "image": "assets/slide-04-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 4   CLASE 08   12/24",
+        "Se ve una oscilación. ¿Podemos afirmar inmediatamente “falta subir P”?",
+        "La operación se prepara con las condiciones y trámites aplicables al lugar y al equipo. Para la actualización del curso se consultaron el Reglamento de la Ley 30740 aprobado por DS 012-2026-MTC y la información de trámites de la DGAC. El docente verifica sus disposiciones y condiciones vigentes al organizar la jornada; este temario académico no sustituye esa determinación."
+      ],
+      "image": "assets/slide-04-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Observación y conclusión",
+        "MECRO   SEMANA 4   CLASE 08   13/24",
+        "Se ve una oscilación. ¿Podemos afirmar inmediatamente “falta subir P”?",
+        "No. Se registra qué se observó y se investiga montaje, hélice, condiciones, medida y configuración. Una apariencia no identifica una causa única."
+      ],
+      "image": "assets/slide-04-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Un registro para aprender a analizar",
+        "MECRO   SEMANA 4   CLASE 08   14/24",
+        "Un archivo Blackbox, un registro del autopiloto y un CSV de aula tienen estructura y procedencia distintas. El conjunto sintético incluido sirve para practicar lectura y cálculo; no se anuncia como archivo nativo reproducible de esas herramientas. Si Gerard aporta datos reales, conserva firmware, configuración, origen temporal y condiciones de adquisición antes de compararlos."
+      ],
+      "image": "assets/slide-04-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Datos sintéticos del caso, no de un vuelo MECRO",
+        "MECRO   SEMANA 4   CLASE 08   15/24",
+        "Tiempo / s",
+        "Tensión / V",
+        "Corriente / A",
+        "0",
+        "22,2",
+        "0",
+        "30",
+        "21,8",
+        "10",
+        "60",
+        "21,1",
+        "14",
+        "90",
+        "20,9",
+        "9"
+      ],
+      "image": "assets/slide-04-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Potencia de las muestras del caso",
+        "MECRO   SEMANA 4   CLASE 08   16/24",
+        "Conjunto sintético de aula: V e I corresponden a cada instante. No es un archivo Blackbox ni un vuelo MECRO."
+      ],
+      "image": "assets/slide-04-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Defensa del expediente y siguiente ruta",
+        "MECRO   SEMANA 4   CLASE 08   17/24",
+        "El egresado debe poder preparar una compra razonada y reconstruir el proceso de ensamblaje y configuración básica. La práctica individual extensa de soldadura, pilotaje FPV, ajuste avanzado de filtros/PID y misiones autónomas completas requieren bloques posteriores. Las ocho sesiones conservan una meta alcanzable y dejan una ruta clara para profundizar sin prometer que una sola demostración forme especialistas en todos los sistemas."
+      ],
+      "image": "assets/slide-04-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Evaluación del curso",
+        "MECRO   SEMANA 4   CLASE 08   18/24",
+        "Componente",
+        "Peso",
+        "Qué se revisa",
+        "Selección y cálculos",
+        "35 %",
+        "Compatibilidad y condiciones",
+        "Esquema y secuencia",
+        "25 %",
+        "Ensamblaje explicable",
+        "Configuración y comprobaciones",
+        "25 %",
+        "Correspondencia y evidencia",
+        "Defensa individual",
+        "15 %",
+        "Decisión, límite y siguiente prueba"
+      ],
+      "image": "assets/slide-04-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Práctica · Defensa del expediente y siguiente ruta",
+        "MECRO   SEMANA 4   CLASE 08   19/24",
+        "1. Presenta propósito, referencia de tamaño y arquitectura.",
+        "",
+        "2. Justifica una selección de propulsión con datos y unidades.",
+        "",
+        "3. Sigue una ruta de energía y otra de información.",
+        "",
+        "4. Explica una comprobación observada en los presenciales.",
+        "",
+        "5. Reconoce una limitación del expediente y propone cómo resolverla."
+      ],
+      "image": "assets/slide-04-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 4   CLASE 08   20/24",
+        "1. Contrastar el acta de montaje con una aeronave preparada.",
+        "",
+        "2. Comprobar entradas y salidas antes de presentar el vuelo.",
+        "",
+        "3. Relacionar la demostración o el caso alternativo con un registro identificado.",
+        "",
+        "4. Evaluar el expediente y la defensa individual de una decisión."
+      ],
+      "image": "assets/slide-04-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión de ensamblaje",
+        "MECRO   SEMANA 4   CLASE 08   21/24",
+        "El cierre muestra cómo el ensamblaje y la configuración sostienen una demostración observada y una decisión de mejora.",
+        "Explica una decisión con una pieza, el esquema o un dato. ¿Qué falta comprobar?"
+      ],
+      "image": "assets/slide-04-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 4   CLASE 08   22/24",
+        "1. ¿Ver una oscilación identifica una ganancia incorrecta?",
+        "",
+        "2. ¿El CSV incluido es un Blackbox real?",
+        "",
+        "3. ¿Qué debe poder defender el alumno al finalizar?"
+      ],
+      "image": "assets/slide-04-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 4   CLASE 08   23/24",
+        "1. No. Es un síntoma; la causa requiere contrastar otras evidencias.",
+        "",
+        "2. No. Es un conjunto sintético de aula y se mantiene identificado como tal.",
+        "",
+        "3. Una selección compatible, un esquema, una secuencia y las comprobaciones que respaldan su conclusión."
+      ],
+      "image": "assets/slide-04-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 4   CLASE 08   24/24",
+        "Expediente final, análisis del caso observado y defensa individual de una mejora.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-04-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-04.pdf",
+  "ppt": "descargas/MECRO_Drones_Semana_04.pptx"
+}

@@ -1,12 +1,13 @@
-<!-- {"title":"Panel de Administración","description":"Control de grabaciones por grupo, validación de clases subidas y matrícula rápida de alumnos MECRO.","active":"login.html","scripts":"<script type=\"module\" src=\"assets/js/admin.js\"></script>"} -->
+<!-- {"title":"Panel de Administración","description":"Control de grabaciones por grupo, horarios, vista de alumno y matrícula rápida de alumnos MECRO.","active":"login.html","scripts":"<script type=\"module\" src=\"assets/js/admin.js?v=20261023\"></script>"} -->
 <style>
 .admin-wrap{padding:36px 0 64px}
 .admin-status{position:sticky;top:72px;background:#16291f;border:1px solid #3c684e;border-radius:10px;padding:12px 16px;z-index:10;margin:14px 0;color:#e5f5eb;font-weight:500}
 .admin-section{background:#11181d;border:1px solid #24323d;border-radius:14px;padding:24px;margin:20px 0}
+.admin-banner{background:#14221b;border:1px solid #3c684e;border-radius:14px;padding:20px 24px;margin:16px 0}
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .admin-inline{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
 .admin-inline>*{flex:1;min-width:150px}
-.admin-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:16px 0}
+.admin-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin:16px 0}
 .admin-stat{background:#0b1014;border:1px solid #263540;border-radius:10px;padding:12px 14px;text-align:left;color:#e7eef4;cursor:pointer}
 .admin-stat.is-active{border-color:#ff6b2c;background:#1b1614}
 .admin-stat strong{display:block;font-size:17px;color:#fff}
@@ -23,7 +24,7 @@
 <section class="admin-wrap wrap">
   <span class="eyebrow">MECRO / Control Académico</span>
   <h1>Panel de Administración</h1>
-  <p class="lead">Verifica qué clases ya tienen grabación subida por grupo, publica los videos de Google Meet y genera accesos de alumnos listos para WhatsApp.</p>
+  <p class="lead">Visualiza el aula como alumno en todos tus cursos, configura grupos y horarios, verifica grabaciones subidas y matricula estudiantes con envío directo a WhatsApp.</p>
   <p id="status" class="admin-status" role="status">Inicia sesión con tu cuenta de administrador.</p>
 
   <section id="login" class="admin-section">
@@ -51,14 +52,27 @@
     <div class="actions" style="justify-content:space-between;margin-bottom:14px">
       <div class="actions">
         <button id="refresh" type="button" class="btn btn-secondary">↻ Sincronizar con Google Sheets</button>
+        <button id="syncCatalog" type="button" class="btn btn-secondary">＋ Habilitar los 3 cursos en Sheets</button>
         <a class="text-link small" href="https://docs.google.com/spreadsheets/d/1h3M5PwykMt1g3JYuRATcrONLGUs3ngdoXKJwGs4bOYc/edit" target="_blank" rel="noopener noreferrer">Abrir hoja de Google Sheets ↗</a>
       </div>
       <button id="logout" type="button" class="btn btn-secondary">Cerrar sesión</button>
     </div>
 
+    <section class="admin-banner">
+      <span class="eyebrow">Vista de Alumno · Todos los materiales desbloqueados</span>
+      <h2 style="margin:6px 0">Ver la plataforma como alumno</h2>
+      <p class="small">Revisa las lecturas completas, las 961 diapositivas, las prácticas, los descargables y las grabaciones de cada grupo tal como los ve el estudiante:</p>
+      <div class="actions" style="margin-top:12px">
+        <a id="previewSelectedBtn" class="btn" href="aula.html?curso=uav&grupo=G1">👁️ Ver aula del curso y grupo seleccionados ↗</a>
+        <a class="btn btn-secondary" href="aula.html?curso=uav&grupo=G1">Drones / UAV (8 clases) ↗</a>
+        <a class="btn btn-secondary" href="aula.html?curso=cohetes&grupo=G1">Cohetería (16 clases) ↗</a>
+        <a class="btn btn-secondary" href="aula.html?curso=esp32&grupo=G1">ESP32 (16 clases) ↗</a>
+      </div>
+    </section>
+
     <section class="admin-section">
-      <h2>1. Matriz de verificación de clases y grabaciones</h2>
-      <p class="small">Revisa de un vistazo qué clases ya fueron subidas y cuáles faltan en cada grupo (<code>G1</code>, <code>G2</code>, <code>G3</code>, <code>G4</code>, <code>G5</code>…). Pulsa <strong>“Subir aquí”</strong> en cualquier fila pendiente para cargarla directamente en el formulario.</p>
+      <h2>1. Grupos, horarios y verificación de clases grabadas</h2>
+      <p class="small">Selecciona el programa y el grupo (<code>G1</code>, <code>G2</code>, <code>G3</code>, <code>G4</code>, <code>G5</code>…) para asignarle su horario de clases y ver qué sesiones ya tienen grabación subida o pendiente.</p>
       <div class="admin-inline" style="margin-top:14px">
         <div class="field">
           <label for="course">Programa</label>
@@ -69,13 +83,22 @@
           <input id="group" value="G1" pattern="G[1-9][0-9]*" required>
         </div>
         <div class="field">
-          <label for="sessionFilter">Mostrar</label>
+          <label for="sessionFilter">Mostrar en tabla</label>
           <select id="sessionFilter">
             <option value="all">Todas las sesiones del programa</option>
             <option value="pending">Solo sesiones pendientes en este grupo</option>
           </select>
         </div>
       </div>
+
+      <form id="scheduleForm" class="admin-inline" style="margin-top:12px;padding:14px;background:#0b1014;border:1px solid #24323d;border-radius:10px">
+        <div class="field" style="flex:3">
+          <label for="groupSchedule">🕒 Horario de clases de este grupo (visible para el alumno en su aula)</label>
+          <input id="groupSchedule" maxlength="200" placeholder="Ej. Martes y Jueves de 7:00 pm a 9:00 pm">
+        </div>
+        <button type="submit" class="btn btn-secondary" style="flex:0 0 auto">Guardar horario del grupo</button>
+      </form>
+
       <div id="groupSummary" class="admin-cards" aria-label="Avance de grabaciones por grupo"></div>
       <div id="sessions" class="admin-table-wrap"></div>
     </section>
@@ -111,7 +134,7 @@
 
       <section class="admin-section">
         <h2>3. Matricular alumno nuevo (Yape / Transferencia)</h2>
-        <p class="small">Al escribir el nombre del alumno se sugiere automáticamente su usuario institucional y se genera su clave con el mensaje listo para WhatsApp.</p>
+        <p class="small">Al escribir el nombre del alumno se sugiere su usuario institucional, se asocia a su grupo y horario, y se genera su clave con el mensaje listo para WhatsApp.</p>
         <form id="enrollForm">
           <div class="field">
             <label for="name">Nombre completo del alumno</label>
@@ -144,6 +167,10 @@
               <input id="studentPhone" type="tel" placeholder="999888777">
             </div>
           </div>
+          <div class="field">
+            <label for="enrollSchedule">Horario del grupo (se rellena automático si el grupo ya tiene horario)</label>
+            <input id="enrollSchedule" maxlength="200" placeholder="Ej. Martes y Jueves 7:00 pm - 9:00 pm">
+          </div>
           <label class="small" style="display:block;margin:12px 0"><input id="paid" type="checkbox" required> He confirmado el pago por Yape, Plin o transferencia.</label>
           <button type="submit" class="btn">Crear matrícula y generar acceso</button>
         </form>
@@ -151,7 +178,7 @@
         <div id="credentials" hidden style="margin-top:18px;padding:16px;background:#0c1812;border:1px solid #3c684e;border-radius:10px">
           <h3 style="margin-top:0">✅ Credenciales listas para enviar</h3>
           <p class="small">Envía este mensaje al alumno por WhatsApp:</p>
-          <textarea id="message" readonly aria-label="Datos de acceso del alumno" rows="7" style="width:100%;margin:8px 0"></textarea>
+          <textarea id="message" readonly aria-label="Datos de acceso del alumno" rows="8" style="width:100%;margin:8px 0"></textarea>
           <div class="actions">
             <button id="copy" type="button" class="btn">📋 Copiar mensaje</button>
             <a id="waLink" class="btn btn-secondary" href="https://wa.me/" target="_blank" rel="noopener noreferrer">💬 Enviar por WhatsApp ↗</a>
@@ -206,7 +233,7 @@
       <h2>6. Alumnos registrados (<span id="studentCount">0</span>)</h2>
       <div class="field">
         <label for="search">Buscar por nombre, correo, curso o grupo</label>
-        <input id="search" type="search" placeholder="Ej. G4, DRONES_101, nombre...">
+        <input id="search" type="search" placeholder="Ej. G4, DRONES_101, COHETES_101, nombre...">
       </div>
       <div id="students" class="admin-table-wrap"></div>
     </section>
@@ -223,7 +250,7 @@
         </form>
         <form id="courseForm">
           <h3>Añadir nuevo curso</h3>
-          <div class="field"><label for="newCourseId">ID único</label><input id="newCourseId" placeholder="COHETES_101" pattern="[A-Z0-9_-]+" required></div>
+          <div class="field"><label for="newCourseId">ID único</label><input id="newCourseId" placeholder="TELEMETRIA_101" pattern="[A-Z0-9_-]+" required></div>
           <div class="field"><label for="newCourseName">Nombre del curso</label><input id="newCourseName" maxlength="180" required></div>
           <button type="submit" class="btn btn-secondary" style="margin-top:10px">Crear curso</button>
         </form>

@@ -1,0 +1,429 @@
+{
+  "n": 2,
+  "week": 1,
+  "title": "Qué cohete necesitamos y qué nariz elegimos",
+  "goal": "Elegir una nariz con una misión concreta, comparar alternativas y preparar una muestra de encaje.",
+  "mission": "Aprender a fabricar y recuperar un modelo pequeño por equipos. La carga científica corresponde al demostrador docente.",
+  "pages": [
+    {
+      "title": "Antes de elegir una forma, define la misión",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un cohete puede parecerse a otro y tener un propósito diferente. En nuestro proyecto importa aprender a construir, revisar y recuperar el conjunto. Una demostración científica añade sensores y datos. Un cohete de sondeo es un vehículo de investigación de trayectoria suborbital; no debe confundirse con un lanzador que coloca una carga en órbita. Llevar electrónica tampoco convierte automáticamente un modelo de aula en un vehículo espacial."
+        },
+        {
+          "type": "table",
+          "title": "Tres formas de ordenar el rubro",
+          "headers": [
+            "Criterio",
+            "Ejemplos",
+            "En nuestro curso"
+          ],
+          "rows": [
+            [
+              "Propósito",
+              "Aprendizaje, recreación, instrumentación",
+              "Aprendizaje; CanSat docente"
+            ],
+            [
+              "Arquitectura",
+              "Una etapa, varias etapas, varios motores",
+              "Una etapa y un motor comercial"
+            ],
+            [
+              "Clases de motor",
+              "Letras de impulso total",
+              "Leer la ficha del motor elegido"
+            ],
+            [
+              "Material y tamaño",
+              "Tubos, piezas impresas y dimensiones",
+              "Modelo pequeño y ligero"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En la nomenclatura de modelismo, la letra del motor identifica un intervalo de impulso total. El impulso describe empuje acumulado durante un tiempo y se expresa en N·s. No es energía, que se expresa en joules. Un motor de clase C no necesita un cohete de una longitud fija y dos motores con la misma letra pueden tener curvas de empuje distintas."
+        },
+        {
+          "type": "table",
+          "title": "Intervalos introductorios de impulso",
+          "headers": [
+            "Clase",
+            "Impulso total, N·s"
+          ],
+          "rows": [
+            [
+              "A",
+              "Mayor que 1,25 y hasta 2,50"
+            ],
+            [
+              "B",
+              "Mayor que 2,50 y hasta 5,00"
+            ],
+            [
+              "C",
+              "Mayor que 5,00 y hasta 10,00"
+            ],
+            [
+              "D",
+              "Mayor que 10,00 y hasta 20,00"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "text": "NAR agrupa habitualmente A–D como baja potencia y E–G como potencia media. La alta potencia tiene otros criterios y certificaciones, con excepciones. Es una referencia del modelismo estadounidense; no establece permisos locales ni clasifica por centímetros. [CAT, HPR]"
+        },
+        {
+          "type": "p",
+          "text": "Una misión se puede escribir como una tarea observable. “Aprender cohetería” es una intención amplia. “Construir en equipo, desmontar la nariz y explicar dónde se guarda la recuperación” permite decidir qué se necesita. El equipo puede dibujar esas funciones junto a una vista del cohete. Si una forma exterior deja de permitir una de ellas, hay una incompatibilidad que resolver antes de discutir cuál parece más moderna. El tamaño pequeño facilita la fabricación, pero no sustituye esta definición de la misión."
+        }
+      ]
+    },
+    {
+      "title": "Reconocer narices sin buscar una ganadora universal",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "narices_catalogo",
+          "caption": "Fotografía de catálogo reproducida en Apogee, Peak of Flight 629. Sirve para reconocer perfiles y tamaños, no para comparar rendimientos ni recomendar un proveedor.",
+          "width": 105
+        },
+        {
+          "type": "p",
+          "text": "La cónica tiene un perfil lateral recto. La ojival usa una curva que se estrecha hacia la punta. La elipsoidal es más redondeada. Podemos reconocerlas sosteniendo piezas, viendo su silueta o cambiando Shape en OpenRocket. La fotografía reúne piezas de tamaños distintos: no sería justo atribuir una diferencia de masa solo a su forma si también cambian diámetro, longitud o espesor."
+        },
+        {
+          "type": "table",
+          "title": "Primera comparación para nuestro taller",
+          "headers": [
+            "Forma",
+            "Qué facilita observar",
+            "Qué revisar"
+          ],
+          "rows": [
+            [
+              "Cónica",
+              "Relación clara entre punta, base y hombro",
+              "Punta real, pared y acabado"
+            ],
+            [
+              "Ojival",
+              "Continuidad de la curva con el cuerpo",
+              "Parámetro de forma y masa fabricada"
+            ],
+            [
+              "Elipsoidal",
+              "Volumen del frente y contorno redondeado",
+              "Longitud, acceso y espacio interior"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La elección inicial debe caber en el proceso que tenemos. Una nariz que imprime bien y se reemplaza con facilidad puede ser adecuada para aprender aunque otra tenga un resultado aerodinámico ligeramente distinto. Más adelante contrastaremos el vehículo completo. Hoy no necesitamos calcular fricción ni resolver ecuaciones de flujo."
+        },
+        {
+          "type": "p",
+          "text": "Durante el ascenso, el frente del vehículo aparta el aire. El arrastre es la parte de la fuerza aerodinámica que se opone al movimiento respecto al aire. Depende del vehículo y de sus condiciones de movimiento. La forma de la nariz influye, pero también cuentan el cuerpo, las aletas y las transiciones entre piezas. Una punta muy alargada puede requerir más material o un montaje más delicado. En nuestro primer taller conviene observar esa compensación y comparar después el modelo completo, en condiciones equivalentes, sin declarar una forma ganadora para cualquier velocidad."
+        }
+      ]
+    },
+    {
+      "title": "Comparar dos preguntas diferentes",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La primera pregunta es geométrica: ¿qué cambia al sustituir solo la forma? Conservamos base y longitud visible, además de cuerpo y aletas. La segunda es de fabricación: ¿qué pieza conviene construir? Entonces cuentan masa impresa, tiempo, soportes, encaje y acabado. Una comparación geométrica y otra de piezas reales pueden conducir a decisiones diferentes sin contradecirse."
+        },
+        {
+          "type": "case",
+          "title": "Dos narices en un ejercicio de aula",
+          "problem": "Datos ficticios: A pesa 8 g, tarda 45 min e imprime con el encaje correcto. B pesa 12 g, tarda 70 min y requiere corregir el hombro. Las dos cumplen la forma exterior que se propuso.",
+          "answer": "Para aprender a fabricar y reponer piezas, A tiene ventajas de masa y tiempo y ya resolvió el encaje. Eso permite una elección provisional. No demuestra que A tenga menos resistencia al aire, porque no se han simulado ni medido esas fuerzas."
+        },
+        {
+          "type": "table",
+          "title": "Qué conservar y qué registrar",
+          "headers": [
+            "Comparación",
+            "Mantener",
+            "Registrar como resultado"
+          ],
+          "rows": [
+            [
+              "Solo forma",
+              "Base, longitud, cuerpo y aletas",
+              "Cambio de geometría y resultados del modelo"
+            ],
+            [
+              "Fabricación real",
+              "Impresora y criterio de aceptación",
+              "Masa, tiempo y encaje"
+            ],
+            [
+              "Cambio completo",
+              "Misión y requisitos del conjunto",
+              "Todo lo que cambió entre versiones"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El ejemplo no contiene una medición real de MECRO ni una simulación ejecutada. Es un caso para practicar la decisión. En el taller se sustituirán las cifras por las de cada equipo. Si cambias la longitud para mejorar el espacio interior, registra que ya no estudiaste exclusivamente la forma."
+        },
+        {
+          "type": "note",
+          "text": "Una conclusión útil nombra la misión: “elegimos A para el primer prototipo porque podemos fabricarla y comprobar su encaje con menos recursos”."
+        },
+        {
+          "type": "p",
+          "text": "Conviene separar las condiciones necesarias de las preferencias. Que el hombro pueda encajar y que la pieza permita el funcionamiento del conjunto son condiciones que deben resolverse. El color o una pequeña diferencia de tiempo pueden servir para elegir entre opciones que ya cumplen esas condiciones. Una tabla de puntuación no debe hacer que una nariz incompatible gane porque recibió muchos puntos por apariencia. Primero se descartan o corrigen incompatibilidades y después se comparan alternativas viables."
+        }
+      ]
+    },
+    {
+      "title": "Práctica en OpenRocket: tres versiones de nariz",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_nariz",
+          "caption": "Ventana de nariz en la documentación oficial de OpenRocket. Sus valores son del manual; usa las medidas de tu proyecto.",
+          "width": 100
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Abre la versión del equipo y guarda una copia con sufijo NARIZ_A. En Nose Cone conserva el diámetro de base y la longitud visible que has declarado.",
+            "Selecciona Conical y anota el nombre del material, espesor y masa calculada. El hombro sigue la medida real del interior del tubo.",
+            "Guarda NARIZ_B y cambia a Ogive. Revisa el parámetro de forma. Anota lo que cambiaste y lo que quedó igual.",
+            "Crea NARIZ_C con Ellipsoid. Obtén una captura lateral de cada alternativa con la misma escala.",
+            "Compara dimensiones y masas. Todavía no atribuyas una altura de vuelo a estas piezas si falta completar el vehículo y seleccionar su conjunto comercial."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Cuando el programa estima masa a partir de una envolvente uniforme, puede representar de forma imperfecta una pieza impresa. Conserva esa estimación como tal. La comparación con la pieza pesada se realizará al tener el prototipo. [OR1, BODY]"
+        },
+        {
+          "type": "p",
+          "text": "La captura lateral ayuda a reconocer lo que cambió. Superponer mentalmente las bases permite comprobar si las tres narices conservan longitud y diámetro. El hombro pertenece a la unión interior y no debe añadirse a la longitud visible. Si una opción aumenta la longitud visible, el modelo ya no está comparando únicamente la curvatura. El registro de medidas hace explícita esa diferencia y permite al docente explicar una comparación honesta con pocos conceptos."
+        }
+      ]
+    },
+    {
+      "title": "Práctica de fabricación: primero el encaje",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La nariz tiene una interfaz con el cuerpo: su hombro debe entrar en la abertura disponible. El equipo puede dibujar la forma exterior en CAD, pero la medida del tubo decide el encaje. Antes de imprimir una pieza completa, el docente agrupa muestras cortas que permiten estudiar ese ajuste sin consumir todo el tiempo de la máquina."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Registra diámetro interior, ovalidad observable y longitud disponible de encaje del tubo real.",
+            "Prepara en CAD muestras identificadas que varíen solo la dimensión de encaje. El docente revisa la serie antes de imprimir.",
+            "Mide las piezas obtenidas y diferencia la dimensión dibujada de la dimensión impresa.",
+            "Prueba la unión sin forzar el tubo. Describe si entra, se traba o tiene juego apreciable.",
+            "Conserva la muestra elegida con el identificador del tubo y el perfil de impresión. No traslades automáticamente el resultado a otro material o impresora."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Ficha de comparación de narices",
+          "headers": [
+            "Dato",
+            "A",
+            "B"
+          ],
+          "rows": [
+            [
+              "Forma y longitud",
+              "Por registrar",
+              "Por registrar"
+            ],
+            [
+              "Masa real / g",
+              "Por pesar",
+              "Por pesar"
+            ],
+            [
+              "Tiempo / min",
+              "Del laminador y del registro",
+              "Del laminador y del registro"
+            ],
+            [
+              "Encaje en el tubo identificado",
+              "Observación",
+              "Observación"
+            ],
+            [
+              "Cambio pendiente",
+              "Describir",
+              "Describir"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una muestra que entra correctamente resuelve una parte del problema. Todavía hay que comprobar pared, unión, sujeción y funcionamiento del conjunto de recuperación. La nariz completa se acepta como parte de ese sistema, no por una única medida aislada."
+        },
+        {
+          "type": "p",
+          "text": "La misma medida dibujada puede producir resultados distintos en dos impresoras o materiales. No se cambia todo el CAD para corregir el resultado de una sola muestra sin investigar su origen. Conserva la dimensión nominal y la medida obtenida. Si el taller trabaja con varios tubos, identifica cuáles comparten realmente la misma abertura. El repuesto de una nariz necesita corresponder al tubo y al proceso que se comprobó, no únicamente al nombre del archivo."
+        }
+      ]
+    },
+    {
+      "title": "La elección cambia con la misión",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Cómo justificar la misma forma en misiones distintas",
+          "headers": [
+            "Misión",
+            "Prioridad",
+            "Prueba antes de elegir"
+          ],
+          "rows": [
+            [
+              "Primer montaje",
+              "Encaje y facilidad de fabricación",
+              "Muestras, masa y repetición"
+            ],
+            [
+              "Reutilización",
+              "Acceso, reparación y repuestos",
+              "Montajes repetidos y revisión del borde"
+            ],
+            [
+              "Carga docente",
+              "Espacio útil y acceso a electrónica",
+              "Maqueta de carga y comprobación de interfaces"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Para el modelo del alumno se puede elegir una forma sencilla que el equipo sea capaz de fabricar y revisar. Para el vehículo docente con CanSat puede ser más importante el acceso a la carga que reducir unos minutos de impresión. Eso no autoriza trasladar la nariz del demostrador al cohete pequeño sin revisar dimensiones y masa."
+        },
+        {
+          "type": "case",
+          "title": "Qué conclusión sí podemos defender",
+          "problem": "¿Podemos anunciar que la nariz más liviana “es la más aerodinámica”?",
+          "answer": "No. La balanza resuelve una comparación de masa. Para estudiar el comportamiento aerodinámico hay que conservar condiciones y usar una simulación pertinente o una prueba adecuada. En este nivel basta separar ambas preguntas."
+        },
+        {
+          "type": "p",
+          "text": "Antes de cerrar, cada equipo muestra sus tres archivos y elige una alternativa provisional para la misión de aprendizaje. Debe señalar una razón, una evidencia y una comprobación pendiente. Las fichas quedan abiertas hasta que existan piezas reales; “pendiente” es más preciso que una cifra inventada."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Definir la misión del equipo en una frase.",
+    "Crear las tres copias de nariz en OpenRocket manteniendo las dimensiones declaradas.",
+    "Completar la ficha con datos de modelo y separar lo que falta medir.",
+    "Preparar la solicitud de muestras de encaje para el taller 1."
+  ],
+  "qas": [
+    [
+      "¿Un cohete de 35 cm es automáticamente de clase A?",
+      "No. La letra corresponde al intervalo de impulso del motor, no a la longitud."
+    ],
+    [
+      "¿Qué se conserva para comparar solo la forma?",
+      "Base, longitud visible y el resto del modelo; además se documentan material y masa."
+    ],
+    [
+      "¿Una nariz que pesa menos tiene menor arrastre?",
+      "El peso no demuestra el arrastre. Son comparaciones diferentes."
+    ]
+  ],
+  "delivery": "Tres archivos .ork, ficha comparativa y decisión provisional según misión.",
+  "refs": [
+    "CAT",
+    "HPR",
+    "OR1",
+    "BODY",
+    "AP",
+    "PR1"
+  ],
+  "opening": "Muestra dos narices y pregunta cuál elegirían para un primer taller y por qué.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "CAT": [
+      "National Association of Rocketry",
+      "Rocket Motor Resources",
+      "https://www.nar.org/content.aspx?club_id=114127&module_id=669253&page_id=22"
+    ],
+    "HPR": [
+      "National Association of Rocketry",
+      "High Power Rocketry Certification",
+      "https://www.nar.org/HPRCertification"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "BODY": [
+      "OpenRocket",
+      "Body Components Basics",
+      "https://wiki.openrocket.info/Body_Components_Basics"
+    ],
+    "AP": [
+      "Apogee Components",
+      "Peak of Flight 629",
+      "https://www.apogeerockets.com/education/downloads/Newsletter629.pdf"
+    ],
+    "PR1": [
+      "Prusa Research",
+      "Modeling with 3D printing in mind",
+      "https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

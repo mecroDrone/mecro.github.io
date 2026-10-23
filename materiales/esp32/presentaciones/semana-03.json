@@ -1,0 +1,592 @@
+{
+  "week": 3,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "PWM, sonido y salidas digitales en serie",
+        "MECRO   SEMANA 3   CLASE 05   01/24",
+        "Distinguir frecuencia, resolución y ciclo de trabajo, y ampliar salidas con un registro de desplazamiento.",
+        "Una orden del controlador puede representar brillo, un aviso o una consigna para otra etapa; el significado depende de la interfaz.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-03-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Una salida digital puede expresar más que encendido y apagado",
+        "MECRO   SEMANA 3   CLASE 05   02/24",
+        "PWM alterna una salida entre sus niveles digitales siguiendo un periodo y una fracción de tiempo activa. La señal conserva esos niveles; lo que cambia es su distribución temporal. Un LED y su circuito pueden producir una apariencia de brillo distinta al variar esa fracción. Un instrumento o una carga pueden responder de otra manera. No convertimos automáticamente el GPIO en una fuente analógica de potencia variable."
+      ],
+      "image": "assets/slide-03-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Una salida digital puede expresar más que encendido y apagado",
+        "MECRO   SEMANA 3   CLASE 05   03/24",
+        "Localiza datos, reloj y latch. ¿Qué significa desplazar ocho bits?",
+        "MECRO, proyecto 04. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-03-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · Una salida digital puede expresar más que encendido y apagado",
+        "MECRO   SEMANA 3   CLASE 05   04/24",
+        "El piano muestra una señal cuyo ritmo determina la nota, mientras el dimmer muestra una señal cuyo ciclo de trabajo regula el efecto de brillo. Son usos diferentes de una onda digital. El registro 74HC595 del proyecto de luces ofrece otra ampliación: convierte una secuencia de bits en varias salidas conservadas. Esta clase compara las dos ideas sin confundir “muchas salidas” con “resolución de PWM”."
+      ],
+      "image": "assets/slide-03-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Periodo, frecuencia y resolución",
+        "MECRO   SEMANA 3   CLASE 05   05/24",
+        "Más resolución permite seleccionar más códigos, pero el periférico debe generar la combinación de frecuencia y resolución solicitada. En el código de referencia se comprueba si la configuración tuvo éxito. Elegir una frecuencia nueva puede compartir recursos con otra salida, según la configuración del periférico y las bibliotecas. En la clase de servo volveremos a este punto con una señal de 50 Hz que tiene un significado distinto al brillo."
+      ],
+      "image": "assets/slide-03-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Tres controles diferentes",
+        "MECRO   SEMANA 3   CLASE 05   06/24",
+        "Cambio",
+        "Qué modifica",
+        "Ejemplo",
+        "Frecuencia",
+        "Repetición por segundo",
+        "Nota en buzzer pasivo",
+        "Duty",
+        "Fracción activa",
+        "Brillo del LED",
+        "Resolución",
+        "Pasos de mando",
+        "8 bits: 0 a 255"
+      ],
+      "image": "assets/slide-03-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Una señal de 1 kHz",
+        "MECRO   SEMANA 3   CLASE 05   07/24",
+        "D = 0,25, equivalente al 25%. El código aproximado es 0,25 × 255 = 63,75: se elige 64. La frecuencia sigue siendo 1 kHz.",
+        "D es una proporción; d es un código de mando de b bits para la convención del ejemplo."
+      ],
+      "image": "assets/slide-03-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "El 74HC595 y una palabra de ocho bits",
+        "MECRO   SEMANA 3   CLASE 05   08/24",
+        "El registro recibe bits en serie y mantiene un conjunto de salidas. DATA transporta el valor de cada bit; CLOCK determina cuándo se incorpora; LATCH presenta el conjunto almacenado. Un patrón como 00010000 puede representar una luz encendida entre ocho. Desplazar ese patrón produce la animación del proyecto. La operación shiftOut() genera una secuencia por software; no demuestra que el circuito esté usando automáticamente el periférico SPI del ESP32."
+      ],
+      "image": "assets/slide-03-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Señales del registro",
+        "MECRO   SEMANA 3   CLASE 05   09/24",
+        "Señal",
+        "Papel",
+        "Qué observa el alumno",
+        "DATA",
+        "Bit que se transmite",
+        "0 o 1",
+        "CLOCK",
+        "Paso de desplazamiento",
+        "Ocho pulsos por palabra",
+        "LATCH",
+        "Actualización de salidas",
+        "Cambio del patrón completo"
+      ],
+      "image": "assets/slide-03-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Ocho indicadores",
+        "MECRO   SEMANA 3   CLASE 05   10/24",
+        "Con LED de 2,0 V y alimentación de 3,3 V, un resistor de 680 ohm produce aproximadamente 1,9 mA por rama en el modelo ideal. ¿Qué suma representan ocho ramas?",
+        "Aproximadamente 15,3 mA. También se revisan las condiciones por salida y del integrado completo; la suma de ramas no autoriza ignorar la caída de tensión del driver."
+      ],
+      "image": "assets/slide-03-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Un código y dos familias de API",
+        "MECRO   SEMANA 3   CLASE 05   11/24",
+        "La capa course_pwm.h conserva separados el número de GPIO y el canal. En Arduino-ESP32 2.x se configuran canal y asociación de pin; en 3.x cambió la API y varias operaciones se expresan por pin. El material fija un entorno de referencia para los ejemplos y explica esa diferencia. Encontrar una función con el mismo nombre no garantiza que sus argumentos conserven el significado de una versión anterior."
+      ],
+      "image": "assets/slide-03-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Uso de la capa de compatibilidad incluida",
+        "MECRO   SEMANA 3   CLASE 05   12/24",
+        "CoursePwm led(23, 0);",
+        "bool ok = led.begin(1000, 8);",
+        "if (ok) {",
+        "  uint32_t duty = (raw * 255UL) / 4095UL;",
+        "  led.write(duty);",
+        "}",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-03-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Interpretación · Un código y dos familias de API",
+        "MECRO   SEMANA 3   CLASE 05   13/24",
+        "El orden de bits se relaciona con la posición física de las salidas. Si la animación parece invertida, primero compara el patrón, la convención MSBFIRST y las conexiones. No hace falta cambiar simultáneamente ocho cables y todo el programa para investigar una inversión. Una prueba de un solo bit permite identificar la correspondencia."
+      ],
+      "image": "assets/slide-03-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio: un efecto y una secuencia",
+        "MECRO   SEMANA 3   CLASE 05   14/24",
+        "La vista de una simulación ayuda a relacionar el algoritmo con el patrón. Una estimación visual de brillo no es una medida lineal de potencia óptica. Si el equipo usa solo observación, puede describir orden y contraste entre estados. Para afirmar valores de señal necesita el instrumento o el modelo identificado. El docente demuestra al menos una lectura de periodo para ligar la fórmula con un objeto real."
+      ],
+      "image": "assets/slide-03-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Mando del ejercicio",
+        "MECRO   SEMANA 3   CLASE 05   15/24",
+        "Código / 8 bits",
+        "Fracción aproximada",
+        "Observación",
+        "64",
+        "25,1%",
+        "Por comprobar",
+        "128",
+        "50,2%",
+        "Por comprobar",
+        "192",
+        "75,3%",
+        "Por comprobar"
+      ],
+      "image": "assets/slide-03-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio: un efecto y una secuencia",
+        "MECRO   SEMANA 3   CLASE 05   16/24",
+        "1. Ejecuta c05_pwm con LED y resistencia; reconoce pin, canal, frecuencia y resolución.",
+        "",
+        "2. Selecciona códigos 0, 64, 128, 192 y 255. Predice sus fracciones de mando.",
+        "",
+        "3. Si hay analizador lógico u osciloscopio, mide periodo y tiempo activo; conserva la configuración.",
+        "",
+        "4. En el proyecto 4, prueba un bit cada vez y dibuja su relación con las salidas.",
+        "",
+        "5. Compara cambiar frecuencia del buzzer con cambiar duty del LED.",
+        "",
+        "6. Conserva una tabla que diferencie mando calculado, señal observada y efecto visible."
+      ],
+      "image": "assets/slide-03-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Cómo se transfiere la idea a un UAV",
+        "MECRO   SEMANA 3   CLASE 05   17/24",
+        "En una aeronave conviven interfaces digitales con significados distintos. Una orden hacia un servo, un controlador de motor y una cadena de LEDs no se interpreta del mismo modo. Compartir el término PWM no hace intercambiables sus frecuencias, anchos de pulso ni etapas de potencia. El aprendizaje del curso es leer qué espera el dispositivo receptor y comprobar la señal generada antes de integrarlo. No se usa el pin como sustituto de un ESC."
+      ],
+      "image": "assets/slide-03-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Qué veremos después",
+        "MECRO   SEMANA 3   CLASE 05   18/24",
+        "Dispositivo",
+        "Dato relevante",
+        "Comprobación",
+        "LED",
+        "Duty del efecto",
+        "Periodo y estado",
+        "Servo",
+        "Ancho de pulso",
+        "Intervalo permitido",
+        "Driver DC",
+        "Entrada de mando",
+        "Potencia y respuesta"
+      ],
+      "image": "assets/slide-03-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Interpretación · Cómo se transfiere la idea a un UAV",
+        "MECRO   SEMANA 3   CLASE 05   19/24",
+        "Investiga en la hoja del SN74HC595 la diferencia entre registro de desplazamiento y registro de salida. Busca además sus condiciones de alimentación y de corriente. Compara la comunicación DATA/CLOCK/LATCH con un bus SPI de propósito general: ambos son síncronos, pero la función del dispositivo y el protocolo concreto siguen importando. Presenta una semejanza y una diferencia útiles para cablear."
+      ],
+      "image": "assets/slide-03-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 3   CLASE 05   20/24",
+        "1. Mostrar una onda digital antes de hablar de brillo o velocidad.",
+        "",
+        "2. Resolver periodo y duty con unidades.",
+        "",
+        "3. Comprobar c05_pwm y una palabra del registro 74HC595.",
+        "",
+        "4. Contrastar LED, buzzer y futuro servo como interfaces diferentes."
+      ],
+      "image": "assets/slide-03-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 3   CLASE 05   21/24",
+        "Una orden del controlador puede representar brillo, un aviso o una consigna para otra etapa; el significado depende de la interfaz.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-03-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 3   CLASE 05   22/24",
+        "1. ¿50% de duty equivale a 1,65 V constantes en el pin?",
+        "",
+        "2. ¿Pin y canal son lo mismo?",
+        "",
+        "3. ¿shiftOut() prueba uso del SPI de hardware?"
+      ],
+      "image": "assets/slide-03-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 3   CLASE 05   23/24",
+        "1. No: el pin alterna niveles; una magnitud media depende del circuito y de la medida.",
+        "",
+        "2. No. La API y la capa de compatibilidad deben conservar la correspondencia.",
+        "",
+        "3. No; genera una secuencia por software para la función definida."
+      ],
+      "image": "assets/slide-03-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 3   CLASE 05   24/24",
+        "Tabla de señales PWM y correspondencia de bits del proyecto 4.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-03-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Sensores digitales, I2C y pantallas: un dato con identidad",
+        "MECRO   SEMANA 3   CLASE 06   01/24",
+        "Leer y presentar una variable conservando unidad, instante, estado de la lectura y dirección del dispositivo.",
+        "La instrumentación de drones necesita saber qué sensor produjo cada dato y si sigue siendo utilizable.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-03-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "El valor no viaja solo",
+        "MECRO   SEMANA 3   CLASE 06   02/24",
+        "Una lectura de temperatura necesita unidad, instante y origen. El número 24 puede significar grados Celsius, un código de conversión o un valor anterior que quedó en la pantalla. El proyecto de estación de clima permite comenzar con esa distinción. El sensor adquiere; el programa interpreta; la pantalla presenta. Una actualización de pantalla no demuestra que haya ocurrido una adquisición nueva."
+      ],
+      "image": "assets/slide-03-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "El valor no viaja solo",
+        "MECRO   SEMANA 3   CLASE 06   03/24",
+        "¿Qué interfaz usa cada componente? No todos los sensores son I2C.",
+        "MECRO, proyecto 07. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-03-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · El valor no viaja solo",
+        "MECRO   SEMANA 3   CLASE 06   04/24",
+        "Separar tareas ayuda a organizarlas a velocidades distintas. Un sensor lento puede actualizarse cada cierto intervalo mientras la interfaz responde a un botón más a menudo. La última lectura se almacena junto a un indicador de validez y su tiempo. Cuando falla la adquisición, la aplicación puede mostrar FALLO o una lectura anterior con su antigüedad. Reemplazar todo error por cero confunde una ausencia de dato con una medida legítima.",
+        "",
+        "La estación de clima del laboratorio usa un sensor DHT y una pantalla OLED. El sensor DHT no se convierte en I2C por compartir una placa con la pantalla. Cada conexión sigue su propio protocolo. Más adelante, la IMU sí compartirá I2C con una pantalla si direcciones y condiciones eléctricas son compatibles."
+      ],
+      "image": "assets/slide-03-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Qué ofrece un bus I2C",
+        "MECRO   SEMANA 3   CLASE 06   05/24",
+        "I2C utiliza una línea de datos y una de reloj con dispositivos identificados mediante dirección. En el perfil clásico de las prácticas usamos SDA21 y SCL22, cuando ese montaje lo permita. Esas conexiones sustituyen el semáforo que usaba algunos de los mismos pines: los ejercicios son configuraciones diferentes, no un único circuito acumulado de manera automática. La dirección se comprueba con el dispositivo real y con su biblioteca."
+      ],
+      "image": "assets/slide-03-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Tres comunicaciones del banco",
+        "MECRO   SEMANA 3   CLASE 06   06/24",
+        "Interfaz",
+        "Organización",
+        "Ejemplo",
+        "UART",
+        "Flujo de bytes",
+        "Monitor serie",
+        "I2C",
+        "Bus con direcciones",
+        "OLED y MPU6050",
+        "DHT",
+        "Señal y temporización propias",
+        "Temperatura y humedad"
+      ],
+      "image": "assets/slide-03-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Dos dispositivos, una dirección",
+        "MECRO   SEMANA 3   CLASE 06   07/24",
+        "Dos módulos responden con la misma dirección fija. ¿Basta conectar ambos en paralelo y darles nombres distintos en C++?",
+        "No. Los nombres del programa no cambian la dirección del bus. Se revisan opciones de dirección o una arquitectura de bus adecuada."
+      ],
+      "image": "assets/slide-03-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Validez y antigüedad",
+        "MECRO   SEMANA 3   CLASE 06   08/24",
+        "Un registro mínimo puede contener valor, unidad, tiempo e indicador válido. Para tratar antigüedad se resta el tiempo de la última adquisición aceptada al tiempo actual. El umbral permitido depende de la misión y de la velocidad del sensor. Un dato ambiental de hace un segundo y uno de orientación de hace un segundo pueden tener utilidades muy diferentes. El curso pide nombrar el criterio de cada uno."
+      ],
+      "image": "assets/slide-03-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Tres situaciones de presentación",
+        "MECRO   SEMANA 3   CLASE 06   09/24",
+        "Entrada",
+        "Pantalla útil",
+        "Registro",
+        "Lectura reciente",
+        "Valor y unidad",
+        "Instante nuevo",
+        "Lectura inválida",
+        "FALLO o aviso",
+        "Estado de error",
+        "Lectura antigua",
+        "Valor con edad",
+        "Última adquisición válida"
+      ],
+      "image": "assets/slide-03-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Validez y antigüedad",
+        "MECRO   SEMANA 3   CLASE 06   10/24",
+        "En bibliotecas que representan una lectura inválida mediante NaN, una comparación numérica corriente puede no comportarse como se espera. Hay que consultar la condición de validez y tratarla antes de decidir una salida. El ejemplo de clima ya contiene una comprobación isnan(); la clase explica para qué sirve y qué debe conservar el resto de la aplicación cuando se activa.",
+        "El instante se actualiza al aceptar una lectura nueva, no simplemente al redibujar la pantalla."
+      ],
+      "image": "assets/slide-03-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Cómo investigar una conexión",
+        "MECRO   SEMANA 3   CLASE 06   11/24",
+        "Una respuesta en la dirección 0x68 indica que algún dispositivo reconoció esa dirección en esa prueba. No certifica por sí sola la identidad, la escala ni la calidad de sus medidas. La identificación de registro o el procedimiento de la biblioteca aporta otra comprobación. El diagnóstico se realiza primero sin mezclarlo con pantallas complejas, gráficas y múltiples sensores."
+      ],
+      "image": "assets/slide-03-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Fragmento de diagnóstico I2C",
+        "MECRO   SEMANA 3   CLASE 06   12/24",
+        "Wire.begin(21, 22);",
+        "Wire.beginTransmission(0x68);",
+        "uint8_t status = Wire.endTransmission();",
+        "bool acknowledged = (status == 0);",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-03-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Pantalla congelada",
+        "MECRO   SEMANA 3   CLASE 06   13/24",
+        "La pantalla sigue mostrando 24,0 °C después de desconectar el sensor. ¿Qué dato del software falta consultar?",
+        "La validez y el instante de la última adquisición. El valor mostrado puede ser una copia antigua; hace falta una política explícita para ese estado."
+      ],
+      "image": "assets/slide-03-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Laboratorio de adquisición y presentación",
+        "MECRO   SEMANA 3   CLASE 06   14/24",
+        "En un montaje físico se revisa el circuito desconectado y se aplica el procedimiento de comprobación del banco. Si el sensor no puede desconectarse durante operación, se simula la condición por software y se declara ese origen. La finalidad del ejercicio es que la aplicación distinga dato y estado. No se presenta una inyección de error como una medición de fallo real del componente."
+      ],
+      "image": "assets/slide-03-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 3   CLASE 06   15/24",
+        "¿Una respuesta I2C confirma una medida correcta?",
+        "Relacionar el resultado con el futuro banco de IMU."
+      ],
+      "image": "assets/slide-03-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Laboratorio de adquisición y presentación",
+        "MECRO   SEMANA 3   CLASE 06   16/24",
+        "1. Abre el proyecto 7 y localiza sensor, pantalla y protocolos.",
+        "",
+        "2. Registra el tipo exacto de sensor que usa el archivo del simulador; no lo supongas por el título.",
+        "",
+        "3. Localiza periodo de lectura, periodo de pantalla y condición de fallo.",
+        "",
+        "4. Añade al registro una marca temporal y un estado de validez.",
+        "",
+        "5. Identifica los dispositivos I2C y sus direcciones con la prueba preparada por el docente.",
+        "",
+        "6. Provoca una ausencia de lectura en la simulación o con el procedimiento de banco indicado.",
+        "",
+        "7. Explica cómo cambia la presentación y qué valor conserva el registro."
+      ],
+      "image": "assets/slide-03-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "De la estación ambiental a una carga de sensores",
+        "MECRO   SEMANA 3   CLASE 06   17/24",
+        "Una carga de sensores para un UAV puede utilizar una arquitectura semejante: adquisición, procesamiento, almacenamiento y presentación. Los requisitos de tiempo y precisión cambian con la variable. La organización de módulos que aprendemos hoy permite añadir la IMU sin convertir todo el programa en una única función extensa. Cada dato llega acompañado de la información que permite usarlo con criterio."
+      ],
+      "image": "assets/slide-03-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Preguntas para cualquier sensor nuevo",
+        "MECRO   SEMANA 3   CLASE 06   18/24",
+        "Pregunta",
+        "Dónde buscar",
+        "¿Qué variable entrega?",
+        "Hoja de datos y biblioteca",
+        "¿Con qué unidad?",
+        "API y escala configurada",
+        "¿Cada cuánto es nueva?",
+        "Adquisición y marcas de tiempo",
+        "¿Cómo informa fallo?",
+        "Resultado de la operación"
+      ],
+      "image": "assets/slide-03-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Interpretación · De la estación ambiental a una carga de sensores",
+        "MECRO   SEMANA 3   CLASE 06   19/24",
+        "Investiga la diferencia entre dirección del bus, número de pin y nombre de la variable. Son referencias de niveles distintos. Para ampliar, compara UART, I2C y SPI con una tabla de líneas, organización y dispositivo de ejemplo. No necesitas implementar tres protocolos completos en una sesión: sí debes poder explicar por qué conectar la pantalla a un pin de sensor DHT no cumple la misma función."
+      ],
+      "image": "assets/slide-03-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 3   CLASE 06   20/24",
+        "1. Mostrar un valor en pantalla y preguntar de cuándo es.",
+        "",
+        "2. Separar DHT, OLED e I2C en el esquema del proyecto.",
+        "",
+        "3. Agregar tiempo y validez al registro del clima.",
+        "",
+        "4. Relacionar el resultado con el futuro banco de IMU."
+      ],
+      "image": "assets/slide-03-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 3   CLASE 06   21/24",
+        "La instrumentación de drones necesita saber qué sensor produjo cada dato y si sigue siendo utilizable.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-03-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 3   CLASE 06   22/24",
+        "1. ¿Actualizar OLED equivale a adquirir un dato?",
+        "",
+        "2. ¿Una respuesta I2C confirma una medida correcta?",
+        "",
+        "3. ¿Qué comunica mejor un fallo: cero o un estado?"
+      ],
+      "image": "assets/slide-03-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 3   CLASE 06   23/24",
+        "1. No. Pueden ejecutarse con agendas distintas.",
+        "",
+        "2. Confirma reconocimiento de dirección en esa prueba; faltan identidad, configuración y lectura.",
+        "",
+        "3. Un estado explícito evita confundir ausencia con una medida numérica legítima."
+      ],
+      "image": "assets/slide-03-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 3   CLASE 06   24/24",
+        "Mapa de interfaces y registro de valor, unidad, tiempo y estado.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-03-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-03.pdf",
+  "ppt": "descargas/MECRO_ESP32_Semana_03.pptx"
+}

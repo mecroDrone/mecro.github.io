@@ -1,0 +1,596 @@
+{
+  "week": 5,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Primera simulación completa en OpenRocket",
+        "MECRO   SEMANA 5   CLASE 09   01/24",
+        "Configurar el modelo completo, ejecutar una simulación guiada y leer sus fases sin confundir predicción con observación.",
+        "Obtener una predicción útil para revisar el conjunto y preparar comparaciones.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-05-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Qué debe estar completo antes de simular",
+        "MECRO   SEMANA 5   CLASE 09   02/24",
+        "La primera geometría de la clase 1 enseñó a colocar piezas. Una simulación de vuelo necesita más información: componentes interiores, masas, configuración comercial, recuperación y condiciones de salida. El programa puede calcular con un archivo incompleto, pero el resultado describirá ese archivo y no el cohete que se está construyendo."
+      ],
+      "image": "assets/slide-05-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Qué debe estar completo antes de simular",
+        "MECRO   SEMANA 5   CLASE 09   03/24",
+        "¿El archivo contiene el conjunto real?",
+        "Pestaña de simulaciones del manual de OpenRocket. Los resultados pertenecen a su ejemplo, no al proyecto del equipo."
+      ],
+      "image": "assets/slide-05-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Entradas que debe revisar el equipo",
+        "MECRO   SEMANA 5   CLASE 09   04/24",
+        "Grupo",
+        "Comprobación",
+        "Geometría",
+        "Coincide con el plano y las piezas",
+        "Masas",
+        "Incluyen los elementos del conjunto",
+        "Motor comercial",
+        "Referencia y configuración correctas",
+        "Recuperación",
+        "Sistema y evento representados",
+        "Condiciones",
+        "Lugar y condiciones declarados"
+      ],
+      "image": "assets/slide-05-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Leer el vuelo como una secuencia",
+        "MECRO   SEMANA 5   CLASE 09   05/24",
+        "La fase impulsada termina cuando cesa el empuje. El cohete puede seguir subiendo después, mientras pierde velocidad. La altura máxima se llama apogeo. Después llega el descenso y el sistema de recuperación cumple su función. Separar esos eventos evita pensar que el motor empuja hasta la altura máxima."
+      ],
+      "image": "assets/slide-05-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Leer el vuelo como una secuencia",
+        "MECRO   SEMANA 5   CLASE 09   06/24",
+        "¿Por qué sube después de terminar el empuje?",
+        "NASA Glenn: fases de vuelo de un modelo. La trayectoria dibujada es ilustrativa y no fija una trayectoria para el proyecto."
+      ],
+      "image": "assets/slide-05-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Qué se lee en las gráficas",
+        "MECRO   SEMANA 5   CLASE 09   07/24",
+        "Variable",
+        "Pregunta sencilla",
+        "Altura",
+        "¿Cuándo llega al punto más alto?",
+        "Velocidad vertical",
+        "¿Cuándo deja de subir?",
+        "Empuje",
+        "¿Cuándo termina la fase impulsada?",
+        "Evento de recuperación",
+        "¿Dónde aparece respecto al apogeo?"
+      ],
+      "image": "assets/slide-05-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Preparar una configuración identificada",
+        "MECRO   SEMANA 5   CLASE 09   08/24",
+        "Una configuración relaciona el vehículo con un motor comercial y sus eventos. Debe tener un nombre que permita reconocer qué se simuló. Si cambias la nariz, la masa o el motor, conserva una versión diferente. Sobrescribir el archivo cada vez hace difícil explicar después por qué cambió una predicción."
+      ],
+      "image": "assets/slide-05-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 5   CLASE 09   09/24",
+        "¿Qué cambió desde la simulación anterior?",
+        "El responsable revisa las condiciones operativas. El alumno aprende a representarlas y a detectar entradas incoherentes; no necesita decidir por su cuenta una condición de lanzamiento."
+      ],
+      "image": "assets/slide-05-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Práctica: Preparar una configuración identificada",
+        "MECRO   SEMANA 5   CLASE 09   10/24",
+        "1. Guarda una copia del archivo revisado con nombre CONFIG_A.",
+        "",
+        "2. Selecciona el conjunto comercial indicado por el docente y comprueba su referencia completa.",
+        "",
+        "3. Verifica la representación de recuperación y los eventos que corresponden al sistema elegido.",
+        "",
+        "4. Registra las condiciones de la simulación. No uses valores por defecto sin leer qué significan.",
+        "",
+        "5. Describe la guía de salida utilizada por el equipo docente y su correspondencia en el modelo."
+      ],
+      "image": "assets/slide-05-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Práctica: ejecutar, mirar y exportar",
+        "MECRO   SEMANA 5   CLASE 09   11/24",
+        "Las capturas de este material pertenecen al manual oficial. Cada equipo crea y ejecuta su propio archivo en clase. Una fila de apogeo aislada no sustituye la configuración ni las gráficas que permiten interpretarla. [OR3]"
+      ],
+      "image": "assets/slide-05-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Práctica: ejecutar, mirar y exportar",
+        "MECRO   SEMANA 5   CLASE 09   12/24",
+        "¿Qué evento buscarás en Plot / Export?",
+        "Botón Plot / Export en la documentación de OpenRocket. Permite pasar de la fila de resultados a las variables del vuelo."
+      ],
+      "image": "assets/slide-05-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Práctica: ejecutar, mirar y exportar",
+        "MECRO   SEMANA 5   CLASE 09   13/24",
+        "1. Crea o edita la simulación correspondiente a CONFIG_A y revisa las condiciones de entrada.",
+        "",
+        "2. Ejecuta según la interfaz de la versión instalada y lee avisos antes de aceptar los resultados.",
+        "",
+        "3. Abre Plot / Export y elige tiempo en el eje horizontal.",
+        "",
+        "4. Representa altura y velocidad vertical con sus unidades. Activa las marcas de eventos relevantes.",
+        "",
+        "5. Anota apogeo, fin de empuje y evento de recuperación. Comprueba que pertenecen a la misma simulación.",
+        "",
+        "6. Exporta un CSV con tiempo, variables seleccionadas y las condiciones guardadas en el expediente."
+      ],
+      "image": "assets/slide-05-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Una comparación que no mezcle cambios",
+        "MECRO   SEMANA 5   CLASE 09   14/24",
+        "Para comparar narices o aletas, comienza con una copia del modelo completo. Conserva motor, condiciones y entradas comunes. Si el cambio de geometría implica otra masa real, puedes estudiar dos preguntas: el cambio geométrico idealizado y el cambio del objeto que realmente fabricarías. Debes indicar cuál estás respondiendo."
+      ],
+      "image": "assets/slide-05-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Registro de la comparación",
+        "MECRO   SEMANA 5   CLASE 09   15/24",
+        "Dato",
+        "A",
+        "B",
+        "Archivo y revisión",
+        "Identificar",
+        "Identificar",
+        "Cambio propuesto",
+        "Referencia",
+        "Describir",
+        "Motor y condiciones",
+        "Conservar",
+        "Confirmar",
+        "Masa y configuración",
+        "Registrar",
+        "Registrar",
+        "Resultados y avisos",
+        "Exportar",
+        "Exportar"
+      ],
+      "image": "assets/slide-05-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Dos predicciones parecidas",
+        "MECRO   SEMANA 5   CLASE 09   16/24",
+        "Ejercicio: dos configuraciones didácticas predicen 80 y 82 m, pero la segunda también usa otro motor y otra masa.",
+        "¿A qué cambio puedes atribuir la diferencia?"
+      ],
+      "image": "assets/slide-05-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Interpretar sin prometer el vuelo real",
+        "MECRO   SEMANA 5   CLASE 09   17/24",
+        "El resultado de un simulador es una predicción. El objeto fabricado, el ambiente y la operación pueden diferir de las entradas. Por eso antes del vuelo se revisa la correspondencia entre archivo y conjunto final. Después se comparan observaciones que realmente se hayan registrado."
+      ],
+      "image": "assets/slide-05-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Interpretar sin prometer el vuelo real",
+        "MECRO   SEMANA 5   CLASE 09   18/24",
+        "¿Qué es predicción y qué es observación?",
+        "Gráfica del ejemplo oficial de OpenRocket. Los valores y curvas corresponden a ese ejemplo y se usan para aprender a leer eventos."
+      ],
+      "image": "assets/slide-05-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Una frase que sí ayuda al docente",
+        "MECRO   SEMANA 5   CLASE 09   19/24",
+        "“En CONFIG_A, con estas entradas, el programa predice este evento. La masa del conjunto todavía debe actualizarse después del montaje”.",
+        "¿Qué es predicción y qué es observación?"
+      ],
+      "image": "assets/slide-05-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 5   CLASE 09   20/24",
+        "1. Revisar configuración y entradas del vehículo completo.",
+        "",
+        "2. Ejecutar una simulación guiada y leer avisos.",
+        "",
+        "3. Identificar fases y eventos en pocas variables.",
+        "",
+        "4. Exportar resultados y conservar sus condiciones."
+      ],
+      "image": "assets/slide-05-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 5   CLASE 09   21/24",
+        "Obtener una predicción útil para revisar el conjunto y preparar comparaciones.",
+        "¿Qué es predicción y qué es observación?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-05-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 5   CLASE 09   22/24",
+        "1. ¿El motor empuja hasta el apogeo?",
+        "",
+        "2. ¿Una predicción es una medición?",
+        "",
+        "3. ¿Puedo atribuir a la nariz una diferencia si cambié el motor?"
+      ],
+      "image": "assets/slide-05-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 5   CLASE 09   23/24",
+        "1. No necesariamente; el vehículo puede seguir subiendo después de terminar el empuje.",
+        "",
+        "2. No. Se compara después con observaciones identificadas.",
+        "",
+        "3. No sin separar o explicar esos cambios."
+      ],
+      "image": "assets/slide-05-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 5   CLASE 09   24/24",
+        "Archivo completo, condiciones, gráficas y CSV exportado.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-05-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Materiales y compuestos sobre piezas reales",
+        "MECRO   SEMANA 5   CLASE 10   01/24",
+        "Comparar materiales por función, fabricación y reparación sin asignarles una superioridad universal.",
+        "Elegir materiales que el equipo pueda fabricar y comprobar con sus recursos.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-05-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Una mesa de muestras, no una lista de materiales famosos",
+        "MECRO   SEMANA 5   CLASE 10   02/24",
+        "El taller puede reunir un tubo de cartón, una aleta de madera ligera, una pieza impresa y muestras de compuestos. Antes de decir cuál es “mejor”, hay que identificar qué pieza resolverá cada una. Un material útil para un cuerpo no tiene por qué ser la opción más conveniente para un útil de montaje o una tapa."
+      ],
+      "image": "assets/slide-05-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Una mesa de muestras, no una lista de materiales famosos",
+        "MECRO   SEMANA 5   CLASE 10   03/24",
+        "¿Qué pieza resolvería esta muestra?",
+        "Prusa Research: superficies de piezas impresas. El proceso también participa de lo que observamos al comparar materiales."
+      ],
+      "image": "assets/slide-05-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Preguntas para tocar y observar",
+        "MECRO   SEMANA 5   CLASE 10   04/24",
+        "Pregunta",
+        "Relación con el proyecto",
+        "¿Cuánto pesa la pieza?",
+        "Masa que entra al vehículo",
+        "¿Se deforma o se marca?",
+        "Manipulación y montaje",
+        "¿Cómo se une?",
+        "Proceso y compatibilidad",
+        "¿Cómo se repara?",
+        "Reutilización y repuestos"
+      ],
+      "image": "assets/slide-05-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Madera, cartón y polímeros impresos",
+        "MECRO   SEMANA 5   CLASE 10   05/24",
+        "En la madera, la dirección de la veta puede influir en cómo se comporta una aleta. En el tubo, el estado del borde y la humedad pueden alterar el encaje. En una impresión, el material y la orientación participan juntos. Estas observaciones son más útiles para el primer proyecto que comparar valores aislados de una tabla sin saber a qué muestra pertenecen."
+      ],
+      "image": "assets/slide-05-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Comparación inicial por proceso",
+        "MECRO   SEMANA 5   CLASE 10   06/24",
+        "Opción",
+        "Qué puede facilitar",
+        "Qué revisar en la pieza",
+        "Cartón ligero",
+        "Cuerpo disponible y liviano",
+        "Circularidad, humedad y uniones",
+        "Madera ligera",
+        "Corte y repetición de aletas",
+        "Veta, borde y espesor",
+        "PLA",
+        "Prototipos y detalles geométricos",
+        "Fragilidad, calor y capas",
+        "PETG",
+        "Piezas funcionales según diseño",
+        "Deformación, ajuste y acabado"
+      ],
+      "image": "assets/slide-05-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Misma función, proceso diferente",
+        "MECRO   SEMANA 5   CLASE 10   07/24",
+        "Dos útiles mantienen la alineación de las piezas: uno está impreso y otro se prepara con material de taller.",
+        "¿Comparaste también espesor y proceso?"
+      ],
+      "image": "assets/slide-05-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Qué significa compuesto",
+        "MECRO   SEMANA 5   CLASE 10   08/24",
+        "Un compuesto combina un refuerzo y una matriz. En un laminado con tejido, las fibras se organizan en direcciones reconocibles y la matriz las mantiene unidas y transmite esfuerzos. En un filamento con fibras cortas, el refuerzo está distribuido de otra manera. Usar la palabra “carbono” para ambos no los vuelve equivalentes."
+      ],
+      "image": "assets/slide-05-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Comparación conceptual de muestras",
+        "MECRO   SEMANA 5   CLASE 10   09/24",
+        "Muestra",
+        "Qué observar",
+        "Qué evitar concluir",
+        "Vidrio con resina",
+        "Tejido, acabado, espesor y masa",
+        "Que todo vidrio se comporta igual",
+        "Carbono con resina",
+        "Orientación, pieza y unión",
+        "Que siempre hace falta en un modelo pequeño",
+        "Filamento con fibra corta",
+        "Matriz, impresión y capas",
+        "Que equivale a un laminado de tejido"
+      ],
+      "image": "assets/slide-05-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Qué significa compuesto",
+        "MECRO   SEMANA 5   CLASE 10   10/24",
+        "El nombre de una fibra no define la cantidad de refuerzo, su orientación o la calidad de la matriz. Un acabado exterior parecido puede esconder procesos diferentes. Antes de comparar una placa comprada con una pieza preparada en taller, identifica qué información existe sobre cada una. Si falta una ficha o no se conoce su fabricación, esa incertidumbre forma parte de la elección. No se rellena asignando las propiedades del material más parecido."
+      ],
+      "image": "assets/slide-05-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Comparar con una tarea sencilla y definida",
+        "MECRO   SEMANA 5   CLASE 10   11/24",
+        "El docente prepara muestras para una observación de banco, sin utilizar piezas críticas del vehículo para descubrir su límite de rotura. La tarea puede ser observar masa, espesor, recuperación después de una manipulación moderada y facilidad de unión en una muestra separada. El criterio se fija antes de comparar."
+      ],
+      "image": "assets/slide-05-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 5   CLASE 10   12/24",
+        "¿Las muestras se observaron bajo condiciones semejantes?",
+        "Una prueba sencilla puede ser rigurosa si su pregunta y sus límites son claros. No necesita llamarse ensayo estructural de certificación."
+      ],
+      "image": "assets/slide-05-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Práctica: Comparar con una tarea sencilla y definida",
+        "MECRO   SEMANA 5   CLASE 10   13/24",
+        "1. Identifica material, espesor y dimensiones de cada muestra.",
+        "",
+        "2. Pesa cada una y registra el estado previo.",
+        "",
+        "3. Aplica solo la tarea de observación de banco definida por el docente, de forma semejante en todas.",
+        "",
+        "4. Describe lo observado sin asignar una causa que no hayas comprobado.",
+        "",
+        "5. Revisa si las muestras son comparables y qué diferencia impide una conclusión directa.",
+        "",
+        "6. Elige una aplicación del proyecto para cada opción que tenga sentido."
+      ],
+      "image": "assets/slide-05-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "La decisión se toma pieza por pieza",
+        "MECRO   SEMANA 5   CLASE 10   14/24",
+        "El equipo debe poder decir por qué una opción sencilla cumple la función o por qué necesita otra. Añadir un compuesto especializado sin una necesidad clara puede complicar uniones, fabricación y reposición. Para el primer cohete interesa completar bien el conjunto y aprender a revisar sus piezas."
+      ],
+      "image": "assets/slide-05-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "La decisión se toma pieza por pieza",
+        "MECRO   SEMANA 5   CLASE 10   15/24",
+        "¿Qué problema resolvería un material más especializado?",
+        "Prusa Research: el proceso de impresión afecta el acabado funcional. Es una evidencia de fabricación, no una propiedad universal del material."
+      ],
+      "image": "assets/slide-05-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Una mejora que no conviene todavía",
+        "MECRO   SEMANA 5   CLASE 10   16/24",
+        "Se propone sustituir una pieza que ya cumple su función por otra más costosa, sin una diferencia de misión definida.",
+        "¿Qué problema resolvería un material más especializado?"
+      ],
+      "image": "assets/slide-05-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Misión de aprendizaje, reutilización o carga",
+        "MECRO   SEMANA 5   CLASE 10   17/24",
+        "La decisión final combina observación y necesidades del proyecto. El alumno no tiene que memorizar módulos elásticos de materiales. Sí debe distinguir el peso de una pieza, su estado, el proceso que la produjo y la forma en que se conectará con las otras."
+      ],
+      "image": "assets/slide-05-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Qué pesa en la comparación",
+        "MECRO   SEMANA 5   CLASE 10   18/24",
+        "Misión",
+        "Prioridades razonables",
+        "Aprendizaje",
+        "Fabricación comprensible, costo y disponibilidad",
+        "Reutilización",
+        "Revisión, repuestos y reparación",
+        "Carga docente",
+        "Interfaces, acceso y condiciones del conjunto"
+      ],
+      "image": "assets/slide-05-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Cómo documentar la elección",
+        "MECRO   SEMANA 5   CLASE 10   19/24",
+        "“Para nuestras aletas elegimos esta opción porque pudimos repetir el contorno y revisar la unión con el útil. Esta otra muestra quedará como referencia para una futura versión”.",
+        "¿La elección cambia si necesitas reponer una pieza?"
+      ],
+      "image": "assets/slide-05-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 5   CLASE 10   20/24",
+        "1. Preparar una mesa de muestras identificadas.",
+        "",
+        "2. Comparar materiales conservando condiciones de la observación.",
+        "",
+        "3. Distinguir tejido con resina y filamento con fibras cortas.",
+        "",
+        "4. Completar el mapa de selección por pieza."
+      ],
+      "image": "assets/slide-05-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 5   CLASE 10   21/24",
+        "Elegir materiales que el equipo pueda fabricar y comprobar con sus recursos.",
+        "¿La elección cambia si necesitas reponer una pieza?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-05-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 5   CLASE 10   22/24",
+        "1. ¿Más rigidez observada demuestra mejor material si cambia el espesor?",
+        "",
+        "2. ¿PLA con fibra corta equivale a una placa de tejido?",
+        "",
+        "3. ¿Qué debe explicar la selección?"
+      ],
+      "image": "assets/slide-05-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 5   CLASE 10   23/24",
+        "1. No. Se están comparando piezas y condiciones diferentes.",
+        "",
+        "2. No. La estructura del refuerzo y el proceso son distintos.",
+        "",
+        "3. Función de la pieza, proceso disponible y comprobación."
+      ],
+      "image": "assets/slide-05-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 5   CLASE 10   24/24",
+        "Tabla de selección por pieza, fotos y observaciones de banco.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-05-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-05.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_05.pptx"
+}

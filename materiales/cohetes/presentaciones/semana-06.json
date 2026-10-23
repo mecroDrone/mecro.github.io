@@ -1,0 +1,603 @@
+{
+  "week": 6,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Recuperación y preparación del montaje",
+        "MECRO   SEMANA 6   CLASE 11   01/24",
+        "Comprender cómo vuelve el cohete y comprobar espacio, uniones y compatibilidad del sistema elegido.",
+        "Recuperar el modelo y poder inspeccionarlo después del vuelo.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-06-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "El proyecto también incluye el descenso",
+        "MECRO   SEMANA 6   CLASE 11   02/24",
+        "El sistema de recuperación se diseña junto al resto del modelo. Necesita espacio para guardarse, una conexión que mantenga las piezas relacionadas y un movimiento compatible con el conjunto comercial. Si se deja para el final, puede aparecer un cuerpo cerrado que no permite alojarlo o desplegarlo de la forma prevista."
+      ],
+      "image": "assets/slide-06-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "El proyecto también incluye el descenso",
+        "MECRO   SEMANA 6   CLASE 11   03/24",
+        "¿Dónde se guarda y por dónde sale la recuperación?",
+        "Recuperación en el ejemplo de OpenRocket. La representación enseña componentes; el proyecto usa un sistema concreto revisado por el docente."
+      ],
+      "image": "assets/slide-06-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Qué debe resolver el conjunto",
+        "MECRO   SEMANA 6   CLASE 11   04/24",
+        "Necesidad",
+        "Qué observar",
+        "Guardar",
+        "Envolvente y espacio disponible",
+        "Conectar",
+        "Cordones y uniones del sistema",
+        "Salir",
+        "Camino sin interferencias",
+        "Descender",
+        "Sistema apropiado al conjunto",
+        "Revisar",
+        "Acceso después del vuelo"
+      ],
+      "image": "assets/slide-06-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Paracaídas y cinta: comparar funciones",
+        "MECRO   SEMANA 6   CLASE 11   05/24",
+        "La comparación empieza con el conjunto comercial que el docente propone. Las piezas se presentan sin activar ningún mecanismo. Se observa qué ocupa cada elemento, qué partes deben permanecer conectadas y qué superficies pueden bloquear el movimiento. No se cambia un sistema simplemente porque otro parezca ocupar menos lugar."
+      ],
+      "image": "assets/slide-06-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Dos opciones habituales de modelismo",
+        "MECRO   SEMANA 6   CLASE 11   06/24",
+        "Sistema",
+        "Qué aporta a la discusión",
+        "Qué comprobar",
+        "Paracaídas",
+        "Superficie desplegada y descenso",
+        "Volumen plegado, cordones y sistema elegido",
+        "Cinta o streamer",
+        "Despliegue de una banda y seguimiento visual",
+        "Compatibilidad con masa y vehículo",
+        "Sistema del fabricante",
+        "Conjunto de piezas e instrucciones relacionadas",
+        "Referencias y montaje previstos"
+      ],
+      "image": "assets/slide-06-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Una cinta ocupa menos, pero falta una decisión",
+        "MECRO   SEMANA 6   CLASE 11   07/24",
+        "Un equipo quiere sustituir el paracaídas previsto por una cinta porque es más fácil de guardar.",
+        "¿Qué falta por revisar al sustituir el dispositivo?"
+      ],
+      "image": "assets/slide-06-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Cordones, bordes y acceso",
+        "MECRO   SEMANA 6   CLASE 11   08/24",
+        "Las piezas conectadas pueden moverse unas respecto a otras sin quedar sueltas. Los cordones requieren un recorrido que se pueda guardar y revisar. Un borde, una arista impresa o una pieza interior pueden provocar rozamiento o enganchar un pliegue. La revisión visual debe hacerse con los objetos que realmente se montarán."
+      ],
+      "image": "assets/slide-06-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Cordones, bordes y acceso",
+        "MECRO   SEMANA 6   CLASE 11   09/24",
+        "¿Qué borde puede interferir con el recorrido?",
+        "Cordón del sistema de recuperación en el ejemplo oficial de OpenRocket. La unión real sigue la solución del conjunto elegido."
+      ],
+      "image": "assets/slide-06-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Práctica: Cordones, bordes y acceso",
+        "MECRO   SEMANA 6   CLASE 11   10/24",
+        "1. Identifica dónde se fija cada parte del sistema según la solución elegida.",
+        "",
+        "2. Recorre con la vista el camino desde el interior hacia la abertura.",
+        "",
+        "3. Presenta los componentes y comprueba si una pieza ocupa el mismo espacio que otra.",
+        "",
+        "4. Observa los bordes y solicita al docente la corrección apropiada si afectan el recorrido.",
+        "",
+        "5. Conserva una fotografía del acceso antes de cerrar el montaje."
+      ],
+      "image": "assets/slide-06-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Representar el sistema en OpenRocket",
+        "MECRO   SEMANA 6   CLASE 11   11/24",
+        "Un evento de programa no demuestra que el objeto se moverá sin interferencias. La revisión digital y la presentación física responden preguntas complementarias. [OR1, OR3]"
+      ],
+      "image": "assets/slide-06-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Representar el sistema en OpenRocket",
+        "MECRO   SEMANA 6   CLASE 11   12/24",
+        "¿El evento digital representa el sistema previsto?",
+        "Ventana de recuperación del manual de OpenRocket. Los datos corresponden a su ejemplo; se introducen los del sistema del equipo."
+      ],
+      "image": "assets/slide-06-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Práctica: Representar el sistema en OpenRocket",
+        "MECRO   SEMANA 6   CLASE 11   13/24",
+        "1. Abre el archivo completo y confirma qué dispositivo representa la recuperación.",
+        "",
+        "2. Introduce dimensiones y masa del componente seleccionado o su representación adecuada.",
+        "",
+        "3. Revisa el evento de despliegue que corresponde al sistema previsto.",
+        "",
+        "4. Comprueba en la configuración comercial qué retardo o evento se está utilizando y deja la revisión al docente.",
+        "",
+        "5. Ejecuta nuevamente la predicción y observa el evento de recuperación respecto al apogeo.",
+        "",
+        "6. Guarda la configuración y las gráficas; no cambies solo el nombre del archivo."
+      ],
+      "image": "assets/slide-06-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Ensayo de banco con el sistema inerte",
+        "MECRO   SEMANA 6   CLASE 11   14/24",
+        "La comprobación de clase se realiza sin activar un motor ni un dispositivo energético. Permite estudiar espacio, acceso y movimiento con el método de presentación definido por el docente. No reproduce por completo las condiciones de vuelo, por lo que su conclusión debe conservar ese alcance."
+      ],
+      "image": "assets/slide-06-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 6   CLASE 11   15/24",
+        "¿Qué demuestra el banco inerte?",
+        "La prueba de banco debe conservar las piezas y la revisión examinadas. Una modificación posterior puede requerir repetirla."
+      ],
+      "image": "assets/slide-06-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica: Ensayo de banco con el sistema inerte",
+        "MECRO   SEMANA 6   CLASE 11   16/24",
+        "1. Describe la configuración inerte que se presenta y verifica que corresponda al plano.",
+        "",
+        "2. Coloca los componentes de recuperación como se ha previsto para la demostración de banco.",
+        "",
+        "3. Comprueba el recorrido y señala interferencias observables sin forzar el conjunto.",
+        "",
+        "4. Repite después de corregir una condición identificada.",
+        "",
+        "5. Registra qué se comprobó y qué sigue dependiendo de la revisión final del sistema."
+      ],
+      "image": "assets/slide-06-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Llegar preparados al montaje presencial",
+        "MECRO   SEMANA 6   CLASE 11   17/24",
+        "Antes del taller se revisa qué piezas deben estar terminadas y cuáles se montarán en presencia del docente. Las impresiones largas se organizan con anticipación. Así las cuatro horas presenciales se dedican a ensamblar y comprobar, no a descubrir que faltan componentes básicos."
+      ],
+      "image": "assets/slide-06-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Documentos para el taller 2",
+        "MECRO   SEMANA 6   CLASE 11   18/24",
+        "Documento",
+        "Qué debe permitir",
+        "Plano final preliminar",
+        "Identificar piezas e interfaces",
+        "Lista del sistema comercial",
+        "Evitar sustituciones inadvertidas",
+        "Presentación de recuperación",
+        "Reconocer recorrido y acceso",
+        "Archivo de simulación",
+        "Relacionar configuración y eventos",
+        "Pendientes",
+        "Preparar correcciones y repuestos"
+      ],
+      "image": "assets/slide-06-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Conclusión para el expediente",
+        "MECRO   SEMANA 6   CLASE 11   19/24",
+        "“El conjunto inerte puede presentarse con este recorrido y no observamos la interferencia que aparecía antes. La configuración comercial queda pendiente de revisión final”.",
+        "¿Qué tiene que llegar listo al taller 2?"
+      ],
+      "image": "assets/slide-06-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 6   CLASE 11   20/24",
+        "1. Reconocer el sistema comercial y su documentación.",
+        "",
+        "2. Comparar espacio y función de sus componentes.",
+        "",
+        "3. Revisar configuración y evento en OpenRocket.",
+        "",
+        "4. Preparar una presentación inerte y los materiales del taller 2."
+      ],
+      "image": "assets/slide-06-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 6   CLASE 11   21/24",
+        "Recuperar el modelo y poder inspeccionarlo después del vuelo.",
+        "¿Qué tiene que llegar listo al taller 2?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-06-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 6   CLASE 11   22/24",
+        "1. ¿Cabe significa que puede desplegarse?",
+        "",
+        "2. ¿La simulación sustituye la comprobación física?",
+        "",
+        "3. ¿Qué se conserva del banco?"
+      ],
+      "image": "assets/slide-06-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 6   CLASE 11   23/24",
+        "1. No. Hay que revisar recorrido, conexión y acceso.",
+        "",
+        "2. No. Representa un evento del modelo.",
+        "",
+        "3. Configuración, método, observación y pendientes."
+      ],
+      "image": "assets/slide-06-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 6   CLASE 11   24/24",
+        "Ficha de recuperación, plano preliminar y configuración actualizada.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-06-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Taller 2: ensamblar y revisar el cohete",
+        "MECRO   SEMANA 6   CLASE 12   01/24",
+        "Montar el conjunto con referencias claras y actualizar sus medidas y masas finales.",
+        "Obtener un prototipo ensamblado que pueda revisarse antes de la jornada.",
+        "PRESENCIAL   4 HORAS"
+      ],
+      "image": "assets/slide-06-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Antes de unir: piezas y revisión",
+        "MECRO   SEMANA 6   CLASE 12   02/24",
+        "El segundo taller presencial dura cuatro horas. Deben llegar las piezas principales, los componentes comerciales elegidos y el plano revisado. El montaje empieza con una presentación del conjunto y una identificación de las uniones. Pegar piezas que todavía no se han presentado elimina oportunidades sencillas de corregir el diseño."
+      ],
+      "image": "assets/slide-06-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Antes de unir: piezas y revisión",
+        "MECRO   SEMANA 6   CLASE 12   03/24",
+        "¿Qué quedará oculto después de cerrar?",
+        "NASA Glenn: relación entre piezas de un modelo de una etapa. El equipo trabaja con su propio plano y referencias."
+      ],
+      "image": "assets/slide-06-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Preparación de mesa",
+        "MECRO   SEMANA 6   CLASE 12   04/24",
+        "Elemento",
+        "Qué verificar",
+        "Piezas del equipo",
+        "Identificación y revisión",
+        "Útiles",
+        "Compatibilidad con el tubo",
+        "Componentes comerciales",
+        "Referencia y documentación",
+        "Plano",
+        "Posiciones y cotas legibles",
+        "Registro",
+        "Fotos y mediciones antes de cerrar"
+      ],
+      "image": "assets/slide-06-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Montar sin perder las referencias",
+        "MECRO   SEMANA 6   CLASE 12   05/24",
+        "Una referencia puede ser el extremo del cuerpo, una línea longitudinal o una cara del útil. El equipo la mantiene desde el plano hasta la pieza. Si cada aleta se coloca con una referencia diferente, pequeñas diferencias pueden acumularse. La comprobación posterior exige saber desde dónde se tomó cada medida."
+      ],
+      "image": "assets/slide-06-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 6   CLASE 12   06/24",
+        "¿Cómo conservas una referencia durante el montaje?",
+        "Los roles rotan para que todos participen en al menos una comprobación de medida y una explicación del proceso."
+      ],
+      "image": "assets/slide-06-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Práctica: Montar sin perder las referencias",
+        "MECRO   SEMANA 6   CLASE 12   07/24",
+        "1. Presenta el conjunto y confirma el orden de montaje con el docente.",
+        "",
+        "2. Marca las referencias que necesitan conservarse y comprueba su correspondencia con el plano.",
+        "",
+        "3. Usa el útil aprobado para presentar las aletas. Revisa vista lateral y posterior antes de fijar.",
+        "",
+        "4. Realiza las uniones con el proceso indicado para los materiales y el conjunto comercial.",
+        "",
+        "5. Respeta el tiempo necesario del proceso. Mantén el conjunto apoyado según la pauta del taller."
+      ],
+      "image": "assets/slide-06-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Revisar lo que luego quedará oculto",
+        "MECRO   SEMANA 6   CLASE 12   08/24",
+        "Algunas conexiones dejan de verse después de cerrar el cuerpo. Antes de hacerlo se registra una fotografía y se comprueba que corresponden al sistema previsto. Un archivo digital no muestra automáticamente el estado de una unión real ni demuestra que una pieza comercial sea la referencia correcta."
+      ],
+      "image": "assets/slide-06-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Revisar lo que luego quedará oculto",
+        "MECRO   SEMANA 6   CLASE 12   09/24",
+        "¿La pieza comercial es la referencia prevista?",
+        "Interfaces internas del ejemplo de OpenRocket. El proyecto utiliza el conjunto comercial y la distribución revisados por el docente."
+      ],
+      "image": "assets/slide-06-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Comprobaciones antes de cerrar",
+        "MECRO   SEMANA 6   CLASE 12   10/24",
+        "Zona",
+        "Evidencia de taller",
+        "Soporte comercial",
+        "Referencia y presentación según instrucciones",
+        "Conexiones de recuperación",
+        "Correspondencia con el sistema elegido",
+        "Acceso",
+        "Recorrido visible y sin interferencia observada",
+        "Elementos interiores",
+        "Posición e identificación",
+        "Cambios respecto al plano",
+        "Actualización o corrección registrada"
+      ],
+      "image": "assets/slide-06-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Medir el conjunto ensamblado",
+        "MECRO   SEMANA 6   CLASE 12   11/24",
+        "La masa final incluye materiales que al principio no estaban: uniones, acabado y pequeños componentes. Por eso no siempre coincide con la suma inicial del archivo. Para actualizar el modelo, se define claramente si la medición incluye o excluye el componente comercial que todavía no está instalado para la operación."
+      ],
+      "image": "assets/slide-06-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 6   CLASE 12   12/24",
+        "¿Qué incluye la masa del conjunto?",
+        "Si el proceso de unión o el acabado todavía requiere tiempo, se indica el estado y se programa la comprobación final. La hora de cierre de la clase no cambia las condiciones del material."
+      ],
+      "image": "assets/slide-06-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Presupuesto y conjunto del ejercicio",
+        "MECRO   SEMANA 6   CLASE 12   13/24",
+        "Caso didáctico bajo la misma condición de comparación. No corresponde a un prototipo medido por MECRO."
+      ],
+      "image": "assets/slide-06-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Cuatro horas para montar y comprobar",
+        "MECRO   SEMANA 6   CLASE 12   14/24",
+        "El equipo comprueba la recuperación en el estado inerte que corresponda y con el método del docente. Revisa las vistas de alineación y las superficies funcionales. Una revisión que descubre un pendiente aporta información útil; no debe ocultarse para anunciar que todos terminaron al mismo tiempo."
+      ],
+      "image": "assets/slide-06-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Horario del taller 2",
+        "MECRO   SEMANA 6   CLASE 12   15/24",
+        "Minutos",
+        "Trabajo",
+        "Registro",
+        "0–30",
+        "Piezas, plano y orden de montaje",
+        "Lista de entrada",
+        "30–120",
+        "Presentación y ensamblaje supervisado",
+        "Fotos de referencias y uniones",
+        "120–180",
+        "Comprobaciones de banco",
+        "Recuperación y acceso",
+        "180–240",
+        "Medidas, archivo y pendientes",
+        "Configuración revisada"
+      ],
+      "image": "assets/slide-06-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Una pieza cambia después de ensamblar",
+        "MECRO   SEMANA 6   CLASE 12   16/24",
+        "La nariz que entraba en la muestra ahora se traba en el conjunto terminado.",
+        "¿Qué cambió desde la muestra de encaje?"
+      ],
+      "image": "assets/slide-06-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Prototipo terminado y expediente actualizado",
+        "MECRO   SEMANA 6   CLASE 12   17/24",
+        "El prototipo puede estar ensamblado y aún no aceptado para vuelo. Entre ambos estados hay revisión de configuración, condiciones de operación y cierre de pendientes. El alumnado aprende esa diferencia sin convertirla en un trámite abstracto: cada pendiente se relaciona con una pieza o una comprobación concreta."
+      ],
+      "image": "assets/slide-06-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Entregas del segundo taller",
+        "MECRO   SEMANA 6   CLASE 12   18/24",
+        "Entrega",
+        "Comprobación",
+        "Objeto ensamblado",
+        "Identificación del equipo",
+        "Fotos de montaje",
+        "Vistas útiles e interiores registrados",
+        "Masa y dimensiones",
+        "Condición de medida explícita",
+        "Archivo actualizado",
+        "Coincide con la revisión construida",
+        "Pendientes",
+        "Acción y responsable definidos"
+      ],
+      "image": "assets/slide-06-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Qué explica el equipo al mostrar su cohete",
+        "MECRO   SEMANA 6   CLASE 12   19/24",
+        "“Estas aletas se alinearon con este útil. Esta es la masa medida del conjunto. Aquí se observa el recorrido de recuperación. Este pendiente necesita revisión”.",
+        "¿Ensamblado y aceptado para vuelo son lo mismo?"
+      ],
+      "image": "assets/slide-06-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 6   CLASE 12   20/24",
+        "1. Identificar piezas y aprobar orden de montaje.",
+        "",
+        "2. Conservar referencias durante el ensamblaje.",
+        "",
+        "3. Documentar interiores y comprobar recuperación en banco.",
+        "",
+        "4. Medir, actualizar el archivo y registrar pendientes."
+      ],
+      "image": "assets/slide-06-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 6   CLASE 12   21/24",
+        "Obtener un prototipo ensamblado que pueda revisarse antes de la jornada.",
+        "¿Ensamblado y aceptado para vuelo son lo mismo?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-06-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 6   CLASE 12   22/24",
+        "1. ¿Ensamblado equivale a aceptado para vuelo?",
+        "",
+        "2. ¿Qué condición debe acompañar una masa total?",
+        "",
+        "3. ¿Qué se revisa si cambió el encaje?"
+      ],
+      "image": "assets/slide-06-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 6   CLASE 12   23/24",
+        "1. No. Falta la revisión de configuración y condiciones.",
+        "",
+        "2. Qué componentes incluye y el estado del conjunto.",
+        "",
+        "3. La interfaz actual y lo que se modificó después de la muestra."
+      ],
+      "image": "assets/slide-06-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 6   CLASE 12   24/24",
+        "Cohete ensamblado, fotos, medidas y archivo revisado.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-06-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-06.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_06.pptx"
+}

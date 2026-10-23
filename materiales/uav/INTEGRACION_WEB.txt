@@ -1,0 +1,1 @@
+Abrir index.html o copiar la carpeta Web completa al sitio MECRO conservando subcarpetas. Lecturas, fórmulas y preguntas funcionan sin bibliotecas externas. Las referencias oficiales requieren conexión. Las fechas y sedes se completan antes de convocar. No se ha modificado el sitio público actual.

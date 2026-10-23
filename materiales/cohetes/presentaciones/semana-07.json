@@ -1,0 +1,635 @@
+{
+  "week": 7,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "El mismo cohete en RockSim",
+        "MECRO   SEMANA 7   CLASE 13   01/24",
+        "Crear una segunda representación del modelo y comparar entradas antes de comparar resultados.",
+        "Explicar diferencias sin elegir el programa que dé la cifra preferida.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-07-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Una segunda herramienta para el mismo objeto",
+        "MECRO   SEMANA 7   CLASE 13   02/24",
+        "RockSim permite representar componentes y simular vehículos de modelismo. En esta clase el objeto ya está ensamblado y medido. La tarea consiste en introducir la misma configuración que se trabajó en OpenRocket. Cambiar de programa no justifica cambiar sin registro las piezas, masas o condiciones."
+      ],
+      "image": "assets/slide-07-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Una segunda herramienta para el mismo objeto",
+        "MECRO   SEMANA 7   CLASE 13   03/24",
+        "¿Es el mismo objeto en los dos programas?",
+        "El ejemplo de OpenRocket recuerda qué componentes deben corresponder entre programas. No es una captura de RockSim."
+      ],
+      "image": "assets/slide-07-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Qué debe acompañar la comparación",
+        "MECRO   SEMANA 7   CLASE 13   04/24",
+        "Dato",
+        "Por qué se conserva",
+        "Archivo del taller",
+        "Referencia del objeto construido",
+        "Plano y masas",
+        "Entradas geométricas y físicas",
+        "Conjunto comercial",
+        "Misma configuración",
+        "Condiciones",
+        "Comparación identificada",
+        "Versiones de software",
+        "Reproducir la práctica"
+      ],
+      "image": "assets/slide-07-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "El árbol de piezas también necesita referencias",
+        "MECRO   SEMANA 7   CLASE 13   05/24",
+        "La documentación de Apogee describe una construcción desde la nariz hacia la cola. Al añadir una pieza se selecciona el componente al que se asociará. Esa lógica se parece al árbol que ya conocemos, pero los nombres, referencias y opciones pueden variar. La similitud de una imagen no garantiza que todas sus entradas coincidan."
+      ],
+      "image": "assets/slide-07-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Traducción que debe comprobar el alumno",
+        "MECRO   SEMANA 7   CLASE 13   06/24",
+        "Pieza física",
+        "Campo o representación a revisar",
+        "Nariz",
+        "Forma, longitud, base y hombro",
+        "Cuerpo",
+        "Longitud, diámetros y pared",
+        "Aletas",
+        "Contorno, cantidad y ubicación",
+        "Masas",
+        "Componente, conjunto y ajustes",
+        "Recuperación",
+        "Dispositivo y evento"
+      ],
+      "image": "assets/slide-07-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Práctica: El árbol de piezas también necesita referencias",
+        "MECRO   SEMANA 7   CLASE 13   07/24",
+        "1. Crea un proyecto de una etapa y nómbralo con el equipo y revisión del taller.",
+        "",
+        "2. Añade nariz y cuerpo con las medidas del plano.",
+        "",
+        "3. Representa aletas y componentes interiores existentes.",
+        "",
+        "4. Introduce masas y recuperación con el criterio que corresponda a cada componente.",
+        "",
+        "5. Guarda antes de añadir la configuración comercial y revisa la vista lateral."
+      ],
+      "image": "assets/slide-07-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Tabla de equivalencia antes de simular",
+        "MECRO   SEMANA 7   CLASE 13   08/24",
+        "Cada coincidencia debe poder revisarse en el archivo. Si una herramienta representa un detalle de forma diferente, se describe la diferencia y no se marca la fila como idéntica. La comparación puede seguir siendo útil si su alcance es claro."
+      ],
+      "image": "assets/slide-07-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Comparación de entradas",
+        "MECRO   SEMANA 7   CLASE 13   09/24",
+        "Elemento",
+        "OpenRocket",
+        "RockSim",
+        "Longitud exterior",
+        "Registrar",
+        "Comprobar",
+        "Diámetro del cuerpo",
+        "Registrar",
+        "Comprobar",
+        "Geometría y posición de aletas",
+        "Registrar",
+        "Comprobar",
+        "Masa de la misma configuración",
+        "Registrar",
+        "Comprobar",
+        "Motor y recuperación",
+        "Identificar",
+        "Confirmar",
+        "Condiciones",
+        "Guardar",
+        "Guardar"
+      ],
+      "image": "assets/slide-07-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "El resultado cambia por una entrada",
+        "MECRO   SEMANA 7   CLASE 13   10/24",
+        "RockSim predice una altura distinta y el equipo descubre que una aleta tenía una raíz de 50 mm en un programa y 60 mm en el otro.",
+        "¿La biblioteca de materiales da la misma masa?"
+      ],
+      "image": "assets/slide-07-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Ejecutar y comparar pocos resultados",
+        "MECRO   SEMANA 7   CLASE 13   11/24",
+        "Una vez revisadas las entradas, configura el mismo componente comercial y las condiciones correspondientes. El docente guía la ejecución según la interfaz instalada. Se eligen pocas salidas que tengan sentido para el proyecto: masa de configuración, apogeo, fin del empuje y evento de recuperación."
+      ],
+      "image": "assets/slide-07-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 7   CLASE 13   12/24",
+        "¿La resta compara las mismas variables y unidades?",
+        "No es necesario estudiar aquí el método numérico interno. Se aprende a conservar entradas, unidades y resultados para hacer una comparación defendible."
+      ],
+      "image": "assets/slide-07-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Práctica: Ejecutar y comparar pocos resultados",
+        "MECRO   SEMANA 7   CLASE 13   13/24",
+        "1. Guarda la configuración de RockSim y comprueba sus condiciones.",
+        "",
+        "2. Ejecuta la simulación y revisa avisos.",
+        "",
+        "3. Registra las variables y unidades seleccionadas.",
+        "",
+        "4. Conserva el archivo de resultado o la exportación disponible.",
+        "",
+        "5. Compara con la revisión de OpenRocket que tiene las mismas entradas.",
+        "",
+        "6. Describe una coincidencia y una diferencia sin decidir por preferencia estética."
+      ],
+      "image": "assets/slide-07-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Qué investigar si no coinciden",
+        "MECRO   SEMANA 7   CLASE 13   14/24",
+        "Una coincidencia no demuestra automáticamente exactitud. Los programas pueden compartir supuestos o datos de entrada equivocados. Una diferencia tampoco demuestra que uno esté roto. Puede revelar una configuración incompleta o una manera diferente de representar una pieza."
+      ],
+      "image": "assets/slide-07-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Orden práctico de revisión",
+        "MECRO   SEMANA 7   CLASE 13   15/24",
+        "Orden",
+        "Pregunta",
+        "1",
+        "¿Es el mismo archivo de referencia física?",
+        "2",
+        "¿Coinciden geometría, materiales y masas?",
+        "3",
+        "¿Es el mismo motor y evento de recuperación?",
+        "4",
+        "¿Son las mismas condiciones y referencias?",
+        "5",
+        "¿Queda una diferencia de representación o método?"
+      ],
+      "image": "assets/slide-07-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Los dos coinciden, pero la masa es falsa",
+        "MECRO   SEMANA 7   CLASE 13   16/24",
+        "Ambos programas usan el subtotal de la clase 1 en lugar de la masa del modelo ensamblado.",
+        "¿Dónde empezarías a investigar la discrepancia?"
+      ],
+      "image": "assets/slide-07-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Elegir por misión con dos representaciones",
+        "MECRO   SEMANA 7   CLASE 13   17/24",
+        "Para comparar narices o aletas según misión, las herramientas ayudan a estudiar el vehículo, mientras la ficha de fabricación conserva encaje, masa, tiempo y reparación. No todo criterio de selección sale de una simulación. El equipo reúne ambos tipos de información sin convertir una diferencia pequeña de altura en una respuesta universal."
+      ],
+      "image": "assets/slide-07-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Conclusión para cada misión",
+        "MECRO   SEMANA 7   CLASE 13   18/24",
+        "Misión",
+        "Qué debe respaldar la elección",
+        "Aprender a construir",
+        "Archivo coherente y pieza fabricable",
+        "Reutilizar",
+        "Revisión y facilidad de reposición",
+        "Carga docente",
+        "Interfaces y observación de datos del demostrador"
+      ],
+      "image": "assets/slide-07-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Cómo presentar la comparación",
+        "MECRO   SEMANA 7   CLASE 13   19/24",
+        "“Con entradas revisadas obtuvimos estas predicciones. La alternativa A sigue siendo más sencilla de fabricar y las diferencias de modelo quedan registradas”.",
+        "¿Qué aporta el taller además del resultado simulado?"
+      ],
+      "image": "assets/slide-07-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 7   CLASE 13   20/24",
+        "1. Crear la representación del objeto construido en RockSim.",
+        "",
+        "2. Completar la tabla de equivalencia antes de simular.",
+        "",
+        "3. Ejecutar con configuración revisada y comparar pocas variables.",
+        "",
+        "4. Investigar una diferencia siguiendo el orden propuesto."
+      ],
+      "image": "assets/slide-07-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 7   CLASE 13   21/24",
+        "Explicar diferencias sin elegir el programa que dé la cifra preferida.",
+        "¿Qué aporta el taller además del resultado simulado?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-07-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 7   CLASE 13   22/24",
+        "1. ¿Dos apogeos iguales prueban que el modelo es exacto?",
+        "",
+        "2. ¿Qué se revisa antes de culpar al método?",
+        "",
+        "3. ¿Qué representa el 5% del ejemplo?"
+      ],
+      "image": "assets/slide-07-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 7   CLASE 13   23/24",
+        "1. No. Pueden compartir entradas o supuestos equivocados.",
+        "",
+        "2. Archivos, geometría, masas, motor, eventos y condiciones.",
+        "",
+        "3. Una discrepancia entre predicciones con un denominador declarado."
+      ],
+      "image": "assets/slide-07-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 7   CLASE 13   24/24",
+        "Archivo RockSim, tabla de entradas y comparación con OpenRocket.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-07-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "CanSat: observar una misión científica del docente",
+        "MECRO   SEMANA 7   CLASE 14   01/24",
+        "Reconocer sensores, registro y transmisión y preparar una observación de datos del demostrador docente.",
+        "Comprender para qué se transporta una carga científica sin añadirla al cohete pequeño de cada equipo.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-07-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Qué es un CanSat y qué haremos nosotros",
+        "MECRO   SEMANA 7   CLASE 14   02/24",
+        "Un CanSat es una simulación educativa de funciones de satélite integrada en un volumen reducido. Puede medir variables, registrarlas y transmitir datos durante una actividad. No se convierte en satélite orbital por llevar sensores ni por ser transportado en un cohete. Su valor educativo está en completar una misión de medición y poder interpretar sus datos."
+      ],
+      "image": "assets/slide-07-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Qué es un CanSat y qué haremos nosotros",
+        "MECRO   SEMANA 7   CLASE 14   03/24",
+        "¿Qué función de un satélite reproduce el CanSat?",
+        "Fotografía ESA: CanSat de referencia Obi-Wan Canobi. No es el dispositivo construido por MECRO ni fija el tamaño del demostrador docente."
+      ],
+      "image": "assets/slide-07-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Qué es un CanSat y qué haremos nosotros",
+        "MECRO   SEMANA 7   CLASE 14   04/24",
+        "Un CanSat reproduce algunas funciones de un satélite en un volumen pequeño: medir, registrar y comunicar datos. La misión decide qué variable se observa y qué pregunta se intenta responder. Presión y temperatura son ejemplos habituales, pero disponer de sensores no basta para formar una misión científica. Hace falta relacionar la variable, el instante y el origen del registro con una pregunta. En este curso el equipo docente aporta el demostrador y los alumnos aprenden a interpretar esa cadena."
+      ],
+      "image": "assets/slide-07-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "La cadena de una observación",
+        "MECRO   SEMANA 7   CLASE 14   05/24",
+        "La frecuencia de adquisición y la de transmisión pueden ser diferentes. Un sistema puede guardar más datos de los que envía o transmitir una selección. Por eso “se vio una cifra en pantalla” no demuestra que se haya conservado todo el registro. El docente mostrará una prueba de principio a fin en banco."
+      ],
+      "image": "assets/slide-07-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Qué hace cada parte",
+        "MECRO   SEMANA 7   CLASE 14   06/24",
+        "Parte",
+        "Función",
+        "Pregunta para el banco",
+        "Sensor",
+        "Obtener una variable física",
+        "¿Qué mide y en qué unidad?",
+        "Procesador",
+        "Organizar la lectura",
+        "¿Conserva identificador y tiempo?",
+        "Almacenamiento",
+        "Guardar un registro",
+        "¿Podemos abrirlo después?",
+        "Transmisión",
+        "Enviar información",
+        "¿Qué recibió realmente tierra?",
+        "Estación",
+        "Mostrar y conservar datos",
+        "¿Se distingue dato perdido de dato válido?"
+      ],
+      "image": "assets/slide-07-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Una lectura desaparece en la pantalla",
+        "MECRO   SEMANA 7   CLASE 14   07/24",
+        "El archivo local conserva todas las muestras, pero en tierra falta un identificador.",
+        "¿En qué etapa puede aparecer un hueco?"
+      ],
+      "image": "assets/slide-07-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Datos que se puedan reconocer después",
+        "MECRO   SEMANA 7   CLASE 14   08/24",
+        "El tiempo necesita un origen: inicio de registro, encendido o una referencia declarada. Una temperatura en grados Celsius no puede usarse como si fueran kelvin en cualquier fórmula. En esta introducción no calcularemos una atmósfera completa; comprobaremos que las unidades y el significado del registro sean claros."
+      ],
+      "image": "assets/slide-07-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Un registro sencillo",
+        "MECRO   SEMANA 7   CLASE 14   09/24",
+        "Campo",
+        "Unidad o tipo",
+        "Para qué sirve",
+        "equipo",
+        "Texto",
+        "Identificar el sistema",
+        "muestra",
+        "Entero",
+        "Detectar saltos y duplicados",
+        "tiempo_s",
+        "s desde un origen",
+        "Ordenar las lecturas",
+        "presion_Pa",
+        "Pa",
+        "Conservar variable y unidad",
+        "temperatura_C",
+        "°C",
+        "Interpretar el estado medido"
+      ],
+      "image": "assets/slide-07-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "No usar cero para todo",
+        "MECRO   SEMANA 7   CLASE 14   10/24",
+        "El sensor no entregó una lectura y el archivo guarda presión igual a cero, sin otra indicación.",
+        "¿Cuál es el origen del tiempo?"
+      ],
+      "image": "assets/slide-07-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Práctica de banco y lectura del archivo",
+        "MECRO   SEMANA 7   CLASE 14   11/24",
+        "En la demostración real se conservan configuración, sensor y fuente de datos. El archivo sintético permite aprender el método aunque el banco se organice para toda la clase con una sola unidad. Si no se ha realizado una medición real, el informe lo indica."
+      ],
+      "image": "assets/slide-07-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Qué registrar durante la demostración",
+        "MECRO   SEMANA 7   CLASE 14   12/24",
+        "Momento",
+        "Observación",
+        "Antes",
+        "Identificación y archivo vacío o nuevo",
+        "Durante",
+        "Variable y referencia temporal",
+        "Después",
+        "Archivo que se puede abrir",
+        "Recepción",
+        "Muestras únicas, huecos y duplicados"
+      ],
+      "image": "assets/slide-07-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Práctica de banco y lectura del archivo",
+        "MECRO   SEMANA 7   CLASE 14   13/24",
+        "1. El docente presenta su sistema y explica qué variable está observando.",
+        "",
+        "2. Inicia una adquisición de banco y conserva una referencia de tiempo.",
+        "",
+        "3. Muestra una pantalla de recepción y un archivo local identificado.",
+        "",
+        "4. El equipo abre cansat_banco_sintetico.csv y lee sus columnas y unidades.",
+        "",
+        "5. Busca identificadores repetidos o ausentes en recepcion_banco_sintetica.csv.",
+        "",
+        "6. Explica qué dato adicional permitiría atribuir un hueco a adquisición, almacenamiento o transmisión."
+      ],
+      "image": "assets/slide-07-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Contar recepción sin confundir mensajes y muestras",
+        "MECRO   SEMANA 7   CLASE 14   14/24",
+        "Un mismo dato puede recibirse más de una vez. Para saber cuántas observaciones llegaron se usa el identificador de muestra, no únicamente el número de mensajes. Esta diferencia se puede estudiar con pocas filas y una cuenta sencilla."
+      ],
+      "image": "assets/slide-07-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Cuatro cantidades distintas",
+        "MECRO   SEMANA 7   CLASE 14   15/24",
+        "Cantidad",
+        "Valor del ejercicio",
+        "Muestras generadas",
+        "20",
+        "Muestras únicas recibidas",
+        "18",
+        "Mensajes recibidos",
+        "19",
+        "Muestras ausentes",
+        "2"
+      ],
+      "image": "assets/slide-07-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Mensajes y muestras son cantidades diferentes",
+        "MECRO   SEMANA 7   CLASE 14   16/24",
+        "Conjunto sintético de banco: faltan 7 y 14 y se repite 3. No son datos de un vuelo."
+      ],
+      "image": "assets/slide-07-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Qué observar en la jornada docente",
+        "MECRO   SEMANA 7   CLASE 14   17/24",
+        "La demostración se realiza únicamente en el vehículo docente revisado para esa misión. La comparación de narices y cuerpos con espacio para carga pertenece a esa configuración, no al modelo del alumno. El equipo prepara preguntas y un registro de observación sin intervenir en la operación que corresponde al responsable."
+      ],
+      "image": "assets/slide-07-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Plan de observación CanSat",
+        "MECRO   SEMANA 7   CLASE 14   18/24",
+        "Pregunta",
+        "Evidencia que podría responderla",
+        "¿El sistema registró?",
+        "Archivo local identificado",
+        "¿Qué llegó a tierra?",
+        "Registro de recepción",
+        "¿Cuándo ocurrió un evento?",
+        "Referencia de tiempo y observación",
+        "¿Qué se recuperó?",
+        "Estado físico y datos disponibles"
+      ],
+      "image": "assets/slide-07-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Un dato que no apareció en tierra",
+        "MECRO   SEMANA 7   CLASE 14   19/24",
+        "Durante la actividad falta una parte de la telemetría.",
+        "¿Qué puedes concluir si falta telemetría?"
+      ],
+      "image": "assets/slide-07-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 7   CLASE 14   20/24",
+        "1. Reconocer el sistema docente y sus variables.",
+        "",
+        "2. Abrir el CSV sintético y leer unidades.",
+        "",
+        "3. Contar muestras únicas y mensajes en la recepción sintética.",
+        "",
+        "4. Preparar preguntas para observar la demostración de campo."
+      ],
+      "image": "assets/slide-07-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 7   CLASE 14   21/24",
+        "Comprender para qué se transporta una carga científica sin añadirla al cohete pequeño de cada equipo.",
+        "¿Qué puedes concluir si falta telemetría?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-07-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 7   CLASE 14   22/24",
+        "1. ¿Un CanSat es automáticamente un satélite orbital?",
+        "",
+        "2. ¿19 mensajes implican 19 muestras únicas?",
+        "",
+        "3. ¿Un hueco de telemetría demuestra apagado?"
+      ],
+      "image": "assets/slide-07-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 7   CLASE 14   23/24",
+        "1. No. Es una simulación educativa de funciones de satélite.",
+        "",
+        "2. No si hay duplicados.",
+        "",
+        "3. No. Hace falta evidencia adicional."
+      ],
+      "image": "assets/slide-07-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 7   CLASE 14   24/24",
+        "Mapa de datos, análisis del CSV y plan de observación.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-07-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-07.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_07.pptx"
+}

@@ -1,4 +1,4 @@
-import {request} from './api.js';
+import {request,saveSession} from './api.js';
 
 const ADMIN_SESSION_KEY='mecro_admin_session';
 const $=id=>document.getElementById(id);
@@ -6,7 +6,10 @@ let token='',snapshot=null,cursor=null,previous='',loadedFiles=[],emailTouched=f
 
 function text(tag,value,cls=''){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=value;return e;}
 function saveAdminSession(newToken,email){
-  try{sessionStorage.setItem(ADMIN_SESSION_KEY,JSON.stringify({token:newToken,email,expiresAt:Date.now()+2*60*60*1000}));}catch{}
+  try{
+    sessionStorage.setItem(ADMIN_SESSION_KEY,JSON.stringify({token:newToken,email,expiresAt:Date.now()+2*60*60*1000}));
+    saveSession({nombre:'Administrador MECRO',email:email||'admin@macro.pe',cursosInscritos:['uav','cohetes','esp32','DRONES_101','COHETES_101','ES32_AUTOMATION'],grupo:'G1'});
+  }catch{}
 }
 function readAdminSession(){
   try{
@@ -24,7 +27,7 @@ async function rpc(name,...args){
   const payload=
     name==='adminLogin'?{secret:args[0]}:
     name==='adminRecordings'?{token:args[0],cursor:args[1]}:
-    name==='adminSnapshot'||name==='adminLogout'?{token:args[0]}:
+    name==='adminSnapshot'||name==='adminLogout'||name==='adminSyncCatalog'?{token:args[0]}:
     {token:args[0],input:args[1]};
   const res=await request(name,payload);
   if(!res||res.success!==true){
@@ -66,6 +69,24 @@ $('name').addEventListener('input',updateSuggestedEmail);
 $('emailDomain').addEventListener('change',()=>{emailTouched=false;updateSuggestedEmail();});
 $('email').addEventListener('input',()=>{emailTouched=Boolean($('email').value.trim());});
 
+function campusIdForSheetCourse(courseId){
+  const id=String(courseId||'').toUpperCase();
+  if(id.includes('COHETE'))return 'cohetes';
+  if(id.includes('ES32')||id.includes('ESP32'))return 'esp32';
+  return 'uav';
+}
+
+function scheduleFor(courseId,group){
+  return snapshot?.schedules?.[`${courseId}:${String(group||'G1').trim().toUpperCase()}`]||'';
+}
+
+function updateEnrollScheduleField(){
+  if(!$('enrollSchedule'))return;
+  $('enrollSchedule').value=scheduleFor($('enrollCourse').value,$('enrollGroup').value);
+}
+$('enrollCourse').addEventListener('change',updateEnrollScheduleField);
+$('enrollGroup').addEventListener('input',updateEnrollScheduleField);
+
 function selected(){return (snapshot?.classes||[]).filter(c=>c.cursoId===$('course').value);}
 function courseGroups(){
   const set=new Set(['G1','G2','G3','G4']);
@@ -78,6 +99,10 @@ function courseGroups(){
   for(const s of snapshot?.students||[]){
     const g=s.groups?.[$('course').value];
     if(g&&/^G[1-9][0-9]*$/.test(g))set.add(g);
+  }
+  for(const key of Object.keys(snapshot?.schedules||{})){
+    const [cid,g]=key.split(':');
+    if(cid===$('course').value&&/^G[1-9][0-9]*$/.test(g))set.add(g);
   }
   return [...set].sort((a,b)=>Number(a.slice(1))-Number(b.slice(1)));
 }
@@ -98,14 +123,25 @@ function showCurrent(){
     ?`Estado actual (${activeGroup} · ${item.code}): ✅ Ya tiene grabación publicada. Marca la casilla de reemplazo si deseas actualizarla.`
     :`Estado actual (${activeGroup} · ${item?.code||''}): ⏳ Grabación pendiente de subir.`;
   $('replace').checked=false;
+  if($('groupSchedule'))$('groupSchedule').value=scheduleFor($('course').value,activeGroup);
+  if($('previewSelectedBtn')){
+    const cid=campusIdForSheetCourse($('course').value);
+    $('previewSelectedBtn').href=`aula.html?curso=${cid}&grupo=${encodeURIComponent(activeGroup)}`;
+    $('previewSelectedBtn').textContent=`👁️ Ver aula como alumno (${$('course').value} · ${activeGroup}) ↗`;
+  }
   const groups=courseGroups();
   const summary=$('groupSummary');summary.replaceChildren();
   for(const g of groups){
     const done=classes.filter(c=>Boolean(c.videoLinks?.[g])).length;
     const pending=classes.length-done;
+    const sched=scheduleFor($('course').value,g);
     const card=document.createElement('button');card.type='button';
     card.className='admin-stat'+(g===activeGroup?' is-active':'');
-    card.append(text('strong',`${g}: ${done}/${classes.length} subidas`),text('small',pending?`⏳ ${pending} pendiente${pending===1?'':'s'}`:'✅ Grupo al día'));
+    card.append(
+      text('strong',`${g}: ${done}/${classes.length} subidas`),
+      text('small',pending?`⏳ ${pending} pendiente${pending===1?'':'s'}`:'✅ Grupo al día'),
+      text('small',sched?` · 🕒 ${sched}`:'')
+    );
     card.onclick=()=>{$('group').value=g;showCurrent();};
     summary.append(card);
   }
@@ -146,7 +182,15 @@ function showStudents(){
   const q=$('search').value.toLowerCase();
   const list=(snapshot?.students||[]).filter(s=>(s.name+' '+s.email+' '+Object.entries(s.groups||{}).map(([id,g])=>id+' '+g).join(' ')).toLowerCase().includes(q));
   $('studentCount').textContent=String((snapshot?.students||[]).length);
-  table('students',['Nombre','Usuario / Correo','Cursos y grupos','Estado'],list.map(s=>[s.name,s.email,Object.entries(s.groups||{}).map(([id,g])=>id+' · '+g).join(' / '),s.status]));
+  table('students',['Nombre','Usuario / Correo','Cursos, grupos y horarios','Estado'],list.map(s=>[
+    s.name,
+    s.email,
+    Object.entries(s.groups||{}).map(([id,g])=>{
+      const sc=scheduleFor(id,g);
+      return `${id} · ${g}${sc?' ('+sc+')':''}`;
+    }).join(' / '),
+    s.status
+  ]));
 }
 
 function selectedStudent(){
@@ -191,9 +235,15 @@ function renderVideos(){
   if(!visible.length)container.append(text('p',loadedFiles.length?'Todos los videos cargados ya están publicados.':'No se encontraron videos en esta carpeta.','small'));
 }
 
-async function refresh(){
+async function refresh(autoSync=false){
   const controls=['course','enrollCourse','assignCourse','classCourse'],old=Object.fromEntries(controls.map(id=>[id,$(id).value]));
   snapshot=await rpc('adminSnapshot',token);
+  if(autoSync&&snapshot.courses.every(c=>c.id!=='COHETES_101')){
+    try{
+      await rpc('adminSyncCatalog',token);
+      snapshot=await rpc('adminSnapshot',token);
+    }catch{}
+  }
   for(const id of controls){
     $(id).replaceChildren();
     snapshot.courses.forEach(c=>{const o=text('option',`${c.nombre} (${c.id})`);o.value=c.id;$(id).append(o);});
@@ -201,6 +251,7 @@ async function refresh(){
   }
   const oldLesson=$('lesson').value;showClasses();
   if(selected().some(c=>c.code===oldLesson)){$('lesson').value=oldLesson;showCurrent();}
+  updateEnrollScheduleField();
   showStudents();showAssignment();
   if(loadedFiles.length)renderVideos();
   $('studentEmails').replaceChildren();
@@ -213,7 +264,7 @@ $('loginForm').onsubmit=e=>{
   work(async()=>{
     const result=await rpc('adminLogin',$('secret').value);
     token=result.token;saveAdminSession(token,$('adminUser').value.trim());
-    $('secret').value='';await refresh();$('login').hidden=true;$('panel').hidden=false;
+    $('secret').value='';await refresh(true);$('login').hidden=true;$('panel').hidden=false;
   });
 };
 
@@ -224,8 +275,28 @@ $('logout').onclick=()=>work(async()=>{
   $('panel').hidden=true;$('login').hidden=false;$('status').textContent='Sesión cerrada.';
 });
 
-$('refresh').onclick=()=>work(refresh);
+$('refresh').onclick=()=>work(()=>refresh(false));
+if($('syncCatalog')){
+  $('syncCatalog').onclick=()=>work(async()=>{
+    const r=await rpc('adminSyncCatalog',token);
+    await refresh(false);
+    $('status').textContent=`✅ Catálogo verificado (${r.addedCourses||0} cursos y ${r.addedClasses||0} clases añadidas).`;
+  });
+}
 $('course').onchange=showClasses;$('lesson').onchange=showCurrent;$('group').oninput=showCurrent;$('sessionFilter').onchange=showCurrent;$('search').oninput=showStudents;$('onlyUnassigned').onchange=renderVideos;
+
+if($('scheduleForm')){
+  $('scheduleForm').onsubmit=e=>{
+    e.preventDefault();
+    work(async()=>{
+      const grp=$('group').value.trim().toUpperCase(),sched=$('groupSchedule').value.trim();
+      if(!sched)throw new Error('Escribe el horario del grupo (ej. Martes y Jueves 7:00 pm - 9:00 pm).');
+      await rpc('adminSaveSchedule',token,{course:$('course').value,group:grp,schedule:sched});
+      await refresh(false);
+      $('status').textContent=`✅ Horario guardado para ${$('course').value} · ${grp}: "${sched}".`;
+    });
+  };
+}
 
 async function videos(more){
   const result=await rpc('adminRecordings',token,more?cursor:null);
@@ -241,14 +312,16 @@ $('publishForm').onsubmit=e=>{
   work(async()=>{
     if(previous&&!$('replace').checked)throw new Error('Marca la casilla para confirmar el reemplazo de la grabación existente.');
     await rpc('adminPublish',token,{course:$('course').value,group:$('group').value.trim().toUpperCase(),code:$('lesson').value,url:$('videoUrl').value,previous});
-    $('videoUrl').value='';await refresh();
+    $('videoUrl').value='';await refresh(false);
     $('status').textContent=`✅ Grabación publicada en ${$('course').value} · ${$('group').value.trim().toUpperCase()} · ${$('lesson').value}.`;
   });
 };
 
 function showCredentials(result,studentName='',phone=''){
   const greeting=studentName?`¡Hola, ${studentName}!`:'¡Hola!';
-  const msg=`${greeting} Bienvenido(a) a MECRO 🚀\nTu matrícula ha sido confirmada.\n\n📚 Curso: ${result.course} · Grupo: ${result.group}\n👤 Usuario: ${result.email}\n🔑 Contraseña: ${result.password}\n🔗 Aula virtual: https://mecrodrone.github.io/mecro.github.io/login.html\n\nAdemás de las sesiones y grabaciones de tu grupo, tienes acceso a todos los materiales actualizados del programa.`;
+  const sched=result.schedule||scheduleFor(result.course,result.group);
+  const schedLine=sched?`\n🕒 Horario: ${sched}`:'';
+  const msg=`${greeting} Bienvenido(a) a MECRO 🚀\nTu matrícula ha sido confirmada.\n\n📚 Curso: ${result.course} · Grupo: ${result.group}${schedLine}\n👤 Usuario: ${result.email}\n🔑 Contraseña: ${result.password}\n🔗 Aula virtual: https://mecrodrone.github.io/mecro.github.io/login.html\n\nTienes acceso a todo el material actualizado del curso (lecturas, diapositivas y prácticas) y a las grabaciones de tu grupo.`;
   $('message').value=msg;
   const cleanPhone=String(phone||'').replace(/\D/g,'');
   const waNumber=cleanPhone?(cleanPhone.length===9?'51'+cleanPhone:cleanPhone):'';
@@ -259,9 +332,9 @@ function showCredentials(result,studentName='',phone=''){
 $('enrollForm').onsubmit=e=>{
   e.preventDefault();
   work(async()=>{
-    const studentName=$('name').value.trim(),phone=$('studentPhone').value.trim();
-    const result=await rpc('adminEnroll',token,{name:studentName,email:$('email').value,course:$('enrollCourse').value,group:$('enrollGroup').value.trim().toUpperCase(),paid:$('paid').checked});
-    showCredentials(result,studentName,phone);$('enrollForm').reset();emailTouched=false;await refresh();
+    const studentName=$('name').value.trim(),phone=$('studentPhone').value.trim(),schedule=$('enrollSchedule')?.value.trim()||'';
+    const result=await rpc('adminEnroll',token,{name:studentName,email:$('email').value,course:$('enrollCourse').value,group:$('enrollGroup').value.trim().toUpperCase(),schedule,paid:$('paid').checked});
+    showCredentials(result,studentName,phone);$('enrollForm').reset();emailTouched=false;await refresh(false);
     $('status').textContent='✅ Matrícula creada. Envía el acceso por WhatsApp con el botón correspondiente.';
   });
 };
@@ -272,7 +345,7 @@ $('assignForm').onsubmit=e=>{
   work(async()=>{
     const student=selectedStudent();if(!student)throw new Error('Selecciona un alumno sin registros duplicados.');
     await rpc('adminAssign',token,{email:$('assignEmail').value,course:$('assignCourse').value,group:$('assignGroup').value.trim().toUpperCase(),paid:$('assignPaid').checked,confirmChange:$('assignChange').checked,previousGroup:student.groups?.[$('assignCourse').value]||''});
-    await refresh();$('status').textContent='✅ Curso y grupo asignados. La contraseña se conserva.';
+    await refresh(false);$('status').textContent='✅ Curso y grupo asignados. La contraseña se conserva.';
   });
 };
 
@@ -289,7 +362,7 @@ $('classForm').onsubmit=e=>{
   e.preventDefault();
   work(async()=>{
     await rpc('adminCreateClass',token,{course:$('classCourse').value,code:$('classCode').value,title:$('classTitle').value});
-    await refresh();$('classForm').reset();$('status').textContent='✅ Clase creada, pendiente de grabación.';
+    await refresh(false);$('classForm').reset();$('status').textContent='✅ Clase creada, pendiente de grabación.';
   });
 };
 
@@ -297,7 +370,7 @@ $('courseForm').onsubmit=e=>{
   e.preventDefault();
   work(async()=>{
     await rpc('adminCreateCourse',token,{id:$('newCourseId').value,name:$('newCourseName').value});
-    await refresh();$('courseForm').reset();$('status').textContent='✅ Curso creado en el portal de sesiones.';
+    await refresh(false);$('courseForm').reset();$('status').textContent='✅ Curso creado en el portal de sesiones.';
   });
 };
 
@@ -307,9 +380,10 @@ $('hideCredentials').onclick=()=>{$('message').value='';$('credentials').hidden=
 const saved=readAdminSession();
 if(saved){
   token=saved.token;
+  saveAdminSession(token,saved.email);
   if(saved.email)$('adminUser').value=saved.email;
   work(async()=>{
-    try{await refresh();$('login').hidden=true;$('panel').hidden=false;}
+    try{await refresh(true);$('login').hidden=true;$('panel').hidden=false;}
     catch(e){clearAdminSession();token='';throw e;}
   });
 }

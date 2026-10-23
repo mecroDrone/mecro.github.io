@@ -1,0 +1,396 @@
+{
+  "n": 13,
+  "week": 7,
+  "title": "El mismo cohete en RockSim",
+  "goal": "Crear una segunda representación del modelo y comparar entradas antes de comparar resultados.",
+  "mission": "Explicar diferencias sin elegir el programa que dé la cifra preferida.",
+  "pages": [
+    {
+      "title": "Una segunda herramienta para el mismo objeto",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "RockSim permite representar componentes y simular vehículos de modelismo. En esta clase el objeto ya está ensamblado y medido. La tarea consiste en introducir la misma configuración que se trabajó en OpenRocket. Cambiar de programa no justifica cambiar sin registro las piezas, masas o condiciones."
+        },
+        {
+          "type": "image",
+          "name": "or_interior",
+          "caption": "El ejemplo de OpenRocket recuerda qué componentes deben corresponder entre programas. No es una captura de RockSim.",
+          "width": 105
+        },
+        {
+          "type": "table",
+          "title": "Qué debe acompañar la comparación",
+          "headers": [
+            "Dato",
+            "Por qué se conserva"
+          ],
+          "rows": [
+            [
+              "Archivo del taller",
+              "Referencia del objeto construido"
+            ],
+            [
+              "Plano y masas",
+              "Entradas geométricas y físicas"
+            ],
+            [
+              "Conjunto comercial",
+              "Misma configuración"
+            ],
+            [
+              "Condiciones",
+              "Comparación identificada"
+            ],
+            [
+              "Versiones de software",
+              "Reproducir la práctica"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las capturas de este material no se presentan como resultados ejecutados en RockSim. El docente demuestra la versión instalada y cada equipo conserva su archivo. Si se usa una importación, se revisa igual que un modelo introducido a mano."
+        },
+        {
+          "type": "p",
+          "text": "Usar dos programas permite practicar la descripción del mismo objeto con interfaces diferentes. No equivale a hacer dos votaciones y escoger la altura más atractiva. Ambos pueden compartir simplificaciones y ambos dependen de las entradas. El valor introductorio del contraste está en revisar geometría, masa y condiciones con más atención. Si aparece una discrepancia, el equipo aprende a formular una pregunta concreta y a buscar qué dato o hipótesis la explica."
+        }
+      ]
+    },
+    {
+      "title": "El árbol de piezas también necesita referencias",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La documentación de Apogee describe una construcción desde la nariz hacia la cola. Al añadir una pieza se selecciona el componente al que se asociará. Esa lógica se parece al árbol que ya conocemos, pero los nombres, referencias y opciones pueden variar. La similitud de una imagen no garantiza que todas sus entradas coincidan."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Crea un proyecto de una etapa y nómbralo con el equipo y revisión del taller.",
+            "Añade nariz y cuerpo con las medidas del plano.",
+            "Representa aletas y componentes interiores existentes.",
+            "Introduce masas y recuperación con el criterio que corresponda a cada componente.",
+            "Guarda antes de añadir la configuración comercial y revisa la vista lateral."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Traducción que debe comprobar el alumno",
+          "headers": [
+            "Pieza física",
+            "Campo o representación a revisar"
+          ],
+          "rows": [
+            [
+              "Nariz",
+              "Forma, longitud, base y hombro"
+            ],
+            [
+              "Cuerpo",
+              "Longitud, diámetros y pared"
+            ],
+            [
+              "Aletas",
+              "Contorno, cantidad y ubicación"
+            ],
+            [
+              "Masas",
+              "Componente, conjunto y ajustes"
+            ],
+            [
+              "Recuperación",
+              "Dispositivo y evento"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "No copies un desplazamiento con signo sin saber desde qué extremo se mide. La posición de la pieza es lo que debe coincidir, aunque los dos programas utilicen referencias distintas. [RS]"
+        },
+        {
+          "type": "p",
+          "text": "Las bibliotecas de materiales de dos programas pueden usar nombres o valores predeterminados diferentes. Elegir “plástico” en ambos no asegura la misma masa. El equipo compara el dato final de la pieza y cómo se obtuvo: geometría con densidad o ajuste mediante medida. El objetivo es que las representaciones describan el mismo objeto, no que todos los menús tengan exactamente la misma etiqueta."
+        },
+        {
+          "type": "p",
+          "text": "El árbol de componentes agrupa piezas y sus relaciones. La posición de una pieza puede referirse al conjunto, a su elemento padre o a otro punto que indique el programa. Copiar literalmente un número entre ventanas puede producir una geometría diferente. Por eso se comprueba también la vista ensamblada y una medida longitudinal conocida. La equivalencia se establece por el objeto representado, además de las etiquetas que muestra la interfaz."
+        }
+      ]
+    },
+    {
+      "title": "Tabla de equivalencia antes de simular",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Comparación de entradas",
+          "headers": [
+            "Elemento",
+            "OpenRocket",
+            "RockSim"
+          ],
+          "rows": [
+            [
+              "Longitud exterior",
+              "Registrar",
+              "Comprobar"
+            ],
+            [
+              "Diámetro del cuerpo",
+              "Registrar",
+              "Comprobar"
+            ],
+            [
+              "Geometría y posición de aletas",
+              "Registrar",
+              "Comprobar"
+            ],
+            [
+              "Masa de la misma configuración",
+              "Registrar",
+              "Comprobar"
+            ],
+            [
+              "Motor y recuperación",
+              "Identificar",
+              "Confirmar"
+            ],
+            [
+              "Condiciones",
+              "Guardar",
+              "Guardar"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Cada coincidencia debe poder revisarse en el archivo. Si una herramienta representa un detalle de forma diferente, se describe la diferencia y no se marca la fila como idéntica. La comparación puede seguir siendo útil si su alcance es claro."
+        },
+        {
+          "type": "case",
+          "title": "El resultado cambia por una entrada",
+          "problem": "RockSim predice una altura distinta y el equipo descubre que una aleta tenía una raíz de 50 mm en un programa y 60 mm en el otro.",
+          "answer": "Primero corrige o explica la geometría. No atribuyas todavía la discrepancia a los métodos aerodinámicos. El hallazgo enseña que la revisión de entradas precede a la interpretación del resultado."
+        },
+        {
+          "type": "p",
+          "text": "La tabla se incorpora al expediente con versión de software y archivos. No se reemplaza por una captura aislada donde solo aparece el apogeo."
+        }
+      ]
+    },
+    {
+      "title": "Ejecutar y comparar pocos resultados",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una vez revisadas las entradas, configura el mismo componente comercial y las condiciones correspondientes. El docente guía la ejecución según la interfaz instalada. Se eligen pocas salidas que tengan sentido para el proyecto: masa de configuración, apogeo, fin del empuje y evento de recuperación."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Guarda la configuración de RockSim y comprueba sus condiciones.",
+            "Ejecuta la simulación y revisa avisos.",
+            "Registra las variables y unidades seleccionadas.",
+            "Conserva el archivo de resultado o la exportación disponible.",
+            "Compara con la revisión de OpenRocket que tiene las mismas entradas.",
+            "Describe una coincidencia y una diferencia sin decidir por preferencia estética."
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Una resta sencilla, con contexto",
+          "problem": "Caso didáctico, no ejecutado: una herramienta predice 80 m y otra 84 m para dos configuraciones declaradas equivalentes.",
+          "answer": "La diferencia es 4 m. Respecto a 80 m equivale a 5%. La cuenta describe discrepancia entre predicciones, no cuál representa mejor un vuelo real. Para eso hace falta una observación válida de la misma configuración."
+        },
+        {
+          "type": "p",
+          "text": "No es necesario estudiar aquí el método numérico interno. Se aprende a conservar entradas, unidades y resultados para hacer una comparación defendible."
+        },
+        {
+          "type": "p",
+          "text": "El resultado comparado debe tener el mismo significado. Una velocidad máxima no se resta de una velocidad en despliegue, aunque compartan unidad. La altura necesita el mismo origen. Si se informa una diferencia porcentual, se declara el valor que se usó como referencia. Estas operaciones son sencillas y se usan después de comprobar la equivalencia. La comparación termina con una explicación del caso, no solo con dos columnas de números."
+        }
+      ]
+    },
+    {
+      "title": "Qué investigar si no coinciden",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Orden práctico de revisión",
+          "headers": [
+            "Orden",
+            "Pregunta"
+          ],
+          "rows": [
+            [
+              "1",
+              "¿Es el mismo archivo de referencia física?"
+            ],
+            [
+              "2",
+              "¿Coinciden geometría, materiales y masas?"
+            ],
+            [
+              "3",
+              "¿Es el mismo motor y evento de recuperación?"
+            ],
+            [
+              "4",
+              "¿Son las mismas condiciones y referencias?"
+            ],
+            [
+              "5",
+              "¿Queda una diferencia de representación o método?"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una coincidencia no demuestra automáticamente exactitud. Los programas pueden compartir supuestos o datos de entrada equivocados. Una diferencia tampoco demuestra que uno esté roto. Puede revelar una configuración incompleta o una manera diferente de representar una pieza."
+        },
+        {
+          "type": "case",
+          "title": "Los dos coinciden, pero la masa es falsa",
+          "problem": "Ambos programas usan el subtotal de la clase 1 en lugar de la masa del modelo ensamblado.",
+          "answer": "El acuerdo conserva el mismo error de entrada. Actualiza la referencia física y repite. La comparación sirve cuando ayuda a describir mejor el proyecto, no cuando produce dos cifras iguales."
+        },
+        {
+          "type": "p",
+          "text": "Si el tiempo de clase no permite cerrar una discrepancia, conserva los archivos y la pregunta concreta. “Pendiente: revisar la referencia de posición de aleta” es una tarea útil; “los programas no funcionan” no identifica una comprobación."
+        },
+        {
+          "type": "p",
+          "text": "Las unidades también pueden producir una diferencia aparente. Antes de restar velocidades o alturas, lee la unidad y la referencia de la variable. Altura sobre el origen y altitud respecto a otra referencia no son intercambiables. Esta revisión requiere pocas operaciones, pero mucha claridad sobre qué representa cada columna. Si no se consigue equivalencia, se anota y se limita la conclusión de la comparación."
+        }
+      ]
+    },
+    {
+      "title": "Elegir por misión con dos representaciones",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Para comparar narices o aletas según misión, las herramientas ayudan a estudiar el vehículo, mientras la ficha de fabricación conserva encaje, masa, tiempo y reparación. No todo criterio de selección sale de una simulación. El equipo reúne ambos tipos de información sin convertir una diferencia pequeña de altura en una respuesta universal."
+        },
+        {
+          "type": "table",
+          "title": "Conclusión para cada misión",
+          "headers": [
+            "Misión",
+            "Qué debe respaldar la elección"
+          ],
+          "rows": [
+            [
+              "Aprender a construir",
+              "Archivo coherente y pieza fabricable"
+            ],
+            [
+              "Reutilizar",
+              "Revisión y facilidad de reposición"
+            ],
+            [
+              "Carga docente",
+              "Interfaces y observación de datos del demostrador"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Cómo presentar la comparación",
+          "problem": "“Con entradas revisadas obtuvimos estas predicciones. La alternativa A sigue siendo más sencilla de fabricar y las diferencias de modelo quedan registradas”.",
+          "answer": "La decisión distingue lo que ofrecen los programas y lo que se observó en el taller. Mantiene el proyecto comprensible para un alumno básico e intermedio."
+        },
+        {
+          "type": "p",
+          "text": "Entrega ambos archivos, la tabla de equivalencia y una comparación corta. Si falta licencia o instalación de RockSim, el docente puede hacer una demostración central y cada equipo revisa las entradas de su caso. No se atribuye una ejecución a quien solo observó la pantalla."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Crear la representación del objeto construido en RockSim.",
+    "Completar la tabla de equivalencia antes de simular.",
+    "Ejecutar con configuración revisada y comparar pocas variables.",
+    "Investigar una diferencia siguiendo el orden propuesto."
+  ],
+  "qas": [
+    [
+      "¿Dos apogeos iguales prueban que el modelo es exacto?",
+      "No. Pueden compartir entradas o supuestos equivocados."
+    ],
+    [
+      "¿Qué se revisa antes de culpar al método?",
+      "Archivos, geometría, masas, motor, eventos y condiciones."
+    ],
+    [
+      "¿Qué representa el 5% del ejemplo?",
+      "Una discrepancia entre predicciones con un denominador declarado."
+    ]
+  ],
+  "delivery": "Archivo RockSim, tabla de entradas y comparación con OpenRocket.",
+  "refs": [
+    "RS",
+    "OR1",
+    "OR3"
+  ],
+  "opening": "Muestra dos predicciones y una diferencia escondida en las medidas: pide dónde empezaría la revisión.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "RS": [
+      "Apogee Components",
+      "Creating Your First Design",
+      "https://www.apogeerockets.com/RockSim/Help_Message_3"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "OR3": [
+      "OpenRocket",
+      "Advanced Flight Simulation",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/advanced_flight_simulation.html"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

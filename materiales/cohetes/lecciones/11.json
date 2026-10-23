@@ -1,0 +1,347 @@
+{
+  "n": 11,
+  "week": 6,
+  "title": "Recuperación y preparación del montaje",
+  "goal": "Comprender cómo vuelve el cohete y comprobar espacio, uniones y compatibilidad del sistema elegido.",
+  "mission": "Recuperar el modelo y poder inspeccionarlo después del vuelo.",
+  "pages": [
+    {
+      "title": "El proyecto también incluye el descenso",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El sistema de recuperación se diseña junto al resto del modelo. Necesita espacio para guardarse, una conexión que mantenga las piezas relacionadas y un movimiento compatible con el conjunto comercial. Si se deja para el final, puede aparecer un cuerpo cerrado que no permite alojarlo o desplegarlo de la forma prevista."
+        },
+        {
+          "type": "image",
+          "name": "or_recuperacion",
+          "caption": "Recuperación en el ejemplo de OpenRocket. La representación enseña componentes; el proyecto usa un sistema concreto revisado por el docente.",
+          "width": 145
+        },
+        {
+          "type": "p",
+          "text": "Paracaídas y cinta de recuperación aumentan el efecto del aire durante el descenso de maneras diferentes. Elegir uno depende de masa, tamaño, espacio y condiciones del vehículo. La clase no establece una solución universal ni un tamaño por longitud exterior: se revisa el sistema del modelo y su documentación."
+        },
+        {
+          "type": "table",
+          "title": "Qué debe resolver el conjunto",
+          "headers": [
+            "Necesidad",
+            "Qué observar"
+          ],
+          "rows": [
+            [
+              "Guardar",
+              "Envolvente y espacio disponible"
+            ],
+            [
+              "Conectar",
+              "Cordones y uniones del sistema"
+            ],
+            [
+              "Salir",
+              "Camino sin interferencias"
+            ],
+            [
+              "Descender",
+              "Sistema apropiado al conjunto"
+            ],
+            [
+              "Revisar",
+              "Acceso después del vuelo"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La recuperación permite completar la misión después del ascenso. Incluye un dispositivo, uniones, espacio de guardado, recorrido de salida y compatibilidad con el conjunto. El proyecto debe poder explicar dónde se encuentra cada parte antes, durante y después de su despliegue previsto. Una fotografía de un paracaídas abierto no muestra necesariamente si el mismo sistema cabe y se mueve en el cuerpo construido. Por eso el diseño se revisa como un conjunto."
+        }
+      ]
+    },
+    {
+      "title": "Paracaídas y cinta: comparar funciones",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Dos opciones habituales de modelismo",
+          "headers": [
+            "Sistema",
+            "Qué aporta a la discusión",
+            "Qué comprobar"
+          ],
+          "rows": [
+            [
+              "Paracaídas",
+              "Superficie desplegada y descenso",
+              "Volumen plegado, cordones y sistema elegido"
+            ],
+            [
+              "Cinta o streamer",
+              "Despliegue de una banda y seguimiento visual",
+              "Compatibilidad con masa y vehículo"
+            ],
+            [
+              "Sistema del fabricante",
+              "Conjunto de piezas e instrucciones relacionadas",
+              "Referencias y montaje previstos"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La comparación empieza con el conjunto comercial que el docente propone. Las piezas se presentan sin activar ningún mecanismo. Se observa qué ocupa cada elemento, qué partes deben permanecer conectadas y qué superficies pueden bloquear el movimiento. No se cambia un sistema simplemente porque otro parezca ocupar menos lugar."
+        },
+        {
+          "type": "case",
+          "title": "Una cinta ocupa menos, pero falta una decisión",
+          "problem": "Un equipo quiere sustituir el paracaídas previsto por una cinta porque es más fácil de guardar.",
+          "answer": "La reducción de volumen es una observación útil, pero no resuelve el descenso del conjunto. El docente debe revisar masa, comportamiento previsto y compatibilidad. El cambio también se representa en el archivo."
+        },
+        {
+          "type": "p",
+          "text": "La finalidad de esta clase es que el alumno vea la recuperación como una función del vehículo. Saber nombrar el dispositivo es el comienzo, no la comprobación completa."
+        },
+        {
+          "type": "p",
+          "text": "El paracaídas y la cinta o streamer modifican la interacción del conjunto con el aire durante el descenso. Se diferencian en forma, volumen guardado y comportamiento previsto. Su elección depende de las condiciones y del vehículo, por lo que se sigue una solución comercial o docente identificada. Una opción que ocupa menos volumen no resuelve por sí sola el descenso. La tabla sirve para reconocer funciones y comprobar compatibilidad, no para intercambiar dispositivos solo por su apariencia."
+        }
+      ]
+    },
+    {
+      "title": "Cordones, bordes y acceso",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_cord",
+          "caption": "Cordón del sistema de recuperación en el ejemplo oficial de OpenRocket. La unión real sigue la solución del conjunto elegido.",
+          "width": 145
+        },
+        {
+          "type": "p",
+          "text": "Las piezas conectadas pueden moverse unas respecto a otras sin quedar sueltas. Los cordones requieren un recorrido que se pueda guardar y revisar. Un borde, una arista impresa o una pieza interior pueden provocar rozamiento o enganchar un pliegue. La revisión visual debe hacerse con los objetos que realmente se montarán."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Identifica dónde se fija cada parte del sistema según la solución elegida.",
+            "Recorre con la vista el camino desde el interior hacia la abertura.",
+            "Presenta los componentes y comprueba si una pieza ocupa el mismo espacio que otra.",
+            "Observa los bordes y solicita al docente la corrección apropiada si afectan el recorrido.",
+            "Conserva una fotografía del acceso antes de cerrar el montaje."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En el proyecto con motor comercial se usan los elementos de protección y recuperación que corresponden al diseño y a sus instrucciones. Una impresión de aula no reemplaza por su apariencia una pieza de protección definida por el fabricante."
+        },
+        {
+          "type": "p",
+          "text": "La comprobación del recorrido se hace con el sistema real y su condición de guardado. Un cordón o pliegue cambia de posición al manipularlo. Por eso no basta verificar una abertura vacía. El docente prepara un método repetible de presentación y define qué puede concluirse. Si una corrección cambia el hombro, el borde o una pieza interior, el recorrido debe revisarse de nuevo antes de cerrar esa condición."
+        }
+      ]
+    },
+    {
+      "title": "Representar el sistema en OpenRocket",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_recovery",
+          "caption": "Ventana de recuperación del manual de OpenRocket. Los datos corresponden a su ejemplo; se introducen los del sistema del equipo.",
+          "width": 100
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Abre el archivo completo y confirma qué dispositivo representa la recuperación.",
+            "Introduce dimensiones y masa del componente seleccionado o su representación adecuada.",
+            "Revisa el evento de despliegue que corresponde al sistema previsto.",
+            "Comprueba en la configuración comercial qué retardo o evento se está utilizando y deja la revisión al docente.",
+            "Ejecuta nuevamente la predicción y observa el evento de recuperación respecto al apogeo.",
+            "Guarda la configuración y las gráficas; no cambies solo el nombre del archivo."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Un evento de programa no demuestra que el objeto se moverá sin interferencias. La revisión digital y la presentación física responden preguntas complementarias. [OR1, OR3]"
+        },
+        {
+          "type": "p",
+          "text": "En el programa se representa un dispositivo con dimensiones, masa y una condición de despliegue. Esos campos describen una hipótesis del modelo. En el objeto físico interesa comprobar piezas y recorrido según el procedimiento del responsable. Mantener ambos registros relacionados permite descubrir, por ejemplo, que el archivo usa un dispositivo diferente al preparado en taller. La revisión digital y la de banco aportan evidencias distintas a la decisión del docente."
+        }
+      ]
+    },
+    {
+      "title": "Ensayo de banco con el sistema inerte",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La comprobación de clase se realiza sin activar un motor ni un dispositivo energético. Permite estudiar espacio, acceso y movimiento con el método de presentación definido por el docente. No reproduce por completo las condiciones de vuelo, por lo que su conclusión debe conservar ese alcance."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Describe la configuración inerte que se presenta y verifica que corresponda al plano.",
+            "Coloca los componentes de recuperación como se ha previsto para la demostración de banco.",
+            "Comprueba el recorrido y señala interferencias observables sin forzar el conjunto.",
+            "Repite después de corregir una condición identificada.",
+            "Registra qué se comprobó y qué sigue dependiendo de la revisión final del sistema."
+          ]
+        },
+        {
+          "type": "case",
+          "title": "La recuperación está dibujada, pero el paso se bloquea",
+          "problem": "En la presentación, un reborde del hombro impide el movimiento libre de una parte del sistema.",
+          "answer": "La geometría exterior puede verse correcta y aun así existir un problema interior. Se corrige la interfaz o la distribución con el docente y se repite la comprobación. No se considera resuelto por una simulación de altura."
+        },
+        {
+          "type": "p",
+          "text": "La prueba de banco debe conservar las piezas y la revisión examinadas. Una modificación posterior puede requerir repetirla."
+        },
+        {
+          "type": "p",
+          "text": "El sistema elegido debe poder relacionarse con un nombre y una revisión del conjunto. Una bolsa con piezas parecidas no garantiza que todas pertenezcan a la misma solución. En el taller se comprueban identificación e instrucciones antes de montar. Esta precaución evita que un cambio aparentemente pequeño de componente vuelva confusa la comparación con el archivo de OpenRocket y con las comprobaciones de banco ya realizadas."
+        }
+      ]
+    },
+    {
+      "title": "Llegar preparados al montaje presencial",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Documentos para el taller 2",
+          "headers": [
+            "Documento",
+            "Qué debe permitir"
+          ],
+          "rows": [
+            [
+              "Plano final preliminar",
+              "Identificar piezas e interfaces"
+            ],
+            [
+              "Lista del sistema comercial",
+              "Evitar sustituciones inadvertidas"
+            ],
+            [
+              "Presentación de recuperación",
+              "Reconocer recorrido y acceso"
+            ],
+            [
+              "Archivo de simulación",
+              "Relacionar configuración y eventos"
+            ],
+            [
+              "Pendientes",
+              "Preparar correcciones y repuestos"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Antes del taller se revisa qué piezas deben estar terminadas y cuáles se montarán en presencia del docente. Las impresiones largas se organizan con anticipación. Así las cuatro horas presenciales se dedican a ensamblar y comprobar, no a descubrir que faltan componentes básicos."
+        },
+        {
+          "type": "case",
+          "title": "Conclusión para el expediente",
+          "problem": "“El conjunto inerte puede presentarse con este recorrido y no observamos la interferencia que aparecía antes. La configuración comercial queda pendiente de revisión final”.",
+          "answer": "La conclusión conserva qué evidencia existe y qué falta. No exagera el alcance de una demostración de banco."
+        },
+        {
+          "type": "p",
+          "text": "Entrega la ficha de recuperación, sus referencias y el archivo actualizado. Debes poder explicar el recorrido de las piezas y qué ocurriría si una de sus uniones o accesos quedara bloqueado."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Reconocer el sistema comercial y su documentación.",
+    "Comparar espacio y función de sus componentes.",
+    "Revisar configuración y evento en OpenRocket.",
+    "Preparar una presentación inerte y los materiales del taller 2."
+  ],
+  "qas": [
+    [
+      "¿Cabe significa que puede desplegarse?",
+      "No. Hay que revisar recorrido, conexión y acceso."
+    ],
+    [
+      "¿La simulación sustituye la comprobación física?",
+      "No. Representa un evento del modelo."
+    ],
+    [
+      "¿Qué se conserva del banco?",
+      "Configuración, método, observación y pendientes."
+    ]
+  ],
+  "delivery": "Ficha de recuperación, plano preliminar y configuración actualizada.",
+  "refs": [
+    "NASA",
+    "NAR",
+    "OR1",
+    "OR3"
+  ],
+  "opening": "Presenta el sistema extendido junto al cuerpo y pregunta dónde debe entrar y qué debe permanecer conectado.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "NASA": [
+      "NASA Glenn",
+      "Model Rockets",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/model-rockets/"
+    ],
+    "NAR": [
+      "National Association of Rocketry",
+      "Model Rocket Safety Code",
+      "https://www.nar.org/ModelRocketSafetyCode"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "OR3": [
+      "OpenRocket",
+      "Advanced Flight Simulation",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/advanced_flight_simulation.html"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "n": 7,
+  "week": 4,
+  "title": "Estabilidad: centro de gravedad y centro de presión",
+  "goal": "Entender la estabilidad con una maqueta y comprobar que el modelo represente la distribución real de piezas.",
+  "mission": "Preparar un vehículo que el docente pueda revisar como conjunto.",
+  "pages": [
+    {
+      "title": "Equilibrar la maqueta antes de ver símbolos",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Sostén una maqueta inerte y busca el lugar donde puede quedar equilibrada. Ese punto se relaciona con la distribución de masa. Si cambias una pieza delantera por otra más pesada, el equilibrio puede desplazarse. La observación permite entender qué representa el centro de gravedad antes de escribir una fórmula."
+        },
+        {
+          "type": "image",
+          "name": "nasa_cg",
+          "caption": "NASA Glenn: distribución de pesos y centro de gravedad. La clase parte de una maqueta inerte, sin reproducir la derivación del gráfico.",
+          "width": 105
+        },
+        {
+          "type": "p",
+          "text": "En el programa se usa la abreviatura CG. Para un modelo pequeño, en condiciones terrestres habituales, podemos trabajar con la idea práctica de centro de masa y centro de gravedad coincidentes. Lo importante hoy es que el archivo y el objeto representen las mismas piezas, masas y posiciones."
+        },
+        {
+          "type": "note",
+          "text": "La demostración se hace con una maqueta y masas inertes aseguradas. No se cambian componentes del conjunto comercial para realizar el ejercicio."
+        },
+        {
+          "type": "p",
+          "text": "El centro de gravedad es un punto que resume cómo se distribuye el peso del conjunto en una condición determinada. Para encontrarlo en una maqueta inerte, se busca el apoyo donde no domina la tendencia a caer hacia un extremo. Si desplazas una pieza hacia la nariz, puede cambiar ese punto aunque la masa total permanezca igual. Así se introduce una idea útil: importa cuánto pesa cada componente y también dónde está."
+        }
+      ]
+    },
+    {
+      "title": "El aire actúa de otra manera que el peso",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "estabilidad_nasa",
+          "caption": "NASA: esquema cualitativo de estabilidad, reproducido en Apogee 629. Ayuda a reconocer la relación entre perturbación, CG y acción aerodinámica.",
+          "width": 110
+        },
+        {
+          "type": "p",
+          "text": "El centro de presión, CP, resume en el modelo dónde actúa la resultante aerodinámica para las condiciones consideradas. No se encuentra pesando el cohete. Las aletas influyen en esa respuesta y la posición relativa de CG y CP permite estudiar si una pequeña desviación tiende a corregirse o a aumentar."
+        },
+        {
+          "type": "p",
+          "text": "En un cohete convencional con aletas posteriores se busca una respuesta restauradora apropiada al conjunto y a sus condiciones. No basta mirar dos marcas y declarar que cualquier configuración es aceptable. La guía de salida, la velocidad y el viento también participan del comportamiento real."
+        },
+        {
+          "type": "table",
+          "title": "No confundir las dos observaciones",
+          "headers": [
+            "Concepto",
+            "Cómo se trabaja aquí"
+          ],
+          "rows": [
+            [
+              "CG",
+              "Distribución de masa y equilibrio de maqueta"
+            ],
+            [
+              "CP",
+              "Resultado aerodinámico de un modelo"
+            ],
+            [
+              "Estabilidad de vuelo",
+              "Revisión del conjunto y sus condiciones"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El centro de presión resume el efecto aerodinámico mediante un punto de referencia del modelo. Para un vehículo convencional con aletas posteriores y una pequeña desviación, la relación entre CG y CP ayuda a interpretar si la respuesta tiende a recuperar la orientación. OpenRocket representa esa relación junto a sus condiciones. El CP no se encuentra poniendo el cohete sobre la balanza, porque el equilibrio de mesa observa el peso, no la acción del aire durante el movimiento."
+        }
+      ]
+    },
+    {
+      "title": "Leer el margen sin convertirlo en una receta",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El programa puede expresar la separación longitudinal entre CP y CG dividida por un diámetro de referencia. Esa unidad recibe habitualmente el nombre de calibre. El indicador facilita comparar el mismo modelo bajo condiciones definidas. No reemplaza el análisis del docente ni impone por sí solo un valor universal de aceptación."
+        },
+        {
+          "type": "case",
+          "title": "Una lectura de pantalla",
+          "problem": "Ejercicio de interpretación: el CP está 40 mm detrás del CG y el diámetro de referencia es 32 mm.",
+          "answer": "La separación equivale a 40/32 = 1,25 calibres en esas condiciones. La cuenta solo interpreta el indicador. Todavía hay que saber qué piezas contiene el archivo y en qué condición se evaluó; no es una autorización de vuelo."
+        },
+        {
+          "type": "table",
+          "title": "Qué puede cambiar el resultado",
+          "headers": [
+            "Cambio",
+            "Qué revisar"
+          ],
+          "rows": [
+            [
+              "Otra nariz",
+              "Masa, forma y posición"
+            ],
+            [
+              "Otra aleta",
+              "Geometría, masa y ubicación"
+            ],
+            [
+              "Añadir una carga",
+              "Masa y distribución del conjunto"
+            ],
+            [
+              "Cambiar de motor comercial",
+              "Masa y configuración seleccionadas"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En vez de memorizar un número aislado, cada equipo debe explicar qué pieza cambió, cómo se representó y qué ocurrió con los indicadores. Una observación coherente enseña más que intentar mover una marca sin saber qué objeto describe."
+        },
+        {
+          "type": "p",
+          "text": "El margen es una relación geométrica del modelo bajo una condición, mientras la respuesta durante el vuelo también depende del movimiento y del aire. Un cohete que permanece equilibrado sobre un apoyo no está demostrando estabilidad aerodinámica. La mesa permite observar distribución de masa. La simulación aporta otra representación y el responsable revisa el conjunto. Mantener estas funciones separadas evita prometer un vuelo correcto a partir de una sola demostración."
+        }
+      ]
+    },
+    {
+      "title": "OpenRocket con las masas del taller",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_override",
+          "caption": "Ajustes de masa de la documentación oficial. El dato medido debe corresponder al componente seleccionado.",
+          "width": 100
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Abre la revisión posterior al taller 1. Comprueba que todos los componentes presentes estén representados.",
+            "Introduce las masas conocidas con su origen. Evita contar dos veces adhesivo, acabado o una carga añadida.",
+            "Localiza CG, CP y la condición que muestra el programa. Guarda una captura con esos datos visibles.",
+            "Crea una copia y representa una modificación real que el docente haya propuesto para comparar.",
+            "Escribe qué permaneció igual, qué cambió y qué se desplazó. Vuelve a la configuración de referencia al terminar."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Si todavía falta una pieza importante, la revisión sigue siendo preliminar. No ocultes el dato faltante asignando al azar una masa que haga aparecer un margen atractivo. [OR1, OR3]"
+        },
+        {
+          "type": "p",
+          "text": "Una referencia longitudinal permite comparar el programa con la maqueta. Se puede tomar la punta como origen y registrar las posiciones a lo largo del eje, siempre explicando qué piezas están presentes. Si se mide desde otro extremo, se transforma la referencia antes de comparar números. Primero hay que tener el mismo objeto y el mismo origen. Solo entonces una diferencia de posición puede orientar una revisión útil de la distribución de masa."
+        }
+      ]
+    },
+    {
+      "title": "Comparación de la maqueta y el archivo",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La comprobación física del equilibrio exige definir el conjunto que se observa. Pesar o equilibrar piezas sueltas responde preguntas diferentes a equilibrar una maqueta ensamblada. El docente puede utilizar un conjunto inerte equivalente para que el alumnado entienda la distribución sin realizar operaciones del motor."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Describe qué incluye la maqueta inerte y qué representa cada elemento.",
+            "Busca su equilibrio con el método de banco mostrado por el docente y marca una referencia temporal.",
+            "Mide la posición desde el mismo origen utilizado en el plano.",
+            "Compara con la representación digital y busca primero piezas, masas o posiciones omitidas.",
+            "Conserva el resultado y una explicación de la discrepancia que hayas identificado."
+          ]
+        },
+        {
+          "type": "case",
+          "title": "El equilibrio se desplaza",
+          "problem": "Después de añadir una pieza de acabado en la zona delantera, el equilibrio de la maqueta cambia.",
+          "answer": "La observación es coherente con una redistribución de masa. Actualiza la pieza o el conjunto en el archivo y vuelve a comparar. No cambies el CP manualmente para forzar una coincidencia con la balanza."
+        },
+        {
+          "type": "p",
+          "text": "La revisión de estabilidad para el vuelo pertenece al conjunto final, con la configuración comercial y las condiciones que el responsable apruebe. La maqueta enseña el concepto y permite encontrar errores de representación."
+        },
+        {
+          "type": "p",
+          "text": "Una masa equivalente inerte debe conservar su significado. Si representa una pieza que falta, se identifica qué masa y posición intenta reproducir. No se coloca en un lugar cómodo para que el conjunto se vea equilibrado. Si no se puede reproducir una condición, se registra como pendiente. La demostración enseña mejor cuando muestra qué datos faltan que cuando se completa con objetos cuya función nadie puede explicar."
+        }
+      ]
+    },
+    {
+      "title": "Una conclusión con piezas y condiciones",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Formas de explicar lo aprendido",
+          "headers": [
+            "Frase incompleta",
+            "Explicación más útil"
+          ],
+          "rows": [
+            [
+              "“La marca se movió”",
+              "Cambió la masa de la nariz y se desplazó el CG"
+            ],
+            [
+              "“El programa dice estable”",
+              "Se revisó esta configuración con estas entradas"
+            ],
+            [
+              "“El CP se pesó”",
+              "Se observó equilibrio para CG; CP procede del modelo"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Un modelo más completo puede dar una conclusión distinta a la primera geometría de la clase 1. Eso es esperable: al principio faltaban soporte, recuperación y masas reales. La mejora consiste en representar el proyecto con mayor fidelidad, no en proteger el primer número que apareció en pantalla."
+        },
+        {
+          "type": "case",
+          "title": "Qué hacer ante una coincidencia",
+          "problem": "El equilibrio de la maqueta y el CG del archivo coinciden aproximadamente.",
+          "answer": "La coincidencia aporta evidencia sobre la representación de masa en esa condición. No valida por sí sola todas las fuerzas del vuelo, el despliegue o el comportamiento con viento. Es un resultado útil con un alcance concreto."
+        },
+        {
+          "type": "p",
+          "text": "Cada equipo entrega una fotografía del equilibrio de la maqueta inerte, su referencia de medida y una captura del archivo. Debe poder señalar las piezas responsables de la distribución. No se exige una derivación de momentos ni una prueba dinámica avanzada."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Equilibrar la maqueta inerte según la demostración.",
+    "Actualizar las masas del archivo sin duplicaciones.",
+    "Interpretar CG, CP y calibre con un ejemplo sencillo.",
+    "Comparar una modificación identificada y justificar el resultado."
+  ],
+  "qas": [
+    [
+      "¿El CP se encuentra con la balanza?",
+      "No. La balanza ayuda a conocer masa; CP procede del modelo aerodinámico."
+    ],
+    [
+      "¿1,25 calibres autoriza automáticamente un vuelo?",
+      "No. Hay que revisar configuración y condiciones."
+    ],
+    [
+      "¿Qué revisas primero si el CG no coincide?",
+      "Piezas, masas, posiciones y qué incluye el conjunto físico."
+    ]
+  ],
+  "delivery": "Archivo con masas, referencia de equilibrio y comparación explicada.",
+  "refs": [
+    "CG",
+    "NK",
+    "OR1",
+    "OR3",
+    "AP"
+  ],
+  "opening": "Equilibra una maqueta y cambia una masa inerte de lugar para que se vea el efecto antes de nombrar el CG.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "CG": [
+      "NASA Glenn",
+      "Rocket Center of Gravity",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/rocket-center-of-gravity/"
+    ],
+    "NK": [
+      "Richard Nakka",
+      "Fins for Rocket Stability",
+      "https://www.nakka-rocketry.net/fins.html"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "OR3": [
+      "OpenRocket",
+      "Advanced Flight Simulation",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/advanced_flight_simulation.html"
+    ],
+    "AP": [
+      "Apogee Components",
+      "Peak of Flight 629",
+      "https://www.apogeerockets.com/education/downloads/Newsletter629.pdf"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "n": 9,
+  "week": 5,
+  "title": "Primera simulación completa en OpenRocket",
+  "goal": "Configurar el modelo completo, ejecutar una simulación guiada y leer sus fases sin confundir predicción con observación.",
+  "mission": "Obtener una predicción útil para revisar el conjunto y preparar comparaciones.",
+  "pages": [
+    {
+      "title": "Qué debe estar completo antes de simular",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La primera geometría de la clase 1 enseñó a colocar piezas. Una simulación de vuelo necesita más información: componentes interiores, masas, configuración comercial, recuperación y condiciones de salida. El programa puede calcular con un archivo incompleto, pero el resultado describirá ese archivo y no el cohete que se está construyendo."
+        },
+        {
+          "type": "image",
+          "name": "or_flighttab",
+          "caption": "Pestaña de simulaciones del manual de OpenRocket. Los resultados pertenecen a su ejemplo, no al proyecto del equipo.",
+          "width": 110
+        },
+        {
+          "type": "table",
+          "title": "Entradas que debe revisar el equipo",
+          "headers": [
+            "Grupo",
+            "Comprobación"
+          ],
+          "rows": [
+            [
+              "Geometría",
+              "Coincide con el plano y las piezas"
+            ],
+            [
+              "Masas",
+              "Incluyen los elementos del conjunto"
+            ],
+            [
+              "Motor comercial",
+              "Referencia y configuración correctas"
+            ],
+            [
+              "Recuperación",
+              "Sistema y evento representados"
+            ],
+            [
+              "Condiciones",
+              "Lugar y condiciones declarados"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El objetivo no es obtener la cifra más alta. Es contar con una predicción que podamos entender, conservar y revisar cuando el objeto esté terminado."
+        },
+        {
+          "type": "p",
+          "text": "Una simulación conecta entradas con una predicción mediante un modelo. Las entradas describen piezas, masas, motor, recuperación y ambiente. El resultado puede verse muy preciso en pantalla aunque una entrada sea equivocada. La tarea inicial consiste en hacer corresponder el archivo con el objeto previsto. Esta revisión es parte del trabajo técnico, no un trámite anterior a la parte interesante. Permite entender después qué significa una curva y qué limitaciones tiene."
+        }
+      ]
+    },
+    {
+      "title": "Leer el vuelo como una secuencia",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "nasa_flight",
+          "caption": "NASA Glenn: fases de vuelo de un modelo. La trayectoria dibujada es ilustrativa y no fija una trayectoria para el proyecto.",
+          "width": 110
+        },
+        {
+          "type": "p",
+          "text": "La fase impulsada termina cuando cesa el empuje. El cohete puede seguir subiendo después, mientras pierde velocidad. La altura máxima se llama apogeo. Después llega el descenso y el sistema de recuperación cumple su función. Separar esos eventos evita pensar que el motor empuja hasta la altura máxima."
+        },
+        {
+          "type": "table",
+          "title": "Qué se lee en las gráficas",
+          "headers": [
+            "Variable",
+            "Pregunta sencilla"
+          ],
+          "rows": [
+            [
+              "Altura",
+              "¿Cuándo llega al punto más alto?"
+            ],
+            [
+              "Velocidad vertical",
+              "¿Cuándo deja de subir?"
+            ],
+            [
+              "Empuje",
+              "¿Cuándo termina la fase impulsada?"
+            ],
+            [
+              "Evento de recuperación",
+              "¿Dónde aparece respecto al apogeo?"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una sola gráfica de altura puede ocultar un evento importante. En esta clase se leerán pocas variables, con unidades y marcas de eventos. No hace falta estudiar decenas de curvas para revisar un primer vehículo. [FL, OR3]"
+        },
+        {
+          "type": "p",
+          "text": "Altura, velocidad y aceleración responden a preguntas distintas. La altura indica posición vertical respecto al origen elegido. La velocidad indica cómo cambia esa posición. La aceleración indica cómo cambia la velocidad. El vehículo puede seguir ascendiendo después de terminar el empuje porque todavía tiene velocidad hacia arriba. Cerca del punto más alto, esa componente de velocidad pasa por cero antes del descenso. Identificar esos momentos en una gráfica ayuda más al principiante que memorizar nombres de curvas."
+        }
+      ]
+    },
+    {
+      "title": "Preparar una configuración identificada",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una configuración relaciona el vehículo con un motor comercial y sus eventos. Debe tener un nombre que permita reconocer qué se simuló. Si cambias la nariz, la masa o el motor, conserva una versión diferente. Sobrescribir el archivo cada vez hace difícil explicar después por qué cambió una predicción."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Guarda una copia del archivo revisado con nombre CONFIG_A.",
+            "Selecciona el conjunto comercial indicado por el docente y comprueba su referencia completa.",
+            "Verifica la representación de recuperación y los eventos que corresponden al sistema elegido.",
+            "Registra las condiciones de la simulación. No uses valores por defecto sin leer qué significan.",
+            "Describe la guía de salida utilizada por el equipo docente y su correspondencia en el modelo."
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Un cambio que invalida la comparación",
+          "problem": "Ayer se simuló un archivo sin acabado y hoy se pesa el modelo con acabado y otras uniones.",
+          "answer": "Actualiza la masa y la configuración antes de comparar la predicción con el objeto. Conservar el nombre CONFIG_A no vuelve iguales dos conjuntos distintos."
+        },
+        {
+          "type": "p",
+          "text": "El responsable revisa las condiciones operativas. El alumno aprende a representarlas y a detectar entradas incoherentes; no necesita decidir por su cuenta una condición de lanzamiento."
+        },
+        {
+          "type": "p",
+          "text": "Los avisos del programa se leen como preguntas sobre el modelo. Un evento extraño puede revelar un dispositivo de recuperación configurado con una referencia equivocada o una pieza omitida. Cambiar varias entradas hasta que desaparezca un aviso dificulta aprender qué lo causó. El equipo guarda una referencia, revisa una condición y vuelve a ejecutar, registrando la razón de cada modificación."
+        }
+      ]
+    },
+    {
+      "title": "Práctica: ejecutar, mirar y exportar",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_plot_button",
+          "caption": "Botón Plot / Export en la documentación de OpenRocket. Permite pasar de la fila de resultados a las variables del vuelo.",
+          "width": 85
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Crea o edita la simulación correspondiente a CONFIG_A y revisa las condiciones de entrada.",
+            "Ejecuta según la interfaz de la versión instalada y lee avisos antes de aceptar los resultados.",
+            "Abre Plot / Export y elige tiempo en el eje horizontal.",
+            "Representa altura y velocidad vertical con sus unidades. Activa las marcas de eventos relevantes.",
+            "Anota apogeo, fin de empuje y evento de recuperación. Comprueba que pertenecen a la misma simulación.",
+            "Exporta un CSV con tiempo, variables seleccionadas y las condiciones guardadas en el expediente."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las capturas de este material pertenecen al manual oficial. Cada equipo crea y ejecuta su propio archivo en clase. Una fila de apogeo aislada no sustituye la configuración ni las gráficas que permiten interpretarla. [OR3]"
+        },
+        {
+          "type": "p",
+          "text": "La exportación convierte una imagen de pantalla en un registro que se puede revisar. Cada columna necesita nombre, unidad y referencia de tiempo. Dos puntos de una misma curva permiten describir una tendencia sin atribuirle una causa que no se comprobó. El equipo relaciona un evento de la secuencia con su zona en el gráfico y conserva las condiciones de la ejecución. Así otra persona puede abrir el archivo y entender qué se quiso observar."
+        }
+      ]
+    },
+    {
+      "title": "Una comparación que no mezcle cambios",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Para comparar narices o aletas, comienza con una copia del modelo completo. Conserva motor, condiciones y entradas comunes. Si el cambio de geometría implica otra masa real, puedes estudiar dos preguntas: el cambio geométrico idealizado y el cambio del objeto que realmente fabricarías. Debes indicar cuál estás respondiendo."
+        },
+        {
+          "type": "table",
+          "title": "Registro de la comparación",
+          "headers": [
+            "Dato",
+            "A",
+            "B"
+          ],
+          "rows": [
+            [
+              "Archivo y revisión",
+              "Identificar",
+              "Identificar"
+            ],
+            [
+              "Cambio propuesto",
+              "Referencia",
+              "Describir"
+            ],
+            [
+              "Motor y condiciones",
+              "Conservar",
+              "Confirmar"
+            ],
+            [
+              "Masa y configuración",
+              "Registrar",
+              "Registrar"
+            ],
+            [
+              "Resultados y avisos",
+              "Exportar",
+              "Exportar"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Dos predicciones parecidas",
+          "problem": "Ejercicio: dos configuraciones didácticas predicen 80 y 82 m, pero la segunda también usa otro motor y otra masa.",
+          "answer": "No se puede atribuir la diferencia exclusivamente a la nariz. La comparación mezcló cambios. Recupera una referencia común o explica que se compararon dos configuraciones completas."
+        },
+        {
+          "type": "p",
+          "text": "No se ofrece un resultado universal de rendimiento para cada forma. La práctica enseña a construir una comparación válida dentro del modelo que el equipo está utilizando."
+        },
+        {
+          "type": "p",
+          "text": "Una comparación por misión puede dar una decisión diferente a la búsqueda de una cifra de altura. Para aprender a construir, una alternativa de resultado parecido puede ser preferible si ya tiene un encaje repetible y un repuesto. Para el demostrador científico puede pesar el acceso a la carga. Los resultados del programa se incorporan a esa decisión junto con la ficha de taller; no borran los otros requisitos del proyecto."
+        }
+      ]
+    },
+    {
+      "title": "Interpretar sin prometer el vuelo real",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_plot",
+          "caption": "Gráfica del ejemplo oficial de OpenRocket. Los valores y curvas corresponden a ese ejemplo y se usan para aprender a leer eventos.",
+          "width": 110
+        },
+        {
+          "type": "p",
+          "text": "El resultado de un simulador es una predicción. El objeto fabricado, el ambiente y la operación pueden diferir de las entradas. Por eso antes del vuelo se revisa la correspondencia entre archivo y conjunto final. Después se comparan observaciones que realmente se hayan registrado."
+        },
+        {
+          "type": "case",
+          "title": "Una frase que sí ayuda al docente",
+          "problem": "“En CONFIG_A, con estas entradas, el programa predice este evento. La masa del conjunto todavía debe actualizarse después del montaje”.",
+          "answer": "La frase permite usar la predicción sin presentarla como garantía. También identifica una acción concreta para mejorarla antes de la jornada."
+        },
+        {
+          "type": "p",
+          "text": "Entrega el archivo completo, una captura de las condiciones, las gráficas elegidas y el CSV. Señala un aviso o limitación que hayas revisado. La tarea de clase consiste en explicar el resultado, no únicamente en hacer clic en simular."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Revisar configuración y entradas del vehículo completo.",
+    "Ejecutar una simulación guiada y leer avisos.",
+    "Identificar fases y eventos en pocas variables.",
+    "Exportar resultados y conservar sus condiciones."
+  ],
+  "qas": [
+    [
+      "¿El motor empuja hasta el apogeo?",
+      "No necesariamente; el vehículo puede seguir subiendo después de terminar el empuje."
+    ],
+    [
+      "¿Una predicción es una medición?",
+      "No. Se compara después con observaciones identificadas."
+    ],
+    [
+      "¿Puedo atribuir a la nariz una diferencia si cambié el motor?",
+      "No sin separar o explicar esos cambios."
+    ]
+  ],
+  "delivery": "Archivo completo, condiciones, gráficas y CSV exportado.",
+  "refs": [
+    "OR2",
+    "OR3",
+    "FL"
+  ],
+  "opening": "Muestra una curva con fin de empuje y apogeo separados y pide explicar qué ocurre entre ambos.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "OR2": [
+      "OpenRocket",
+      "Getting Started",
+      "https://openrocket.readthedocs.io/en/latest/setup/getting_started.html"
+    ],
+    "OR3": [
+      "OpenRocket",
+      "Advanced Flight Simulation",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/advanced_flight_simulation.html"
+    ],
+    "FL": [
+      "NASA Glenn",
+      "Flight of a Model Rocket",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/flight-of-a-model-rocket/"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

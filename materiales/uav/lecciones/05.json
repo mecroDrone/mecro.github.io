@@ -1,0 +1,319 @@
+{
+  "n": 5,
+  "week": 3,
+  "title": "Betaflight: conectar, respaldar y relacionar pantalla con hardware",
+  "goal": "Interpretar una configuración Betaflight a partir de la placa, el receptor y las conexiones del banco.",
+  "mission": "La configuración se enseña como una descripción comprobable del ensamblaje y se conserva antes de modificarla.",
+  "pages": [
+    {
+      "title": "Aplicación, firmware y placa son tres cosas",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Betaflight Firmware se ejecuta en la controladora; Betaflight App permite inspeccionar y configurar sus opciones. La aplicación se conocía como Configurator y la documentación actual ofrece acceso para PC desde app.betaflight.com. Una versión de aplicación debe ser compatible con la versión de firmware del equipo. El curso registra ambas, junto con placa y target, para que las capturas y la demostración se puedan entender después."
+        },
+        {
+          "type": "image",
+          "name": "bf_welcome",
+          "width": 145,
+          "caption": "Pantalla de la aplicación en la documentación oficial. El aspecto y las funciones pueden variar con la versión utilizada en clase. Fuente: Betaflight, documentación oficial. https://betaflight.com/docs/wiki/getting-started/setup-guide"
+        },
+        {
+          "type": "p",
+          "text": "Conectar una placa por USB no obliga a reinstalar firmware. El primer trabajo es identificar y observar la configuración existente. Cambiar el target por el nombre genérico del procesador puede dejar funciones sin correspondencia con el hardware. Las placas de MECRO se preparan antes de la cohorte: modelo, revisión, firmware, aplicación compatible y copia de configuración. Los campos exactos se completan con el equipo real, sin adivinarlos a partir de “F405”."
+        },
+        {
+          "type": "p",
+          "text": "Para estudiar sin controladora, el alumno utiliza las capturas, el manual y el expediente del caso. La práctica de observar canales o sensores reales se muestra con el equipo docente. La aplicación abierta sin hardware no simula la física del multirrotor."
+        }
+      ]
+    },
+    {
+      "title": "Conexión USB y respaldo que se puede identificar",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Identifica la controladora y utiliza un cable USB que transfiera datos. Mantén retirada la batería para la inspección USB inicial cuando el manual lo permita.",
+            "Observa el puerto que aparece en Windows y selecciona el correspondiente en la aplicación compatible.",
+            "Si no aparece conexión, revisa cable, puerto, alimentación USB y posibles conflictos de acceso antes de tocar firmware.",
+            "Registra versión de firmware y target; conserva el estado previo de configuración.",
+            "Guarda una copia identificada por placa y fecha. Lee los mensajes de estado antes de plantear cambios."
+          ]
+        },
+        {
+          "type": "code",
+          "title": "Consultas de lectura en la CLI de Betaflight",
+          "text": "version\nstatus\ndiff all",
+          "short": "version\nstatus\ndiff all"
+        },
+        {
+          "type": "p",
+          "text": "Las tres consultas se leen como herramientas de identificación y diagnóstico; no se incluyen órdenes para borrar configuración ni scripts de otra aeronave. El respaldo contiene valores de una combinación concreta. No se restaura sin revisar sobre otra placa o versión. Si se necesitara reinstalar, el docente consulta el procedimiento oficial y confirma el target antes de la actividad; no se convierte cada conexión inicial en un ejercicio de flasheo."
+        },
+        {
+          "type": "case",
+          "title": "El archivo que perdió su identidad",
+          "problem": "Un estudiante guarda “config_final.txt” sin placa ni versión. ¿Qué falta?",
+          "answer": "Un nombre y una ficha que relacionen el archivo con equipo, firmware, aplicación y fecha. Sin esa identidad no se sabe a qué hardware ni a qué estado corresponde."
+        }
+      ]
+    },
+    {
+      "title": "Orientación de la placa y referencia de ejes",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La controladora interpreta movimientos en sus ejes. La orientación física y el ajuste de montaje deben corresponder a la aeronave. El docente muestra un movimiento lento del bastidor y la respuesta del modelo 3D. Se compara inclinación hacia delante, lateral y giro, uno por vez. La vista sirve para comprobar coherencia de la orientación estimada; no constituye una prueba de que el dron vuele ni de que los motores estén bien asignados."
+        },
+        {
+          "type": "table",
+          "title": "Comprobaciones independientes",
+          "headers": [
+            "Acción del docente",
+            "Qué se observa",
+            "Qué todavía no demuestra"
+          ],
+          "rows": [
+            [
+              "Inclinar hacia delante",
+              "Modelo responde con sentido coherente",
+              "Empuje o orden de motores"
+            ],
+            [
+              "Inclinar lateralmente",
+              "Ejes y orientación",
+              "Sintonía de control"
+            ],
+            [
+              "Girar sobre mesa",
+              "Representación correspondiente",
+              "Navegación GPS completa"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Si la flecha de la FC apunta a otro lado, no se compensa corrigiendo el mapa del receptor al azar. Cada transformación tiene un lugar: montaje de sensor, entrada de mando y asignación de salidas. El expediente anota dónde se definió la orientación. Cambiar varias a la vez puede ocultar el origen del problema y producir una configuración difícil de revisar."
+        },
+        {
+          "type": "p",
+          "text": "El acelerómetro y el giróscopo observan magnitudes diferentes. La calibración se realiza con el método requerido por firmware y equipo. El curso introduce qué referencia se está corrigiendo; no promete eliminar todas las vibraciones o errores mediante un solo botón."
+        }
+      ]
+    },
+    {
+      "title": "Receptor, canales y modos de operación",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "bf_receiver",
+          "width": 145,
+          "caption": "Pestaña Receiver del manual Betaflight. Los valores son los de la captura documental, no una calibración del equipo MECRO. Fuente: Betaflight, documentación oficial. https://betaflight.com/docs/wiki/app/receiver-tab"
+        },
+        {
+          "type": "p",
+          "text": "La tabla de puertos de la clase anterior explica por dónde llega el receptor. En la pestaña correspondiente se comprueba que cada control humano mueva el canal previsto y que los interruptores tengan una función documentada. Si el mando lateral altera otro canal, se investiga la asignación. No basta observar que varias barras se mueven."
+        },
+        {
+          "type": "table",
+          "title": "Pruebas del mando",
+          "headers": [
+            "Acción",
+            "Evidencia",
+            "Decisión"
+          ],
+          "rows": [
+            [
+              "Mover un eje por vez",
+              "Canal y sentido",
+              "Conservar o corregir mapa"
+            ],
+            [
+              "Volver al centro",
+              "Valor y dispersión",
+              "Revisar referencia"
+            ],
+            [
+              "Accionar interruptor",
+              "Rango y función",
+              "Modo previsto identificado"
+            ],
+            [
+              "Estado de enlace preparado",
+              "Indicación de recepción",
+              "Contrastar con failsafe"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Angle, Horizon y Acro describen comportamientos distintos en Betaflight y dependen del soporte y configuración. En este curso se reconocen por lo que controla el piloto y por su dependencia de sensores. La demostración de vuelo utiliza el modo que Gerard haya validado para esa aeronave; una lista de modos en pantalla no equivale a dominio de pilotaje."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de configuración comentada",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Completa la ficha de equipo con versión, target y aplicación del caso mostrado.",
+            "Conserva una copia previa y explica para qué serviría.",
+            "Relaciona una línea del esquema con una asignación de puerto.",
+            "Describe la respuesta esperada del modelo 3D en tres movimientos lentos.",
+            "Relaciona tres controles de la radio con sus canales y funciones.",
+            "Localiza una discrepancia preparada: puerto, mapa de canales u orientación. Formula una comprobación por vez.",
+            "Entrega una configuración comentada: qué describe cada evidencia y qué no fue probado."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La clase alterna demostración y lectura individual de capturas. El estudiante no necesita una FC propia para explicar el caso, pero declara si observó el equipo del docente o ejecutó una comprobación en su propio hardware. Las evidencias se guardan con nombre de versión. Así una captura posterior puede compararse con el estado anterior sin depender de la memoria del operador."
+        },
+        {
+          "type": "p",
+          "text": "Los alumnos con hardware propio solo realizan cambios después de identificar placa y configuración. Durante la demostración no se distribuye un archivo universal para todos los drones. Lo que se comparte es el método de observar, justificar un cambio pequeño y verificar su resultado."
+        }
+      ]
+    },
+    {
+      "title": "Una pantalla útil para el ensamblador",
+      "blocks": [
+        {
+          "type": "case",
+          "title": "USB funciona, un motor no",
+          "problem": "La FC conecta por USB pero un motor no se mueve. ¿Se demuestra un fallo del firmware?",
+          "answer": "No. USB puede alimentar la FC sin alimentar la etapa del motor. Se revisan por separado energía del ESC, conexión de señal y configuración; la prueba de motores se realizará en el banco preparado, sin hélices."
+        },
+        {
+          "type": "p",
+          "text": "La sesión siguiente completa la puesta en marcha con salidas, sentidos, comprobaciones de enlace y un modelo sencillo de control. La prioridad sigue siendo ensamblar con criterio. No se dedica el tiempo principal a ajustar ganancias avanzadas antes de demostrar que la orientación, los canales y las salidas coinciden con el objeto."
+        },
+        {
+          "type": "table",
+          "title": "Investigación dirigida",
+          "headers": [
+            "Tema",
+            "Qué debe encontrar el alumno"
+          ],
+          "rows": [
+            [
+              "Aplicación compatible",
+              "Referencia oficial para la versión del caso"
+            ],
+            [
+              "Target",
+              "Identificador de la placa exacta"
+            ],
+            [
+              "Una función de un puerto",
+              "Relación con el cableado"
+            ],
+            [
+              "Un mensaje de estado",
+              "Condición que expresa"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las capturas del manual son referencias de lectura. Antes de impartir la clase, Gerard prepara su propia captura del banco y completa la ficha de versiones. El material permite hacerlo sin cambiar la secuencia docente ni prometer una compatibilidad aún no comprobada."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Distinguir la aplicación de lo que se ejecuta en la FC.",
+    "Mostrar conexión e identificación antes de cualquier modificación.",
+    "Relacionar ejes, canales y puertos con tres pruebas independientes.",
+    "Resolver una discrepancia preparada y conservar el estado anterior."
+  ],
+  "qas": [
+    [
+      "¿Conectar obliga a reinstalar firmware?",
+      "No. Primero se identifica y se inspecciona la configuración existente."
+    ],
+    [
+      "¿El modelo 3D demuestra que el dron está listo para vuelo?",
+      "No. Solo apoya una comprobación de orientación y sensores bajo las condiciones observadas."
+    ],
+    [
+      "¿Un respaldo se copia a cualquier FC?",
+      "No. Debe corresponder a placa, target, versión y hardware revisados."
+    ]
+  ],
+  "delivery": "Ficha de versiones, respaldo identificado y configuración comentada con tres comprobaciones.",
+  "refs": [
+    "APP",
+    "INSTALL",
+    "SETUP",
+    "PORTS",
+    "RX",
+    "CLI"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Distinguir la aplicación de lo que se ejecuta en la FC.",
+  "references": {
+    "APP": [
+      "Betaflight",
+      "Betaflight App: acceso y compatibilidad",
+      "https://betaflight.com/docs/wiki/app"
+    ],
+    "INSTALL": [
+      "Betaflight",
+      "Firmware Installation",
+      "https://betaflight.com/docs/wiki/getting-started/firmware-installation"
+    ],
+    "SETUP": [
+      "Betaflight",
+      "Setup Tab",
+      "https://betaflight.com/docs/wiki/app/setup-tab"
+    ],
+    "PORTS": [
+      "Betaflight",
+      "Ports Tab",
+      "https://betaflight.com/docs/wiki/app/ports-tab"
+    ],
+    "RX": [
+      "Betaflight",
+      "Receiver Tab",
+      "https://betaflight.com/docs/wiki/app/receiver-tab"
+    ],
+    "CLI": [
+      "Betaflight",
+      "Command Line Interface",
+      "https://betaflight.com/docs/wiki/guides/current/Cli"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

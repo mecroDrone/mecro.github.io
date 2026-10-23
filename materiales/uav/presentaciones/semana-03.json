@@ -1,0 +1,587 @@
+{
+  "week": 3,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Betaflight: conectar, respaldar y relacionar pantalla con hardware",
+        "MECRO   SEMANA 3   CLASE 05   01/24",
+        "Interpretar una configuración Betaflight a partir de la placa, el receptor y las conexiones del banco.",
+        "La configuración se enseña como una descripción comprobable del ensamblaje y se conserva antes de modificarla.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-03-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Aplicación, firmware y placa son tres cosas",
+        "MECRO   SEMANA 3   CLASE 05   02/24",
+        "Betaflight Firmware se ejecuta en la controladora; Betaflight App permite inspeccionar y configurar sus opciones. La aplicación se conocía como Configurator y la documentación actual ofrece acceso para PC desde app.betaflight.com. Una versión de aplicación debe ser compatible con la versión de firmware del equipo. El curso registra ambas, junto con placa y target, para que las capturas y la demostración se puedan entender después."
+      ],
+      "image": "assets/slide-03-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Aplicación, firmware y placa son tres cosas",
+        "MECRO   SEMANA 3   CLASE 05   03/24",
+        "Aplicación y firmware son distintos. ¿Qué versiones y target debes registrar?",
+        "Pantalla de la aplicación en la documentación oficial. El aspecto y las funciones pueden variar con la versión utilizada en clase."
+      ],
+      "image": "assets/slide-03-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · Aplicación, firmware y placa son tres cosas",
+        "MECRO   SEMANA 3   CLASE 05   04/24",
+        "Conectar una placa por USB no obliga a reinstalar firmware. El primer trabajo es identificar y observar la configuración existente. Cambiar el target por el nombre genérico del procesador puede dejar funciones sin correspondencia con el hardware. Las placas de MECRO se preparan antes de la cohorte: modelo, revisión, firmware, aplicación compatible y copia de configuración. Los campos exactos se completan con el equipo real, sin adivinarlos a partir de “F405”.",
+        "",
+        "Para estudiar sin controladora, el alumno utiliza las capturas, el manual y el expediente del caso. La práctica de observar canales o sensores reales se muestra con el equipo docente. La aplicación abierta sin hardware no simula la física del multirrotor."
+      ],
+      "image": "assets/slide-03-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Conexión USB y respaldo que se puede identificar",
+        "MECRO   SEMANA 3   CLASE 05   05/24",
+        "Las tres consultas se leen como herramientas de identificación y diagnóstico; no se incluyen órdenes para borrar configuración ni scripts de otra aeronave. El respaldo contiene valores de una combinación concreta. No se restaura sin revisar sobre otra placa o versión. Si se necesitara reinstalar, el docente consulta el procedimiento oficial y confirma el target antes de la actividad; no se convierte cada conexión inicial en un ejercicio de flasheo."
+      ],
+      "image": "assets/slide-03-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Consultas de lectura en la CLI de Betaflight",
+        "MECRO   SEMANA 3   CLASE 05   06/24",
+        "version",
+        "status",
+        "diff all",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-03-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "El archivo que perdió su identidad",
+        "MECRO   SEMANA 3   CLASE 05   07/24",
+        "Un estudiante guarda “config_final.txt” sin placa ni versión. ¿Qué falta?",
+        "Un nombre y una ficha que relacionen el archivo con equipo, firmware, aplicación y fecha. Sin esa identidad no se sabe a qué hardware ni a qué estado corresponde."
+      ],
+      "image": "assets/slide-03-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Orientación de la placa y referencia de ejes",
+        "MECRO   SEMANA 3   CLASE 05   08/24",
+        "La controladora interpreta movimientos en sus ejes. La orientación física y el ajuste de montaje deben corresponder a la aeronave. El docente muestra un movimiento lento del bastidor y la respuesta del modelo 3D. Se compara inclinación hacia delante, lateral y giro, uno por vez. La vista sirve para comprobar coherencia de la orientación estimada; no constituye una prueba de que el dron vuele ni de que los motores estén bien asignados."
+      ],
+      "image": "assets/slide-03-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Comprobaciones independientes",
+        "MECRO   SEMANA 3   CLASE 05   09/24",
+        "Acción del docente",
+        "Qué se observa",
+        "Qué todavía no demuestra",
+        "Inclinar hacia delante",
+        "Modelo responde con sentido coherente",
+        "Empuje o orden de motores",
+        "Inclinar lateralmente",
+        "Ejes y orientación",
+        "Sintonía de control",
+        "Girar sobre mesa",
+        "Representación correspondiente",
+        "Navegación GPS completa"
+      ],
+      "image": "assets/slide-03-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Interpretación · Orientación de la placa y referencia de ejes",
+        "MECRO   SEMANA 3   CLASE 05   10/24",
+        "Si la flecha de la FC apunta a otro lado, no se compensa corrigiendo el mapa del receptor al azar. Cada transformación tiene un lugar: montaje de sensor, entrada de mando y asignación de salidas. El expediente anota dónde se definió la orientación. Cambiar varias a la vez puede ocultar el origen del problema y producir una configuración difícil de revisar.",
+        "",
+        "El acelerómetro y el giróscopo observan magnitudes diferentes. La calibración se realiza con el método requerido por firmware y equipo. El curso introduce qué referencia se está corrigiendo; no promete eliminar todas las vibraciones o errores mediante un solo botón."
+      ],
+      "image": "assets/slide-03-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Receptor, canales y modos de operación",
+        "MECRO   SEMANA 3   CLASE 05   11/24",
+        "La tabla de puertos de la clase anterior explica por dónde llega el receptor. En la pestaña correspondiente se comprueba que cada control humano mueva el canal previsto y que los interruptores tengan una función documentada. Si el mando lateral altera otro canal, se investiga la asignación. No basta observar que varias barras se mueven."
+      ],
+      "image": "assets/slide-03-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Receptor, canales y modos de operación",
+        "MECRO   SEMANA 3   CLASE 05   12/24",
+        "Mueve un control por vez. ¿Cómo sabes que llega al canal previsto?",
+        "Pestaña Receiver del manual Betaflight. Los valores son los de la captura documental, no una calibración del equipo MECRO."
+      ],
+      "image": "assets/slide-03-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Pruebas del mando",
+        "MECRO   SEMANA 3   CLASE 05   13/24",
+        "Acción",
+        "Evidencia",
+        "Decisión",
+        "Mover un eje por vez",
+        "Canal y sentido",
+        "Conservar o corregir mapa",
+        "Volver al centro",
+        "Valor y dispersión",
+        "Revisar referencia",
+        "Accionar interruptor",
+        "Rango y función",
+        "Modo previsto identificado",
+        "Estado de enlace preparado",
+        "Indicación de recepción",
+        "Contrastar con failsafe"
+      ],
+      "image": "assets/slide-03-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio de configuración comentada",
+        "MECRO   SEMANA 3   CLASE 05   14/24",
+        "La clase alterna demostración y lectura individual de capturas. El estudiante no necesita una FC propia para explicar el caso, pero declara si observó el equipo del docente o ejecutó una comprobación en su propio hardware. Las evidencias se guardan con nombre de versión. Así una captura posterior puede compararse con el estado anterior sin depender de la memoria del operador."
+      ],
+      "image": "assets/slide-03-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 3   CLASE 05   15/24",
+        "¿El modelo 3D demuestra que el dron está listo para vuelo?",
+        "Los alumnos con hardware propio solo realizan cambios después de identificar placa y configuración. Durante la demostración no se distribuye un archivo universal para todos los drones. Lo que se comparte es el método de observar, justificar un cambio pequeño y verificar su resultado."
+      ],
+      "image": "assets/slide-03-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio de configuración comentada",
+        "MECRO   SEMANA 3   CLASE 05   16/24",
+        "1. Completa la ficha de equipo con versión, target y aplicación del caso mostrado.",
+        "2. Conserva una copia previa y explica para qué serviría.",
+        "3. Relaciona una línea del esquema con una asignación de puerto.",
+        "4. Describe la respuesta esperada del modelo 3D en tres movimientos lentos.",
+        "5. Relaciona tres controles de la radio con sus canales y funciones.",
+        "6. Localiza una discrepancia preparada: puerto, mapa de canales u orientación. Formula una comprobación por vez.",
+        "7. Entrega una configuración comentada: qué describe cada evidencia y qué no fue probado."
+      ],
+      "image": "assets/slide-03-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Una pantalla útil para el ensamblador",
+        "MECRO   SEMANA 3   CLASE 05   17/24",
+        "La sesión siguiente completa la puesta en marcha con salidas, sentidos, comprobaciones de enlace y un modelo sencillo de control. La prioridad sigue siendo ensamblar con criterio. No se dedica el tiempo principal a ajustar ganancias avanzadas antes de demostrar que la orientación, los canales y las salidas coinciden con el objeto."
+      ],
+      "image": "assets/slide-03-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Investigación dirigida",
+        "MECRO   SEMANA 3   CLASE 05   18/24",
+        "Tema",
+        "Qué debe encontrar el alumno",
+        "Aplicación compatible",
+        "Referencia oficial para la versión del caso",
+        "Target",
+        "Identificador de la placa exacta",
+        "Una función de un puerto",
+        "Relación con el cableado",
+        "Un mensaje de estado",
+        "Condición que expresa"
+      ],
+      "image": "assets/slide-03-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "USB funciona, un motor no",
+        "MECRO   SEMANA 3   CLASE 05   19/24",
+        "La FC conecta por USB pero un motor no se mueve. ¿Se demuestra un fallo del firmware?",
+        "No. USB puede alimentar la FC sin alimentar la etapa del motor. Se revisan por separado energía del ESC, conexión de señal y configuración; la prueba de motores se realizará en el banco preparado, sin hélices."
+      ],
+      "image": "assets/slide-03-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 3   CLASE 05   20/24",
+        "1. Distinguir la aplicación de lo que se ejecuta en la FC.",
+        "",
+        "2. Mostrar conexión e identificación antes de cualquier modificación.",
+        "",
+        "3. Relacionar ejes, canales y puertos con tres pruebas independientes.",
+        "",
+        "4. Resolver una discrepancia preparada y conservar el estado anterior."
+      ],
+      "image": "assets/slide-03-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión de ensamblaje",
+        "MECRO   SEMANA 3   CLASE 05   21/24",
+        "La configuración se enseña como una descripción comprobable del ensamblaje y se conserva antes de modificarla.",
+        "Explica una decisión con una pieza, el esquema o un dato. ¿Qué falta comprobar?"
+      ],
+      "image": "assets/slide-03-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 3   CLASE 05   22/24",
+        "1. ¿Conectar obliga a reinstalar firmware?",
+        "",
+        "2. ¿El modelo 3D demuestra que el dron está listo para vuelo?",
+        "",
+        "3. ¿Un respaldo se copia a cualquier FC?"
+      ],
+      "image": "assets/slide-03-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 3   CLASE 05   23/24",
+        "1. No. Primero se identifica y se inspecciona la configuración existente.",
+        "",
+        "2. No. Solo apoya una comprobación de orientación y sensores bajo las condiciones observadas.",
+        "",
+        "3. No. Debe corresponder a placa, target, versión y hardware revisados."
+      ],
+      "image": "assets/slide-03-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 3   CLASE 05   24/24",
+        "Ficha de versiones, respaldo identificado y configuración comentada con tres comprobaciones.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-03-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Motores, control y comprobaciones antes del taller",
+        "MECRO   SEMANA 3   CLASE 06   01/24",
+        "Distinguir número, sentido y hélice de cada motor y explicar las comprobaciones de un sistema de control.",
+        "Una aeronave se prepara comprobando correspondencias entre el objeto, la configuración y la respuesta esperada.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-03-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Tres preguntas por motor",
+        "MECRO   SEMANA 3   CLASE 06   02/24",
+        "Qué motor se activa, en qué sentido gira y qué hélice le corresponde son tres preguntas distintas. Corregir una no demuestra las otras. La geometría de un quad y su sistema de control usan una asignación de salidas; el número de motor se interpreta según firmware y configuración. Por eso se conserva el esquema que pertenece al equipo mostrado y se marca su frente antes de comparar."
+      ],
+      "image": "assets/slide-03-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Tres preguntas por motor",
+        "MECRO   SEMANA 3   CLASE 06   03/24",
+        "Separa número, sentido y hélice. ¿Qué necesitas observar en cada prueba?",
+        "Referencia Betaflight de sentidos de giro. Se interpreta junto con el mezclador y la configuración reales; no sustituye la identificación de cada salida."
+      ],
+      "image": "assets/slide-03-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Pruebas que se mantienen separadas",
+        "MECRO   SEMANA 3   CLASE 06   04/24",
+        "Pregunta",
+        "Evidencia",
+        "Condición de banco",
+        "¿Cuál se activa?",
+        "Salida y posición observadas",
+        "Prueba del docente sin hélices",
+        "¿En qué sentido gira?",
+        "Sentido de ese motor",
+        "Comprobación individual",
+        "¿Qué hélice corresponde?",
+        "Forma, orientación y sentido",
+        "Revisión con energía desconectada"
+      ],
+      "image": "assets/slide-03-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "ESC, protocolo y prueba de salidas",
+        "MECRO   SEMANA 3   CLASE 06   05/24",
+        "El ESC interpreta órdenes del controlador y gobierna la conmutación del motor. PWM analógico y DShot no se configuran como si fueran el mismo protocolo. Los endpoints de un sistema analógico pueden necesitar el procedimiento correspondiente; no se aplica automáticamente una calibración de gas analógica a DShot. La disponibilidad de telemetría también depende del firmware y hardware del ESC."
+      ],
+      "image": "assets/slide-03-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "ESC, protocolo y prueba de salidas",
+        "MECRO   SEMANA 3   CLASE 06   06/24",
+        "La prueba del banco se hace sin hélices. ¿Qué correspondencia comprobará el docente?",
+        "Pestaña Motors de Betaflight. Captura oficial de referencia; las pruebas físicas requieren el equipo identificado y las hélices retiradas."
+      ],
+      "image": "assets/slide-03-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Una opción y una observación",
+        "MECRO   SEMANA 3   CLASE 06   07/24",
+        "Se cambió “dirección invertida” en el mezclador. ¿Podemos afirmar que todos los motores físicos invirtieron su giro?",
+        "No. La opción y el giro observado pertenecen a comprobaciones relacionadas, pero distintas. Debe verificarse cada motor y conservar la correspondencia con el esquema."
+      ],
+      "image": "assets/slide-03-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Control: referencia, medición y corrección",
+        "MECRO   SEMANA 3   CLASE 06   08/24",
+        "Un sistema de control compara una referencia con una medición o estimación y genera una acción. En un quad, la IMU aporta información de movimiento; el firmware organiza la estabilización y distribuye las órdenes entre motores. Este curso enseña a reconocer esa cadena y a identificar errores de montaje que la contradicen. No pretende diseñar un autopiloto desde cero dentro de ocho sesiones."
+      ],
+      "image": "assets/slide-03-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Qué aporta cada término",
+        "MECRO   SEMANA 3   CLASE 06   09/24",
+        "Término",
+        "Idea introductoria",
+        "Qué revisar",
+        "P",
+        "Respuesta al error presente",
+        "Signo y ganancia",
+        "I",
+        "Acumulación del error en el tiempo",
+        "Saturación y condición de uso",
+        "D",
+        "Respuesta al cambio de una variable",
+        "Ruido y filtrado"
+      ],
+      "image": "assets/slide-03-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Una corrección con unidades",
+        "MECRO   SEMANA 3   CLASE 06   10/24",
+        "El error es 2° y la acción es 4 unidades. El signo físico depende de la convención y de cómo se asignen las salidas. No se traducen esas unidades directamente a un porcentaje de motor.",
+        "Ejemplo proporcional de aula. Las unidades y el signo deben declararse. No es la ecuación completa del controlador implementado en Betaflight o ArduPilot."
+      ],
+      "image": "assets/slide-03-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "El mismo principio en el dron con autopiloto",
+        "MECRO   SEMANA 3   CLASE 06   11/24",
+        "Pixhawk describe una familia de hardware; ArduCopter es el firmware para multirrotores de ArduPilot; Mission Planner es la estación de tierra utilizada para configuración y observación. El equipo grande del curso muestra cómo se añaden módulo de potencia, GPS, brújula y telemetría según sus componentes. No todas las placas o versiones tienen las mismas conexiones ni funciones."
+      ],
+      "image": "assets/slide-03-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "El mismo principio en el dron con autopiloto",
+        "MECRO   SEMANA 3   CLASE 06   12/24",
+        "Marca el frente y lee esta convención. ¿Por qué no copiar el orden de otro firmware?",
+        "Esquema QUAD X de ArduPilot. Frente, números y letras de prueba se leen en esta referencia, sin copiar la numeración de Betaflight."
+      ],
+      "image": "assets/slide-03-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Interpretación · El mismo principio en el dron con autopiloto",
+        "MECRO   SEMANA 3   CLASE 06   13/24",
+        "Se presenta el esquema de ArduPilot y se contrasta con el equipo pequeño. El principio es común: sensor orientado, mando interpretado y salidas correspondientes. La numeración y los parámetros cambian. Se consultan también selección de bastidor, calibraciones y estado previo al armado del equipo real; los mensajes de condición se investigan en lugar de ocultarlos para que la demostración continúe."
+      ],
+      "image": "assets/slide-03-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Enlace perdido y decisiones de configuración",
+        "MECRO   SEMANA 3   CLASE 06   14/24",
+        "La respuesta a una pérdida de mando se define por el sistema y por la operación. El receptor y la controladora deben comunicar esa condición de forma coherente. Una recepción que conserva valores aparentemente normales puede ocultar el problema a la FC. Se consulta el manual de la combinación y se comprueba la condición en el banco preparado, sin hélices y sin trasladarla a un ensayo de pérdida de enlace en vuelo."
+      ],
+      "image": "assets/slide-03-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Revisión antes de los presenciales",
+        "MECRO   SEMANA 3   CLASE 06   15/24",
+        "Elemento",
+        "Qué debe quedar identificado",
+        "Armado / desarmado",
+        "Control y estado del sistema",
+        "Canales y modos",
+        "Asignación y respuesta previstas",
+        "Ausencia de enlace",
+        "Indicación y comportamiento documentados",
+        "Energía y batería",
+        "Configuración y medida coherentes",
+        "Salidas",
+        "Motor, posición y sentido registrados"
+      ],
+      "image": "assets/slide-03-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Enlace perdido y decisiones de configuración",
+        "MECRO   SEMANA 3   CLASE 06   16/24",
+        "1. Completa la tabla de motores desde el esquema específico.",
+        "",
+        "2. Explica una discrepancia entre salida y posición, y otra entre sentido y hélice.",
+        "",
+        "3. Distingue la prueba de enlace de la prueba de motores.",
+        "",
+        "4. Resuelve la acción proporcional del caso y relaciona error de ejes con respuesta equivocada.",
+        "",
+        "5. Prepara las preguntas que observarás en el taller de ensamblaje."
+      ],
+      "image": "assets/slide-03-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Qué se simula y qué se comprueba en el objeto",
+        "MECRO   SEMANA 3   CLASE 06   17/24",
+        "Mission Planner puede utilizar SITL, una simulación de software de ArduPilot. Sirve para observar estados y explorar una misión de ejemplo sin usar una aeronave física. El modelo y la versión de simulación también se registran: la documentación indica que esta ruta puede utilizar código de desarrollo. Sus resultados no prueban la calidad de una soldadura, la alimentación o la respuesta de un ESC del dron real."
+      ],
+      "image": "assets/slide-03-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Herramienta y evidencia",
+        "MECRO   SEMANA 3   CLASE 06   18/24",
+        "Recurso",
+        "Qué permite estudiar",
+        "Qué se comprueba aparte",
+        "Betaflight App",
+        "Configuración y estado de una FC",
+        "Dinámica real y montaje",
+        "SITL + Mission Planner",
+        "Comportamiento del modelo de software",
+        "Hardware y entorno físico",
+        "Banco sin hélices",
+        "Conexiones y correspondencias observadas",
+        "Vuelo del conjunto",
+        "Demostración de vuelo",
+        "Comportamiento observado en ese caso",
+        "Otras condiciones no ensayadas"
+      ],
+      "image": "assets/slide-03-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Interpretación · Qué se simula y qué se comprueba en el objeto",
+        "MECRO   SEMANA 3   CLASE 06   19/24",
+        "La simulación es una extensión guiada y se prepara antes de clase. El docente conserva un caso funcional y una alternativa de capturas si una descarga falla. La ruta principal no depende de que veinticinco alumnos instalen y solucionen simultáneamente un entorno nuevo durante la demostración. El siguiente bloque se concentra en el ensamblaje visible de los equipos de MECRO."
+      ],
+      "image": "assets/slide-03-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 3   CLASE 06   20/24",
+        "1. Distinguir motor activado, giro y hélice antes de la prueba.",
+        "",
+        "2. Mostrar una pantalla Motors y explicar sus correspondencias físicas.",
+        "",
+        "3. Resolver el ejemplo de error y acción proporcional.",
+        "",
+        "4. Contrastar Betaflight, ArduPilot y SITL sin mezclar sus evidencias."
+      ],
+      "image": "assets/slide-03-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión de ensamblaje",
+        "MECRO   SEMANA 3   CLASE 06   21/24",
+        "Una aeronave se prepara comprobando correspondencias entre el objeto, la configuración y la respuesta esperada.",
+        "Explica una decisión con una pieza, el esquema o un dato. ¿Qué falta comprobar?"
+      ],
+      "image": "assets/slide-03-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 3   CLASE 06   22/24",
+        "1. ¿Se copia el orden de motores entre firmwares?",
+        "",
+        "2. ¿DShot exige por defecto la calibración analógica del gas?",
+        "",
+        "3. ¿Una simulación valida una soldadura?"
+      ],
+      "image": "assets/slide-03-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 3   CLASE 06   23/24",
+        "1. No. Se comprueba el esquema, el bastidor y la configuración de cada uno.",
+        "",
+        "2. No. Se sigue el procedimiento específico del protocolo y ESC compatibles.",
+        "",
+        "3. No. El hardware requiere sus propias comprobaciones."
+      ],
+      "image": "assets/slide-03-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 3   CLASE 06   24/24",
+        "Tabla de motores y modos, caso de control resuelto y plan de comprobaciones.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-03-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-03.pdf",
+  "ppt": "descargas/MECRO_Drones_Semana_03.pptx"
+}

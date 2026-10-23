@@ -1,0 +1,361 @@
+{
+  "n": 5,
+  "week": 3,
+  "title": "Impresión 3D para narices, aletas y útiles",
+  "goal": "Preparar una pieza para imprimir, revisar su orientación y distinguir aspecto exterior de ajuste funcional.",
+  "mission": "Fabricar prototipos repetibles con el tiempo y los equipos disponibles.",
+  "pages": [
+    {
+      "title": "De un archivo bonito a una pieza útil",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El archivo CAD define la geometría. El laminador la transforma en capas y trayectorias para una impresora concreta. La pieza física añade variaciones de dimensiones y de acabado. Por eso conservaremos el CAD, el proyecto del laminador y el identificador de la impresión. Un archivo STL por sí solo no explica cómo se fabricó la pieza."
+        },
+        {
+          "type": "image",
+          "name": "print_layers",
+          "caption": "Prusa Research: capas visibles con distintas alturas. Es una comparación de impresión, no de rendimiento de vuelo.",
+          "width": 120
+        },
+        {
+          "type": "table",
+          "title": "Archivos con funciones diferentes",
+          "headers": [
+            "Archivo o registro",
+            "Para qué sirve"
+          ],
+          "rows": [
+            [
+              "CAD editable",
+              "Cambiar cotas y relaciones"
+            ],
+            [
+              "STL u otro formato de malla",
+              "Compartir la geometría exterior"
+            ],
+            [
+              "Proyecto del laminador",
+              "Conservar orientación y perfil"
+            ],
+            [
+              "Registro de impresión",
+              "Relacionar máquina, material y pieza"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En esta clase usaremos una nariz, una muestra de encaje o un útil. Las piezas relacionadas con el motor comercial se resuelven con componentes y documentación apropiados al conjunto. La impresión de aula no reemplaza esos requisitos."
+        },
+        {
+          "type": "p",
+          "text": "En impresión por filamento, la pieza se forma mediante trayectorias sucesivas de material. El modelo CAD describe la geometría; el laminador decide cómo convertirla en capas y recorridos. Una superficie inclinada puede quedar escalonada y una cavidad puede necesitar una estrategia que permita fabricarla. Mirar la pieza desde el lado de la cama ayuda a anticipar qué superficies se apoyarán, cuáles quedarán libres y dónde habrá que retirar material auxiliar."
+        }
+      ]
+    },
+    {
+      "title": "La orientación cambia lo que se fabrica",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "print_orient",
+          "caption": "Prusa Research: el mismo tipo de superficie muestra distinto escalonado según su orientación.",
+          "width": 125
+        },
+        {
+          "type": "p",
+          "text": "Al apilar capas se forma una pieza con direcciones de fabricación reconocibles. Una zona inclinada puede mostrar escalones. Un saliente puede necesitar apoyo. La orientación también determina qué superficies quedan contra la cama y dónde aparecen marcas al retirar soportes. Esos detalles importan si la superficie debe encajar o servir de referencia."
+        },
+        {
+          "type": "table",
+          "title": "Antes de elegir la orientación",
+          "headers": [
+            "Zona de la pieza",
+            "Qué observar en el laminador"
+          ],
+          "rows": [
+            [
+              "Hombro de nariz",
+              "Superficie que debe entrar en el tubo"
+            ],
+            [
+              "Raíz de aleta",
+              "Continuidad y orientación de capas"
+            ],
+            [
+              "Útil de montaje",
+              "Superficies que fijan posición"
+            ],
+            [
+              "Punta o borde fino",
+              "Trayectorias que realmente se generan"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "No se propone una orientación universal para todas las narices o aletas. El equipo debe justificarla según la pieza y verificar el resultado. Una orientación que mejora un acabado puede empeorar el apoyo o la zona que recibe esfuerzos. [PR1]"
+        },
+        {
+          "type": "p",
+          "text": "Cambiar la orientación modifica la forma de construir la misma geometría. También puede modificar la calidad de una abertura, el acabado de una cara y la necesidad de soportes. En una nariz interesa revisar su base y su interfaz con el tubo. En un útil interesa que las superficies de referencia conserven su función. Se comparan pequeñas muestras porque la orientación visualmente más cómoda no siempre produce el mejor encaje. La decisión se conserva junto al perfil que la hizo posible."
+        }
+      ]
+    },
+    {
+      "title": "Paredes, relleno y masa",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "print_perimeters",
+          "caption": "Prusa Research: los perímetros forman las paredes exteriores. La imagen es una referencia del laminador.",
+          "width": 135
+        },
+        {
+          "type": "p",
+          "text": "Los perímetros recorren el contorno. El relleno ocupa parte de las zonas interiores que el modelo y el perfil permiten rellenar. En una pieza hueca, agregar relleno no sustituye una pared mal dibujada. En una pieza maciza puede aumentar masa y tiempo sin resolver el problema que realmente teníamos. La vista por capas permite ver qué está pasando."
+        },
+        {
+          "type": "case",
+          "title": "Dos perfiles del mismo útil",
+          "problem": "Ejercicio: perfil A estima 18 g y 55 min; perfil B estima 24 g y 78 min. El equipo solo necesita que el útil conserve la posición en un montaje de banco.",
+          "answer": "Hay 6 g y 23 min de diferencia por pieza. La decisión exige comprobar la función del útil. No se puede declarar B superior solo por usar más material. Las cifras del laminador son estimaciones hasta que se fabrica y registra el resultado."
+        },
+        {
+          "type": "p",
+          "text": "No fijamos aquí porcentajes o espesores universales de impresión para piezas de vuelo. Trabajamos con el perfil compatible con la impresora y la pieza, revisado por el docente. Se comparan dos cambios identificados y una función verificable. [PR2]"
+        },
+        {
+          "type": "p",
+          "text": "Al importar una malla, comprueba una dimensión conocida antes de tocar el perfil. Un error de escala puede convertir una pieza pequeña en otra mucho mayor sin cambiar su aspecto en pantalla. El contorno sigue siendo parecido y por eso el error pasa desapercibido. La lectura de una longitud de referencia y de la unidad evita perder una tanda completa de impresión. Guarda el archivo original y documenta cualquier conversión realizada."
+        }
+      ]
+    },
+    {
+      "title": "Práctica en el laminador",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Importa la muestra de encaje o el útil aprobado por el docente. Comprueba las dimensiones generales antes de escalar.",
+            "Coloca la orientación propuesta y revisa si necesita apoyos. Observa la superficie que debe quedar funcional.",
+            "Usa el perfil de máquina y material del taller. Guarda una primera versión del proyecto del laminador.",
+            "Recorre las capas y busca paredes ausentes, zonas desconectadas o bordes que no se imprimen como esperabas.",
+            "Registra tiempo y masa estimados. Prepara una segunda versión cambiando una sola decisión de fabricación.",
+            "Entrega ambas vistas por capas y explica qué verificarás en la pieza física."
+          ]
+        },
+        {
+          "type": "image",
+          "name": "print_overhang",
+          "caption": "Prusa Research: el comportamiento de salientes y apoyos afecta el acabado. La fotografía ayuda a revisar la superficie funcional.",
+          "width": 100
+        },
+        {
+          "type": "p",
+          "text": "Si una pared desaparece en la vista por capas, revisa el modelo y el perfil antes de imprimir. Ver la silueta exterior completa no garantiza que se vayan a depositar todas las trayectorias necesarias."
+        },
+        {
+          "type": "p",
+          "text": "La vista por capas permite comprobar que la máquina realmente fabricará los detalles que dibujaste. Una pared muy fina puede desaparecer o convertirse en una trayectoria distinta de la esperada. Antes de imprimir, recorre el inicio, una zona intermedia y el cierre de la pieza. Busca continuidad de paredes y apoyos. El tiempo y la masa estimados sirven para organizar el trabajo, mientras la pieza física permite comprobar dimensiones y función."
+        }
+      ]
+    },
+    {
+      "title": "Organizar la cola de impresión del curso",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una impresora es un recurso compartido. Para seis equipos conviene imprimir primero muestras cortas que respondan una pregunta: encaje, borde o alineación. Las piezas completas llegan después de esa revisión. El tiempo de clase no tiene que consumirse esperando una impresión que nadie comprobó en pantalla."
+        },
+        {
+          "type": "table",
+          "title": "Orden de trabajo propuesto",
+          "headers": [
+            "Prioridad",
+            "Pieza",
+            "Motivo"
+          ],
+          "rows": [
+            [
+              "1",
+              "Muestra corta de encaje",
+              "Evitar repetir una nariz completa"
+            ],
+            [
+              "2",
+              "Muestra de raíz o útil",
+              "Comprobar referencia y posición"
+            ],
+            [
+              "3",
+              "Pieza completa revisada",
+              "Fabricar con decisiones registradas"
+            ],
+            [
+              "4",
+              "Repuesto identificado",
+              "Preparar continuidad del taller"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Planificar una tanda",
+          "problem": "Ejercicio: seis muestras de 8 min requieren al menos 48 min de impresión. Si cada nariz completa requiere 50 min, seis narices requieren al menos 300 min, sin cambios ni incidencias.",
+          "answer": "La muestra puede ahorrar una repetición larga, pero no elimina preparación ni revisión. El docente reserva tiempo de máquina fuera de las horas lectivas y conserva material de contingencia."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Nombra la solicitud con equipo, pieza y revisión.",
+            "Incluye el material y la función que debe comprobarse.",
+            "Añade tiempo estimado y la fecha en que se necesita la pieza.",
+            "Después de fabricar, pesa, mide y registra el resultado sin sustituirlo por la estimación del laminador."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El tiempo estimado de una tanda tampoco incluye necesariamente preparación, enfriamiento, retirada y revisión. La cola del curso debe reservar esas tareas y contemplar la repetición de una muestra. Si el docente necesita comparar orientaciones, identifica cuál corresponde a cada objeto antes de retirarlos de la máquina. Dos piezas sueltas sin etiqueta pierden buena parte del valor de la prueba, aunque ambas parezcan bien impresas."
+        }
+      ]
+    },
+    {
+      "title": "Aceptar una impresión por su función",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La inspección comienza con la pieza que tenemos: identificación, dimensiones, acabado funcional y defectos visibles. Una superficie bonita puede ocultar una unión entre capas deficiente. Una marca estética puede no afectar un útil de banco. El criterio se define por lo que la pieza debe hacer y por su integración en el conjunto."
+        },
+        {
+          "type": "table",
+          "title": "Decisiones ante un defecto",
+          "headers": [
+            "Observación",
+            "Primer paso razonable"
+          ],
+          "rows": [
+            [
+              "El encaje no entra",
+              "Medir pieza y abertura; revisar borde"
+            ],
+            [
+              "La raíz está deformada",
+              "Comparar con el plano y revisar orientación"
+            ],
+            [
+              "La pared tiene una separación",
+              "Detener aceptación y revisar proceso"
+            ],
+            [
+              "El útil tiene una marca exterior",
+              "Comprobar si altera su referencia funcional"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La revisión no termina con “salió bien”. Se necesita al menos una medida y una prueba ligada a la función. Para el útil, presentar las piezas; para el encaje, probar el tubo identificado. El docente decide la aceptación de las piezas del vehículo con el conjunto completo y las comprobaciones previstas."
+        },
+        {
+          "type": "case",
+          "title": "Conclusión del equipo",
+          "problem": "La muestra pesa 4,2 g cuando el laminador estimó 3,8 g y el encaje observado es correcto.",
+          "answer": "Registra ambas masas con su origen. Conserva el resultado de encaje como evidencia de esa interfaz. No alteres la balanza ni el dato para que coincidan; la diferencia ayuda a mejorar el modelo de fabricación."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Revisar la orientación de una muestra funcional.",
+    "Comparar dos proyectos del laminador cambiando una decisión.",
+    "Preparar la solicitud de impresión con equipo y revisión.",
+    "Definir la medida y prueba de aceptación para el taller."
+  ],
+  "qas": [
+    [
+      "¿Un STL conserva todas las decisiones del laminador?",
+      "No. Hace falta el proyecto del laminador y el perfil utilizado."
+    ],
+    [
+      "¿Más relleno siempre significa mejor pieza?",
+      "No. Debe resolver una función y verificarse en la pieza."
+    ],
+    [
+      "¿La masa estimada reemplaza a la medida?",
+      "No. Se conservan ambas con su procedencia."
+    ]
+  ],
+  "delivery": "Proyecto de laminador, comparación y solicitud de impresión.",
+  "refs": [
+    "PR1",
+    "PR2",
+    "PLA",
+    "PETG"
+  ],
+  "opening": "Muestra una pieza que se ve bien por fuera y una vista por capas con una pared ausente.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "PR1": [
+      "Prusa Research",
+      "Modeling with 3D printing in mind",
+      "https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135"
+    ],
+    "PR2": [
+      "Prusa Research",
+      "Layers and perimeters",
+      "https://help.prusa3d.com/article/layers-and-perimeters_1748"
+    ],
+    "PLA": [
+      "Prusa Research",
+      "PLA",
+      "https://help.prusa3d.com/article/pla_2062"
+    ],
+    "PETG": [
+      "Prusa Research",
+      "PETG",
+      "https://help.prusa3d.com/article/petg_2059"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

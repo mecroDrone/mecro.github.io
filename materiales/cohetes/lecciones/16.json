@@ -1,0 +1,393 @@
+{
+  "n": 16,
+  "week": 8,
+  "title": "Jornada de lanzamiento y revisión del proyecto",
+  "goal": "Participar en una jornada organizada, conservar observaciones y explicar mejoras del cohete construido.",
+  "mission": "Cerrar el aprendizaje con el objeto, sus registros y una comparación honesta con la predicción.",
+  "pages": [
+    {
+      "title": "Un día completo para observar el proyecto",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El encuentro final dura ocho horas e incluye organización, revisión de modelos, una ventana de operaciones y análisis. Los equipos llegan con sus prototipos y expedientes. El responsable decide qué conjuntos y qué condiciones permiten operar. El curso no garantiza un lanzamiento por alumno ni por equipo al margen de esa revisión."
+        },
+        {
+          "type": "table",
+          "title": "Agenda de la jornada",
+          "headers": [
+            "Minutos",
+            "Actividad"
+          ],
+          "rows": [
+            [
+              "0–60",
+              "Organización y revisión del lugar"
+            ],
+            [
+              "60–150",
+              "Revisión de conjuntos y funciones"
+            ],
+            [
+              "150–330",
+              "Ventana de operaciones según condiciones"
+            ],
+            [
+              "330–390",
+              "Pausa y recuperación organizada"
+            ],
+            [
+              "390–480",
+              "Revisión de objetos, datos y conclusiones"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La demostración CanSat utiliza el vehículo del equipo docente y su propio registro. Los modelos pequeños de alumnos mantienen su misión de aprendizaje. Los roles de operación y observación se respetan durante toda la actividad."
+        },
+        {
+          "type": "note",
+          "text": "Los horarios son una pauta de organización y pueden adaptarse a las condiciones reales. Se conserva el motivo de cualquier cambio."
+        },
+        {
+          "type": "p",
+          "text": "Una jornada de curso reúne operación, observación y aprendizaje. La participación del equipo incluye presentar el modelo, explicar sus decisiones y conservar un registro del caso. La operación se realiza bajo la dirección del responsable. Si una condición no permite continuar, el trabajo formativo puede seguir con revisión del objeto y análisis de otros registros. La evaluación conserva el vínculo con las evidencias que cada equipo produjo durante todo el curso."
+        }
+      ]
+    },
+    {
+      "title": "Antes de cada actividad",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El expediente debe corresponder al objeto que se presenta. Si se reemplazó una pieza durante la jornada, el equipo lo indica antes de la siguiente revisión. Los registros necesitan un identificador de caso o intento para distinguir operaciones que usan el mismo nombre de equipo."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Identifica modelo, revisión y caso de la actividad.",
+            "Confirma los roles de observación y registro definidos por la organización.",
+            "Conserva el archivo y la configuración de referencia asociados al objeto.",
+            "Anota cambios y pendientes revisados por el responsable.",
+            "Permanece en la zona y función indicadas para la actividad."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Hoja de caso",
+          "headers": [
+            "Campo",
+            "Contenido"
+          ],
+          "rows": [
+            [
+              "Identificador",
+              "Equipo, modelo y caso"
+            ],
+            [
+              "Configuración",
+              "Revisión y referencia comercial"
+            ],
+            [
+              "Registro",
+              "Archivo de imagen o datos"
+            ],
+            [
+              "Condiciones",
+              "Notas del responsable"
+            ],
+            [
+              "Resultado observable",
+              "Descripción y referencias"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "No se improvisa una solución sobre el componente comercial para aprovechar una ventana de tiempo. Las incidencias se trasladan a la revisión del responsable y quedan registradas."
+        },
+        {
+          "type": "p",
+          "text": "Un identificador de caso une las fotografías, la configuración y las anotaciones. Si el equipo tiene dos versiones parecidas, el color del vehículo puede ser insuficiente para distinguirlas. Se conserva una referencia legible junto al registro y se anota cualquier cambio antes de una nueva actividad. Esa disciplina hace posible revisar después qué objeto se observó y evita atribuir un resultado a una versión que solo existía en el archivo."
+        }
+      ]
+    },
+    {
+      "title": "Observar sin inventar una medición",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "nasa_flight",
+          "caption": "NASA Glenn: fases de un modelo para orientar la observación. La forma de la trayectoria es ilustrativa.",
+          "width": 100
+        },
+        {
+          "type": "p",
+          "text": "El observador puede reconocer salida, subida, recuperación visible y estado de descenso cuando las condiciones permiten verlo. Si pierde el modelo de vista, registra ese hecho. Una observación parcial sigue siendo útil si se conserva su límite."
+        },
+        {
+          "type": "case",
+          "title": "El video no muestra todo",
+          "problem": "La cámara registra la salida, después pierde al cohete y vuelve a mostrar el descenso.",
+          "answer": "Se pueden describir los dos segmentos visibles. No se asigna una altura máxima exacta ni se afirma qué ocurrió en el intervalo ausente. Se buscan otras observaciones identificadas sin rellenar el hueco por apariencia."
+        },
+        {
+          "type": "p",
+          "text": "En el caso docente con CanSat se conservan el registro local y la recepción de tierra cuando estén disponibles. Un dato de ese vehículo no se atribuye a los modelos de alumnos. Cada conclusión debe corresponder a su objeto y su caso."
+        }
+      ]
+    },
+    {
+      "title": "Después de recuperar: inspeccionar el objeto",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La recuperación del conjunto permite observar piezas y conservar evidencia del estado posterior. La organización determina cuándo y cómo se realiza la recuperación. El alumno no persigue un objeto ni accede a un lugar de riesgo por completar la tarea. Una vez autorizado el trabajo sobre el modelo, se identifica y fotografía antes de cambiarlo."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Relaciona el objeto recuperado con su identificador de caso.",
+            "Registra el estado de nariz, cuerpo, aletas y sistema de recuperación.",
+            "Fotografía una diferencia respecto al estado previo, si existe.",
+            "Conserva los archivos o registros de datos que correspondan.",
+            "Consulta al docente antes de reparar o preparar otra actividad."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Qué describir en la inspección",
+          "headers": [
+            "Zona",
+            "Observación concreta"
+          ],
+          "rows": [
+            [
+              "Nariz",
+              "Borde, unión y marcas visibles"
+            ],
+            [
+              "Cuerpo",
+              "Forma, superficie y acceso"
+            ],
+            [
+              "Aletas",
+              "Posición, unión y daños visibles"
+            ],
+            [
+              "Recuperación",
+              "Estado y continuidad de sus partes"
+            ],
+            [
+              "Datos",
+              "Archivo disponible e identificación"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una marca o una rotura no revela por sí sola su causa. Primero se describe dónde está y cómo cambió la pieza. Después se contrasta con video, observaciones y configuración."
+        },
+        {
+          "type": "p",
+          "text": "Antes de reparar conviene relacionar las imágenes del objeto con las del montaje previo. Una marca puede estar presente desde el taller. Sin esa comparación, el equipo podría atribuir al vuelo algo que ocurrió durante fabricación o transporte. El registro anterior no necesita ser elaborado: basta que tenga identificación, contexto y una vista útil de las superficies que se desean revisar."
+        },
+        {
+          "type": "p",
+          "text": "La revisión posterior empieza conservando el estado recibido antes de desmontar o reparar. Se compara con las imágenes del taller y se describen daños, holguras o cambios observables. Después se propone una explicación y se señala qué evidencia la apoya. Una marca nueva puede orientar una investigación, pero no demuestra por sí sola cuándo ni cómo apareció. El informe final debe permitir distinguir la observación directa de la interpretación del equipo."
+        }
+      ]
+    },
+    {
+      "title": "Comparar lo previsto y lo observado",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El informe final distingue tres fuentes: predicción del programa, medición disponible y observación cualitativa. Si el alumno no dispone de un altímetro o de un método de medida revisado, no tiene que inventar un apogeo para completar una tabla. Puede comparar eventos, recuperación y estado de la pieza con un alcance claro."
+        },
+        {
+          "type": "table",
+          "title": "Comparación final del caso",
+          "headers": [
+            "Pregunta",
+            "Predicción o plan",
+            "Evidencia disponible"
+          ],
+          "rows": [
+            [
+              "Fases",
+              "Eventos del modelo",
+              "Video y observación"
+            ],
+            [
+              "Recuperación",
+              "Sistema previsto",
+              "Estado y evento visible"
+            ],
+            [
+              "Altura",
+              "Predicción declarada",
+              "Solo medida si existe"
+            ],
+            [
+              "Pieza",
+              "Estado y función esperados",
+              "Inspección posterior"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Una conclusión útil con pocos datos",
+          "problem": "“No medimos altura, pero registramos la recuperación visible y el estado de las tres aletas. Una unión presenta una diferencia respecto al registro previo”.",
+          "answer": "La conclusión es útil y revisable. Señala qué se sabe y abre una pregunta de mejora sin atribuir causas no observadas."
+        },
+        {
+          "type": "p",
+          "text": "Para el CanSat docente se puede añadir la continuidad del registro y las muestras únicas recibidas. La cuenta se refiere a ese sistema y no certifica por sí sola su exactitud."
+        },
+        {
+          "type": "p",
+          "text": "El informe diferencia una causa propuesta de una causa demostrada. Si una aleta aparece dañada, pueden plantearse hipótesis sobre montaje, transporte, descenso o contacto con el suelo. Se buscan evidencias que permitan distinguirlas y se evita elegir la explicación más llamativa. Una mejora de la siguiente versión puede consistir precisamente en registrar mejor esa zona o hacer una comprobación de banco más clara."
+        }
+      ]
+    },
+    {
+      "title": "Cerrar el proyecto y proponer la siguiente versión",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Evaluación del aprendizaje",
+          "headers": [
+            "Aspecto",
+            "Peso propuesto"
+          ],
+          "rows": [
+            [
+              "Decisiones según misión",
+              "25%"
+            ],
+            [
+              "Modelo digital y representación",
+              "25%"
+            ],
+            [
+              "Fabricación y comprobaciones",
+              "30%"
+            ],
+            [
+              "Explicación con evidencias",
+              "20%"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El aprendizaje no depende únicamente de que el cohete salga en una operación. Un proyecto con un pendiente bien detectado puede demostrar buenas decisiones y comprensión. La evaluación considera el trabajo construido, su representación y la capacidad de explicar qué se comprobó."
+        },
+        {
+          "type": "case",
+          "title": "La próxima versión tiene una razón",
+          "problem": "El equipo propone cambiar la nariz porque la actual se repone con dificultad, o rediseñar el útil porque una referencia fue incómoda durante el montaje.",
+          "answer": "La mejora parte de una experiencia documentada y de la misión. Antes de fabricar de nuevo, se define qué cambiará y cómo se comprobará. Así se cierra un ciclo de diseño, fabricación y revisión."
+        },
+        {
+          "type": "p",
+          "text": "Entrega una ficha final con cinco elementos: fotografía del conjunto, configuración de referencia, observaciones del caso, comparación con lo previsto y una mejora justificada. Conserva los archivos originales. El resultado del curso es poder construir y explicar un primer cohete, con criterio para seguir aprendiendo."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Preparar caso, roles y configuración antes de la ventana de operaciones.",
+    "Registrar únicamente eventos y magnitudes que se puedan sostener.",
+    "Inspeccionar el modelo recuperado según la organización.",
+    "Comparar fuentes y proponer una mejora por equipo."
+  ],
+  "qas": [
+    [
+      "¿Qué se escribe si el video pierde al cohete?",
+      "Se identifica el tramo no observado, sin inventar eventos o alturas."
+    ],
+    [
+      "¿Una marca revela automáticamente su causa?",
+      "No. Se describe y se contrasta con otras evidencias."
+    ],
+    [
+      "¿Qué define una mejora útil?",
+      "Un problema de misión identificado y una forma de comprobar el cambio."
+    ]
+  ],
+  "delivery": "Ficha final del proyecto, archivos conservados y mejora justificada.",
+  "refs": [
+    "NAR",
+    "FL",
+    "ESA",
+    "OR3"
+  ],
+  "opening": "Abre el expediente antes de mostrar el objeto: pide al equipo identificar qué configuración y qué caso va a observar.",
+  "hours": 8,
+  "mode": "Presencial",
+  "references": {
+    "NAR": [
+      "National Association of Rocketry",
+      "Model Rocket Safety Code",
+      "https://www.nar.org/ModelRocketSafetyCode"
+    ],
+    "FL": [
+      "NASA Glenn",
+      "Flight of a Model Rocket",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/flight-of-a-model-rocket/"
+    ],
+    "ESA": [
+      "European Space Agency",
+      "What is a CanSat?",
+      "https://www.esa.int/Education/CanSat/What_is_a_CanSat"
+    ],
+    "OR3": [
+      "OpenRocket",
+      "Advanced Flight Simulation",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/advanced_flight_simulation.html"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

@@ -1,5 +1,7 @@
 node_modules/
 .sites-runtime/
-materiales/
+materiales/*/fuentes/
+materiales/*/descargas/*Guia_Docente*
+materiales/*/descargas/*Diagnostico*
 .course-work/
 dist/

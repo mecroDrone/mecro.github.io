@@ -1,0 +1,320 @@
+{
+  "n": 13,
+  "week": 7,
+  "title": "Mando y control de banco: interpretar el proyecto de vuelo",
+  "goal": "Transformar un joystick a una referencia normalizada y relacionarla con una medida y una acción proporcional declaradas.",
+  "mission": "El flujo mando, estimación y corrección permite comprender la arquitectura de un UAV sin convertir un ejemplo numérico en un controlador de vuelo.",
+  "projects": [
+    17
+  ],
+  "pages": [
+    {
+      "title": "Qué hace el proyecto y cómo lo vamos a usar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El proyecto 17 del laboratorio lee joystick e IMU, calcula una corrección proporcional y muestra números en serie. Es una buena oportunidad para conectar varias ideas del curso, siempre que su nombre y su alcance se expliquen con precisión. La edición docente lo presenta como “Mando e IMU: demostración proporcional de banco”. Las variables impresas como salidas no son una prueba de actuación sobre motores ni una validación de vuelo."
+        },
+        {
+          "type": "image",
+          "name": "proyecto17",
+          "width": 145,
+          "caption": "MECRO, proyecto 17. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+        },
+        {
+          "type": "p",
+          "text": "Primero se separan tres bloques. El mando humano produce una referencia. La medición y su procesamiento producen una estimación. La comparación genera un error con unidad. Después se decide qué acción ilustrativa mostrar o aplicar al banco preparado. Si se mezclan esos bloques en una sola lista de números llamada “controlador”, cuesta detectar si el error proviene del joystick, del sensor, de la escala o del signo."
+        },
+        {
+          "type": "p",
+          "text": "La conexión con drones es conceptual y tangible a la vez: el alumno sostiene el mando y el módulo de sensores, observa sus cambios y explica cómo podría organizarse esa cadena en un sistema más completo. Mantener un propósito de banco permite ensayar hipótesis sin atribuir al ejercicio funciones que no se han desarrollado."
+        }
+      ]
+    },
+    {
+      "title": "Centro, escala y zona muerta del joystick",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un joystick analógico no siempre entrega exactamente 2048 al soltarlo ni recorre de forma simétrica hasta ambos extremos. Se registran centro y extremos útiles de cada eje. La normalización transforma esos valores a una convención, por ejemplo de −1 a 1. Una zona muerta conserva cero ante pequeñas variaciones alrededor del centro. Su tamaño se justifica con el comportamiento observado, no con el deseo de ocultar un montaje inestable."
+        },
+        {
+          "type": "equation",
+          "tex": "x_n=\\begin{cases}\\frac{x-c}{x_{max}-c},&x\\ge c\\\\\\frac{x-c}{c-x_{min}},&x<c\\end{cases}",
+          "text": "Se comprueba que los denominadores sean válidos y se limita el resultado al intervalo de mando previsto.",
+          "image": "assets/eq_13_1_1.png"
+        },
+        {
+          "type": "table",
+          "title": "Datos para una calibración",
+          "headers": [
+            "Dato",
+            "Qué significa",
+            "Qué registrar"
+          ],
+          "rows": [
+            [
+              "Centro c",
+              "Reposo observado",
+              "Valor y dispersión"
+            ],
+            [
+              "Extremos",
+              "Recorrido útil",
+              "Mínimo y máximo"
+            ],
+            [
+              "Zona muerta",
+              "Cambio ignorado",
+              "Criterio y amplitud"
+            ],
+            [
+              "Signo",
+              "Sentido de la referencia",
+              "Convención de ejes"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Centro desplazado",
+          "problem": "Un eje queda en 2150 y la escala fija espera 2048. ¿El mando de referencia será necesariamente cero?",
+          "answer": "No. La calibración o la zona muerta deben representar el centro real y su criterio. No se arregla cambiando el sensor de orientación, porque el origen de esta diferencia está en el mando."
+        }
+      ]
+    },
+    {
+      "title": "Una referencia y una medida comparables",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Para calcular un error angular, referencia y estimación deben compartir unidad y convención. El proyecto original usa una multiplicación de aceleración como aproximación angular. En el curso se sustituye por la estimación cuasiestática explicada en la clase 12 o por un caso numérico de referencia identificado. El alumno señala el punto donde una medida pasa a ser una estimación y qué hipótesis permite interpretarla."
+        },
+        {
+          "type": "equation",
+          "tex": "e_\\phi=\\phi_{ref}-\\widehat\\phi,\\qquad u_P=K_p e_\\phi",
+          "text": "La ganancia relaciona unidades de error y de salida. Aquí se observa una acción proporcional de banco.",
+          "image": "assets/eq_13_2_1.png"
+        },
+        {
+          "type": "case",
+          "title": "Signo de la acción",
+          "problem": "La referencia del caso es 10° y la estimación es 6°. Con Kp = 2 unidades/°, ¿qué acción proporcional resulta?",
+          "answer": "El error es 4° y la acción resulta 8 unidades del mando definido. El signo físico que corrige la desviación depende de la interfaz y del montaje; se comprueba antes de cerrar un lazo real."
+        },
+        {
+          "type": "p",
+          "text": "Un cambio de signo puede producir realimentación positiva si la acción agranda la desviación en lugar de reducirla. Por eso la primera comprobación del banco es pequeña y observable. Un nombre como “roll” no determina por sí solo qué dirección representa el eje. La convención queda dibujada o anotada junto a la pieza."
+        }
+      ]
+    },
+    {
+      "title": "Ordenar el programa por bloques",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Flujo de una iteración de banco",
+          "text": "readCommand();\nreadSensor();\ncheckFreshness();\nif (commandValid && sensorValid) {\n  error = reference - estimate;\n  correction = Kp * error;\n} else {\n  correction = 0;\n}\nlogBenchState();",
+          "short": "readCommand();\nreadSensor();\ncheckFreshness();\nif (commandValid && sensorValid) {\n  error = reference - estimate;\n  correction = Kp * error;\n} else {\n  correction = 0;\n}\nlogBenchState();"
+        },
+        {
+          "type": "p",
+          "text": "Este fragmento es un esquema de organización, no un controlador de vuelo compilable. La referencia concreta c13_mando implementa la normalización y la zona muerta y produce un registro de serie sin salidas de motor. El código c12_imu aporta la lectura y la estimación de banco. El equipo relaciona ambas entradas en su portafolio y conserva las condiciones de validez."
+        },
+        {
+          "type": "p",
+          "text": "El orden del programa y su duración importan. delay(10) no demuestra un periodo exacto de 10 ms: también consumen tiempo las operaciones de adquisición y de registro. La afirmación del sitio sobre una frecuencia mínima universal que haría caer cualquier dron se retira del material docente. La respuesta de un sistema depende de dinámica, estimación, latencias, actuación y diseño del control, no de una única cifra de bucle."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio: mover una cosa cada vez",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Ejecuta c13_mando y conserva un registro del centro de cada eje.",
+            "Modifica un extremo de calibración y observa el efecto en la referencia.",
+            "Comprueba la zona muerta con reposo y movimientos pequeños.",
+            "Relaciona el eje de mando con la convención del módulo IMU.",
+            "Resuelve el error y la corrección de tres casos de banco.",
+            "Invalida una entrada por software y explica la salida prevista.",
+            "Presenta un diagrama de bloques con unidades, tiempos y estados."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Caso de explicación",
+          "headers": [
+            "Referencia",
+            "Estimación",
+            "Error"
+          ],
+          "rows": [
+            [
+              "10°",
+              "6°",
+              "4°"
+            ],
+            [
+              "0°",
+              "−3°",
+              "3°"
+            ],
+            [
+              "−5°",
+              "−5°",
+              "0°"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Los casos numéricos permiten comprobar signos y unidades antes de integrar hardware. En la demostración docente se conserva una entrada y se mueve la otra para que el grupo identifique su efecto. Si ambas cambian simultáneamente, un principiante puede atribuir la corrección a la causa equivocada. Al terminar, el alumno debe poder señalar qué dato cambió y qué parte del programa lo utilizó."
+        }
+      ]
+    },
+    {
+      "title": "Lo que demuestra el banco y qué amplía la formación",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El banco demuestra adquisición, transformación y comparación bajo sus condiciones. Un sistema de vuelo añade muchas otras funciones y validaciones. Para una primera ruta MECRO, el valor está en construir una base comprensible que permita leer después documentación de control y aviónica con mejores preguntas. El alumno conserva su ejemplo como un instrumento de aprendizaje y diagnóstico, con un título que describa la función efectivamente implementada."
+        },
+        {
+          "type": "table",
+          "title": "Identidad de cada resultado",
+          "headers": [
+            "Resultado",
+            "Cómo se presenta"
+          ],
+          "rows": [
+            [
+              "Referencia normalizada",
+              "Mando de banco"
+            ],
+            [
+              "Ángulo de acelerómetro",
+              "Estimación cuasiestática"
+            ],
+            [
+              "error × Kp",
+              "Acción proporcional"
+            ],
+            [
+              "Valores de mezclador impresos",
+              "Ejercicio numérico"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Investiga por qué una estimación de orientación puede necesitar varias fuentes y cómo un mando humano puede representar ángulo, velocidad angular u otra variable según el modo del sistema. No hace falta implementar esas arquitecturas para reconocer que la palabra “mando” oculta una decisión de interfaz. Describe una de esas posibilidades y qué unidad cambiaría en el error."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar joystick e IMU como dos entradas con funciones distintas.",
+    "Calibrar centro y observar c13_mando.",
+    "Resolver un error con unidad y signo declarados.",
+    "Presentar el proyecto 17 con el alcance corregido de banco."
+  ],
+  "qas": [
+    [
+      "¿2048 es el centro garantizado de cualquier joystick?",
+      "No. Se observa y registra el centro del componente y su montaje."
+    ],
+    [
+      "¿delay(10) garantiza 100 Hz exactos?",
+      "No. La duración total incluye las demás operaciones y sus variaciones."
+    ],
+    [
+      "¿Qué necesita un error bien definido?",
+      "Referencia y estimación con unidades y convenciones comparables."
+    ]
+  ],
+  "delivery": "Calibración de mando, tres casos resueltos y diagrama de bloques del banco.",
+  "refs": [
+    "MECRO",
+    "ADC",
+    "IMU",
+    "TIME",
+    "FBS"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar joystick e IMU como dos entradas con funciones distintas.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "ADC": [
+      "Espressif Systems",
+      "Arduino-ESP32: ADC",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html"
+    ],
+    "IMU": [
+      "Adafruit",
+      "MPU6050: biblioteca, cableado y lectura",
+      "https://learn.adafruit.com/mpu6050-6-dof-accelerometer-and-gyro/arduino"
+    ],
+    "TIME": [
+      "Arduino",
+      "Referencia del lenguaje: millis",
+      "https://docs.arduino.cc/language-reference/en/functions/time/millis/"
+    ],
+    "FBS": [
+      "Åström y Murray",
+      "Feedback Systems: An Introduction for Scientists and Engineers; edición electrónica de los autores",
+      "https://www.cds.caltech.edu/~murray/books/AM08/"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

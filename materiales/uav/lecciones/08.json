@@ -1,0 +1,407 @@
+{
+  "n": 8,
+  "week": 4,
+  "title": "Taller presencial 2: configuración, prueba y demostración de vuelo",
+  "goal": "Explicar la aceptación de una configuración y relacionar un vuelo básico o caso equivalente con sus registros.",
+  "mission": "El cierre muestra cómo el ensamblaje y la configuración sostienen una demostración observada y una decisión de mejora.",
+  "pages": [
+    {
+      "title": "Comprobar antes de demostrar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La última sesión parte del acta de montaje y de una configuración identificada. Gerard selecciona una aeronave preparada para la demostración y presenta qué se revisó. No se intenta volar todos los tamaños por cumplir una lista: los equipos de 5, 7 y 12 pulgadas aportan comparaciones, y el vuelo básico puede concentrarse en uno que represente los objetivos del curso."
+        },
+        {
+          "type": "table",
+          "title": "Cuatro correspondencias finales",
+          "headers": [
+            "Revisión",
+            "Qué se contrasta",
+            "Evidencia"
+          ],
+          "rows": [
+            [
+              "Mecánica",
+              "Montaje y configuración documentados",
+              "Inspección y versión"
+            ],
+            [
+              "Entradas",
+              "Mandos y estados previstos",
+              "Canales y modos"
+            ],
+            [
+              "Salidas",
+              "Posición y sentido de cada motor",
+              "Prueba sin hélices"
+            ],
+            [
+              "Operación",
+              "Equipo y condiciones del caso",
+              "Decisión del docente"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las pruebas de salidas y enlace se realizan en el banco preparado sin hélices. La instalación final de hélices pertenece a otra fase, con energía retirada y revisión de sentido y fijación. Se organiza una única actividad energizada a la vez con el docente a cargo. El grupo conserva separación y roles de observación; no queda un banco de motores activo sin supervisión mientras el instructor explica otro equipo."
+        },
+        {
+          "type": "p",
+          "text": "El vuelo es una demostración del instructor, sujeta a preparación del vehículo y condiciones del lugar. El certificado del curso no se presenta como una licencia de piloto ni como entrenamiento individual garantizado de vuelo."
+        }
+      ]
+    },
+    {
+      "title": "Agenda de cuatro horas y alternativa de clase",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Taller presencial 2",
+          "headers": [
+            "Minutos",
+            "Actividad",
+            "Resultado"
+          ],
+          "rows": [
+            [
+              "0–30",
+              "Revisión del acta y configuración",
+              "Estado del equipo identificado"
+            ],
+            [
+              "30–75",
+              "Entradas y salidas de banco",
+              "Correspondencias observadas"
+            ],
+            [
+              "75–110",
+              "Autopiloto y Mission Planner",
+              "Comparación con equipo grande"
+            ],
+            [
+              "110–165",
+              "Demostración de vuelo o caso alternativo",
+              "Registro de eventos"
+            ],
+            [
+              "165–215",
+              "Análisis y diagnóstico",
+              "Conclusión respaldada"
+            ],
+            [
+              "215–240",
+              "Defensa y cierre",
+              "Expediente final"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El bloque de vuelo contempla desplazamiento y organización local según el lugar. La cohorte debe saber de antemano dónde se reúne y cómo se desarrolla esa actividad. Si el clima, el lugar o el estado de un equipo impiden el vuelo, se mantiene el aprendizaje con revisión en banco y análisis de un registro o demostración previamente identificados. Una observación grabada se presenta como grabada, y una simulación se identifica como simulación."
+        },
+        {
+          "type": "p",
+          "text": "No se convierten las cuatro horas finales en una sesión improvisada para reparar todo el ensamblaje. La preparación previa conserva un equipo funcional de demostración y un caso alternativo. Las correcciones nuevas se acotan y documentan; un resultado pendiente no se disimula con una explicación de otra versión."
+        }
+      ]
+    },
+    {
+      "title": "El dron grande en Mission Planner",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "ap_quad_bf",
+          "width": 145,
+          "caption": "ArduPilot publica también configuraciones con convención Betaflight. La existencia de esta variante refuerza que se debe leer el tipo de bastidor elegido; no adivinar el orden por el tamaño del dron. Fuente: ArduPilot, documentación CC BY-SA 3.0. https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+        },
+        {
+          "type": "p",
+          "text": "El instructor relaciona autopiloto, módulo de potencia, GPS, brújula, receptor y telemetría con la estación de tierra. Explica dónde se observa estado y qué configuración pertenece a ese modelo. No hace falta enseñar una misión autónoma completa para demostrar la diferencia entre construir la cadena y obtener una solución de navegación válida. La lectura de una pantalla se relaciona con el montaje que está delante del grupo."
+        },
+        {
+          "type": "table",
+          "title": "Comparación de alcance de aprendizaje",
+          "headers": [
+            "Equipo pequeño",
+            "Equipo con autopiloto",
+            "Principio compartido"
+          ],
+          "rows": [
+            [
+              "Placa y target Betaflight",
+              "Autopiloto y firmware ArduCopter",
+              "Identificación exacta"
+            ],
+            [
+              "Receptor, modos y salidas",
+              "Entradas, calibraciones y modos",
+              "Correspondencia con el objeto"
+            ],
+            [
+              "Datos disponibles del sistema",
+              "Estado y telemetría en Mission Planner",
+              "Interpretación con condiciones"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Si se utiliza SITL como complemento, se registra el modelo de software y se conserva separado del vehículo real. El tutorial oficial de simulación puede usar una rama de desarrollo; no se utiliza esa circunstancia para asumir que cualquier versión está validada para el dron del taller."
+        }
+      ]
+    },
+    {
+      "title": "Observar el vuelo con preguntas concretas",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Antes de la demostración, el alumno predice qué evento podrá observar: inicio, armado, despegue, vuelo básico, aterrizaje y cierre según el caso elegido. La misión de la clase es relacionar decisiones de ensamblaje y configuración con el comportamiento mostrado. No se exige aprender maniobras FPV ni operar varios modos nuevos a la vez. El instructor define qué observa el grupo y qué datos puede registrar realmente."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Identifica vehículo, configuración y propósito de la demostración.",
+            "Distingue eventos visibles de magnitudes que requieren un sensor o registro.",
+            "Conserva la hora o una referencia temporal del caso.",
+            "Observa comportamiento y avisos sin asignar causas todavía.",
+            "Después del cierre, compara el registro disponible con la expectativa.",
+            "Separa resultado observado, hipótesis de causa y siguiente comprobación."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La operación se prepara con las condiciones y trámites aplicables al lugar y al equipo. Para la actualización del curso se consultaron el Reglamento de la Ley 30740 aprobado por DS 012-2026-MTC y la información de trámites de la DGAC. El docente verifica sus disposiciones y condiciones vigentes al organizar la jornada; este temario académico no sustituye esa determinación."
+        },
+        {
+          "type": "case",
+          "title": "Observación y conclusión",
+          "problem": "Se ve una oscilación. ¿Podemos afirmar inmediatamente “falta subir P”?",
+          "answer": "No. Se registra qué se observó y se investiga montaje, hélice, condiciones, medida y configuración. Una apariencia no identifica una causa única."
+        }
+      ]
+    },
+    {
+      "title": "Un registro para aprender a analizar",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Datos sintéticos del caso, no de un vuelo MECRO",
+          "headers": [
+            "Tiempo / s",
+            "Tensión / V",
+            "Corriente / A"
+          ],
+          "rows": [
+            [
+              "0",
+              "22,2",
+              "0"
+            ],
+            [
+              "30",
+              "21,8",
+              "10"
+            ],
+            [
+              "60",
+              "21,1",
+              "14"
+            ],
+            [
+              "90",
+              "20,9",
+              "9"
+            ]
+          ]
+        },
+        {
+          "type": "equation",
+          "tex": "P_k=V_k I_k",
+          "text": "La potencia instantánea se obtiene de muestras correspondientes en el tiempo. No se multiplica una tensión de una fase por una corriente medida en otra.",
+          "image": "assets/eq_08_4_1.png"
+        },
+        {
+          "type": "case",
+          "title": "Potencia y caída de tensión",
+          "problem": "En la fila de 60 s, ¿qué potencia eléctrica se calcula? ¿21,1 V demuestra por sí solo la energía restante?",
+          "answer": "P = 21,1 × 14 = 295,4 W. La tensión bajo esa carga no determina sola la energía restante ni un umbral universal de operación. Se necesita contexto del paquete, medida y condiciones."
+        },
+        {
+          "type": "p",
+          "text": "Un archivo Blackbox, un registro del autopiloto y un CSV de aula tienen estructura y procedencia distintas. El conjunto sintético incluido sirve para practicar lectura y cálculo; no se anuncia como archivo nativo reproducible de esas herramientas. Si Gerard aporta datos reales, conserva firmware, configuración, origen temporal y condiciones de adquisición antes de compararlos."
+        },
+        {
+          "type": "p",
+          "text": "La mejora final propone una sola intervención con motivo y prueba: cambiar un acceso, corregir una asignación o investigar una caída de tensión. Se valora que la explicación se apoye en datos y en la configuración identificada."
+        },
+        {
+          "type": "image",
+          "name": "potencia_registro",
+          "width": 145,
+          "caption": "Conjunto sintético de aula: V e I corresponden a cada instante. No es un archivo Blackbox ni un vuelo MECRO."
+        }
+      ]
+    },
+    {
+      "title": "Defensa del expediente y siguiente ruta",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Evaluación del curso",
+          "headers": [
+            "Componente",
+            "Peso",
+            "Qué se revisa"
+          ],
+          "rows": [
+            [
+              "Selección y cálculos",
+              "35 %",
+              "Compatibilidad y condiciones"
+            ],
+            [
+              "Esquema y secuencia",
+              "25 %",
+              "Ensamblaje explicable"
+            ],
+            [
+              "Configuración y comprobaciones",
+              "25 %",
+              "Correspondencia y evidencia"
+            ],
+            [
+              "Defensa individual",
+              "15 %",
+              "Decisión, límite y siguiente prueba"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Presenta propósito, referencia de tamaño y arquitectura.",
+            "Justifica una selección de propulsión con datos y unidades.",
+            "Sigue una ruta de energía y otra de información.",
+            "Explica una comprobación observada en los presenciales.",
+            "Reconoce una limitación del expediente y propone cómo resolverla."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El egresado debe poder preparar una compra razonada y reconstruir el proceso de ensamblaje y configuración básica. La práctica individual extensa de soldadura, pilotaje FPV, ajuste avanzado de filtros/PID y misiones autónomas completas requieren bloques posteriores. Las ocho sesiones conservan una meta alcanzable y dejan una ruta clara para profundizar sin prometer que una sola demostración forme especialistas en todos los sistemas."
+        },
+        {
+          "type": "p",
+          "text": "Para MECRO, la siguiente oferta puede ser un taller de armado por equipo con más puestos supervisados, o un módulo de configuración y diagnóstico con hardware propio. La evidencia reunida en este curso permite detectar quién necesita reforzar electrónica, documentación o interpretación antes de dar ese paso."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Contrastar el acta de montaje con una aeronave preparada.",
+    "Comprobar entradas y salidas antes de presentar el vuelo.",
+    "Relacionar la demostración o el caso alternativo con un registro identificado.",
+    "Evaluar el expediente y la defensa individual de una decisión."
+  ],
+  "qas": [
+    [
+      "¿Ver una oscilación identifica una ganancia incorrecta?",
+      "No. Es un síntoma; la causa requiere contrastar otras evidencias."
+    ],
+    [
+      "¿El CSV incluido es un Blackbox real?",
+      "No. Es un conjunto sintético de aula y se mantiene identificado como tal."
+    ],
+    [
+      "¿Qué debe poder defender el alumno al finalizar?",
+      "Una selección compatible, un esquema, una secuencia y las comprobaciones que respaldan su conclusión."
+    ]
+  ],
+  "delivery": "Expediente final, análisis del caso observado y defensa individual de una mejora.",
+  "refs": [
+    "AP",
+    "APCONFIG",
+    "APFLIGHT",
+    "APMOTOR",
+    "SITL",
+    "MOTORS",
+    "MTC",
+    "DGAC"
+  ],
+  "hours": 4,
+  "mode": "Presencial demostrativo",
+  "opening": "Contrastar el acta de montaje con una aeronave preparada.",
+  "references": {
+    "AP": [
+      "ArduPilot",
+      "Copter: First Time Setup",
+      "https://ardupilot.org/copter/docs/initial-setup.html"
+    ],
+    "APCONFIG": [
+      "ArduPilot",
+      "Mandatory Hardware Configuration",
+      "https://ardupilot.org/copter/docs/configuring-hardware.html"
+    ],
+    "APFLIGHT": [
+      "ArduPilot",
+      "Initial Tuning Flight",
+      "https://ardupilot.org/copter/docs/initial-tuning-flight.html"
+    ],
+    "APMOTOR": [
+      "ArduPilot",
+      "Conexión, orden y sentido de motores",
+      "https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+    ],
+    "SITL": [
+      "ArduPilot",
+      "Mission Planner Simulation",
+      "https://ardupilot.org/planner/docs/mission-planner-simulation.html"
+    ],
+    "MOTORS": [
+      "Betaflight",
+      "Motors Tab",
+      "https://betaflight.com/docs/wiki/app/motors-tab"
+    ],
+    "MTC": [
+      "El Peruano / MTC",
+      "Decreto Supremo 012-2026-MTC: Reglamento de la Ley 30740, publicado el 29/05/2026",
+      "https://busquedas.elperuano.pe/dispositivo/NL/2520332-3"
+    ],
+    "DGAC": [
+      "MTC",
+      "Requisitos para las operaciones de RPAS: información de trámites",
+      "https://www.gob.pe/institucion/mtc/informes-publicaciones/344331-requisitos-para-las-operaciones-de-sistemas-de-aeronaves-pilotadas-a-distancia"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

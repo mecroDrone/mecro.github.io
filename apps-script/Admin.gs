@@ -1,5 +1,15 @@
 // Run configurarAdministrador_ once from the Apps Script editor, as its owner.
 // Functions ending in _ are deliberately unavailable to google.script.run.
+var COHETES_SESSIONS_=[
+ ['S1','Tu primer cohete'],['S2','Qué cohete necesitamos y qué nariz elegimos'],
+ ['S3','Cuerpo, dimensiones y espacio interior'],['S4','Aletas: forma, posición y alineación'],
+ ['S5','Impresión 3D para narices, aletas y útiles'],['S6','Taller 1: medidas, encajes y alineación'],
+ ['S7','Estabilidad: centro de gravedad y centro de presión'],['S8','Motor comercial, tobera, presión y empuje'],
+ ['S9','Primera simulación completa en OpenRocket'],['S10','Materiales y compuestos sobre piezas reales'],
+ ['S11','Recuperación y preparación del montaje'],['S12','Taller 2: ensamblar y revisar el cohete'],
+ ['S13','El mismo cohete en RockSim'],['S14','CanSat: observar una misión científica del docente'],
+ ['S15','Preparar la jornada con el cohete terminado'],['S16','Jornada de lanzamiento y revisión del proyecto']
+];
 function configurarAdministrador(){
  var active=Session.getActiveUser().getEmail(),effective=Session.getEffectiveUser().getEmail();
  if(!active||active!==effective)throw new Error('La configuración debe ejecutarla el propietario desde el editor.');
@@ -34,6 +44,14 @@ function doGet(e){
  var catalog=JSON.parse(legacyGet_().getContent());
  return json_({success:catalog.success===true,cursos:catalog.cursos||[],clases:[],requiresLogin:true});
 }
+function expandEnrolled_(ids,catalogCourses){
+ var out=ids.slice();
+ var known=(catalogCourses||[]).map(function(c){return c.id;});
+ if((out.indexOf('DRONES_102')>=0||out.indexOf('uav')>=0)&&known.indexOf('DRONES_102')<0&&out.indexOf('DRONES_101')<0)out.push('DRONES_101');
+ if(out.indexOf('esp32')>=0&&out.indexOf('ES32_AUTOMATION')<0)out.push('ES32_AUTOMATION');
+ if(out.indexOf('cohetes')>=0&&out.indexOf('COHETES_101')<0)out.push('COHETES_101');
+ return out;
+}
 function doPost(e){
  try{
   var data=JSON.parse(e.postData.contents),cache=CacheService.getScriptCache();
@@ -47,7 +65,9 @@ function doPost(e){
    adminAssign:function(){return adminAssign(data.token,data.input);},
    adminResetAccess:function(){return adminResetAccess(data.token,data.input);},
    adminCreateClass:function(){return adminCreateClass(data.token,data.input);},
-   adminCreateCourse:function(){return adminCreateCourse(data.token,data.input);}
+   adminCreateCourse:function(){return adminCreateCourse(data.token,data.input);},
+   adminSaveSchedule:function(){return adminSaveSchedule(data.token,data.input);},
+   adminSyncCatalog:function(){return adminSyncCatalog(data.token);}
   };
   if(Object.prototype.hasOwnProperty.call(adminActions,data.action)){
    return json_({success:true,result:adminActions[data.action]()});
@@ -55,9 +75,13 @@ function doPost(e){
   if(data.action==='catalog'){
    var user=studentSession_(data.token),catalog=JSON.parse(legacyGet_().getContent());
    if(!catalog.success)throw new Error('No pudimos leer las clases.');
-   var enrolled=user.cursosInscritos.slice();
-   if(enrolled.indexOf('DRONES_102')>=0&&catalog.cursos.every(function(c){return c.id!=='DRONES_102';})&&enrolled.indexOf('DRONES_101')<0)enrolled.push('DRONES_101');
-   return json_({success:true,cursos:catalog.cursos.filter(function(c){return enrolled.indexOf(c.id)>=0;}),clases:catalog.clases.filter(function(c){return enrolled.indexOf(c.cursoId)>=0;}).map(function(c){
+   var enrolled=expandEnrolled_(user.cursosInscritos,catalog.cursos);
+   var allSchedules=schedulesMap_(),studentSchedules={};
+   enrolled.forEach(function(cid){
+    var g=user.grupos[cid]||user.grupos.DRONES_102||user.grupo;
+    if(g&&allSchedules[cid+':'+g])studentSchedules[cid]=allSchedules[cid+':'+g];
+   });
+   return json_({success:true,horarios:studentSchedules,cursos:catalog.cursos.filter(function(c){return enrolled.indexOf(c.id)>=0;}),clases:catalog.clases.filter(function(c){return enrolled.indexOf(c.cursoId)>=0;}).map(function(c){
     var group=user.grupos[c.cursoId]||user.grupos.DRONES_102||user.grupo,copy=Object.assign({},c,{meetLinks:{},videoLinks:{}});
     if(/^G[1-9][0-9]*$/.test(group)){copy.meetLinks[group]=c.meetLinks[group]||'';copy.videoLinks[group]=c.videoLinks[group]||'';}
     return copy;
@@ -89,6 +113,49 @@ function groupsFor_(email,courses,defaultGroup,knownRows){
  (knownRows||sheet.getDataRange().getDisplayValues().slice(1)).forEach(function(r){if(r[0].trim().toLowerCase()===email.trim().toLowerCase()&&courses.indexOf(r[1])>=0)result[r[1]]=r[2];});
  return result;
 }
+function schedulesMap_(){
+ var sheet=db_().getSheetByName('Horarios');if(!sheet||!sheet.getLastRow())return {};
+ var rows=sheet.getDataRange().getDisplayValues().slice(1),map={};
+ rows.forEach(function(r){if(r[0]&&r[1])map[r[0].trim()+':'+r[1].trim().toUpperCase()]=r[2]||'';});
+ return map;
+}
+function saveScheduleRow_(course,group,schedule){
+ var s=String(schedule||'').trim();if(!s)return;
+ if(s.length>200||/^[=+@-]/.test(s))throw new Error('Horario inválido o demasiado largo.');
+ var sheet=db_().getSheetByName('Horarios')||db_().insertSheet('Horarios');
+ if(!sheet.getLastRow())sheet.appendRow(['CursoID','Grupo','Horario']);
+ var rows=sheet.getDataRange().getDisplayValues().slice(1),found=0;
+ rows.forEach(function(r,i){if(r[0].trim()===course&&r[1].trim().toUpperCase()===group)found=i+2;});
+ if(found)sheet.getRange(found,3).setValue(s);else sheet.appendRow([course,group,s]);
+}
+function adminSaveSchedule(token,input){
+ authorize_(token);if(!input||!/^G[1-9][0-9]*$/.test(input.group))throw new Error('Grupo inválido.');
+ courseExists_(input.course);var s=textCell_(input.schedule,200);
+ var lock=LockService.getScriptLock();lock.waitLock(10000);
+ try{
+  saveScheduleRow_(input.course,input.group,s);
+  audit_('guardar-horario',{course:input.course,group:input.group,schedule:s});
+  return {course:input.course,group:input.group,schedule:s};
+ }finally{lock.releaseLock();}
+}
+function adminSyncCatalog(token){
+ authorize_(token);var lock=LockService.getScriptLock();lock.waitLock(10000);
+ try{
+  var cursos=table_('Cursos'),clases=table_('Clases'),addedCourses=0,addedClasses=0;
+  if(cursos.rows.every(function(r){return r[0]!=='COHETES_101';})){
+   cursos.sheet.appendRow(['COHETES_101','Cohetería Básica e Intermedia','Cohetería experimental','MECRO','./images/laboratorio.webp','assets/programas/silabo-cohetes.pdf']);
+   addedCourses++;
+  }
+  COHETES_SESSIONS_.forEach(function(pair){
+   if(clases.rows.every(function(r){return !(r[0]==='COHETES_101'&&r[1]===pair[0]);})){
+    clases.sheet.appendRow(['COHETES_101',pair[0],pair[1],'']);
+    addedClasses++;
+   }
+  });
+  if(addedCourses||addedClasses)audit_('sincronizar-catalogo',{addedCourses:addedCourses,addedClasses:addedClasses});
+  return {addedCourses:addedCourses,addedClasses:addedClasses};
+ }finally{lock.releaseLock();}
+}
 function adminLogin(secret){
  var lock=LockService.getScriptLock();lock.waitLock(10000);
  try{
@@ -107,7 +174,7 @@ function adminSnapshot(token){
  authorize_(token);var catalog=JSON.parse(legacyGet_().getContent()),users=table_('Usuarios');
  if(!catalog.success)throw new Error('No se pudo leer el catálogo de clases.');
  var enrollmentSheet=db_().getSheetByName('Matriculas'),enrollmentRows=enrollmentSheet?enrollmentSheet.getDataRange().getDisplayValues().slice(1):[];
- return {courses:catalog.cursos,classes:catalog.clases,students:users.rows.filter(function(r){return r[1];}).map(function(r){return {name:r[0],email:r[1],status:r[3],courses:r[4],group:r[5],groups:groupsFor_(r[1],r[4].split(',').map(function(c){return c.trim();}),r[5],enrollmentRows)};})};
+ return {courses:catalog.cursos,classes:catalog.clases,schedules:schedulesMap_(),students:users.rows.filter(function(r){return r[1];}).map(function(r){return {name:r[0],email:r[1],status:r[3],courses:r[4],group:r[5],groups:groupsFor_(r[1],r[4].split(',').map(function(c){return c.trim();}),r[5],enrollmentRows)};})};
 }
 function adminRecordings(token,cursor){
  authorize_(token);var folder=DriveApp.getFolderById(PropertiesService.getScriptProperties().getProperty('RECORDINGS_FOLDER'));
@@ -141,8 +208,9 @@ function adminEnroll(token,input){
  try{
   var t=table_('Usuarios');if(t.rows.some(function(r){return r[1].trim().toLowerCase()===email;}))throw new Error('Este usuario ya existe. No se ha sobrescrito su matrícula.');
   var password=randomToken_();t.sheet.appendRow([name,email,'TOKEN_SHA256:'+hash_(password),'ACTIVO',input.course,input.group]);
+  if(input.schedule)saveScheduleRow_(input.course,input.group,input.schedule);
   audit_('matricular',{email:email,course:input.course,group:input.group});
-  return {email:email,password:password,course:input.course,group:input.group};
+  return {email:email,password:password,course:input.course,group:input.group,schedule:schedulesMap_()[input.course+':'+input.group]||''};
  }finally{lock.releaseLock();}
 }
 function textCell_(value,max){var s=String(value||'').trim();if(!s||s.length>max||/^[=+@-]/.test(s))throw new Error('Texto inválido o demasiado largo.');return s;}
@@ -166,7 +234,8 @@ function adminAssign(token,input){
   audit_('asignar-curso',{email:email,course:input.course,previousGroup:old,group:input.group});
   if(matches.length)sheet.getRange(matches[0],3).setValue(input.group);else sheet.appendRow([email,input.course,input.group]);
   if(ids.indexOf(input.course)<0){ids.push(input.course);user.sheet.getRange(user.row,5).setValue(ids.join(','));}
-  return {email:email,course:input.course,group:input.group};
+  if(input.schedule)saveScheduleRow_(input.course,input.group,input.schedule);
+  return {email:email,course:input.course,group:input.group,schedule:schedulesMap_()[input.course+':'+input.group]||''};
  }finally{lock.releaseLock();}
 }
 function adminResetAccess(token,input){

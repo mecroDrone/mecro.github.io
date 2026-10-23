@@ -1,0 +1,593 @@
+{
+  "week": 7,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Mando y control de banco: interpretar el proyecto de vuelo",
+        "MECRO   SEMANA 7   CLASE 13   01/24",
+        "Transformar un joystick a una referencia normalizada y relacionarla con una medida y una acción proporcional declaradas.",
+        "El flujo mando, estimación y corrección permite comprender la arquitectura de un UAV sin convertir un ejemplo numérico en un controlador de vuelo.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-07-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Qué hace el proyecto y cómo lo vamos a usar",
+        "MECRO   SEMANA 7   CLASE 13   02/24",
+        "El proyecto 17 del laboratorio lee joystick e IMU, calcula una corrección proporcional y muestra números en serie. Es una buena oportunidad para conectar varias ideas del curso, siempre que su nombre y su alcance se expliquen con precisión. La edición docente lo presenta como “Mando e IMU: demostración proporcional de banco”. Las variables impresas como salidas no son una prueba de actuación sobre motores ni una validación de vuelo."
+      ],
+      "image": "assets/slide-07-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Qué hace el proyecto y cómo lo vamos a usar",
+        "MECRO   SEMANA 7   CLASE 13   03/24",
+        "Señala mando y sensor. Esta demostración muestra datos de banco.",
+        "MECRO, proyecto 17. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-07-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · Qué hace el proyecto y cómo lo vamos a usar",
+        "MECRO   SEMANA 7   CLASE 13   04/24",
+        "Primero se separan tres bloques. El mando humano produce una referencia. La medición y su procesamiento producen una estimación. La comparación genera un error con unidad. Después se decide qué acción ilustrativa mostrar o aplicar al banco preparado. Si se mezclan esos bloques en una sola lista de números llamada “controlador”, cuesta detectar si el error proviene del joystick, del sensor, de la escala o del signo.",
+        "",
+        "La conexión con drones es conceptual y tangible a la vez: el alumno sostiene el mando y el módulo de sensores, observa sus cambios y explica cómo podría organizarse esa cadena en un sistema más completo. Mantener un propósito de banco permite ensayar hipótesis sin atribuir al ejercicio funciones que no se han desarrollado."
+      ],
+      "image": "assets/slide-07-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Centro, escala y zona muerta del joystick",
+        "MECRO   SEMANA 7   CLASE 13   05/24",
+        "Un joystick analógico no siempre entrega exactamente 2048 al soltarlo ni recorre de forma simétrica hasta ambos extremos. Se registran centro y extremos útiles de cada eje. La normalización transforma esos valores a una convención, por ejemplo de −1 a 1. Una zona muerta conserva cero ante pequeñas variaciones alrededor del centro. Su tamaño se justifica con el comportamiento observado, no con el deseo de ocultar un montaje inestable."
+      ],
+      "image": "assets/slide-07-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Datos para una calibración",
+        "MECRO   SEMANA 7   CLASE 13   06/24",
+        "Dato",
+        "Qué significa",
+        "Qué registrar",
+        "Centro c",
+        "Reposo observado",
+        "Valor y dispersión",
+        "Extremos",
+        "Recorrido útil",
+        "Mínimo y máximo",
+        "Zona muerta",
+        "Cambio ignorado",
+        "Criterio y amplitud",
+        "Signo",
+        "Sentido de la referencia",
+        "Convención de ejes"
+      ],
+      "image": "assets/slide-07-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Centro desplazado",
+        "MECRO   SEMANA 7   CLASE 13   07/24",
+        "No. La calibración o la zona muerta deben representar el centro real y su criterio. No se arregla cambiando el sensor de orientación, porque el origen de esta diferencia está en el mando.",
+        "Se comprueba que los denominadores sean válidos y se limita el resultado al intervalo de mando previsto."
+      ],
+      "image": "assets/slide-07-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Una referencia y una medida comparables",
+        "MECRO   SEMANA 7   CLASE 13   08/24",
+        "Para calcular un error angular, referencia y estimación deben compartir unidad y convención. El proyecto original usa una multiplicación de aceleración como aproximación angular. En el curso se sustituye por la estimación cuasiestática explicada en la clase 12 o por un caso numérico de referencia identificado. El alumno señala el punto donde una medida pasa a ser una estimación y qué hipótesis permite interpretarla."
+      ],
+      "image": "assets/slide-07-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 7   CLASE 13   09/24",
+        "La referencia del caso es 10° y la estimación es 6°. Con Kp = 2 unidades/°, ¿qué acción proporcional resulta?",
+        "Un cambio de signo puede producir realimentación positiva si la acción agranda la desviación en lugar de reducirla. Por eso la primera comprobación del banco es pequeña y observable. Un nombre como “roll” no determina por sí solo qué dirección representa el eje. La convención queda dibujada o anotada junto a la pieza."
+      ],
+      "image": "assets/slide-07-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Signo de la acción",
+        "MECRO   SEMANA 7   CLASE 13   10/24",
+        "El error es 4° y la acción resulta 8 unidades del mando definido. El signo físico que corrige la desviación depende de la interfaz y del montaje; se comprueba antes de cerrar un lazo real.",
+        "La ganancia relaciona unidades de error y de salida. Aquí se observa una acción proporcional de banco."
+      ],
+      "image": "assets/slide-07-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Ordenar el programa por bloques",
+        "MECRO   SEMANA 7   CLASE 13   11/24",
+        "Este fragmento es un esquema de organización, no un controlador de vuelo compilable. La referencia concreta c13_mando implementa la normalización y la zona muerta y produce un registro de serie sin salidas de motor. El código c12_imu aporta la lectura y la estimación de banco. El equipo relaciona ambas entradas en su portafolio y conserva las condiciones de validez."
+      ],
+      "image": "assets/slide-07-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Flujo de una iteración de banco",
+        "MECRO   SEMANA 7   CLASE 13   12/24",
+        "readCommand();",
+        "readSensor();",
+        "checkFreshness();",
+        "if (commandValid && sensorValid) {",
+        "  error = reference - estimate;",
+        "  correction = Kp * error;",
+        "} else {",
+        "  correction = 0;",
+        "}",
+        "logBenchState();",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-07-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Interpretación · Ordenar el programa por bloques",
+        "MECRO   SEMANA 7   CLASE 13   13/24",
+        "El orden del programa y su duración importan. delay(10) no demuestra un periodo exacto de 10 ms: también consumen tiempo las operaciones de adquisición y de registro. La afirmación del sitio sobre una frecuencia mínima universal que haría caer cualquier dron se retira del material docente. La respuesta de un sistema depende de dinámica, estimación, latencias, actuación y diseño del control, no de una única cifra de bucle."
+      ],
+      "image": "assets/slide-07-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio: mover una cosa cada vez",
+        "MECRO   SEMANA 7   CLASE 13   14/24",
+        "Los casos numéricos permiten comprobar signos y unidades antes de integrar hardware. En la demostración docente se conserva una entrada y se mueve la otra para que el grupo identifique su efecto. Si ambas cambian simultáneamente, un principiante puede atribuir la corrección a la causa equivocada. Al terminar, el alumno debe poder señalar qué dato cambió y qué parte del programa lo utilizó."
+      ],
+      "image": "assets/slide-07-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Caso de explicación",
+        "MECRO   SEMANA 7   CLASE 13   15/24",
+        "Referencia",
+        "Estimación",
+        "Error",
+        "10°",
+        "6°",
+        "4°",
+        "0°",
+        "−3°",
+        "3°",
+        "−5°",
+        "−5°",
+        "0°"
+      ],
+      "image": "assets/slide-07-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio: mover una cosa cada vez",
+        "MECRO   SEMANA 7   CLASE 13   16/24",
+        "1. Ejecuta c13_mando y conserva un registro del centro de cada eje.",
+        "",
+        "2. Modifica un extremo de calibración y observa el efecto en la referencia.",
+        "",
+        "3. Comprueba la zona muerta con reposo y movimientos pequeños.",
+        "",
+        "4. Relaciona el eje de mando con la convención del módulo IMU.",
+        "",
+        "5. Resuelve el error y la corrección de tres casos de banco.",
+        "",
+        "6. Invalida una entrada por software y explica la salida prevista.",
+        "",
+        "7. Presenta un diagrama de bloques con unidades, tiempos y estados."
+      ],
+      "image": "assets/slide-07-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Lo que demuestra el banco y qué amplía la formación",
+        "MECRO   SEMANA 7   CLASE 13   17/24",
+        "El banco demuestra adquisición, transformación y comparación bajo sus condiciones. Un sistema de vuelo añade muchas otras funciones y validaciones. Para una primera ruta MECRO, el valor está en construir una base comprensible que permita leer después documentación de control y aviónica con mejores preguntas. El alumno conserva su ejemplo como un instrumento de aprendizaje y diagnóstico, con un título que describa la función efectivamente implementada."
+      ],
+      "image": "assets/slide-07-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Identidad de cada resultado",
+        "MECRO   SEMANA 7   CLASE 13   18/24",
+        "Resultado",
+        "Cómo se presenta",
+        "Referencia normalizada",
+        "Mando de banco",
+        "Ángulo de acelerómetro",
+        "Estimación cuasiestática",
+        "error × Kp",
+        "Acción proporcional",
+        "Valores de mezclador impresos",
+        "Ejercicio numérico"
+      ],
+      "image": "assets/slide-07-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Interpretación · Lo que demuestra el banco y qué amplía la formación",
+        "MECRO   SEMANA 7   CLASE 13   19/24",
+        "Investiga por qué una estimación de orientación puede necesitar varias fuentes y cómo un mando humano puede representar ángulo, velocidad angular u otra variable según el modo del sistema. No hace falta implementar esas arquitecturas para reconocer que la palabra “mando” oculta una decisión de interfaz. Describe una de esas posibilidades y qué unidad cambiaría en el error."
+      ],
+      "image": "assets/slide-07-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 7   CLASE 13   20/24",
+        "1. Mostrar joystick e IMU como dos entradas con funciones distintas.",
+        "",
+        "2. Calibrar centro y observar c13_mando.",
+        "",
+        "3. Resolver un error con unidad y signo declarados.",
+        "",
+        "4. Presentar el proyecto 17 con el alcance corregido de banco."
+      ],
+      "image": "assets/slide-07-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 7   CLASE 13   21/24",
+        "El flujo mando, estimación y corrección permite comprender la arquitectura de un UAV sin convertir un ejemplo numérico en un controlador de vuelo.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-07-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 7   CLASE 13   22/24",
+        "1. ¿2048 es el centro garantizado de cualquier joystick?",
+        "",
+        "2. ¿delay(10) garantiza 100 Hz exactos?",
+        "",
+        "3. ¿Qué necesita un error bien definido?"
+      ],
+      "image": "assets/slide-07-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 7   CLASE 13   23/24",
+        "1. No. Se observa y registra el centro del componente y su montaje.",
+        "",
+        "2. No. La duración total incluye las demás operaciones y sus variaciones.",
+        "",
+        "3. Referencia y estimación con unidades y convenciones comparables."
+      ],
+      "image": "assets/slide-07-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 7   CLASE 13   24/24",
+        "Calibración de mando, tres casos resueltos y diagrama de bloques del banco.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-07-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Datos en tierra: Wi-Fi, HTTP y marcas de tiempo",
+        "MECRO   SEMANA 7   CLASE 14   01/24",
+        "Publicar o registrar una lectura con su origen temporal y diferenciar conectividad, recepción y dato válido.",
+        "Una estación de apoyo a drones necesita saber qué dato recibió y si corresponde al estado reciente del equipo.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-07-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Qué añadimos al conectar el equipo",
+        "MECRO   SEMANA 7   CLASE 14   02/24",
+        "La red permite transportar información entre programas. No mejora automáticamente la exactitud del sensor ni garantiza que todos los mensajes lleguen. El proyecto de riego aporta un servidor web; el reloj aporta una referencia de hora. En la ruta de drones reutilizamos esas ideas para observar datos de banco en tierra. La bomba y el agua no son necesarias para aprender la cadena de comunicación."
+      ],
+      "image": "assets/slide-07-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Qué añadimos al conectar el equipo",
+        "MECRO   SEMANA 7   CLASE 14   03/24",
+        "Identifica qué dato se transmite y quién inicia la comunicación.",
+        "MECRO, proyecto 19. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-07-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · Qué añadimos al conectar el equipo",
+        "MECRO   SEMANA 7   CLASE 14   04/24",
+        "El curso diferencia datos locales, mensajes enviados y registros recibidos. Una pantalla remota puede conservar la última respuesta aunque el dispositivo haya dejado de actualizar. Por eso se transportan identificador, tiempo y estado junto al valor. La conexión Wi-Fi es una condición del enlace; la validez de la medición pertenece a otra parte de la aplicación.",
+        "",
+        "La ruta principal enseña una conexión local y una respuesta HTTP sencilla. NTP se utiliza como ampliación guiada de referencia de tiempo. El mouse BLE queda como demostración opcional en hardware, porque el simulador consultado no implementa esa radio. Se conserva el enlace de ampliación sin convertir tres tecnologías de red en un supuesto dominio avanzado durante una sola sesión."
+      ],
+      "image": "assets/slide-07-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Dirección, solicitud y respuesta",
+        "MECRO   SEMANA 7   CLASE 14   05/24",
+        "En modo estación, el ESP32 se conecta a una red que le asigna o permite usar una dirección. Un servidor atiende solicitudes sobre una interfaz; un cliente inicia una solicitud. HTTP organiza método, ruta y respuesta. Nuestro recurso /datos devuelve un objeto pequeño con nombres de campo. Una dirección IP mostrada por un simulador no tiene por qué ser accesible desde el navegador de la computadora del alumno."
+      ],
+      "image": "assets/slide-07-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Términos del ensayo",
+        "MECRO   SEMANA 7   CLASE 14   06/24",
+        "Término",
+        "Función",
+        "Ejemplo",
+        "SSID",
+        "Nombre de red",
+        "Red del laboratorio",
+        "IP",
+        "Dirección del equipo",
+        "Observar la asignada",
+        "Ruta",
+        "Recurso solicitado",
+        "/datos",
+        "Respuesta",
+        "Contenido y estado",
+        "JSON de lecturas"
+      ],
+      "image": "assets/slide-07-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Conectado pero sin dato",
+        "MECRO   SEMANA 7   CLASE 14   07/24",
+        "El estado Wi-Fi indica conectado, pero /datos muestra una lectura antigua. ¿Qué parte falta revisar?",
+        "La adquisición, su marca de tiempo y la generación de la respuesta. Tener enlace no demuestra que exista una medida nueva."
+      ],
+      "image": "assets/slide-07-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Tiempo relativo y hora UTC",
+        "MECRO   SEMANA 7   CLASE 14   08/24",
+        "millis() permite ordenar intervalos desde el inicio del equipo. La hora UTC sirve para relacionar registros con una referencia de calendario cuando se obtuvo una sincronización válida. NTP intercambia información temporal a través de la red; no convierte al ESP32 en un reloj atómico ni elimina los errores de latencia y de oscilador. Una lectura previa a la sincronización no se trata como hora correcta por estar escrita en una columna llamada fecha."
+      ],
+      "image": "assets/slide-07-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Dos referencias de tiempo",
+        "MECRO   SEMANA 7   CLASE 14   09/24",
+        "Referencia",
+        "Útil para",
+        "Qué verificar",
+        "Tiempo desde inicio",
+        "Intervalos locales",
+        "Reinicio y retorno",
+        "Hora UTC",
+        "Relacionar registros",
+        "Origen y sincronización",
+        "Hora presentada",
+        "Lectura humana",
+        "Zona y formato"
+      ],
+      "image": "assets/slide-07-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Mismo valor de tiempo",
+        "MECRO   SEMANA 7   CLASE 14   10/24",
+        "Dos placas informan millis() = 5000. ¿Se demuestra que midieron en el mismo instante global?",
+        "No. Cada contador parte del inicio de su equipo. Se necesita una relación entre referencias si se quieren alinear registros."
+      ],
+      "image": "assets/slide-07-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Una respuesta pequeña que se puede inspeccionar",
+        "MECRO   SEMANA 7   CLASE 14   11/24",
+        "La versión completa adquiere el ADC en una agenda y atiende solicitudes en otra. Para hardware se configuran las credenciales de la red de laboratorio; las del simulador no corresponden automáticamente al aula física. Los ejemplos se comparten con valores de demostración, sin guardar contraseñas personales en la entrega pública. El docente muestra dónde se configura la conexión y conserva la práctica en un entorno local."
+      ],
+      "image": "assets/slide-07-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Esquema del recurso de c14_wifi",
+        "MECRO   SEMANA 7   CLASE 14   12/24",
+        "String payload = \"{\\\"t_ms\\\":\" + String(millis());",
+        "payload += \",\\\"adc\\\":\" + String(analogRead(34)) + \"}\";",
+        "server.send(200, \"application/json\", payload);",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-07-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Interpretación · Una respuesta pequeña que se puede inspeccionar",
+        "MECRO   SEMANA 7   CLASE 14   13/24",
+        "La demostración puede ampliar el objeto con seq, valid y sample_ms. Esos campos permiten reconocer repetición, antigüedad y estado. El tiempo de la respuesta y el de la adquisición no son necesariamente iguales. El alumno explica cuál informa cada campo y evita actualizar sample_ms simplemente porque alguien pidió la página."
+      ],
+      "image": "assets/slide-07-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Laboratorio de recepción y antigüedad",
+        "MECRO   SEMANA 7   CLASE 14   14/24",
+        "Si un alumno no dispone de un servidor accesible en el simulador, realiza la misma revisión sobre el registro local y sobre respuestas identificadas de la demostración docente. No se exige contratar un servicio adicional para demostrar comprensión del formato y de la antigüedad. La limitación de acceso se registra como condición del entorno, separada de un error del circuito."
+      ],
+      "image": "assets/slide-07-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Datos mínimos para revisar un mensaje",
+        "MECRO   SEMANA 7   CLASE 14   15/24",
+        "Campo",
+        "Qué aporta",
+        "equipo / seq",
+        "Origen y orden",
+        "sample_ms",
+        "Instante de adquisición",
+        "valor / unidad",
+        "Significado físico",
+        "valid",
+        "Estado del dato"
+      ],
+      "image": "assets/slide-07-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Laboratorio de recepción y antigüedad",
+        "MECRO   SEMANA 7   CLASE 14   16/24",
+        "1. Abre el proyecto 19 como referencia y sustituye la función de riego por observación de datos de banco.",
+        "",
+        "2. Identifica qué programa actúa como cliente y cuál como servidor.",
+        "",
+        "3. Ejecuta c14_wifi y observa conexión, marca local y lectura en serie.",
+        "",
+        "4. En hardware o gateway habilitado, consulta /datos y compara respuesta y adquisición.",
+        "",
+        "5. Estudia una pérdida de enlace o un valor que deja de actualizarse.",
+        "",
+        "6. Añade estado y marca de adquisición al formato de un mensaje.",
+        "",
+        "7. En la ampliación NTP, diferencia tiempo previo y posterior a una sincronización verificada."
+      ],
+      "image": "assets/slide-07-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "La extensión BLE y el siguiente nivel",
+        "MECRO   SEMANA 7   CLASE 14   17/24",
+        "El mouse aéreo reutiliza velocidad angular, zona muerta e interfaz HID sobre BLE en hardware compatible. Es una ampliación útil, pero no reemplaza el estudio de ADC, medida y control. LoRa, registro MicroSD, MQTT, OTA y organización avanzada de tareas pertenecen a otra ruta de formación. La presente sesión ofrece un punto de entrada a datos en tierra y deja una base de registro útil para ese siguiente nivel."
+      ],
+      "image": "assets/slide-07-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 7   CLASE 14   18/24",
+        "Se reciben dos respuestas que contienen la misma secuencia y el mismo instante de adquisición. ¿Hay dos muestras nuevas?",
+        "Investiga qué puede aportar NTP al ordenar datos y qué no demuestra acerca de la precisión de un sensor. Después compara BLE HID y HTTP por su función de aplicación: uno puede presentar un dispositivo de entrada y el otro intercambiar recursos. El estudiante debe poder elegir una interfaz por lo que necesita transportar, no solo por la presencia de radio en la placa."
+      ],
+      "image": "assets/slide-07-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Mensaje y muestra",
+        "MECRO   SEMANA 7   CLASE 14   19/24",
+        "Se reciben dos respuestas que contienen la misma secuencia y el mismo instante de adquisición. ¿Hay dos muestras nuevas?",
+        "No necesariamente. Pueden ser dos transportes de una misma lectura. El identificador y el instante permiten reconocerlo."
+      ],
+      "image": "assets/slide-07-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 7   CLASE 14   20/24",
+        "1. Mostrar el mismo dato en local y en una respuesta remota.",
+        "",
+        "2. Separar estado Wi-Fi, solicitud HTTP y validez de muestra.",
+        "",
+        "3. Comprobar c14_wifi con la condición de entorno disponible.",
+        "",
+        "4. Analizar tiempo relativo, UTC y duplicación de una lectura."
+      ],
+      "image": "assets/slide-07-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 7   CLASE 14   21/24",
+        "Una estación de apoyo a drones necesita saber qué dato recibió y si corresponde al estado reciente del equipo.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-07-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 7   CLASE 14   22/24",
+        "1. ¿La IP de Wokwi se abre siempre desde el celular?",
+        "",
+        "2. ¿NTP vuelve atómico al reloj de la placa?",
+        "",
+        "3. ¿Dos respuestas equivalen a dos muestras?"
+      ],
+      "image": "assets/slide-07-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 7   CLASE 14   23/24",
+        "1. No. El acceso entrante depende de un gateway y de la configuración disponible.",
+        "",
+        "2. No. Aporta una referencia sincronizada con limitaciones de red y de reloj.",
+        "",
+        "3. No si transportan la misma adquisición. Se revisan secuencia e instante."
+      ],
+      "image": "assets/slide-07-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 7   CLASE 14   24/24",
+        "Formato de datos, prueba de adquisición y transporte, y nota del entorno utilizado.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-07-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-07.pdf",
+  "ppt": "descargas/MECRO_ESP32_Semana_07.pptx"
+}

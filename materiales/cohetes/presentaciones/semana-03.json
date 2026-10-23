@@ -1,0 +1,607 @@
+{
+  "week": 3,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Impresión 3D para narices, aletas y útiles",
+        "MECRO   SEMANA 3   CLASE 05   01/24",
+        "Preparar una pieza para imprimir, revisar su orientación y distinguir aspecto exterior de ajuste funcional.",
+        "Fabricar prototipos repetibles con el tiempo y los equipos disponibles.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-03-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "De un archivo bonito a una pieza útil",
+        "MECRO   SEMANA 3   CLASE 05   02/24",
+        "El archivo CAD define la geometría. El laminador la transforma en capas y trayectorias para una impresora concreta. La pieza física añade variaciones de dimensiones y de acabado. Por eso conservaremos el CAD, el proyecto del laminador y el identificador de la impresión. Un archivo STL por sí solo no explica cómo se fabricó la pieza."
+      ],
+      "image": "assets/slide-03-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "De un archivo bonito a una pieza útil",
+        "MECRO   SEMANA 3   CLASE 05   03/24",
+        "¿Qué archivo permite cambiar cotas?",
+        "Prusa Research: capas visibles con distintas alturas. Es una comparación de impresión, no de rendimiento de vuelo."
+      ],
+      "image": "assets/slide-03-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Archivos con funciones diferentes",
+        "MECRO   SEMANA 3   CLASE 05   04/24",
+        "Archivo o registro",
+        "Para qué sirve",
+        "CAD editable",
+        "Cambiar cotas y relaciones",
+        "STL u otro formato de malla",
+        "Compartir la geometría exterior",
+        "Proyecto del laminador",
+        "Conservar orientación y perfil",
+        "Registro de impresión",
+        "Relacionar máquina, material y pieza"
+      ],
+      "image": "assets/slide-03-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "La orientación cambia lo que se fabrica",
+        "MECRO   SEMANA 3   CLASE 05   05/24",
+        "Al apilar capas se forma una pieza con direcciones de fabricación reconocibles. Una zona inclinada puede mostrar escalones. Un saliente puede necesitar apoyo. La orientación también determina qué superficies quedan contra la cama y dónde aparecen marcas al retirar soportes. Esos detalles importan si la superficie debe encajar o servir de referencia."
+      ],
+      "image": "assets/slide-03-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "La orientación cambia lo que se fabrica",
+        "MECRO   SEMANA 3   CLASE 05   06/24",
+        "¿Qué superficie debe quedar funcional?",
+        "Prusa Research: el mismo tipo de superficie muestra distinto escalonado según su orientación."
+      ],
+      "image": "assets/slide-03-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Antes de elegir la orientación",
+        "MECRO   SEMANA 3   CLASE 05   07/24",
+        "Zona de la pieza",
+        "Qué observar en el laminador",
+        "Hombro de nariz",
+        "Superficie que debe entrar en el tubo",
+        "Raíz de aleta",
+        "Continuidad y orientación de capas",
+        "Útil de montaje",
+        "Superficies que fijan posición",
+        "Punta o borde fino",
+        "Trayectorias que realmente se generan"
+      ],
+      "image": "assets/slide-03-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "Paredes, relleno y masa",
+        "MECRO   SEMANA 3   CLASE 05   08/24",
+        "Los perímetros recorren el contorno. El relleno ocupa parte de las zonas interiores que el modelo y el perfil permiten rellenar. En una pieza hueca, agregar relleno no sustituye una pared mal dibujada. En una pieza maciza puede aumentar masa y tiempo sin resolver el problema que realmente teníamos. La vista por capas permite ver qué está pasando."
+      ],
+      "image": "assets/slide-03-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Paredes, relleno y masa",
+        "MECRO   SEMANA 3   CLASE 05   09/24",
+        "¿Más material resuelve la función del útil?",
+        "Prusa Research: los perímetros forman las paredes exteriores. La imagen es una referencia del laminador."
+      ],
+      "image": "assets/slide-03-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Mismo útil, dos perfiles de ejercicio",
+        "MECRO   SEMANA 3   CLASE 05   10/24",
+        "Datos didácticos de laminador. La función debe comprobarse en la pieza física."
+      ],
+      "image": "assets/slide-03-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Práctica en el laminador",
+        "MECRO   SEMANA 3   CLASE 05   11/24",
+        "Si una pared desaparece en la vista por capas, revisa el modelo y el perfil antes de imprimir. Ver la silueta exterior completa no garantiza que se vayan a depositar todas las trayectorias necesarias."
+      ],
+      "image": "assets/slide-03-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Práctica en el laminador",
+        "MECRO   SEMANA 3   CLASE 05   12/24",
+        "¿La vista por capas genera todas las paredes?",
+        "Prusa Research: el comportamiento de salientes y apoyos afecta el acabado. La fotografía ayuda a revisar la superficie funcional."
+      ],
+      "image": "assets/slide-03-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Práctica en el laminador",
+        "MECRO   SEMANA 3   CLASE 05   13/24",
+        "1. Importa la muestra aprobada. Comprueba medidas y escala.",
+        "",
+        "2. Revisa orientación, apoyos y superficie funcional.",
+        "",
+        "3. Selecciona el perfil del taller y guarda la primera versión.",
+        "",
+        "4. Recorre las capas: paredes, continuidad y bordes.",
+        "",
+        "5. Registra masa y tiempo. Cambia una sola decisión en la segunda versión.",
+        "",
+        "6. Entrega las dos vistas por capas y explica qué comprobarás en la pieza."
+      ],
+      "image": "assets/slide-03-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Organizar la cola de impresión del curso",
+        "MECRO   SEMANA 3   CLASE 05   14/24",
+        "Una impresora es un recurso compartido. Para seis equipos conviene imprimir primero muestras cortas que respondan una pregunta: encaje, borde o alineación. Las piezas completas llegan después de esa revisión. El tiempo de clase no tiene que consumirse esperando una impresión que nadie comprobó en pantalla."
+      ],
+      "image": "assets/slide-03-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Orden de trabajo propuesto",
+        "MECRO   SEMANA 3   CLASE 05   15/24",
+        "Prioridad",
+        "Pieza",
+        "Motivo",
+        "1",
+        "Muestra corta de encaje",
+        "Evitar repetir una nariz completa",
+        "2",
+        "Muestra de raíz o útil",
+        "Comprobar referencia y posición",
+        "3",
+        "Pieza completa revisada",
+        "Fabricar con decisiones registradas",
+        "4",
+        "Repuesto identificado",
+        "Preparar continuidad del taller"
+      ],
+      "image": "assets/slide-03-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica: Organizar la cola de impresión del curso",
+        "MECRO   SEMANA 3   CLASE 05   16/24",
+        "1. Nombra la solicitud con equipo, pieza y revisión.",
+        "",
+        "2. Incluye el material y la función que debe comprobarse.",
+        "",
+        "3. Añade tiempo estimado y la fecha en que se necesita la pieza.",
+        "",
+        "4. Después de fabricar, pesa, mide y registra el resultado sin sustituirlo por la estimación del laminador."
+      ],
+      "image": "assets/slide-03-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Aceptar una impresión por su función",
+        "MECRO   SEMANA 3   CLASE 05   17/24",
+        "La inspección comienza con la pieza que tenemos: identificación, dimensiones, acabado funcional y defectos visibles. Una superficie bonita puede ocultar una unión entre capas deficiente. Una marca estética puede no afectar un útil de banco. El criterio se define por lo que la pieza debe hacer y por su integración en el conjunto."
+      ],
+      "image": "assets/slide-03-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Decisiones ante un defecto",
+        "MECRO   SEMANA 3   CLASE 05   18/24",
+        "Observación",
+        "Primer paso razonable",
+        "El encaje no entra",
+        "Medir pieza y abertura; revisar borde",
+        "La raíz está deformada",
+        "Comparar con el plano y revisar orientación",
+        "La pared tiene una separación",
+        "Detener aceptación y revisar proceso",
+        "El útil tiene una marca exterior",
+        "Comprobar si altera su referencia funcional"
+      ],
+      "image": "assets/slide-03-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Conclusión del equipo",
+        "MECRO   SEMANA 3   CLASE 05   19/24",
+        "La muestra pesa 4,2 g cuando el laminador estimó 3,8 g y el encaje observado es correcto.",
+        "¿Qué prueba decide si la pieza cumple su función?"
+      ],
+      "image": "assets/slide-03-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 3   CLASE 05   20/24",
+        "1. Revisar la orientación de una muestra funcional.",
+        "",
+        "2. Comparar dos proyectos del laminador cambiando una decisión.",
+        "",
+        "3. Preparar la solicitud de impresión con equipo y revisión.",
+        "",
+        "4. Definir la medida y prueba de aceptación para el taller."
+      ],
+      "image": "assets/slide-03-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 3   CLASE 05   21/24",
+        "Fabricar prototipos repetibles con el tiempo y los equipos disponibles.",
+        "¿Qué prueba decide si la pieza cumple su función?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-03-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 3   CLASE 05   22/24",
+        "1. ¿Un STL conserva todas las decisiones del laminador?",
+        "",
+        "2. ¿Más relleno siempre significa mejor pieza?",
+        "",
+        "3. ¿La masa estimada reemplaza a la medida?"
+      ],
+      "image": "assets/slide-03-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 3   CLASE 05   23/24",
+        "1. No. Hace falta el proyecto del laminador y el perfil utilizado.",
+        "",
+        "2. No. Debe resolver una función y verificarse en la pieza.",
+        "",
+        "3. No. Se conservan ambas con su procedencia."
+      ],
+      "image": "assets/slide-03-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 3   CLASE 05   24/24",
+        "Proyecto de laminador, comparación y solicitud de impresión.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-03-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Taller 1: medidas, encajes y alineación",
+        "MECRO   SEMANA 3   CLASE 06   01/24",
+        "Comprobar piezas físicas y corregir el diseño antes del montaje definitivo.",
+        "Conseguir que las piezas fabricadas correspondan al plano y puedan presentarse juntas.",
+        "PRESENCIAL   4 HORAS"
+      ],
+      "image": "assets/slide-03-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Qué debe llegar a la mesa de cada equipo",
+        "MECRO   SEMANA 3   CLASE 06   02/24",
+        "Este es el primer encuentro presencial de cuatro horas. El trabajo comienza con tubos identificados, narices o muestras de encaje, aletas, un útil y los archivos correspondientes. Todavía no se trata de cerrar el cohete. Se trata de descubrir diferencias entre lo dibujado y lo fabricado cuando aún se pueden corregir."
+      ],
+      "image": "assets/slide-03-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Material listo antes del taller",
+        "MECRO   SEMANA 3   CLASE 06   03/24",
+        "Objeto",
+        "Estado esperado",
+        "Tubo",
+        "Identificado, sin deformación evidente",
+        "Muestras de encaje",
+        "Etiquetadas con su revisión",
+        "Aletas o plantillas",
+        "Contorno y medidas declarados",
+        "Útil",
+        "Compatible con el tubo previsto",
+        "Archivos",
+        "CAD, laminador y .ork disponibles"
+      ],
+      "image": "assets/slide-03-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Qué debe llegar a la mesa de cada equipo",
+        "MECRO   SEMANA 3   CLASE 06   04/24",
+        "Un taller con varias estaciones funciona cuando todos conservan el nombre de la pieza y el significado de la medida. El mismo número puede corresponder al diámetro exterior, al interior o a una cota del plano. Antes de registrar una cifra, el alumno señala el lugar que está midiendo. Otro compañero verifica la referencia y anota la unidad. Este intercambio sencillo evita muchas correcciones de CAD que en realidad nacen de haber comparado dimensiones diferentes."
+      ],
+      "image": "assets/slide-03-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Estación de medición: un dato que otro pueda repetir",
+        "MECRO   SEMANA 3   CLASE 06   05/24",
+        "Antes de medir se comprueba el cero del instrumento, la unidad y las superficies que se tomarán como referencia. El calibrador se apoya sin deformar el tubo. Una pieza ovalada puede ofrecer valores diferentes según la orientación. No se elige únicamente la lectura que coincide con el archivo."
+      ],
+      "image": "assets/slide-03-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Registro de una interfaz",
+        "MECRO   SEMANA 3   CLASE 06   06/24",
+        "Dato",
+        "Qué escribir",
+        "Tubo",
+        "Identificador y orientación de medida",
+        "Abertura",
+        "Dimensión observada y unidad",
+        "Muestra",
+        "Identificador y dimensión real",
+        "Encaje",
+        "Entra, se traba o presenta juego",
+        "Revisión",
+        "Cambio que se propone y motivo"
+      ],
+      "image": "assets/slide-03-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "La muestra no se comporta como el CAD",
+        "MECRO   SEMANA 3   CLASE 06   07/24",
+        "Ejercicio: dos muestras se dibujaron iguales, pero una entra y otra no.",
+        "¿Desde qué superficies se midió?"
+      ],
+      "image": "assets/slide-03-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Estación de presentación: el conjunto sin pegar",
+        "MECRO   SEMANA 3   CLASE 06   08/24",
+        "La presentación también permite discutir cómo sostener el objeto mientras se fabrica. Si el útil impide acceder a una unión o tapa una referencia necesaria, debe corregirse. Una herramienta de montaje se evalúa por el trabajo que permite hacer."
+      ],
+      "image": "assets/slide-03-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Estación de presentación: el conjunto sin pegar",
+        "MECRO   SEMANA 3   CLASE 06   09/24",
+        "¿Qué puedes descubrir sin pegar todavía?",
+        "Vista posterior del ejemplo de OpenRocket. En el taller se compara la distribución dibujada con la presentación real."
+      ],
+      "image": "assets/slide-03-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Práctica: Estación de presentación: el conjunto sin pegar",
+        "MECRO   SEMANA 3   CLASE 06   10/24",
+        "1. Presenta la nariz y el cuerpo para observar continuidad y longitud exterior.",
+        "",
+        "2. Coloca el útil sin forzar el tubo. Presenta todas las aletas según su referencia.",
+        "",
+        "3. Observa la distribución desde atrás y la posición desde un lateral.",
+        "",
+        "4. Comprueba que ninguna pieza haya quedado invertida o en una referencia diferente al plano.",
+        "",
+        "5. Fotografía las vistas necesarias y escribe un resultado concreto por vista."
+      ],
+      "image": "assets/slide-03-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Actualizar el modelo desde la pieza",
+        "MECRO   SEMANA 3   CLASE 06   11/24",
+        "Una pieza puede conservar la geometría dibujada y tener una masa diferente a la estimada. Antes de introducir la medida en el programa, se define qué se pesó: pieza sola, conjunto o pieza con acabado. Si se ajusta la masa de una pieza y además se añade otra masa que representa lo mismo, el modelo la cuenta dos veces."
+      ],
+      "image": "assets/slide-03-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Actualizar el modelo desde la pieza",
+        "MECRO   SEMANA 3   CLASE 06   12/24",
+        "¿Qué incluye exactamente la masa pesada?",
+        "Pestaña de ajustes de masa en el manual de OpenRocket. Se usa con datos identificados, sin duplicar componentes."
+      ],
+      "image": "assets/slide-03-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Práctica: Actualizar el modelo desde la pieza",
+        "MECRO   SEMANA 3   CLASE 06   13/24",
+        "1. Pesa la pieza identificada y anota qué incluye.",
+        "",
+        "2. Compara el resultado con la estimación del modelo.",
+        "",
+        "3. Actualiza la representación de esa pieza según la versión del programa.",
+        "",
+        "4. Revisa el total y conserva una copia anterior.",
+        "",
+        "5. Añade en el comentario la fecha y el origen de la medida."
+      ],
+      "image": "assets/slide-03-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Cómo se reparten las cuatro horas",
+        "MECRO   SEMANA 3   CLASE 06   14/24",
+        "Las impresiones largas se preparan fuera del encuentro. Durante la sesión se priorizan comprobaciones, correcciones de archivo y, si el equipo lo permite, una muestra corta. El docente dispone de piezas de reserva para que un fallo de impresión no impida aprender a medir y revisar."
+      ],
+      "image": "assets/slide-03-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Horario del taller 1",
+        "MECRO   SEMANA 3   CLASE 06   15/24",
+        "Minutos",
+        "Trabajo",
+        "Producto",
+        "0–30",
+        "Demostración de herramientas y referencias",
+        "Todos reconocen las medidas",
+        "30–105",
+        "Medición y series de encaje",
+        "Ficha por interfaz",
+        "105–180",
+        "Presentación, útiles y correcciones",
+        "Fotos y cambios propuestos",
+        "180–240",
+        "Actualización digital y revisión",
+        "Plano y archivo revisados"
+      ],
+      "image": "assets/slide-03-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Una corrección documentada",
+        "MECRO   SEMANA 3   CLASE 06   16/24",
+        "El hombro se traba solo al final del recorrido y la medida inicial parecía correcta.",
+        "¿Qué corrección pequeña comprobarás primero?"
+      ],
+      "image": "assets/slide-03-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Qué queda listo para la clase siguiente",
+        "MECRO   SEMANA 3   CLASE 06   17/24",
+        "El taller termina con un conjunto que puede presentarse de forma coherente y con sus correcciones pendientes identificadas. Aún faltan integración final, recuperación y revisión para vuelo. El próximo bloque utilizará las piezas y masas conocidas para entender la estabilidad del modelo completo."
+      ],
+      "image": "assets/slide-03-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Salida del taller",
+        "MECRO   SEMANA 3   CLASE 06   18/24",
+        "Entrega",
+        "Revisión breve",
+        "Ficha de encaje",
+        "Tubo y muestra identificados",
+        "Medidas y masas",
+        "Unidad y objeto pesado claros",
+        "Fotografías",
+        "Vista lateral y posterior",
+        "Archivos",
+        "Misma revisión que la pieza",
+        "Pendientes",
+        "Responsable y comprobación siguiente"
+      ],
+      "image": "assets/slide-03-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Pieza que no debe pasar sin revisión",
+        "MECRO   SEMANA 3   CLASE 06   19/24",
+        "Una aleta presenta una separación visible entre capas, aunque entra en el útil.",
+        "¿Qué queda preparado para estudiar estabilidad?"
+      ],
+      "image": "assets/slide-03-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 3   CLASE 06   20/24",
+        "1. Preparar las dos estaciones y rotar roles.",
+        "",
+        "2. Medir y registrar interfaces antes de corregirlas.",
+        "",
+        "3. Presentar nariz, cuerpo y aletas sin montaje definitivo.",
+        "",
+        "4. Actualizar archivos y acordar una comprobación por pendiente."
+      ],
+      "image": "assets/slide-03-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 3   CLASE 06   21/24",
+        "Conseguir que las piezas fabricadas correspondan al plano y puedan presentarse juntas.",
+        "¿Qué queda preparado para estudiar estabilidad?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-03-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 3   CLASE 06   22/24",
+        "1. ¿Una pieza que entra en el útil ya está aceptada para vuelo?",
+        "",
+        "2. ¿Qué incluye una masa medida útil?",
+        "",
+        "3. ¿Qué se conserva al corregir?"
+      ],
+      "image": "assets/slide-03-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 3   CLASE 06   23/24",
+        "1. No. El encaje es una comprobación parcial.",
+        "",
+        "2. Identificador, unidad y descripción de las piezas o acabado incluidos.",
+        "",
+        "3. Dato anterior, cambio y nueva comprobación."
+      ],
+      "image": "assets/slide-03-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 3   CLASE 06   24/24",
+        "Ficha completa, fotografías, plano y .ork corregidos.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-03-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-03.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_03.pptx"
+}

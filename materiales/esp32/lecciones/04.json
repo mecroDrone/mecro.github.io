@@ -1,0 +1,294 @@
+{
+  "n": 4,
+  "week": 2,
+  "title": "ADC y calibración: de una lectura a una decisión",
+  "goal": "Interpretar lecturas analógicas, construir una escala de trabajo y justificar dos umbrales de histéresis.",
+  "mission": "Un sensor de batería, luz o posición en un sistema UAV requiere distinguir lectura digital, magnitud física y validez del dato.",
+  "projects": [
+    3,
+    12,
+    17
+  ],
+  "pages": [
+    {
+      "title": "Qué convierte un ADC",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un sensor analógico representa una condición mediante una tensión. El convertidor analógico a digital devuelve un número que depende de esa tensión y de la configuración. En una lectura de 12 bits existen 4096 códigos posibles, numerados de 0 a 4095. Esa cantidad describe resolución de código; no demuestra exactitud ni una relación perfectamente lineal en toda la entrada. El ESP32 clásico ofrece varios canales y restricciones que hay que relacionar con el pin elegido."
+        },
+        {
+          "type": "image",
+          "name": "proyecto3",
+          "width": 145,
+          "caption": "MECRO, proyecto 03. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+        },
+        {
+          "type": "p",
+          "text": "GPIO34 pertenece a ADC1 y es una entrada sin pull-up interno. En nuestro banco se conecta a un potenciómetro o a la salida analógica de un divisor de luz que respete el rango del pin. Elegimos ADC1 para que la práctica se pueda conservar cuando añadamos Wi-Fi. La elección no convierte el pin en tolerante a 5 V. La configuración de atenuación y el rango útil se consultan para la variante real."
+        },
+        {
+          "type": "p",
+          "text": "La LDR cambia su resistencia con la iluminación. El divisor la transforma en tensión. Si se intercambia la posición de la LDR y del resistor fijo, se invierte la tendencia de la lectura. Por eso no se enseña que oscuridad equivale siempre a un número pequeño. Se sigue el circuito y se mide la tendencia. Ese razonamiento también sirve al interpretar un joystick o cualquier sensor con salida analógica."
+        }
+      ]
+    },
+    {
+      "title": "La escala ideal y la escala calibrada",
+      "blocks": [
+        {
+          "type": "equation",
+          "tex": "\\widehat V=\\frac{N}{4095}V_{FS}",
+          "text": "Esta relación describe un ADC ideal con escala VFS definida. No declara el rango real ni la exactitud del ESP32.",
+          "image": "assets/eq_04_1_0.png"
+        },
+        {
+          "type": "p",
+          "text": "En un modelo ideal con escala completa de 3,0 V, el código 2048 representa aproximadamente 1,50 V. En hardware comparamos esa idea con una medición y con la API calibrada disponible. analogRead() devuelve código bruto y analogReadMilliVolts() ofrece una conversión calibrada según el soporte de la plataforma. Una variable llamada voltaje no queda calibrada por recibir ese nombre. El alumno conserva el método de obtención junto al dato."
+        },
+        {
+          "type": "table",
+          "title": "Cuatro conceptos distintos",
+          "headers": [
+            "Concepto",
+            "Qué describe",
+            "Ejemplo de comprobación"
+          ],
+          "rows": [
+            [
+              "Resolución",
+              "Cantidad de códigos",
+              "12 bits: 4096 códigos"
+            ],
+            [
+              "Exactitud",
+              "Cercanía a referencia",
+              "Comparar con instrumento"
+            ],
+            [
+              "Repetibilidad",
+              "Dispersión al repetir",
+              "Varias lecturas iguales"
+            ],
+            [
+              "Saturación",
+              "Extremo de conversión",
+              "Más entrada, mismo código"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Para construir una escala de trabajo, observa dos condiciones reproducibles. En la LDR pueden ser dos niveles de iluminación del banco; en un joystick, centro y recorridos permitidos. Los valores se guardan como datos de ese montaje. No se presentan como propiedades universales del componente. Conviene evitar las zonas donde la lectura se satura y perdería capacidad para distinguir cambios."
+        }
+      ]
+    },
+    {
+      "title": "Ruido, promedio e histéresis",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una lectura real puede fluctuar aunque el objeto parezca quieto. Un promedio reduce algunas variaciones rápidas, pero también retrasa cambios y no corrige un sesgo de calibración. La histéresis usa dos límites para evitar que una salida cambie repetidamente cuando la entrada oscila cerca de una frontera. Si el sistema ya está encendido, requiere superar el umbral de apagado para cambiar de estado; entre ambos conserva su decisión."
+        },
+        {
+          "type": "case",
+          "title": "Lecturas cerca del umbral",
+          "problem": "La secuencia es 1490, 1510, 1495, 1505, 1820. El sistema inicia apagado, enciende por debajo de 1500 y apaga por encima de 1800. ¿Qué estados aparecen?",
+          "answer": "Enciende con 1490; mantiene encendido con 1510, 1495 y 1505; apaga con 1820. El intervalo intermedio conserva memoria del estado."
+        },
+        {
+          "type": "table",
+          "title": "Operaciones sobre la lectura",
+          "headers": [
+            "Operación",
+            "Ayuda a",
+            "No resuelve por sí sola"
+          ],
+          "rows": [
+            [
+              "Promedio",
+              "Atenuar fluctuación",
+              "Calibración absoluta"
+            ],
+            [
+              "Histéresis",
+              "Evitar conmutación repetida",
+              "Cambiar polaridad del divisor"
+            ],
+            [
+              "Límite de rango",
+              "Detectar o recortar extremos",
+              "Recuperar información saturada"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Antes de filtrar, busca si la variación corresponde al objeto o al montaje. Mover un cable defectuoso no produce el mismo problema que una señal física cambiante. En el registro se conservan lectura bruta y resultado procesado. Si solo guardas el promedio, será difícil investigar qué sucedió con la entrada original."
+        },
+        {
+          "type": "image",
+          "name": "adc_ideal",
+          "width": 145,
+          "caption": "Modelo ideal para aprender la escala. No representa calibración ni exactitud del ADC físico."
+        }
+      ]
+    },
+    {
+      "title": "Código que conserva una decisión",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Núcleo de c04_adc",
+          "text": "int raw = analogRead(34);\nif (raw < 1500) on = true;\nelse if (raw > 1800) on = false;\ndigitalWrite(23, on);",
+          "short": "int raw = analogRead(34);\nif (raw < 1500) on = true;\nelse if (raw > 1800) on = false;\ndigitalWrite(23, on);"
+        },
+        {
+          "type": "p",
+          "text": "Entre ambos umbrales no se asigna un valor nuevo a on. Esa ausencia es deliberada: la variable mantiene el estado anterior. Cambiar else if por otra regla independiente puede modificar el comportamiento si las condiciones se solapan. La versión completa configura resolución y atenuación y registra tiempo, código y estado. El periodo de 50 ms se declara para que los datos puedan compararse."
+        },
+        {
+          "type": "p",
+          "text": "map() realiza una transformación de escala con aritmética entera y no limita automáticamente la salida. Si un valor excede los extremos de entrada, el resultado puede exceder los extremos deseados. Cuando el proyecto necesita recortar, se hace explícitamente y se conserva el hecho de que la entrada salió del rango. Una escala de porcentaje es una convención de trabajo; no equivale automáticamente a una medida física certificada de iluminación o humedad."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio con una referencia visible",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Verifica la alimentación y la referencia del divisor o potenciómetro.",
+            "Registra diez lecturas con la entrada quieta y anota mínimo, máximo y contexto.",
+            "Repite en dos condiciones distintas y determina el sentido de la respuesta.",
+            "Ejecuta c04_adc y sustituye los umbrales de ejercicio por una propuesta de tu montaje.",
+            "Introduce cambios lentos alrededor de la frontera y compara uno y dos umbrales.",
+            "Conserva los datos brutos junto a la salida; comprueba qué sucede al desconectar una entrada de forma controlada.",
+            "Explica una limitación del modelo de Wokwi frente al circuito físico."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La simulación permite controlar una entrada y estudiar la lógica del programa. El comportamiento analógico del mundo real añade dispersión, impedancias, alimentación y límites que el modelo no reproduce completamente. Una práctica de calibración física requiere una referencia y condiciones conservadas. El alumnado sin kit puede resolver la parte lógica y analizar un conjunto de datos identificado, mientras el docente demuestra la medición real."
+        }
+      ]
+    },
+    {
+      "title": "Aplicación: observar batería sin conectar una batería al ADC",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El principio de un divisor permite reducir una tensión para observarla, pero una batería real de dron exige un diseño de entrada completo y conocer sus límites. En este bloque practicamos con una fuente de baja tensión o un potenciómetro. El equipo puede dibujar una cadena conceptual de observación de batería: magnitud, acondicionamiento, ADC, calibración y umbral. El aprendizaje transferible consiste en justificar cada transformación y detectar qué falta por comprobar."
+        },
+        {
+          "type": "equation",
+          "tex": "x_{norm}=\\frac{x-x_{min}}{x_{max}-x_{min}}",
+          "text": "Los extremos pertenecen a una calibración declarada; si coinciden, la transformación es inválida.",
+          "image": "assets/eq_04_5_1.png"
+        },
+        {
+          "type": "p",
+          "text": "Investiga qué ocurre con ADC2 del ESP32 clásico al usar Wi-Fi y por qué elegimos GPIO34. Localiza además qué expresa la atenuación. Presenta una lectura de la API en milivoltios con el método que la produjo, sin confundir el valor de alimentación de la placa con la escala exacta del convertidor. La conclusión de clase debe diferenciar una medida, una conversión ideal y una decisión de software."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar que invertir el divisor invierte la tendencia de la lectura.",
+    "Distinguir códigos, voltios y porcentaje con un caso numérico.",
+    "Comprobar histéresis con la secuencia de cinco lecturas.",
+    "Registrar una calibración pequeña y justificar dos umbrales."
+  ],
+  "qas": [
+    [
+      "¿12 bits significan 12 bits de exactitud?",
+      "No. Describen códigos; la exactitud depende del sistema y de su calibración."
+    ],
+    [
+      "¿map() limita la salida?",
+      "No; si el proyecto lo necesita, se limita explícitamente y se trata el fuera de rango."
+    ],
+    [
+      "¿Qué hace la histéresis entre límites?",
+      "Conserva la decisión anterior."
+    ]
+  ],
+  "delivery": "CSV de lecturas, sentido del divisor y justificación de umbrales.",
+  "refs": [
+    "MECRO",
+    "ADC",
+    "GPIO",
+    "MIT"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar que invertir el divisor invierte la tendencia de la lectura.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "ADC": [
+      "Espressif Systems",
+      "Arduino-ESP32: ADC",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html"
+    ],
+    "GPIO": [
+      "Espressif Systems",
+      "GPIO y restricciones de ESP32 clásico",
+      "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html"
+    ],
+    "MIT": [
+      "Agarwal y Lang / MIT OpenCourseWare",
+      "6.002 Circuits and Electronics; texto: Foundations of Analog and Digital Electronic Circuits (2005)",
+      "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

@@ -1,0 +1,4 @@
+﻿corriente_A,resistencia_ohm,caida_V,perdida_W,procedencia
+20,0.015,0.3,6.0,calculo_R_constante
+30,0.015,0.45,13.5,calculo_R_constante
+40,0.015,0.6,24.0,calculo_R_constante

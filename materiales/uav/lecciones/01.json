@@ -1,0 +1,306 @@
+{
+  "n": 1,
+  "week": 1,
+  "title": "Reconocer el dron y definir qué vamos a construir",
+  "goal": "Reconocer subsistemas y convertir una necesidad en requisitos para un multirrotor de referencia.",
+  "mission": "El primer resultado es un plano funcional del equipo, con propósito, tamaño de hélice y componentes identificados.",
+  "pages": [
+    {
+      "title": "El dron sobre la mesa",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Antes de comprar o soldar, necesitamos saber qué función cumple cada pieza. El bastidor sostiene y posiciona los componentes; el conjunto motor–hélice produce empuje; el ESC conmuta la energía que recibe de la batería; la controladora estima el estado del vehículo y genera órdenes. El receptor aporta el mando del piloto. Una cámara y un transmisor de vídeo, si existen, forman otra cadena. Esta separación ayuda a investigar un fallo: que haya vídeo no demuestra que el receptor esté entregando mando."
+        },
+        {
+          "type": "image",
+          "name": "mecro_drone",
+          "width": 145,
+          "caption": "Imagen pública de MECRO para reconocer estructura, motores y distribución. No identifica por sí sola los modelos exactos del banco del curso. Fuente: MECRO. https://mecrodrone.github.io/mecro.github.io/cursos.html"
+        },
+        {
+          "type": "p",
+          "text": "MECRO comparará sus equipos de 5, 7 y 12 pulgadas. Aquí la cifra describe el diámetro de hélice usado como referencia de clase; no es la longitud total de la aeronave ni la diagonal del bastidor. El equipo grande mostrará una arquitectura con autopiloto tipo Pixhawk. Los pequeños permitirán trabajar principalmente Betaflight. Ninguna de esas asociaciones constituye una regla universal: el fabricante y el modelo concreto deciden qué puede instalarse."
+        },
+        {
+          "type": "p",
+          "text": "Dibuja dos recorridos sobre una fotografía: energía desde batería a ESC y motor, e información desde mando a receptor y controladora. El mismo conector puede llevar energía y señal, pero esas funciones siguen siendo diferentes. Una etiqueta legible y una referencia de modelo valen más que reconocer una pieza por su color."
+        }
+      ]
+    },
+    {
+      "title": "Misión, tamaño y forma de operación",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una misión de aprendizaje debe ser concreta. “Quiero el mejor dron” no permite elegir componentes. “Quiero aprender a ensamblar un quad y demostrar vuelo básico con el docente” permite priorizar documentación, compatibilidad y facilidad de revisión. Una cámara, una carga o una autonomía deseada cambian el presupuesto de masa y energía. El expediente empieza por requisitos y se actualiza cuando la selección de piezas revela una limitación."
+        },
+        {
+          "type": "table",
+          "title": "Tres referencias del curso",
+          "headers": [
+            "Referencia",
+            "Qué permite estudiar",
+            "Qué falta conocer"
+          ],
+          "rows": [
+            [
+              "5 pulgadas",
+              "Distribución compacta y configuración Betaflight",
+              "Bastidor, motor, FC y batería exactos"
+            ],
+            [
+              "7 pulgadas",
+              "Cambio de hélice, masa y energía",
+              "Tabla motor–hélice y espacio disponible"
+            ],
+            [
+              "12 pulgadas",
+              "Autopiloto, alimentación y GPS",
+              "Modelo del autopiloto y conexiones reales"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "FPV significa que el piloto recibe una vista desde la aeronave. No es el nombre de un firmware ni una dimensión. Betaflight no se convierte en un simulador porque muestre un modelo 3D; la vista representa orientación de sensores y configuración. ArduPilot es una familia de firmware y Mission Planner es una estación de tierra. Reconocer estas categorías evita comprar un componente esperando una función que pertenece a otro subsistema."
+        },
+        {
+          "type": "case",
+          "title": "Tamaño y función",
+          "problem": "Dos drones llevan hélices de 7 pulgadas. Uno tiene vídeo y el otro no. ¿Son la misma arquitectura?",
+          "answer": "Comparten una dimensión de referencia, pero pueden tener distintas controladoras, interfaces, alimentación y modos. La comparación necesita la lista real de componentes."
+        }
+      ]
+    },
+    {
+      "title": "Masa, empuje y área que barre la hélice",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La masa incluye batería, cableado, tornillería y carga, además de las piezas grandes. En vuelo estacionario, el empuje vertical total compensa aproximadamente el peso. Es una condición de equilibrio útil para seleccionar, no una descripción completa de maniobras o viento. El peso se expresa en newtons; las tablas comerciales suelen usar gramos fuerza. La lectura siempre identifica qué unidad está utilizando."
+        },
+        {
+          "type": "equation",
+          "tex": "W=mg,\\qquad T_{\\mathrm{hover,motor}}\\approx\\frac{mg}{4},\\qquad A_{\\mathrm{total}}=4\\pi\\left(\\frac{D}{2}\\right)^2",
+          "text": "Modelo de quad con cuatro discos sin solapamiento. El área geométrica no predice por sí sola eficiencia, autonomía ni empuje real.",
+          "image": "assets/eq_01_2_1.png"
+        },
+        {
+          "type": "case",
+          "title": "De 5 a 7 pulgadas",
+          "problem": "¿Aumentar el diámetro de 5 a 7 pulgadas aumenta el área en 40 %?",
+          "answer": "El diámetro aumenta 40 %, pero el área cambia con el cuadrado: (7/5)² = 1,96. El área de disco es 96 % mayor. Ese resultado geométrico no significa 96 % más autonomía."
+        },
+        {
+          "type": "p",
+          "text": "El diámetro por sí solo no selecciona un motor. El paso, número de palas, régimen de giro, alimentación y geometría modifican la carga. Un bastidor debe admitir la hélice y dejar espacio al cableado. El proyecto no consiste en poner piezas más grandes sobre el mismo dibujo: cada cambio obliga a comprobar el sistema que las conecta."
+        },
+        {
+          "type": "image",
+          "name": "area_quad",
+          "width": 145,
+          "caption": "Cálculo geométrico ideal de aula. No compara empuje ni autonomía de los drones MECRO."
+        }
+      ]
+    },
+    {
+      "title": "Las compatibilidades que gobiernan la compra",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Cuatro comprobaciones distintas",
+          "headers": [
+            "Compatibilidad",
+            "Ejemplo",
+            "Evidencia"
+          ],
+          "rows": [
+            [
+              "Mecánica",
+              "Hélice, eje, tornillo y patrón de montaje",
+              "Cotas y prueba en seco"
+            ],
+            [
+              "Eléctrica",
+              "Batería, ESC, regulador y periférico",
+              "Tensiones y límites documentados"
+            ],
+            [
+              "De señal",
+              "FC y ESC; receptor y UART",
+              "Protocolo, nivel y puerto"
+            ],
+            [
+              "De software",
+              "Placa y firmware",
+              "Target exacto y versión compatible"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una controladora anunciada como F405 utiliza un tipo de microcontrolador, pero esa descripción no identifica todos sus sensores, pines ni archivos de firmware. Dos placas con el mismo procesador pueden necesitar targets diferentes. Un cable entre un ESC 4 en 1 y una FC también puede tener la misma forma física y otro orden de contactos. El conector no es una prueba de compatibilidad eléctrica."
+        },
+        {
+          "type": "p",
+          "text": "El alumno reunirá una ficha por componente con nombre, revisión y enlace del fabricante. Si un dato está ausente, se marca como pendiente y se propone dónde obtenerlo. La lista de compra se cierra después de esas comprobaciones. En este curso no inventamos una lista exacta para los equipos de MECRO porque sus modelos aún no están identificados en detalle."
+        },
+        {
+          "type": "case",
+          "title": "Misma forma, distinto cable",
+          "problem": "Un arnés entra entre FC y ESC. ¿Se conecta para probar?",
+          "answer": "Primero se comparan los contactos y tensiones de ambos extremos. Encajar es una comprobación mecánica; falta demostrar compatibilidad eléctrica."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de arquitectura y requisitos",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Observa las fotografías o el dron del docente. Identifica bastidor, propulsión, energía, control y enlace.",
+            "Elige 5, 7 o 12 pulgadas para el expediente de aula y explica el propósito. No implica comprar ese equipo.",
+            "Crea una tabla de masas preliminares y separa dato medido, dato de fabricante y estimación.",
+            "Dibuja energía y señal con referencias de origen y destino. Marca los componentes opcionales.",
+            "Registra tres condiciones necesarias y dos preferencias. Una condición debe poder comprobarse.",
+            "Selecciona una incompatibilidad posible y explica qué documento la resolvería."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Para trabajar en línea basta la fotografía y la documentación. Si el docente muestra un equipo armado, se conserva su configuración como referencia y se anotan los elementos que no pueden verse. Una carcasa, una etiqueta tapada o una revisión de placa diferente puede cambiar una conclusión. La primera práctica se entrega como una hoja clara, no como una colección de capturas sin relación."
+        },
+        {
+          "type": "p",
+          "text": "La revisión entre compañeros consiste en seguir un recorrido completo: una orden humana debe llegar a una salida prevista y la energía debe alimentar las etapas correspondientes. Si faltó un retorno, una interfaz o el componente que genera la orden, el dibujo ayuda a descubrirlo antes del taller."
+        }
+      ]
+    },
+    {
+      "title": "Qué debemos saber antes de la siguiente clase",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un constructor necesita vocabulario para plantear decisiones. Bastidor no equivale a aeronave completa; controladora no equivale a ESC; tamaño no equivale a carga útil. La siguiente clase utilizará esta separación para seleccionar motor, hélice y batería con un caso numérico. El objetivo es explicar una combinación y sus límites, en lugar de memorizar una receta de compras."
+        },
+        {
+          "type": "table",
+          "title": "Investigación breve",
+          "headers": [
+            "Pregunta",
+            "Dónde buscar",
+            "Resultado esperado"
+          ],
+          "rows": [
+            [
+              "¿Qué hélice admite el bastidor?",
+              "Plano o ficha del bastidor",
+              "Dimensión y condición"
+            ],
+            [
+              "¿Qué firmware admite la FC?",
+              "Manual y target del proyecto",
+              "Placa exacta"
+            ],
+            [
+              "¿Qué entra en masa total?",
+              "Lista y balanza",
+              "Inventario coherente"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Como lectura de profundización se propone Beard y McLain para reconocer cómo se organizan dinámica, sensores y control. Es una referencia avanzada de UAV, con énfasis en ala fija; no se convierte en prerrequisito de cálculo para este curso de ensamblaje multirrotor. Los manuales del fabricante del equipo real son la referencia inmediata para límites y conectores."
+        },
+        {
+          "type": "note",
+          "text": "La enseñanza presencial es demostrativa y la imparte Gerard. Cada estudiante produce su expediente y explica decisiones; la matrícula no promete construir o llevarse un dron individual."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Presentar un dron completo y recorrer energía y señal.",
+    "Comparar las tres dimensiones de referencia sin asignarles capacidades universales.",
+    "Resolver el cambio de área de 5 a 7 pulgadas.",
+    "Revisar requisitos y una incompatibilidad por estudiante."
+  ],
+  "qas": [
+    [
+      "¿5 pulgadas describe necesariamente el bastidor?",
+      "En la referencia del curso describe la hélice. Se comprueban las cotas reales del bastidor."
+    ],
+    [
+      "¿FPV es un firmware?",
+      "No. Es una forma de obtener vista desde la aeronave; puede coexistir con diferentes sistemas."
+    ],
+    [
+      "¿F405 basta para elegir firmware?",
+      "No. Hace falta identificar la placa, revisión y target exactos."
+    ]
+  ],
+  "delivery": "Arquitectura funcional, requisitos y tabla preliminar de masas de una referencia.",
+  "refs": [
+    "MECRO",
+    "BF",
+    "AP",
+    "BOOK"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Presentar un dron completo y recorrer energía y señal.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Catálogo y fotografía del curso de drones",
+      "https://mecrodrone.github.io/mecro.github.io/cursos.html"
+    ],
+    "BF": [
+      "Betaflight",
+      "Setup Guide: organización de la puesta en marcha",
+      "https://betaflight.com/docs/wiki/getting-started/setup-guide"
+    ],
+    "AP": [
+      "ArduPilot",
+      "Copter: First Time Setup",
+      "https://ardupilot.org/copter/docs/initial-setup.html"
+    ],
+    "BOOK": [
+      "Beard y McLain",
+      "Small Unmanned Aircraft: Theory and Practice, Princeton University Press, 2012; referencia de profundización en dinámica y control",
+      "https://press.princeton.edu/books/hardcover/9780691149219/small-unmanned-aircraft"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

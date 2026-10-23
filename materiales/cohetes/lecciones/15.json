@@ -1,0 +1,380 @@
+{
+  "n": 15,
+  "week": 8,
+  "title": "Preparar la jornada con el cohete terminado",
+  "goal": "Relacionar el objeto, el archivo y las comprobaciones pendientes antes de la revisión del responsable.",
+  "mission": "Llegar al día de campo con un conjunto identificado y un equipo organizado.",
+  "pages": [
+    {
+      "title": "La revisión comienza con el objeto que existe",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Antes de la jornada, cada equipo reúne el cohete, la revisión final del archivo, el plano y el registro de montaje. Una modificación posterior al taller debe aparecer en los documentos. Si se cambió una nariz o una aleta, el expediente anterior deja de describir por completo el objeto actual."
+        },
+        {
+          "type": "table",
+          "title": "Tres referencias que deben corresponder",
+          "headers": [
+            "Referencia",
+            "Qué contiene"
+          ],
+          "rows": [
+            [
+              "Objeto",
+              "Piezas y estado final"
+            ],
+            [
+              "Archivo",
+              "Geometría, masas y configuración"
+            ],
+            [
+              "Registro",
+              "Comprobaciones y cambios"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La preparación no consiste en llenar casillas sin mirar las piezas. Cada condición debe poder mostrarse. El docente revisa el sistema comercial, la recuperación, la configuración y los pendientes. El responsable de operaciones determina la aceptación y las condiciones de la actividad."
+        },
+        {
+          "type": "note",
+          "text": "El terreno identificado por el organizador forma parte de la planificación. La clase no da por transferibles las reglas de un país ni considera un resultado del simulador como autorización de operación."
+        },
+        {
+          "type": "p",
+          "text": "Preparar una jornada consiste en conectar el estado del objeto con un expediente vigente y con el trabajo de las personas. El equipo debe poder mostrar cuál es su revisión, qué comprobaciones realizó y qué queda pendiente. Una ficha marcada antes de cambiar una pieza puede haber perdido parte de su valor. La revisión previa identifica esas relaciones y permite al responsable decidir con información sobre el conjunto que realmente se presenta."
+        }
+      ]
+    },
+    {
+      "title": "Una lista de revisión que se pueda demostrar",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Revisión del equipo",
+          "headers": [
+            "Punto",
+            "Evidencia concreta"
+          ],
+          "rows": [
+            [
+              "Identificación",
+              "Nombre de equipo y revisión"
+            ],
+            [
+              "Piezas y alineación",
+              "Vistas y observación actual"
+            ],
+            [
+              "Masas y dimensiones",
+              "Registro de la condición medida"
+            ],
+            [
+              "Recuperación",
+              "Comprobación de banco correspondiente"
+            ],
+            [
+              "Conjunto comercial",
+              "Referencia e instrucciones"
+            ],
+            [
+              "Pendientes",
+              "Corrección y revisión posterior"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El estado “pendiente” debe conservarse cuando falta información. Marcar todo como terminado para que el expediente se vea bien impide organizar la jornada. Si una condición importante no se puede cerrar, el equipo participa en la observación y el análisis de los otros proyectos mientras resuelve su caso."
+        },
+        {
+          "type": "case",
+          "title": "Un cambio pequeño que importa",
+          "problem": "El equipo sustituyó una pieza después de la última simulación, pero afirma que se parece mucho.",
+          "answer": "Compara referencia, masa, geometría y función. Actualiza lo que corresponda y repite las comprobaciones afectadas. La similitud visual no demuestra equivalencia."
+        },
+        {
+          "type": "p",
+          "text": "No es necesario convertir la revisión en una matriz estadística avanzada. Basta identificar el objeto, la pregunta, la evidencia y quién revisa el resultado."
+        },
+        {
+          "type": "p",
+          "text": "Una condición cerrada con una revisión anterior puede volver a abrirse después de un cambio. No se trata de repetir todo por rutina, sino de identificar qué función se afectó. Cambiar una pieza de cierre puede afectar acceso y recuperación; cambiar una aleta puede afectar geometría y masa. El equipo explica esa relación y el docente decide las comprobaciones que corresponden a la nueva configuración."
+        },
+        {
+          "type": "p",
+          "text": "Una lista de revisión es útil cuando cada punto pide una evidencia o una comprobación observable. “Todo correcto” no describe qué se examinó. Es preferible identificar componente, condición y responsable de la revisión. El registro permite que otro compañero entienda la situación y evita depender de la memoria de una sola persona. La explicación se hace con el cohete y el archivo delante para relacionar las palabras con referencias físicas."
+        }
+      ]
+    },
+    {
+      "title": "Organizar responsabilidades",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "En una jornada hay actividades de operación, observación y recuperación. No todos los participantes manipulan el conjunto al mismo tiempo. El equipo docente establece las funciones y los límites de intervención. Cada grupo de alumnos puede asignar responsable de expediente, observación, registro audiovisual y análisis de datos."
+        },
+        {
+          "type": "table",
+          "title": "Roles de aprendizaje",
+          "headers": [
+            "Rol",
+            "Responsabilidad"
+          ],
+          "rows": [
+            [
+              "Expediente",
+              "Conservar la configuración y registrar cambios"
+            ],
+            [
+              "Observación",
+              "Anotar eventos reconocibles"
+            ],
+            [
+              "Imagen",
+              "Registrar con referencias útiles"
+            ],
+            [
+              "Datos",
+              "Relacionar archivos y preguntas"
+            ],
+            [
+              "Portavoz",
+              "Explicar el estado del proyecto"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las funciones de responsable de campo, operación del sistema de lanzamiento y aceptación del vehículo corresponden a quienes haya designado la organización. La operación utiliza equipos comerciales y procedimientos revisados. Esta clase prepara al alumno para colaborar y observar de forma ordenada."
+        },
+        {
+          "type": "case",
+          "title": "Todo el equipo quiere grabar",
+          "problem": "Nadie anotó qué revisión del cohete se utilizó ni qué archivo estaba asociado.",
+          "answer": "La grabación pierde contexto. Antes de la actividad se asigna quién conserva configuración y referencias, de modo que imagen y datos se puedan relacionar después."
+        }
+      ]
+    },
+    {
+      "title": "Preparar observaciones que después sirvan",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "nasa_flight",
+          "caption": "NASA Glenn: secuencia de eventos para preparar una hoja de observación. No se usa la figura para estimar alturas del proyecto.",
+          "width": 100
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Escribe la identificación del modelo y su configuración de referencia.",
+            "Define qué eventos reconocerá el observador: salida, subida, recuperación visible y contacto con el suelo cuando sea observable.",
+            "Declara el origen de tiempo de la grabación o del registro.",
+            "Anota qué magnitudes se podrán medir y cuáles solo describir cualitativamente.",
+            "Prepara espacio para un evento no observado o una interrupción del registro."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Una observación visual puede describir una fase sin medir una altura. No se convierte una impresión del espectador en un número exacto de metros. El demostrador docente con CanSat tiene otra fuente de datos y otro expediente."
+        },
+        {
+          "type": "p",
+          "text": "El plan de observación se prepara antes del evento porque después no se puede recuperar lo que nadie registró. Cada dato necesita una fuente posible. Una grabación puede permitir identificar la secuencia general, pero no convierte automáticamente la imagen en una medida de altura. Un sensor requiere su propia referencia y unidades. La tarea del alumno es reconocer qué podrá observar de forma defendible y dejar abiertas las variables que no cuenten con un método."
+        }
+      ]
+    },
+    {
+      "title": "La jornada también necesita alternativas",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Alternativas previstas",
+          "headers": [
+            "Situación",
+            "Decisión de organización",
+            "Aprendizaje posible"
+          ],
+          "rows": [
+            [
+              "Condición de campo no aceptada",
+              "Adaptar o aplazar operaciones",
+              "Revisar predicciones y registros de banco"
+            ],
+            [
+              "Pendiente del vehículo",
+              "Conservar la revisión abierta",
+              "Observar y comparar otros proyectos"
+            ],
+            [
+              "Falta de un registro",
+              "Identificar el dato ausente",
+              "Mejorar la pauta de observación"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Planificar antes de salir",
+          "problem": "Las condiciones de la jornada no permiten realizar todas las operaciones previstas o un modelo conserva un pendiente.",
+          "answer": "La organización adapta o aplaza operaciones según la revisión del responsable. Los equipos pueden revisar datos de banco, observar otros casos, comparar configuraciones y documentar lo que faltó. No se presenta una actividad no realizada como un lanzamiento exitoso."
+        },
+        {
+          "type": "p",
+          "text": "La agenda reserva tiempo para revisión, desplazamientos organizados, pausas y análisis. El día completo no es una secuencia ininterrumpida de lanzamientos. Si el curso quiere enseñar a construir de forma responsable, también debe enseñar a conservar una decisión de aplazamiento y su motivo."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Revisa que las piezas y archivos tengan copia y transporte identificado.",
+            "Prepara fichas, cámara y medios de registro necesarios para la función del equipo.",
+            "Confirma los horarios y la organización de campo con el docente.",
+            "Comprueba qué se hará si el proyecto no puede operar en la ventana prevista.",
+            "Conserva una lista de pendientes que todavía requiera cierre."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El plan alternativo evita que un equipo pierda la jornada si su prototipo no puede operar. Puede encargarse de documentar una revisión, contrastar la configuración de un caso observado o analizar registros del demostrador. Ese trabajo debe conservar una pregunta y una evidencia. Participar como observador no se presenta como haber ejecutado la operación del vehículo propio."
+        }
+      ]
+    },
+    {
+      "title": "Explicar el estado en dos minutos",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cada equipo prepara una explicación corta con el objeto delante: qué construyó, por qué eligió nariz y aletas, qué comprobó y qué falta. El docente puede pedir una medida o abrir una entrada del archivo para contrastar la respuesta. La defensa se apoya en el proyecto, no en memorizar fórmulas."
+        },
+        {
+          "type": "table",
+          "title": "Presentación previa a la jornada",
+          "headers": [
+            "Pregunta",
+            "Apoyo que debe mostrarse"
+          ],
+          "rows": [
+            [
+              "¿Qué misión tiene?",
+              "Criterios de selección"
+            ],
+            [
+              "¿Por qué esas piezas?",
+              "Comparativas y fabricación"
+            ],
+            [
+              "¿Qué representa el archivo?",
+              "Configuración y masas"
+            ],
+            [
+              "¿Qué comprobamos?",
+              "Fotos y fichas de banco"
+            ],
+            [
+              "¿Qué sigue pendiente?",
+              "Acción y revisión"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Qué llevar como conclusión",
+          "problem": "“Este es el estado revisado de nuestro prototipo. Estas son las comprobaciones hechas y estos los cambios posteriores al taller”.",
+          "answer": "La organización puede tomar decisiones con información concreta. Una carpeta llena de archivos sin esa relación no cumple la misma función."
+        },
+        {
+          "type": "p",
+          "text": "Entrega el expediente previo y la hoja de observación. El último encuentro utilizará esos documentos para que las experiencias de campo puedan convertirse en aprendizaje y mejoras."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Comparar objeto, archivo y registro de montaje.",
+    "Cerrar o conservar pendientes con evidencia.",
+    "Distribuir roles de observación y documentación.",
+    "Preparar una defensa breve y una alternativa de aprendizaje."
+  ],
+  "qas": [
+    [
+      "¿Un resultado de simulación autoriza la operación?",
+      "No. La aceptación y las condiciones corresponden al responsable."
+    ],
+    [
+      "¿Una impresión visual da una altura exacta?",
+      "No. Hay que distinguir observación y medición."
+    ],
+    [
+      "¿Qué hacer si el modelo conserva un pendiente?",
+      "Documentarlo, resolverlo con el docente y participar según la organización."
+    ]
+  ],
+  "delivery": "Expediente previo, roles y hoja de observación.",
+  "refs": [
+    "NAR",
+    "OR3",
+    "FL"
+  ],
+  "opening": "Muestra una pieza cambiada después del taller y pide identificar qué documentos y comprobaciones pueden haberse afectado.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "NAR": [
+      "National Association of Rocketry",
+      "Model Rocket Safety Code",
+      "https://www.nar.org/ModelRocketSafetyCode"
+    ],
+    "OR3": [
+      "OpenRocket",
+      "Advanced Flight Simulation",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/advanced_flight_simulation.html"
+    ],
+    "FL": [
+      "NASA Glenn",
+      "Flight of a Model Rocket",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/flight-of-a-model-rocket/"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

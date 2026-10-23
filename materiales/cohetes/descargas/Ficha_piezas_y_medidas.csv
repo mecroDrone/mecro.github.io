@@ -1,0 +1,11 @@
+﻿equipo,pieza,magnitud,valor,unidad,origen_real_ejercicio_pendiente,instrumento,observacion
+,Cuerpo,longitud,,mm,pendiente,,
+,Cuerpo,diametro_exterior,,mm,pendiente,,
+,Cuerpo,diametro_interior,,mm,pendiente,,
+,Nariz,longitud_visible,,mm,pendiente,,
+,Nariz,diametro_hombro,,mm,pendiente,,
+,Aleta,raiz,,mm,pendiente,,
+,Aleta,punta,,mm,pendiente,,
+,Aleta,semienvergadura,,mm,pendiente,,
+,Aleta,barrido,,mm,pendiente,,
+,Aleta,espesor,,mm,pendiente,,

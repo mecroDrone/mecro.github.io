@@ -1,0 +1,599 @@
+{
+  "week": 4,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Distancia: tiempo de vuelo, adaptación de nivel y lecturas inválidas",
+        "MECRO   SEMANA 4   CLASE 07   01/24",
+        "Convertir un tiempo de eco en distancia y comprobar su coherencia sin confundir falta de eco con distancia cero.",
+        "Un sensor de proximidad en un equipo UAV exige comprender qué mide y en qué situaciones puede dejar de informar.",
+        "EN LÍNEA   2 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-04-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Qué observa el sensor ultrasónico",
+        "MECRO   SEMANA 4   CLASE 07   02/24",
+        "El HC-SR04 representa distancia mediante la duración de un pulso de eco asociado a una medición acústica. El sonido recorre la ida hasta el objeto y la vuelta al sensor. Esa doble trayectoria explica la división entre dos. No se está midiendo luz ni una distancia por imagen. El tamaño, orientación y superficie del objeto pueden cambiar el eco disponible en hardware."
+      ],
+      "image": "assets/slide-04-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Qué observa el sensor ultrasónico",
+        "MECRO   SEMANA 4   CLASE 07   03/24",
+        "Localiza TRIG y ECHO. Antes del hardware, adapta la señal ECHO de 5 V.",
+        "MECRO, proyecto 06. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-04-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Interpretación · Qué observa el sensor ultrasónico",
+        "MECRO   SEMANA 4   CLASE 07   04/24",
+        "En Wokwi se puede seleccionar una distancia de entrada del modelo y observar qué informa el programa. Eso es útil para comprobar la conversión y el tratamiento de extremos. En el banco, la distancia se contrasta con una referencia física y un objeto definido. La simulación no sustituye las comprobaciones de alimentación, nivel de señal, montaje o respuesta ante superficies diferentes."
+      ],
+      "image": "assets/slide-04-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Una fórmula con ida y vuelta",
+        "MECRO   SEMANA 4   CLASE 07   05/24",
+        "Una comparación requiere definir desde dónde se mide. La cara del sensor y el borde de una caja no son la misma referencia. Para una primera práctica bastan tres posiciones separadas y una superficie que el docente haya comprobado. Repetir lecturas en la misma posición permite observar dispersión. Cambiar posición y superficie a la vez impediría atribuir con claridad una diferencia."
+      ],
+      "image": "assets/slide-04-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "Tiempo, cálculo y referencia",
+        "MECRO   SEMANA 4   CLASE 07   06/24",
+        "Dato",
+        "Unidad",
+        "Qué debe acompañarlo",
+        "Duración del eco",
+        "microsegundos",
+        "Operación válida",
+        "Distancia calculada",
+        "cm",
+        "Conversión utilizada",
+        "Distancia de referencia",
+        "cm",
+        "Puntos físicos de medida"
+      ],
+      "image": "assets/slide-04-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Eco de 1000 microsegundos",
+        "MECRO   SEMANA 4   CLASE 07   07/24",
+        "El recorrido total sería 34,3 cm. La distancia de ida es la mitad: 17,15 cm. Es una conversión del modelo, no una verificación de exactitud del módulo.",
+        "Se usa c = 343 m/s como aproximación de aula. Las condiciones del aire afectan a esa aproximación."
+      ],
+      "image": "assets/slide-04-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "La señal de 5 V y la entrada de 3,3 V",
+        "MECRO   SEMANA 4   CLASE 07   08/24",
+        "El esquema original del laboratorio representa la simulación. Para hardware, el nivel de ECHO debe adaptarse a la entrada del ESP32 cuando el módulo lo entrega a 5 V. No se supone que un GPIO de la placa tolere ese nivel. En un divisor resistivo, R1 se coloca entre la salida ECHO y el nodo de medida; R2 se coloca entre ese nodo y GND. La referencia común debe estar definida."
+      ],
+      "image": "assets/slide-04-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Interfaz física que se comprueba",
+        "MECRO   SEMANA 4   CLASE 07   09/24",
+        "Conexión",
+        "Función",
+        "Revisión",
+        "VCC del sensor",
+        "Alimentación del módulo",
+        "Ficha del módulo",
+        "TRIG",
+        "Inicio de medición",
+        "Compatibilidad de entrada",
+        "ECHO adaptado",
+        "Señal al GPIO",
+        "Nivel medido",
+        "GND",
+        "Referencia común",
+        "Continuidad"
+      ],
+      "image": "assets/slide-04-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "La señal de 5 V y la entrada de 3,3 V",
+        "MECRO   SEMANA 4   CLASE 07   10/24",
+        "El divisor es parte de la interfaz, no una instrucción opcional que se omite porque la animación funciona. Un sensor de distancia compatible con lógica de 3,3 V puede utilizar otra interfaz, siempre que su documentación lo respalde. El docente conserva la referencia del componente físico: “HC-SR04 o equivalente” no hace idénticos todos sus módulos.",
+        "Ejemplo de banco: R1 = 2,2 kohm y R2 = 3,3 kohm producen 3,0 V nominales desde 5,0 V. Se verifica el nivel con el montaje real."
+      ],
+      "image": "assets/slide-04-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "Tiempo de espera y ausencia de dato",
+        "MECRO   SEMANA 4   CLASE 07   11/24",
+        "La llamada tiene un tiempo de espera explícito. Sigue siendo bloqueante, pero su duración máxima queda acotada para esta práctica. Devolver cero por no completar el pulso no significa que el objeto esté tocando el sensor. Primero se interpreta la condición de la operación y después se calcula distancia. Una pantalla que muestra 0 cm para cualquier error pierde esa distinción."
+      ],
+      "image": "assets/slide-04-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Núcleo de c07_distancia",
+        "MECRO   SEMANA 4   CLASE 07   12/24",
+        "unsigned long us = pulseIn(ECHO, HIGH, 25000UL);",
+        "if (us == 0) {",
+        "  Serial.println(\"INVALID\");",
+        "  return;",
+        "}",
+        "float distance_cm = us * 0.0343f / 2.0f;",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-04-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Interpretación · Tiempo de espera y ausencia de dato",
+        "MECRO   SEMANA 4   CLASE 07   13/24",
+        "El tiempo de la adquisición también ocupa parte de la agenda. Si después coordinamos un servo, habrá que considerar su movimiento, la espera del sensor y el momento de aceptar la lectura. La versión de clase es deliberadamente pequeña para que esa duración pueda verse antes de construir un explorador. Guardar tiempo de inicio y de fin permite comprobar cuánto estuvo ocupada cada operación."
+      ],
+      "image": "assets/slide-04-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Laboratorio de contraste y fallos",
+        "MECRO   SEMANA 4   CLASE 07   14/24",
+        "La diferencia entre referencia y medida se describe primero en centímetros. Un porcentaje puede resultar confuso cerca de cero. El propósito del ejercicio es encontrar si la conversión tiene sentido, si se conserva una referencia y si el programa trata la ausencia de eco. La calibración detallada de un sistema ultrasónico completo queda fuera de esta primera práctica."
+      ],
+      "image": "assets/slide-04-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "Registro mínimo",
+        "MECRO   SEMANA 4   CLASE 07   15/24",
+        "Referencia / cm",
+        "Medida / cm",
+        "Estado / observación",
+        "Posición 1",
+        "Por obtener",
+        "Objeto y montaje",
+        "Posición 2",
+        "Por obtener",
+        "Misma referencia",
+        "Sin eco",
+        "Sin distancia válida",
+        "Tiempo de espera"
+      ],
+      "image": "assets/slide-04-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Práctica · Laboratorio de contraste y fallos",
+        "MECRO   SEMANA 4   CLASE 07   16/24",
+        "1. Revisa el esquema de simulación y la tabla de interfaz física.",
+        "",
+        "2. Ejecuta c07_distancia y cambia tres distancias conocidas en Wokwi.",
+        "",
+        "3. Calcula manualmente un caso a partir del tiempo de eco.",
+        "",
+        "4. En banco, contrasta tres posiciones con regla y objeto definidos.",
+        "",
+        "5. Retira el eco con el procedimiento del docente y observa INVALID.",
+        "",
+        "6. Compara la conversión ideal y la referencia, sin inventar una corrección con un único punto.",
+        "",
+        "7. Registra una condición en la que la lectura no deba usarse para decidir."
+      ],
+      "image": "assets/slide-04-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "Aplicación y límites de una medida de proximidad",
+        "MECRO   SEMANA 4   CLASE 07   17/24",
+        "Una aplicación de apoyo a drones puede usar distancia para demostrar principios de proximidad o para un banco de exploración. La lectura de un módulo educativo no basta para prometer navegación o prevención de colisiones. La clase enseña a observar cobertura, tiempos y casos inválidos. Esa forma de trabajar permite después comparar otras tecnologías de sensado sin creer que todas fallan de la misma manera."
+      ],
+      "image": "assets/slide-04-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 4   CLASE 07   18/24",
+        "La pantalla repite 25 cm durante un fallo. ¿Qué necesita saber la aplicación?",
+        "Investiga por qué una superficie inclinada puede cambiar el eco y por qué la velocidad del sonido no es una constante independiente del ambiente. Explica la consecuencia práctica sin resolver un modelo acústico avanzado. El reto de transferencia consiste en escribir una política para dato inválido: aviso, conservación con edad o suspensión de una decisión que dependía de esa lectura."
+      ],
+      "image": "assets/slide-04-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Dato repetido",
+        "MECRO   SEMANA 4   CLASE 07   19/24",
+        "La pantalla repite 25 cm durante un fallo. ¿Qué necesita saber la aplicación?",
+        "Si se obtuvo una lectura nueva, cuándo ocurrió y qué estado devolvió la adquisición. Repetir un valor almacenado no demuestra que el objeto permanezca a 25 cm."
+      ],
+      "image": "assets/slide-04-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 4   CLASE 07   20/24",
+        "1. Relacionar ida y vuelta con una distancia observable.",
+        "",
+        "2. Resolver el ejemplo de 1000 μs y revisar unidades.",
+        "",
+        "3. Comprobar c07_distancia con eco y sin eco.",
+        "",
+        "4. Contrastar una referencia y explicar la adaptación de ECHO."
+      ],
+      "image": "assets/slide-04-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 4   CLASE 07   21/24",
+        "Un sensor de proximidad en un equipo UAV exige comprender qué mide y en qué situaciones puede dejar de informar.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-04-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 4   CLASE 07   22/24",
+        "1. ¿Por qué se divide entre dos?",
+        "",
+        "2. ¿pulseIn con timeout deja de bloquear?",
+        "",
+        "3. ¿Un retorno cero es distancia cero?"
+      ],
+      "image": "assets/slide-04-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 4   CLASE 07   23/24",
+        "1. Porque el tiempo corresponde al recorrido de ida y vuelta.",
+        "",
+        "2. No. La espera queda acotada por el tiempo establecido.",
+        "",
+        "3. No; en este uso representa que no se completó un pulso válido."
+      ],
+      "image": "assets/slide-04-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 4   CLASE 07   24/24",
+        "Conversión explicada, tabla de contraste y tratamiento de lectura inválida.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-04-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Taller 1: servomotor y explorador ultrasónico",
+        "MECRO   SEMANA 4   CLASE 08   01/24",
+        "Coordinar una orden de posición con una lectura de distancia y conservar un registro coherente.",
+        "Una base de sensor o cámara necesita relacionar posición ordenada, tiempo de movimiento y dato adquirido.",
+        "PRESENCIAL   4 HORAS   ESP32 CLÁSICO"
+      ],
+      "image": "assets/slide-04-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Tres cosas diferentes: mando, posición y medida",
+        "MECRO   SEMANA 4   CLASE 08   02/24",
+        "El proyecto de radar del laboratorio coordina un servo con un sensor ultrasónico. El nombre sirve para presentar el explorador, pero la medición es acústica. El programa puede ordenar un ángulo y dibujar una línea; eso no demuestra que el mecanismo ya alcanzó esa posición cuando se adquirió el dato. Nuestra primera tarea de integración es reconocer esa diferencia y guardar qué ocurrió en cada etapa."
+      ],
+      "image": "assets/slide-04-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Tres cosas diferentes: mando, posición y medida",
+        "MECRO   SEMANA 4   CLASE 08   03/24",
+        "Distingue la energía del servo y la señal de control. Comprueba referencia común.",
+        "MECRO, proyecto 11. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+      ],
+      "image": "assets/slide-04-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Interpretación · Tres cosas diferentes: mando, posición y medida",
+        "MECRO   SEMANA 4   CLASE 08   04/24",
+        "En una carga de sensor, la orientación del soporte forma parte del significado de la medida. Un registro útil puede contener orden, tiempo de orden, tiempo de adquisición, distancia y estado. Si no hay un sensor de posición independiente, se identifica la posición como ordenada o estimada. Esta precisión del lenguaje ayuda a tomar decisiones de montaje sin exigir instrumentación avanzada."
+      ],
+      "image": "assets/slide-04-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Ancho de pulso y respuesta del servo",
+        "MECRO   SEMANA 4   CLASE 08   05/24",
+        "Un servo convencional interpreta el ancho de un pulso repetido según su interfaz. Los límites y el sentido dependen del modelo y del montaje. No se enseña que cualquier servo tenga exactamente 0° a 180° entre 1 y 2 ms. En la práctica se comienza en una posición sin interferencia y con un intervalo permitido por su documentación. El archivo c08_servo usa un margen de ejercicio que el docente debe contrastar con el dispositivo."
+      ],
+      "image": "assets/slide-04-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Una orden y lo que falta conocer",
+        "MECRO   SEMANA 4   CLASE 08   06/24",
+        "Dato",
+        "Significado",
+        "Comprobación",
+        "Pulso / μs",
+        "Mando eléctrico",
+        "Señal observada",
+        "Ángulo solicitado",
+        "Convención del programa",
+        "Calibración del montaje",
+        "Posición real",
+        "Estado del mecanismo",
+        "Observación o sensor"
+      ],
+      "image": "assets/slide-04-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Ancho de pulso y respuesta del servo",
+        "MECRO   SEMANA 4   CLASE 08   07/24",
+        "La cuenta de duty depende de la resolución configurada. Con 16 bits y periodo de 20000 μs, un pulso de 1500 μs corresponde aproximadamente a 4915 cuentas. No se copia ese código a una configuración de 8 bits. La misma fracción exige otro número porque cambió la representación digital.",
+        "El pulso de 1,5 ms es un ejemplo habitual de referencia central; el recorrido efectivo se verifica en el servo y el mecanismo reales."
+      ],
+      "image": "assets/slide-04-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Alimentación y montaje de banco",
+        "MECRO   SEMANA 4   CLASE 08   08/24",
+        "El servo necesita energía para su motor interno y puede demandar corriente variable al arrancar o sostener carga. La señal del GPIO no aporta esa potencia. En el banco se prepara una fuente adecuada para el actuador y una referencia de señal compatible. El positivo de esa fuente no se une arbitrariamente con otras alimentaciones de la placa. El docente presenta el circuito completo antes de realizar movimientos."
+      ],
+      "image": "assets/slide-04-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Separación de funciones",
+        "MECRO   SEMANA 4   CLASE 08   09/24",
+        "Elemento",
+        "Trabajo",
+        "Qué se comprueba",
+        "GPIO13",
+        "Orden al servo",
+        "Nivel y pulso",
+        "Fuente del servo",
+        "Energía del actuador",
+        "Tensión y capacidad",
+        "GND de referencia",
+        "Interpretación de señal",
+        "Conexión definida",
+        "Soporte mecánico",
+        "Movimiento permitido",
+        "Sin interferencias"
+      ],
+      "image": "assets/slide-04-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Reinicio al mover",
+        "MECRO   SEMANA 4   CLASE 08   10/24",
+        "El programa funciona quieto y la placa se reinicia cuando se mueve el servo. ¿Qué revisas antes de cambiar el algoritmo?",
+        "La alimentación, la demanda del actuador, las conexiones y la referencia del montaje. El síntoma puede pertenecer al suministro de energía; no se resuelve suponiendo que todo es un error de programación."
+      ],
+      "image": "assets/slide-04-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Secuencia del explorador",
+        "MECRO   SEMANA 4   CLASE 08   11/24",
+        "El fragmento describe una secuencia; las funciones representan tareas que el equipo debe relacionar con su proyecto. No se presenta como un firmware completo listo para compilar. Primero se prueba el servo con c08_servo y el sensor con c07_distancia. Después se integra un pequeño conjunto de posiciones. La condición para adquirir se define según el montaje y la evidencia disponible."
+      ],
+      "image": "assets/slide-04-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Tres momentos de una exploración",
+        "MECRO   SEMANA 4   CLASE 08   12/24",
+        "// Estado 1: ordenar una posicion permitida",
+        "commandServo(target);",
+        "// Estado 2: esperar la condicion de adquisicion",
+        "// Estado 3: adquirir y guardar el par coherente",
+        "record(target, sampleTime, distance, valid);",
+        "Lee el fragmento. Predice una salida y cambia una sola condición antes de ejecutar."
+      ],
+      "image": "assets/slide-04-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Interpretación · Secuencia del explorador",
+        "MECRO   SEMANA 4   CLASE 08   13/24",
+        "La práctica del brazo robótico sirve como variante de mando y filtrado del potenciómetro. Su señal se puede reutilizar para una base de cámara, pero no basta cambiar el dibujo del proyecto para conocer la orientación de una carga. El equipo explica qué variable mide realmente y qué movimiento solo ordena. Esta distinción se conservará cuando aparezcan motores con encoder."
+      ],
+      "image": "assets/slide-04-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Agenda de cuatro horas y evidencias",
+        "MECRO   SEMANA 4   CLASE 08   14/24",
+        "Los alumnos con kit trabajan con su material confirmado. Los demás usan el simulador y los bancos compartidos programados para el taller. En el registro se identifica qué comprobación se realizó físicamente y cuál pertenece a una ejecución de simulación. El resultado común del curso es la explicación del sistema y de su evidencia, con el modo de trabajo documentado."
+      ],
+      "image": "assets/slide-04-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Taller presencial 1",
+        "MECRO   SEMANA 4   CLASE 08   15/24",
+        "Minutos",
+        "Trabajo",
+        "Producto",
+        "0–25",
+        "Revisión de esquemas",
+        "Mapa del equipo",
+        "25–70",
+        "Servo y señales",
+        "Intervalo comprobado",
+        "70–120",
+        "Ultrasonido y nivel",
+        "Referencia de distancia",
+        "120–175",
+        "Integración por estados",
+        "Registro coherente",
+        "175–215",
+        "Pruebas y diagnóstico",
+        "Fallo explicado",
+        "215–240",
+        "Demostración y cierre",
+        "Entrega del equipo"
+      ],
+      "image": "assets/slide-04-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Práctica · Agenda de cuatro horas y evidencias",
+        "MECRO   SEMANA 4   CLASE 08   16/24",
+        "1. Comprueba por separado cada subsistema antes de integrar.",
+        "",
+        "2. Ordena tres posiciones permitidas y registra qué has observado.",
+        "",
+        "3. Relaciona cada distancia con la orden y el instante que le corresponden.",
+        "",
+        "4. Trata un caso sin eco y conserva el estado en lugar de inventar distancia.",
+        "",
+        "5. Intercambia roles de cableado, programación, medida y registro.",
+        "",
+        "6. Entrega una conclusión sobre alimentación y otra sobre sincronización."
+      ],
+      "image": "assets/slide-04-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Qué se acepta al cerrar el taller",
+        "MECRO   SEMANA 4   CLASE 08   17/24",
+        "La entrega debe permitir que otra persona reconstruya el ensayo: esquema vigente, configuración de señal, intervalo permitido, código identificado y una tabla de posiciones y lecturas. Una animación atractiva no sustituye ese registro. Tampoco se exige una exploración de muchos puntos antes de resolver tres casos coherentes. La calidad se reconoce en que el equipo puede explicar de dónde salió cada dato y qué falta comprobar."
+      ],
+      "image": "assets/slide-04-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "Predicción y explicación",
+        "MECRO   SEMANA 4   CLASE 08   18/24",
+        "Dos equipos dibujan el mismo barrido. Uno guarda solo distancias y el otro guarda orden, instante y estado. ¿Cuál permite investigar una lectura fuera de secuencia?",
+        "Para investigar, compara el servo con el stepper del proyecto 13: señal de mando, energía, estado que se conoce y mecanismo de transmisión. Deja el stepper como ampliación hasta disponer de motor y driver coherentes. La siguiente parte del curso profundiza en potencia, medición de movimiento y realimentación, usando un banco DC de baja tensión."
+      ],
+      "image": "assets/slide-04-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Misma figura, distinto registro",
+        "MECRO   SEMANA 4   CLASE 08   19/24",
+        "Dos equipos dibujan el mismo barrido. Uno guarda solo distancias y el otro guarda orden, instante y estado. ¿Cuál permite investigar una lectura fuera de secuencia?",
+        "El segundo conserva las referencias necesarias. La figura por sí sola no permite saber cuándo se adquirió cada dato."
+      ],
+      "image": "assets/slide-04-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Práctica guiada",
+        "MECRO   SEMANA 4   CLASE 08   20/24",
+        "1. Presentar el esquema completo y el intervalo mecánico antes de mover.",
+        "",
+        "2. Verificar servo y sensor de manera independiente.",
+        "",
+        "3. Integrar tres posiciones con tiempo y validez en el registro.",
+        "",
+        "4. Demostrar un fallo y explicar la evidencia de cada equipo."
+      ],
+      "image": "assets/slide-04-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Aplicación en un banco para drones",
+        "MECRO   SEMANA 4   CLASE 08   21/24",
+        "Una base de sensor o cámara necesita relacionar posición ordenada, tiempo de movimiento y dato adquirido.",
+        "Explica una decisión con el esquema, el programa o un dato. ¿Qué queda sin comprobar?"
+      ],
+      "image": "assets/slide-04-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Preguntas de cierre",
+        "MECRO   SEMANA 4   CLASE 08   22/24",
+        "1. ¿Ordenar 90° demuestra que el mecanismo llegó?",
+        "",
+        "2. ¿Por qué no usar el GPIO como alimentación?",
+        "",
+        "3. ¿Qué debe acompañar una distancia del barrido?"
+      ],
+      "image": "assets/slide-04-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Respuestas y razonamiento",
+        "MECRO   SEMANA 4   CLASE 08   23/24",
+        "1. No. Se distingue la orden de una posición observada o medida.",
+        "",
+        "2. El GPIO comunica la señal; la energía del actuador exige una etapa de alimentación adecuada.",
+        "",
+        "3. La orden o posición de referencia, el instante y el estado de validez."
+      ],
+      "image": "assets/slide-04-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 4   CLASE 08   24/24",
+        "Esquema revisado, tres registros coherentes y diagnóstico de una condición de fallo.",
+        "Identifica versión, unidad y procedencia. Conserva la evidencia y explica qué probarías después."
+      ],
+      "image": "assets/slide-04-48.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-04.pdf",
+  "ppt": "descargas/MECRO_ESP32_Semana_04.pptx"
+}

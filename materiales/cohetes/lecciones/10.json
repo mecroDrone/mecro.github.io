@@ -1,0 +1,387 @@
+{
+  "n": 10,
+  "week": 5,
+  "title": "Materiales y compuestos sobre piezas reales",
+  "goal": "Comparar materiales por función, fabricación y reparación sin asignarles una superioridad universal.",
+  "mission": "Elegir materiales que el equipo pueda fabricar y comprobar con sus recursos.",
+  "pages": [
+    {
+      "title": "Una mesa de muestras, no una lista de materiales famosos",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El taller puede reunir un tubo de cartón, una aleta de madera ligera, una pieza impresa y muestras de compuestos. Antes de decir cuál es “mejor”, hay que identificar qué pieza resolverá cada una. Un material útil para un cuerpo no tiene por qué ser la opción más conveniente para un útil de montaje o una tapa."
+        },
+        {
+          "type": "image",
+          "name": "print_layers",
+          "caption": "Prusa Research: superficies de piezas impresas. El proceso también participa de lo que observamos al comparar materiales.",
+          "width": 120
+        },
+        {
+          "type": "table",
+          "title": "Preguntas para tocar y observar",
+          "headers": [
+            "Pregunta",
+            "Relación con el proyecto"
+          ],
+          "rows": [
+            [
+              "¿Cuánto pesa la pieza?",
+              "Masa que entra al vehículo"
+            ],
+            [
+              "¿Se deforma o se marca?",
+              "Manipulación y montaje"
+            ],
+            [
+              "¿Cómo se une?",
+              "Proceso y compatibilidad"
+            ],
+            [
+              "¿Cómo se repara?",
+              "Reutilización y repuestos"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las comparaciones se hacen sobre muestras identificadas. Dos placas con distinto espesor no permiten atribuir a la fibra toda la diferencia de rigidez que se observa."
+        },
+        {
+          "type": "p",
+          "text": "Elegir material comienza por la función de una pieza. El cuerpo debe conservar geometría y espacio; una aleta debe mantener su forma y su unión; una nariz necesita una interfaz que pueda fabricarse y revisarse. Una misma familia de material puede servir en una función y resultar incómoda en otra. Sostener muestras, observar bordes y comparar cómo se trabajan permite empezar esta discusión sin asignar propiedades ideales a un objeto que no se ha caracterizado."
+        }
+      ]
+    },
+    {
+      "title": "Madera, cartón y polímeros impresos",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Comparación inicial por proceso",
+          "headers": [
+            "Opción",
+            "Qué puede facilitar",
+            "Qué revisar en la pieza"
+          ],
+          "rows": [
+            [
+              "Cartón ligero",
+              "Cuerpo disponible y liviano",
+              "Circularidad, humedad y uniones"
+            ],
+            [
+              "Madera ligera",
+              "Corte y repetición de aletas",
+              "Veta, borde y espesor"
+            ],
+            [
+              "PLA",
+              "Prototipos y detalles geométricos",
+              "Fragilidad, calor y capas"
+            ],
+            [
+              "PETG",
+              "Piezas funcionales según diseño",
+              "Deformación, ajuste y acabado"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En la madera, la dirección de la veta puede influir en cómo se comporta una aleta. En el tubo, el estado del borde y la humedad pueden alterar el encaje. En una impresión, el material y la orientación participan juntos. Estas observaciones son más útiles para el primer proyecto que comparar valores aislados de una tabla sin saber a qué muestra pertenecen."
+        },
+        {
+          "type": "case",
+          "title": "Misma función, proceso diferente",
+          "problem": "Dos útiles mantienen la alineación de las piezas: uno está impreso y otro se prepara con material de taller.",
+          "answer": "Compara repetibilidad, tiempo de preparación, ajuste y posibilidad de modificarlo. Un útil puede elegirse por comodidad de fabricación aunque nunca vaya a formar parte del cohete."
+        },
+        {
+          "type": "p",
+          "text": "El equipo conserva la ficha del material y la identificación del proceso. Las propiedades de una familia orientan la elección, pero no sustituyen la revisión del objeto que se construyó. [PLA, PETG]"
+        },
+        {
+          "type": "p",
+          "text": "Rigidez y resistencia tienen significados diferentes. La rigidez se relaciona con cuánto cambia la forma ante una solicitación. La resistencia se relaciona con el nivel de solicitación que puede soportarse antes de un modo de fallo definido. La geometría también influye en lo que observamos. Por eso una placa más gruesa puede deformarse menos sin que hayamos demostrado que su material tiene una propiedad superior. En el banco se describe exactamente la muestra y la tarea realizada."
+        }
+      ]
+    },
+    {
+      "title": "Qué significa compuesto",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un compuesto combina un refuerzo y una matriz. En un laminado con tejido, las fibras se organizan en direcciones reconocibles y la matriz las mantiene unidas y transmite esfuerzos. En un filamento con fibras cortas, el refuerzo está distribuido de otra manera. Usar la palabra “carbono” para ambos no los vuelve equivalentes."
+        },
+        {
+          "type": "table",
+          "title": "Comparación conceptual de muestras",
+          "headers": [
+            "Muestra",
+            "Qué observar",
+            "Qué evitar concluir"
+          ],
+          "rows": [
+            [
+              "Vidrio con resina",
+              "Tejido, acabado, espesor y masa",
+              "Que todo vidrio se comporta igual"
+            ],
+            [
+              "Carbono con resina",
+              "Orientación, pieza y unión",
+              "Que siempre hace falta en un modelo pequeño"
+            ],
+            [
+              "Filamento con fibra corta",
+              "Matriz, impresión y capas",
+              "Que equivale a un laminado de tejido"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El carbono puede aportar rigidez específica en aplicaciones adecuadas y el vidrio puede ser una alternativa útil y accesible. En este curso ninguna de esas frases decide por sí sola el material. Importan la pieza completa, su geometría, el proceso disponible, las uniones y la misión. Se revisan muestras preparadas y fichas concretas."
+        },
+        {
+          "type": "note",
+          "text": "Esta clase no se convierte en un curso de cálculo de laminados. El alumno debe reconocer cómo está hecha una muestra, para qué la consideraría y qué evidencia necesitaría antes de usarla. [CF]"
+        },
+        {
+          "type": "p",
+          "text": "El nombre de una fibra no define la cantidad de refuerzo, su orientación o la calidad de la matriz. Un acabado exterior parecido puede esconder procesos diferentes. Antes de comparar una placa comprada con una pieza preparada en taller, identifica qué información existe sobre cada una. Si falta una ficha o no se conoce su fabricación, esa incertidumbre forma parte de la elección. No se rellena asignando las propiedades del material más parecido."
+        }
+      ]
+    },
+    {
+      "title": "Comparar con una tarea sencilla y definida",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El docente prepara muestras para una observación de banco, sin utilizar piezas críticas del vehículo para descubrir su límite de rotura. La tarea puede ser observar masa, espesor, recuperación después de una manipulación moderada y facilidad de unión en una muestra separada. El criterio se fija antes de comparar."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Identifica material, espesor y dimensiones de cada muestra.",
+            "Pesa cada una y registra el estado previo.",
+            "Aplica solo la tarea de observación de banco definida por el docente, de forma semejante en todas.",
+            "Describe lo observado sin asignar una causa que no hayas comprobado.",
+            "Revisa si las muestras son comparables y qué diferencia impide una conclusión directa.",
+            "Elige una aplicación del proyecto para cada opción que tenga sentido."
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Una muestra parece más rígida",
+          "problem": "La placa A se deforma menos que B, pero también tiene el doble de espesor y otra forma de apoyo.",
+          "answer": "La observación pertenece a esas dos piezas y condiciones. No basta para declarar que el material A es intrínsecamente mejor. La actividad enseña a reconocer qué se está comparando, sin resolver un ensayo de flexión avanzado."
+        },
+        {
+          "type": "p",
+          "text": "Una prueba sencilla puede ser rigurosa si su pregunta y sus límites son claros. No necesita llamarse ensayo estructural de certificación."
+        },
+        {
+          "type": "p",
+          "text": "Una observación útil conserva condiciones que otro equipo pueda repetir. Se identifica la muestra, se explica cómo se apoyó y se aplica únicamente la tarea de banco definida por el docente. Si la tarea es comparar un encaje o la calidad del borde, no hace falta romper la pieza. Una prueba informal ayuda a elegir y a descubrir dificultades de fabricación. Para afirmar una propiedad mecánica numérica se necesitaría otro método y otra evidencia."
+        }
+      ]
+    },
+    {
+      "title": "La decisión se toma pieza por pieza",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "print_overhang",
+          "caption": "Prusa Research: el proceso de impresión afecta el acabado funcional. Es una evidencia de fabricación, no una propiedad universal del material.",
+          "width": 115
+        },
+        {
+          "type": "table",
+          "title": "Mapa de selección del equipo",
+          "headers": [
+            "Pieza",
+            "Función principal",
+            "Dato para decidir"
+          ],
+          "rows": [
+            [
+              "Nariz",
+              "Frente y cierre",
+              "Encaje, masa y fabricación"
+            ],
+            [
+              "Aleta",
+              "Geometría y unión",
+              "Repetición, alineación y estado"
+            ],
+            [
+              "Cuerpo",
+              "Alojamiento y continuidad",
+              "Medidas, masa y acceso"
+            ],
+            [
+              "Útil",
+              "Conservar posición en banco",
+              "Ajuste y repetibilidad"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El equipo debe poder decir por qué una opción sencilla cumple la función o por qué necesita otra. Añadir un compuesto especializado sin una necesidad clara puede complicar uniones, fabricación y reposición. Para el primer cohete interesa completar bien el conjunto y aprender a revisar sus piezas."
+        },
+        {
+          "type": "case",
+          "title": "Una mejora que no conviene todavía",
+          "problem": "Se propone sustituir una pieza que ya cumple su función por otra más costosa, sin una diferencia de misión definida.",
+          "answer": "Antes de cambiar, identifica el problema que resolvería. Si no existe una necesidad comprobable, conserva la referencia y dedica el recurso a una pieza o revisión pendiente."
+        },
+        {
+          "type": "p",
+          "text": "La facilidad de reparar también se demuestra con una tarea. Una pieza de repuesto puede ser barata en material, pero difícil de cambiar sin afectar las otras uniones. El equipo puede presentar una maqueta separada de esa interfaz y explicar el acceso necesario. Esta revisión conecta material y mantenimiento con la misión de reutilización, sin necesidad de romper el prototipo ni calcular una resistencia última."
+        }
+      ]
+    },
+    {
+      "title": "Misión de aprendizaje, reutilización o carga",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Qué pesa en la comparación",
+          "headers": [
+            "Misión",
+            "Prioridades razonables"
+          ],
+          "rows": [
+            [
+              "Aprendizaje",
+              "Fabricación comprensible, costo y disponibilidad"
+            ],
+            [
+              "Reutilización",
+              "Revisión, repuestos y reparación"
+            ],
+            [
+              "Carga docente",
+              "Interfaces, acceso y condiciones del conjunto"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La decisión final combina observación y necesidades del proyecto. El alumno no tiene que memorizar módulos elásticos de materiales. Sí debe distinguir el peso de una pieza, su estado, el proceso que la produjo y la forma en que se conectará con las otras."
+        },
+        {
+          "type": "case",
+          "title": "Cómo documentar la elección",
+          "problem": "“Para nuestras aletas elegimos esta opción porque pudimos repetir el contorno y revisar la unión con el útil. Esta otra muestra quedará como referencia para una futura versión”.",
+          "answer": "La explicación vincula material, función y evidencia. Puede mejorarse con medidas adicionales, pero ya es más útil que “usamos carbono porque es profesional”."
+        },
+        {
+          "type": "p",
+          "text": "Entrega una tabla por pieza con material, proceso, masa conocida o pendiente, motivo y comprobación. Incluye una fotografía de las muestras identificadas. La comparación debe ser comprensible para un compañero que no estuvo en la mesa."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Preparar una mesa de muestras identificadas.",
+    "Comparar materiales conservando condiciones de la observación.",
+    "Distinguir tejido con resina y filamento con fibras cortas.",
+    "Completar el mapa de selección por pieza."
+  ],
+  "qas": [
+    [
+      "¿Más rigidez observada demuestra mejor material si cambia el espesor?",
+      "No. Se están comparando piezas y condiciones diferentes."
+    ],
+    [
+      "¿PLA con fibra corta equivale a una placa de tejido?",
+      "No. La estructura del refuerzo y el proceso son distintos."
+    ],
+    [
+      "¿Qué debe explicar la selección?",
+      "Función de la pieza, proceso disponible y comprobación."
+    ]
+  ],
+  "delivery": "Tabla de selección por pieza, fotos y observaciones de banco.",
+  "refs": [
+    "PLA",
+    "PETG",
+    "CF",
+    "PR1",
+    "AP"
+  ],
+  "opening": "Pon dos piezas con distinto espesor sobre la mesa y pregunta qué se puede concluir antes de nombrar el material.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "PLA": [
+      "Prusa Research",
+      "PLA",
+      "https://help.prusa3d.com/article/pla_2062"
+    ],
+    "PETG": [
+      "Prusa Research",
+      "PETG",
+      "https://help.prusa3d.com/article/petg_2059"
+    ],
+    "CF": [
+      "Prusa Research",
+      "Composite materials",
+      "https://help.prusa3d.com/article/composite-materials-filled-with-carbon-kevlar-or-glass_167387"
+    ],
+    "PR1": [
+      "Prusa Research",
+      "Modeling with 3D printing in mind",
+      "https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135"
+    ],
+    "AP": [
+      "Apogee Components",
+      "Peak of Flight 629",
+      "https://www.apogeerockets.com/education/downloads/Newsletter629.pdf"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}

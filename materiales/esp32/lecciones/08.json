@@ -1,0 +1,329 @@
+{
+  "n": 8,
+  "week": 4,
+  "title": "Taller 1: servomotor y explorador ultrasónico",
+  "goal": "Coordinar una orden de posición con una lectura de distancia y conservar un registro coherente.",
+  "mission": "Una base de sensor o cámara necesita relacionar posición ordenada, tiempo de movimiento y dato adquirido.",
+  "projects": [
+    11,
+    12
+  ],
+  "pages": [
+    {
+      "title": "Tres cosas diferentes: mando, posición y medida",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El proyecto de radar del laboratorio coordina un servo con un sensor ultrasónico. El nombre sirve para presentar el explorador, pero la medición es acústica. El programa puede ordenar un ángulo y dibujar una línea; eso no demuestra que el mecanismo ya alcanzó esa posición cuando se adquirió el dato. Nuestra primera tarea de integración es reconocer esa diferencia y guardar qué ocurrió en cada etapa."
+        },
+        {
+          "type": "image",
+          "name": "proyecto11",
+          "width": 145,
+          "caption": "MECRO, proyecto 11. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+        },
+        {
+          "type": "p",
+          "text": "En una carga de sensor, la orientación del soporte forma parte del significado de la medida. Un registro útil puede contener orden, tiempo de orden, tiempo de adquisición, distancia y estado. Si no hay un sensor de posición independiente, se identifica la posición como ordenada o estimada. Esta precisión del lenguaje ayuda a tomar decisiones de montaje sin exigir instrumentación avanzada."
+        }
+      ]
+    },
+    {
+      "title": "Ancho de pulso y respuesta del servo",
+      "blocks": [
+        {
+          "type": "equation",
+          "tex": "T=\\frac{1}{50}=20\\,\\mathrm{ms},\\qquad D=\\frac{1.5}{20}=7.5\\%",
+          "text": "El pulso de 1,5 ms es un ejemplo habitual de referencia central; el recorrido efectivo se verifica en el servo y el mecanismo reales.",
+          "image": "assets/eq_08_1_0.png"
+        },
+        {
+          "type": "p",
+          "text": "Un servo convencional interpreta el ancho de un pulso repetido según su interfaz. Los límites y el sentido dependen del modelo y del montaje. No se enseña que cualquier servo tenga exactamente 0° a 180° entre 1 y 2 ms. En la práctica se comienza en una posición sin interferencia y con un intervalo permitido por su documentación. El archivo c08_servo usa un margen de ejercicio que el docente debe contrastar con el dispositivo."
+        },
+        {
+          "type": "table",
+          "title": "Una orden y lo que falta conocer",
+          "headers": [
+            "Dato",
+            "Significado",
+            "Comprobación"
+          ],
+          "rows": [
+            [
+              "Pulso / μs",
+              "Mando eléctrico",
+              "Señal observada"
+            ],
+            [
+              "Ángulo solicitado",
+              "Convención del programa",
+              "Calibración del montaje"
+            ],
+            [
+              "Posición real",
+              "Estado del mecanismo",
+              "Observación o sensor"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La cuenta de duty depende de la resolución configurada. Con 16 bits y periodo de 20000 μs, un pulso de 1500 μs corresponde aproximadamente a 4915 cuentas. No se copia ese código a una configuración de 8 bits. La misma fracción exige otro número porque cambió la representación digital."
+        }
+      ]
+    },
+    {
+      "title": "Alimentación y montaje de banco",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El servo necesita energía para su motor interno y puede demandar corriente variable al arrancar o sostener carga. La señal del GPIO no aporta esa potencia. En el banco se prepara una fuente adecuada para el actuador y una referencia de señal compatible. El positivo de esa fuente no se une arbitrariamente con otras alimentaciones de la placa. El docente presenta el circuito completo antes de realizar movimientos."
+        },
+        {
+          "type": "table",
+          "title": "Separación de funciones",
+          "headers": [
+            "Elemento",
+            "Trabajo",
+            "Qué se comprueba"
+          ],
+          "rows": [
+            [
+              "GPIO13",
+              "Orden al servo",
+              "Nivel y pulso"
+            ],
+            [
+              "Fuente del servo",
+              "Energía del actuador",
+              "Tensión y capacidad"
+            ],
+            [
+              "GND de referencia",
+              "Interpretación de señal",
+              "Conexión definida"
+            ],
+            [
+              "Soporte mecánico",
+              "Movimiento permitido",
+              "Sin interferencias"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Reinicio al mover",
+          "problem": "El programa funciona quieto y la placa se reinicia cuando se mueve el servo. ¿Qué revisas antes de cambiar el algoritmo?",
+          "answer": "La alimentación, la demanda del actuador, las conexiones y la referencia del montaje. El síntoma puede pertenecer al suministro de energía; no se resuelve suponiendo que todo es un error de programación."
+        },
+        {
+          "type": "p",
+          "text": "Cada equipo identifica el recorrido que puede observar y los puntos donde el soporte podría interferir. No se fuerza un extremo para “calibrar” una pieza. El propósito es producir órdenes repetibles dentro de un intervalo comprobado y conservar la condición de alimentación del ensayo."
+        }
+      ]
+    },
+    {
+      "title": "Secuencia del explorador",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Tres momentos de una exploración",
+          "text": "// Estado 1: ordenar una posicion permitida\ncommandServo(target);\n// Estado 2: esperar la condicion de adquisicion\n// Estado 3: adquirir y guardar el par coherente\nrecord(target, sampleTime, distance, valid);",
+          "short": "// Estado 1: ordenar una posicion permitida\ncommandServo(target);\n// Estado 2: esperar la condicion de adquisicion\n// Estado 3: adquirir y guardar el par coherente\nrecord(target, sampleTime, distance, valid);"
+        },
+        {
+          "type": "p",
+          "text": "El fragmento describe una secuencia; las funciones representan tareas que el equipo debe relacionar con su proyecto. No se presenta como un firmware completo listo para compilar. Primero se prueba el servo con c08_servo y el sensor con c07_distancia. Después se integra un pequeño conjunto de posiciones. La condición para adquirir se define según el montaje y la evidencia disponible."
+        },
+        {
+          "type": "p",
+          "text": "La práctica del brazo robótico sirve como variante de mando y filtrado del potenciómetro. Su señal se puede reutilizar para una base de cámara, pero no basta cambiar el dibujo del proyecto para conocer la orientación de una carga. El equipo explica qué variable mide realmente y qué movimiento solo ordena. Esta distinción se conservará cuando aparezcan motores con encoder."
+        }
+      ]
+    },
+    {
+      "title": "Agenda de cuatro horas y evidencias",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Taller presencial 1",
+          "headers": [
+            "Minutos",
+            "Trabajo",
+            "Producto"
+          ],
+          "rows": [
+            [
+              "0–25",
+              "Revisión de esquemas",
+              "Mapa del equipo"
+            ],
+            [
+              "25–70",
+              "Servo y señales",
+              "Intervalo comprobado"
+            ],
+            [
+              "70–120",
+              "Ultrasonido y nivel",
+              "Referencia de distancia"
+            ],
+            [
+              "120–175",
+              "Integración por estados",
+              "Registro coherente"
+            ],
+            [
+              "175–215",
+              "Pruebas y diagnóstico",
+              "Fallo explicado"
+            ],
+            [
+              "215–240",
+              "Demostración y cierre",
+              "Entrega del equipo"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Comprueba por separado cada subsistema antes de integrar.",
+            "Ordena tres posiciones permitidas y registra qué has observado.",
+            "Relaciona cada distancia con la orden y el instante que le corresponden.",
+            "Trata un caso sin eco y conserva el estado en lugar de inventar distancia.",
+            "Intercambia roles de cableado, programación, medida y registro.",
+            "Entrega una conclusión sobre alimentación y otra sobre sincronización."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Los alumnos con kit trabajan con su material confirmado. Los demás usan el simulador y los bancos compartidos programados para el taller. En el registro se identifica qué comprobación se realizó físicamente y cuál pertenece a una ejecución de simulación. El resultado común del curso es la explicación del sistema y de su evidencia, con el modo de trabajo documentado."
+        }
+      ]
+    },
+    {
+      "title": "Qué se acepta al cerrar el taller",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La entrega debe permitir que otra persona reconstruya el ensayo: esquema vigente, configuración de señal, intervalo permitido, código identificado y una tabla de posiciones y lecturas. Una animación atractiva no sustituye ese registro. Tampoco se exige una exploración de muchos puntos antes de resolver tres casos coherentes. La calidad se reconoce en que el equipo puede explicar de dónde salió cada dato y qué falta comprobar."
+        },
+        {
+          "type": "case",
+          "title": "Misma figura, distinto registro",
+          "problem": "Dos equipos dibujan el mismo barrido. Uno guarda solo distancias y el otro guarda orden, instante y estado. ¿Cuál permite investigar una lectura fuera de secuencia?",
+          "answer": "El segundo conserva las referencias necesarias. La figura por sí sola no permite saber cuándo se adquirió cada dato."
+        },
+        {
+          "type": "p",
+          "text": "Para investigar, compara el servo con el stepper del proyecto 13: señal de mando, energía, estado que se conoce y mecanismo de transmisión. Deja el stepper como ampliación hasta disponer de motor y driver coherentes. La siguiente parte del curso profundiza en potencia, medición de movimiento y realimentación, usando un banco DC de baja tensión."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Presentar el esquema completo y el intervalo mecánico antes de mover.",
+    "Verificar servo y sensor de manera independiente.",
+    "Integrar tres posiciones con tiempo y validez en el registro.",
+    "Demostrar un fallo y explicar la evidencia de cada equipo."
+  ],
+  "qas": [
+    [
+      "¿Ordenar 90° demuestra que el mecanismo llegó?",
+      "No. Se distingue la orden de una posición observada o medida."
+    ],
+    [
+      "¿Por qué no usar el GPIO como alimentación?",
+      "El GPIO comunica la señal; la energía del actuador exige una etapa de alimentación adecuada."
+    ],
+    [
+      "¿Qué debe acompañar una distancia del barrido?",
+      "La orden o posición de referencia, el instante y el estado de validez."
+    ]
+  ],
+  "delivery": "Esquema revisado, tres registros coherentes y diagnóstico de una condición de fallo.",
+  "refs": [
+    "MECRO",
+    "SERVO",
+    "HC",
+    "BOARD",
+    "PWM"
+  ],
+  "hours": 4,
+  "mode": "Presencial",
+  "opening": "Presentar el esquema completo y el intervalo mecánico antes de mover.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "SERVO": [
+      "Wokwi",
+      "Referencia del servomotor",
+      "https://docs.wokwi.com/parts/wokwi-servo"
+    ],
+    "HC": [
+      "Wokwi",
+      "Referencia del sensor HC-SR04",
+      "https://docs.wokwi.com/parts/wokwi-hc-sr04"
+    ],
+    "BOARD": [
+      "Espressif Systems",
+      "ESP32-DevKitC V4: guía de la placa",
+      "https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html"
+    ],
+    "PWM": [
+      "Espressif Systems",
+      "Arduino-ESP32: LEDC",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

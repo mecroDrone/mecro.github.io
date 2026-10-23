@@ -1,0 +1,331 @@
+{
+  "n": 5,
+  "week": 3,
+  "title": "PWM, sonido y salidas digitales en serie",
+  "goal": "Distinguir frecuencia, resolución y ciclo de trabajo, y ampliar salidas con un registro de desplazamiento.",
+  "mission": "Una orden del controlador puede representar brillo, un aviso o una consigna para otra etapa; el significado depende de la interfaz.",
+  "projects": [
+    2,
+    4
+  ],
+  "pages": [
+    {
+      "title": "Una salida digital puede expresar más que encendido y apagado",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "PWM alterna una salida entre sus niveles digitales siguiendo un periodo y una fracción de tiempo activa. La señal conserva esos niveles; lo que cambia es su distribución temporal. Un LED y su circuito pueden producir una apariencia de brillo distinta al variar esa fracción. Un instrumento o una carga pueden responder de otra manera. No convertimos automáticamente el GPIO en una fuente analógica de potencia variable."
+        },
+        {
+          "type": "image",
+          "name": "proyecto4",
+          "width": 145,
+          "caption": "MECRO, proyecto 04. Esquema original del laboratorio para reconocer la arquitectura en Wokwi. Para montaje físico se aplica la tabla y las correcciones de esta lectura."
+        },
+        {
+          "type": "p",
+          "text": "El piano muestra una señal cuyo ritmo determina la nota, mientras el dimmer muestra una señal cuyo ciclo de trabajo regula el efecto de brillo. Son usos diferentes de una onda digital. El registro 74HC595 del proyecto de luces ofrece otra ampliación: convierte una secuencia de bits en varias salidas conservadas. Esta clase compara las dos ideas sin confundir “muchas salidas” con “resolución de PWM”."
+        }
+      ]
+    },
+    {
+      "title": "Periodo, frecuencia y resolución",
+      "blocks": [
+        {
+          "type": "equation",
+          "tex": "f=\\frac{1}{T},\\qquad D=\\frac{t_{on}}{T},\\qquad d\\approx D(2^b-1)",
+          "text": "D es una proporción; d es un código de mando de b bits para la convención del ejemplo.",
+          "image": "assets/eq_05_1_0.png"
+        },
+        {
+          "type": "case",
+          "title": "Una señal de 1 kHz",
+          "problem": "Con periodo de 1 ms y tiempo activo de 0,25 ms, ¿qué ciclo de trabajo y qué código de 8 bits propones?",
+          "answer": "D = 0,25, equivalente al 25%. El código aproximado es 0,25 × 255 = 63,75: se elige 64. La frecuencia sigue siendo 1 kHz."
+        },
+        {
+          "type": "table",
+          "title": "Tres controles diferentes",
+          "headers": [
+            "Cambio",
+            "Qué modifica",
+            "Ejemplo"
+          ],
+          "rows": [
+            [
+              "Frecuencia",
+              "Repetición por segundo",
+              "Nota en buzzer pasivo"
+            ],
+            [
+              "Duty",
+              "Fracción activa",
+              "Brillo del LED"
+            ],
+            [
+              "Resolución",
+              "Pasos de mando",
+              "8 bits: 0 a 255"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Más resolución permite seleccionar más códigos, pero el periférico debe generar la combinación de frecuencia y resolución solicitada. En el código de referencia se comprueba si la configuración tuvo éxito. Elegir una frecuencia nueva puede compartir recursos con otra salida, según la configuración del periférico y las bibliotecas. En la clase de servo volveremos a este punto con una señal de 50 Hz que tiene un significado distinto al brillo."
+        }
+      ]
+    },
+    {
+      "title": "El 74HC595 y una palabra de ocho bits",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El registro recibe bits en serie y mantiene un conjunto de salidas. DATA transporta el valor de cada bit; CLOCK determina cuándo se incorpora; LATCH presenta el conjunto almacenado. Un patrón como 00010000 puede representar una luz encendida entre ocho. Desplazar ese patrón produce la animación del proyecto. La operación shiftOut() genera una secuencia por software; no demuestra que el circuito esté usando automáticamente el periférico SPI del ESP32."
+        },
+        {
+          "type": "table",
+          "title": "Señales del registro",
+          "headers": [
+            "Señal",
+            "Papel",
+            "Qué observa el alumno"
+          ],
+          "rows": [
+            [
+              "DATA",
+              "Bit que se transmite",
+              "0 o 1"
+            ],
+            [
+              "CLOCK",
+              "Paso de desplazamiento",
+              "Ocho pulsos por palabra"
+            ],
+            [
+              "LATCH",
+              "Actualización de salidas",
+              "Cambio del patrón completo"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La salida del integrado también tiene límites de corriente. En un montaje con LEDs se requiere una resistencia por rama. La alimentación del SN74HC595 y los umbrales de entrada se consultan juntos: un HC alimentado a 5 V no debe suponerse compatible en todas sus condiciones con una señal de 3,3 V. El ejemplo físico del curso se prepara a 3,3 V con corrientes de indicador pequeñas y una hoja de conexiones revisada."
+        },
+        {
+          "type": "case",
+          "title": "Ocho indicadores",
+          "problem": "Con LED de 2,0 V y alimentación de 3,3 V, un resistor de 680 ohm produce aproximadamente 1,9 mA por rama en el modelo ideal. ¿Qué suma representan ocho ramas?",
+          "answer": "Aproximadamente 15,3 mA. También se revisan las condiciones por salida y del integrado completo; la suma de ramas no autoriza ignorar la caída de tensión del driver."
+        }
+      ]
+    },
+    {
+      "title": "Un código y dos familias de API",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Uso de la capa de compatibilidad incluida",
+          "text": "CoursePwm led(23, 0);\nbool ok = led.begin(1000, 8);\nif (ok) {\n  uint32_t duty = (raw * 255UL) / 4095UL;\n  led.write(duty);\n}",
+          "short": "CoursePwm led(23, 0);\nbool ok = led.begin(1000, 8);\nif (ok) {\n  uint32_t duty = (raw * 255UL) / 4095UL;\n  led.write(duty);\n}"
+        },
+        {
+          "type": "p",
+          "text": "La capa course_pwm.h conserva separados el número de GPIO y el canal. En Arduino-ESP32 2.x se configuran canal y asociación de pin; en 3.x cambió la API y varias operaciones se expresan por pin. El material fija un entorno de referencia para los ejemplos y explica esa diferencia. Encontrar una función con el mismo nombre no garantiza que sus argumentos conserven el significado de una versión anterior."
+        },
+        {
+          "type": "code",
+          "title": "Patrón de una actualización del registro",
+          "text": "digitalWrite(LATCH, LOW);\nshiftOut(DATA, CLOCK, MSBFIRST, pattern);\ndigitalWrite(LATCH, HIGH);",
+          "short": "digitalWrite(LATCH, LOW);\nshiftOut(DATA, CLOCK, MSBFIRST, pattern);\ndigitalWrite(LATCH, HIGH);"
+        },
+        {
+          "type": "p",
+          "text": "El orden de bits se relaciona con la posición física de las salidas. Si la animación parece invertida, primero compara el patrón, la convención MSBFIRST y las conexiones. No hace falta cambiar simultáneamente ocho cables y todo el programa para investigar una inversión. Una prueba de un solo bit permite identificar la correspondencia."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio: un efecto y una secuencia",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Ejecuta c05_pwm con LED y resistencia; reconoce pin, canal, frecuencia y resolución.",
+            "Selecciona códigos 0, 64, 128, 192 y 255. Predice sus fracciones de mando.",
+            "Si hay analizador lógico u osciloscopio, mide periodo y tiempo activo; conserva la configuración.",
+            "En el proyecto 4, prueba un bit cada vez y dibuja su relación con las salidas.",
+            "Compara cambiar frecuencia del buzzer con cambiar duty del LED.",
+            "Conserva una tabla que diferencie mando calculado, señal observada y efecto visible."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Mando del ejercicio",
+          "headers": [
+            "Código / 8 bits",
+            "Fracción aproximada",
+            "Observación"
+          ],
+          "rows": [
+            [
+              "64",
+              "25,1%",
+              "Por comprobar"
+            ],
+            [
+              "128",
+              "50,2%",
+              "Por comprobar"
+            ],
+            [
+              "192",
+              "75,3%",
+              "Por comprobar"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La vista de una simulación ayuda a relacionar el algoritmo con el patrón. Una estimación visual de brillo no es una medida lineal de potencia óptica. Si el equipo usa solo observación, puede describir orden y contraste entre estados. Para afirmar valores de señal necesita el instrumento o el modelo identificado. El docente demuestra al menos una lectura de periodo para ligar la fórmula con un objeto real."
+        }
+      ]
+    },
+    {
+      "title": "Cómo se transfiere la idea a un UAV",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "En una aeronave conviven interfaces digitales con significados distintos. Una orden hacia un servo, un controlador de motor y una cadena de LEDs no se interpreta del mismo modo. Compartir el término PWM no hace intercambiables sus frecuencias, anchos de pulso ni etapas de potencia. El aprendizaje del curso es leer qué espera el dispositivo receptor y comprobar la señal generada antes de integrarlo. No se usa el pin como sustituto de un ESC."
+        },
+        {
+          "type": "table",
+          "title": "Qué veremos después",
+          "headers": [
+            "Dispositivo",
+            "Dato relevante",
+            "Comprobación"
+          ],
+          "rows": [
+            [
+              "LED",
+              "Duty del efecto",
+              "Periodo y estado"
+            ],
+            [
+              "Servo",
+              "Ancho de pulso",
+              "Intervalo permitido"
+            ],
+            [
+              "Driver DC",
+              "Entrada de mando",
+              "Potencia y respuesta"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Investiga en la hoja del SN74HC595 la diferencia entre registro de desplazamiento y registro de salida. Busca además sus condiciones de alimentación y de corriente. Compara la comunicación DATA/CLOCK/LATCH con un bus SPI de propósito general: ambos son síncronos, pero la función del dispositivo y el protocolo concreto siguen importando. Presenta una semejanza y una diferencia útiles para cablear."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar una onda digital antes de hablar de brillo o velocidad.",
+    "Resolver periodo y duty con unidades.",
+    "Comprobar c05_pwm y una palabra del registro 74HC595.",
+    "Contrastar LED, buzzer y futuro servo como interfaces diferentes."
+  ],
+  "qas": [
+    [
+      "¿50% de duty equivale a 1,65 V constantes en el pin?",
+      "No: el pin alterna niveles; una magnitud media depende del circuito y de la medida."
+    ],
+    [
+      "¿Pin y canal son lo mismo?",
+      "No. La API y la capa de compatibilidad deben conservar la correspondencia."
+    ],
+    [
+      "¿shiftOut() prueba uso del SPI de hardware?",
+      "No; genera una secuencia por software para la función definida."
+    ]
+  ],
+  "delivery": "Tabla de señales PWM y correspondencia de bits del proyecto 4.",
+  "refs": [
+    "MECRO",
+    "PWM",
+    "MIG",
+    "HC595"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar una onda digital antes de hablar de brillo o velocidad.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "PWM": [
+      "Espressif Systems",
+      "Arduino-ESP32: LEDC",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html"
+    ],
+    "MIG": [
+      "Espressif Systems",
+      "Migración Arduino-ESP32 2.x a 3.0",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html"
+    ],
+    "HC595": [
+      "Texas Instruments",
+      "SN74HC595: hoja de datos",
+      "https://www.ti.com/lit/ds/symlink/sn74hc595.pdf"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

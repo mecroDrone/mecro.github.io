@@ -1,0 +1,322 @@
+{
+  "n": 3,
+  "week": 2,
+  "title": "Alimentación, cableado y montaje que se puede revisar",
+  "goal": "Interpretar un esquema de energía y preparar una secuencia de montaje y comprobación antes de alimentar.",
+  "mission": "El ensamblaje necesita distinguir potencia, regulación, señal y referencia, tanto en una FC compacta como en un autopiloto grande.",
+  "pages": [
+    {
+      "title": "Batería, ESC, regulador y controladora",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La batería entrega energía a la distribución de potencia. El ESC gobierna las corrientes del motor y recibe una señal de mando. La FC y los periféricos necesitan sus propias condiciones de alimentación: algunos módulos admiten tensión de batería y otros requieren una línea regulada. Un pin marcado 5V y otro marcado VBAT no se intercambian porque estén juntos. El esquema se lee desde cada carga hacia su fuente y desde cada fuente hacia sus cargas."
+        },
+        {
+          "type": "image",
+          "name": "ap_power",
+          "width": 145,
+          "caption": "Ejemplo documental de un puerto POWER de Pixhawk. Sus contactos pertenecen a ese equipo de referencia; no son un pinout universal de FC o autopiloto. Fuente: ArduPilot, documentación CC BY-SA 3.0. https://ardupilot.org/copter/docs/common-powering-the-pixhawk.html"
+        },
+        {
+          "type": "p",
+          "text": "En un autopiloto, el módulo de potencia puede aportar alimentación regulada y medida de tensión/corriente. Esas funciones no son idénticas a alimentar la línea de servos. Una FC compacta puede integrar reguladores y conectarse a un ESC 4 en 1 mediante arnés. La construcción cambia, pero se mantienen las preguntas: qué tensión entra, qué sale, qué corriente puede entregar y cuál es la referencia de cada señal."
+        },
+        {
+          "type": "p",
+          "text": "Se documenta cada extremo del cable. Si una revisión del fabricante cambia el orden del arnés, conservar el nombre del conjunto no basta: hay que contrastar el dibujo de esa revisión. La primera inspección se hace sin batería conectada."
+        }
+      ]
+    },
+    {
+      "title": "La tensión máxima y el presupuesto del regulador",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "En una LiPo convencional de 4,2 V por celda a plena carga, 4S alcanza 16,8 V y 6S alcanza 25,2 V. Las tensiones nominales aproximadas son menores. La compatibilidad de entrada se revisa contra el máximo del paquete y la química reales, no solo contra una cifra nominal. No se trasladan esos valores automáticamente a LiHV, Li-ion o un paquete con otra especificación."
+        },
+        {
+          "type": "table",
+          "title": "Cuatro referencias eléctricas",
+          "headers": [
+            "Nombre",
+            "Papel",
+            "Comprobación"
+          ],
+          "rows": [
+            [
+              "VBAT",
+              "Tensión del paquete",
+              "Máximo y polaridad"
+            ],
+            [
+              "5V regulado",
+              "Alimentación de una carga compatible",
+              "Tensión y corriente disponible"
+            ],
+            [
+              "3V3 / lógica",
+              "Alimentación o nivel según diseño",
+              "Manual de placa y periférico"
+            ],
+            [
+              "GND",
+              "Referencia y retorno según circuito",
+              "Continuidad y topología"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "El regulador del caso",
+          "problem": "Una salida de 5 V y 1 A alimentaría FC 0,9 A, receptor 0,4 A y otro periférico 0,2 A. ¿Basta que todos pidan 5 V?",
+          "answer": "No. La suma del caso es 1,5 A, superior al límite indicado de 1 A. Se revisa distribución y capacidad con condiciones reales. Son consumos hipotéticos de aula, no valores asignados a equipos MECRO."
+        },
+        {
+          "type": "p",
+          "text": "El margen de un regulador debe considerar picos y temperatura. Una línea que sostiene una carga en reposo puede caer cuando otra empieza a consumir. Por eso un reinicio al actuar un periférico se investiga primero con alimentación y referencia, además del software."
+        },
+        {
+          "type": "p",
+          "text": "La preparación del paquete también pertenece al ensamblaje: identificar química, número de celdas, estado y conector de balanceo, y usar un cargador compatible con el procedimiento del fabricante. No se deduce una corriente de carga del límite de descarga comercial. El docente muestra inspección y almacenamiento del paquete sin convertir la clase en una improvisación de carga. Un paquete dañado, una conexión equivocada o un ajuste de química incorrecto no se corrigen con parámetros de vuelo."
+        }
+      ]
+    },
+    {
+      "title": "Corriente, pérdidas y calidad de la unión",
+      "blocks": [
+        {
+          "type": "equation",
+          "tex": "\\Delta V=IR,\\qquad P_{\\mathrm{perdida}}=I^2R",
+          "text": "R representa la resistencia total del tramo considerado: conductores y uniones. Un cálculo del caso no sustituye la especificación del cable o conector real.",
+          "image": "assets/eq_03_2_0.png"
+        },
+        {
+          "type": "case",
+          "title": "Una unión que añade resistencia",
+          "problem": "Con R = 0,015 ohm, ¿qué ocurre al pasar de 20 A a 40 A?",
+          "answer": "A 20 A: caída de 0,30 V y pérdida de 6 W. A 40 A: caída de 0,60 V y pérdida de 24 W. La corriente se duplicó y la disipación se cuadruplicó. Es un modelo de aula para comprender por qué una unión importa."
+        },
+        {
+          "type": "p",
+          "text": "Una soldadura necesita mojado adecuado de las superficies y continuidad eléctrica, con sujeción mecánica del conductor. El brillo por sí solo no decide la calidad para todas las aleaciones. El docente muestra limpieza, aporte de flux apropiado, estañado, unión y revisión sobre una muestra de práctica antes de trabajar sobre la FC. La temperatura se elige según herramienta, aleación, tamaño de unión y recomendación del fabricante; no se presenta una cifra universal."
+        },
+        {
+          "type": "p",
+          "text": "Después de soldar, se inspeccionan puentes, hilos sueltos, aislamiento y alivio de esfuerzo. El multímetro ayuda a investigar continuidad y polaridad. Una lectura que cambia mientras se cargan capacitores exige interpretación: no todo pitido inicial significa el mismo defecto. Se contrasta con el esquema y con el procedimiento del docente."
+        },
+        {
+          "type": "image",
+          "name": "perdidas_comparacion",
+          "width": 145,
+          "caption": "Caso calculado con resistencia constante de 0,015 ohm. No asigna un límite térmico a un conector real."
+        }
+      ]
+    },
+    {
+      "title": "Montaje mecánico y orden de trabajo",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Montaje que afecta a la electrónica",
+          "headers": [
+            "Revisión",
+            "Motivo",
+            "Evidencia"
+          ],
+          "rows": [
+            [
+              "Longitud de tornillo de motor",
+              "Evitar interferir con el interior",
+              "Cota y presentación en seco"
+            ],
+            [
+              "Flecha y posición de FC",
+              "Interpretar ejes del sensor",
+              "Foto y configuración"
+            ],
+            [
+              "Sujeción y aislamiento",
+              "Evitar contactos y esfuerzos",
+              "Inspección visible"
+            ],
+            [
+              "Cableado y partes móviles",
+              "Conservar separación y servicio",
+              "Recorrido identificado"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Se presenta el conjunto antes de cerrar el bastidor. El acceso al USB, a una fijación o a un conector puede desaparecer después de montar una placa encima. La distribución de masas y el soporte de batería también deben quedar definidos. No se recomienda aplicar fijador de roscas a cualquier plástico o material: se consulta compatibilidad y método del fabricante."
+        },
+        {
+          "type": "p",
+          "text": "La secuencia propuesta es: inventario, presentación mecánica, plan de cableado, preparación de conductores, uniones, inspección sin energía y primera alimentación controlada. Una herramienta limitadora de corriente ayuda en esa última etapa, pero no convierte cualquier montaje en correcto ni se usa sin comprobar su compatibilidad. Se retira o modifica el método según el ensayo específico antes de pruebas que requieren mayor corriente."
+        },
+        {
+          "type": "case",
+          "title": "La placa no cabe después",
+          "problem": "El USB queda cubierto al cerrar la tapa. ¿Es un problema de configuración?",
+          "answer": "Es una decisión de integración y acceso. Se descubre en la presentación mecánica y se corrige antes del cableado definitivo."
+        },
+        {
+          "type": "p",
+          "text": "En la selección del bastidor se comparan geometría, espacio, rigidez del conjunto, masa y facilidad de reparación. Una placa de compuesto con fibra de carbono puede conducir corriente y requiere revisar aislamiento frente a soldaduras o contactos. Una pieza impresa para soporte de antena no tiene automáticamente la función de un brazo estructural: material, orientación de fabricación, uniones y carga cambian la decisión. En una geometría que desplaza brazos para despejar la cámara también se revisan hélices, centro de masa y configuración de mezcla. El nombre comercial de la forma no reemplaza esa comprobación."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de esquema y primera alimentación",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Identifica positivo, retorno, líneas reguladas y entradas de señal en los manuales del banco.",
+            "Dibuja una tabla origen–destino por contacto. Marca el modelo y revisión del arnés.",
+            "Calcula el máximo del paquete del ejercicio y contrasta cada entrada.",
+            "Explica el caso de regulador y la pérdida de la unión con unidades.",
+            "Prepara una secuencia de ensamblaje que deje accesibles las comprobaciones.",
+            "Con el docente, observa inspección sin energía y medida de tensión antes de conectar una carga sensible.",
+            "Registra el resultado esperado de la primera alimentación y qué síntoma obligaría a detener esa prueba."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En la sesión virtual se resuelve el mapa y se observa la demostración. El montaje físico se concentra en la sesión 7. Se reserva una muestra con una unión correcta y otra defectuosa, ambas sin alimentación, para que el grupo explique diferencias observables. No se pide fabricar una avería en un dron del curso."
+        },
+        {
+          "type": "p",
+          "text": "La evidencia es un esquema legible con tensiones y señales, y una lista de comprobaciones en el orden previsto. Un plano puede ser sencillo y seguir siendo riguroso si identifica cada extremo. Las referencias exactas de la placa se completan con el equipo que muestre Gerard."
+        }
+      ]
+    },
+    {
+      "title": "Del esquema a una revisión útil",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un esquema funcional se convierte en una herramienta de diagnóstico cuando permite formular una expectativa. “Aquí debe aparecer la tensión regulada especificada respecto a este GND” es comprobable. “La FC no prende” es un síntoma que puede tener varias causas. El alumno aprende a recorrer alimentación, conexión USB, indicadores y documentación sin cambiar simultáneamente varias piezas."
+        },
+        {
+          "type": "table",
+          "title": "Síntoma y primera investigación",
+          "headers": [
+            "Síntoma",
+            "Primera comprobación razonada"
+          ],
+          "rows": [
+            [
+              "USB conecta, batería no",
+              "Ruta de alimentación y regulación"
+            ],
+            [
+              "Reinicio al actuar periférico",
+              "Caída de tensión y carga compartida"
+            ],
+            [
+              "Motor no responde",
+              "Energía del ESC, señal y configuración"
+            ],
+            [
+              "Conector encaja pero no hay dato",
+              "Pinout, nivel y protocolo"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Como investigación, compara un ESC 4 en 1 con cuatro ESC individuales. Señala qué cambia en distribución, servicio y cableado; qué permanece igual en la función de mando y potencia. La siguiente clase estudia los protocolos que viajan por esas conexiones. El propósito es construir un conjunto revisable, no ocultar todos los cables para que parezca terminado."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Mostrar alimentación y señal en los dos tipos de controladora.",
+    "Resolver las tensiones máximas y la sobrecarga de regulador del caso.",
+    "Presentar muestras de unión y una secuencia de montaje.",
+    "Revisar un esquema origen–destino antes de la práctica presencial."
+  ],
+  "qas": [
+    [
+      "¿Un conector que encaja demuestra compatibilidad?",
+      "Solo demuestra un encaje físico; faltan pinout, tensión y función."
+    ],
+    [
+      "¿6S LiPo convencional se comprueba solo a 22,2 V?",
+      "No. El máximo convencional de plena carga del caso es 25,2 V; se verifica la química real."
+    ],
+    [
+      "¿La pérdida resistiva crece linealmente con corriente?",
+      "Con R constante, crece con I². Duplicar corriente cuadruplica la pérdida."
+    ]
+  ],
+  "delivery": "Mapa de alimentación, tabla de contactos y secuencia de montaje con comprobaciones.",
+  "refs": [
+    "APPOWER",
+    "LIPO",
+    "VOLT",
+    "APMOTOR",
+    "BF"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Mostrar alimentación y señal en los dos tipos de controladora.",
+  "references": {
+    "APPOWER": [
+      "ArduPilot",
+      "Powering the Pixhawk: ejemplo específico de alimentación",
+      "https://ardupilot.org/copter/docs/common-powering-the-pixhawk.html"
+    ],
+    "LIPO": [
+      "Tattu / Gens Ace",
+      "Manual de baterías UAV y manejo del paquete",
+      "https://genstattu.com/content/instock/Tattu-Soft-UAV-pack-Manual.pdf"
+    ],
+    "VOLT": [
+      "Adafruit",
+      "Li-Ion & LiPoly Batteries: Voltages",
+      "https://learn.adafruit.com/li-ion-and-lipoly-batteries/voltages"
+    ],
+    "APMOTOR": [
+      "ArduPilot",
+      "Conexión, orden y sentido de motores",
+      "https://ardupilot.org/copter/docs/connect-escs-and-motors.html"
+    ],
+    "BF": [
+      "Betaflight",
+      "Setup Guide: organización de la puesta en marcha",
+      "https://betaflight.com/docs/wiki/getting-started/setup-guide"
+    ]
+  },
+  "assetMap": {
+    "ap_outputs": "assets/ap_outputs.png",
+    "ap_power": "assets/ap_power.png",
+    "ap_quad": "assets/ap_quad.png",
+    "ap_quad_bf": "assets/ap_quad_bf.png",
+    "ap_radio": "assets/ap_radio.png",
+    "area_quad": "assets/area_quad.png",
+    "bf_arm": "assets/bf_arm.png",
+    "bf_motors": "assets/bf_motors.png",
+    "bf_ports": "assets/bf_ports.png",
+    "bf_props": "assets/bf_props.png",
+    "bf_receiver": "assets/bf_receiver.png",
+    "bf_welcome": "assets/bf_welcome.png",
+    "energia_comparacion": "assets/energia_comparacion.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_02_1_1": "assets/eq_02_1_1.png",
+    "eq_02_2_2": "assets/eq_02_2_2.png",
+    "eq_02_3_1": "assets/eq_02_3_1.png",
+    "eq_03_2_0": "assets/eq_03_2_0.png",
+    "eq_04_3_1": "assets/eq_04_3_1.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_08_4_1": "assets/eq_08_4_1.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "mecro_drone": "assets/mecro_drone.png",
+    "perdidas_comparacion": "assets/perdidas_comparacion.png",
+    "potencia_registro": "assets/potencia_registro.png",
+    "propagacion_comparacion": "assets/propagacion_comparacion.png",
+    "propulsion_comparacion": "assets/propulsion_comparacion.png"
+  }
+}

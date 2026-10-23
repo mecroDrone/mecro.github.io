@@ -1,0 +1,343 @@
+{
+  "n": 9,
+  "week": 5,
+  "title": "Motores y etapa de potencia: la orden no es la energía",
+  "goal": "Reconocer un driver y caracterizar un motor DC de banco sin confundir PWM con velocidad medida.",
+  "mission": "La cadena controlador, etapa de potencia y motor permite entender la arquitectura de propulsión y de mecanismos auxiliares de un UAV.",
+  "projects": [
+    10,
+    15
+  ],
+  "pages": [
+    {
+      "title": "Una cadena con funciones separadas",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El ESP32 produce señales de mando; la etapa de potencia dirige energía hacia la carga. Un motor DC puede consumir corrientes muy superiores a las de un GPIO y generar perturbaciones al conmutar o cambiar de movimiento. Por eso no se conecta como si fuera otro LED. El banco del curso identifica fuente, driver, motor, referencia y señal. Cada elemento aparece en el esquema antes de ejecutar el programa."
+        },
+        {
+          "type": "table",
+          "title": "Cadena del banco DC",
+          "headers": [
+            "Elemento",
+            "Función",
+            "Evidencia que se busca"
+          ],
+          "rows": [
+            [
+              "ESP32",
+              "Generar la orden",
+              "Pin y configuración"
+            ],
+            [
+              "Driver",
+              "Conmutar energía",
+              "Referencia y conexiones"
+            ],
+            [
+              "Fuente",
+              "Aportar potencia",
+              "Condición de alimentación"
+            ],
+            [
+              "Motor",
+              "Producir movimiento",
+              "Estado y respuesta"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El proyecto 15 del laboratorio aporta una base de control de dirección y PWM con L293D, pero al revisar la página su enlace de simulación está vacío y su imagen no se encuentra en la ruta publicada. El curso no depende de ese recurso ausente: aporta un ejemplo nuevo de mando de banco, una tabla de interfaz y una práctica virtual numérica. El montaje con motor se organiza con el material confirmado o en banco compartido."
+        },
+        {
+          "type": "p",
+          "text": "Un motor DC de escobillas no representa toda la electrónica de un motor BLDC de dron. El primero sirve aquí para ver la separación entre orden y potencia y para aprender medición y realimentación. El ESC de un BLDC cumple otra interfaz y controla sus fases. Se compara la arquitectura sin trasladar automáticamente conexiones ni parámetros de un dispositivo al otro."
+        }
+      ]
+    },
+    {
+      "title": "Puente H, habilitación y alimentación",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un puente H permite aplicar distintas condiciones a los extremos de un motor. Las entradas de dirección y la habilitación deben interpretarse con la hoja del driver concreto. Deshabilitar, dejar libre y frenar no son necesariamente el mismo estado eléctrico. La clase comienza con movimiento en un solo sentido y parada de mando, de manera que la observación sea fácil de relacionar con las señales."
+        },
+        {
+          "type": "table",
+          "title": "Perfil de conexiones del ejemplo nuevo",
+          "headers": [
+            "Señal",
+            "GPIO clásico",
+            "Papel"
+          ],
+          "rows": [
+            [
+              "ENABLE",
+              "25",
+              "PWM de mando"
+            ],
+            [
+              "IN1",
+              "26",
+              "Dirección del banco"
+            ],
+            [
+              "IN2",
+              "27",
+              "Dirección del banco"
+            ],
+            [
+              "GND",
+              "Referencia",
+              "Según esquema del driver"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "En el L293D se distingue la alimentación lógica VCC1 de la de potencia VCC2. La hoja de TI especifica condiciones de operación; no respalda alimentar VCC1 con 3,3 V como propone una explicación del sitio. El banco utiliza la alimentación lógica que exige el componente y revisa por separado la compatibilidad de sus entradas con el ESP32. Separar alimentaciones de señal y potencia no constituye por sí solo aislamiento galvánico."
+        },
+        {
+          "type": "case",
+          "title": "Una tensión que desaparece",
+          "problem": "La fuente entrega una tensión, pero en los bornes del motor se observa menos durante el movimiento. ¿La diferencia demuestra que el ADC falla?",
+          "answer": "No. Primero se identifica qué se midió y se considera la caída de tensión en la etapa de potencia y en las conexiones bajo esa carga. El circuito se estudia antes de atribuir el síntoma a otro subsistema."
+        }
+      ]
+    },
+    {
+      "title": "Caracterizar antes de controlar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La misma orden PWM no garantiza la misma velocidad con distintas cargas, tensiones o condiciones de arranque. Puede existir una zona en la que el motor aún no inicia movimiento y otra en la que sí continúa girando después de haber arrancado. Para estudiar esa respuesta se conservan fuente, montaje y sentido. Primero registramos el efecto observado; la próxima clase añadirá un método explícito de medición de RPM."
+        },
+        {
+          "type": "table",
+          "title": "Datos sintéticos para practicar lectura",
+          "headers": [
+            "Mando / %",
+            "Velocidad / RPM",
+            "Condición"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "Modelo didáctico"
+            ],
+            [
+              "20",
+              "80",
+              "Modelo didáctico"
+            ],
+            [
+              "60",
+              "570",
+              "Modelo didáctico"
+            ],
+            [
+              "100",
+              "950",
+              "Modelo didáctico"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "Mando y velocidad",
+          "problem": "En el caso sintético, pasar de 20% a 60% cambia de 80 a 570 RPM. ¿Puedes anunciar una ley universal PWM–RPM?",
+          "answer": "No. La tabla describe el caso declarado y muestra que mando y respuesta son magnitudes diferentes. Para un motor físico se requiere medir bajo condiciones identificadas."
+        },
+        {
+          "type": "p",
+          "text": "La denominación “control de velocidad” se utiliza a veces para mover un potenciómetro que cambia PWM. En esta fase el programa controla el mando, no verifica velocidad. Ese lenguaje se precisa al cerrar el lazo. La distinción será visible cuando aparezca una perturbación: el potenciómetro puede conservar su posición mientras la velocidad cambia."
+        },
+        {
+          "type": "image",
+          "name": "motor_didactico",
+          "width": 145,
+          "caption": "Datos sintéticos del caso de clase. El banco real debe caracterizarse con su fuente, motor, driver y carga."
+        }
+      ]
+    },
+    {
+      "title": "Mando explícito y estado inicial",
+      "blocks": [
+        {
+          "type": "code",
+          "title": "Núcleo del banco c09_motor",
+          "text": "// El mando inicia en cero.\nif (command == '+') duty = min(160, duty+20);\nif (command == 's') duty = 0;\nif (uint32_t(now-commandAt) > 2000) duty = 0;\nmotor.write(duty);",
+          "short": "// El mando inicia en cero.\nif (command == '+') duty = min(160, duty+20);\nif (command == 's') duty = 0;\nif (uint32_t(now-commandAt) > 2000) duty = 0;\nmotor.write(duty);"
+        },
+        {
+          "type": "p",
+          "text": "El ejemplo completo inicia con el driver deshabilitado y acepta órdenes por el monitor serie. El mando de aula se limita y vence si no se renueva. Ese comportamiento se documenta para evitar interpretar una parada temporal como un fallo del driver. La versión incluida trabaja en un solo sentido: el alumno estudia la tabla del componente antes de ampliar una inversión."
+        },
+        {
+          "type": "p",
+          "text": "La frecuencia de PWM es una elección de diseño del banco. No se enseña que 5 kHz sea una frecuencia “ideal” universal para L293D. El efecto audible, las pérdidas de conmutación y el comportamiento del conjunto pueden cambiar con la frecuencia. El docente elige una condición de referencia compatible con su montaje y la mantiene durante la primera comparación. Cambiar frecuencia y carga simultáneamente no produce una prueba fácil de interpretar."
+        }
+      ]
+    },
+    {
+      "title": "Laboratorio de mando y respuesta",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Presenta el esquema de la etapa y señala por dónde circula la energía del motor.",
+            "Comprueba alimentación lógica, alimentación de potencia e interfaz del componente.",
+            "Ejecuta c09_motor primero con la salida observada y sin una carga no revisada.",
+            "En el banco docente, ordena incrementos pequeños dentro del límite previsto y observa el inicio de movimiento.",
+            "Comprueba parada por orden y vencimiento del mando.",
+            "Registra configuración, orden, tensión observada y descripción del movimiento.",
+            "Prepara qué variable y qué sensor faltan para informar RPM."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La comparación se realiza con motor de baja tensión sujeto en el banco y bajo el procedimiento docente. El alumno sin motor puede estudiar la señal de habilitación y resolver los registros sintéticos; la evidencia del ensayo físico queda a cargo del equipo que lo ejecuta. El propósito común es explicar la cadena completa, no afirmar que un movimiento visto en pantalla valida corriente o temperatura del hardware."
+        }
+      ]
+    },
+    {
+      "title": "Comparación con la arquitectura de drones",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Dispositivos que no se intercambian por nombre",
+          "headers": [
+            "Sistema",
+            "Interfaz de potencia",
+            "Qué se aprende aquí"
+          ],
+          "rows": [
+            [
+              "DC de escobillas",
+              "Puente H o etapa adecuada",
+              "Mando y energía"
+            ],
+            [
+              "Servo de posición",
+              "Control interno propio",
+              "Pulso y posición"
+            ],
+            [
+              "BLDC con ESC",
+              "Conmutación electrónica",
+              "Cadena de interfaces"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Para una carga mecánica auxiliar de UAV, elegir el actuador empieza por la función: posicionar un soporte, accionar una pieza o sostener una velocidad. El tipo de motor y la información que entrega su sistema cambian la arquitectura. En lugar de escoger por apariencia, el equipo escribe qué orden recibe y qué observación necesitaría para verificar su función."
+        },
+        {
+          "type": "p",
+          "text": "Investiga en la hoja del driver el nombre y la condición de cada alimentación. Compara luego un estado deshabilitado con uno de frenado según su tabla funcional. Describe la diferencia sin generalizarla a todos los puentes H. El siguiente paso consiste en obtener una medida de movimiento cuya unidad y referencia podamos defender."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Separar señal, fuente y carga en el esquema antes de mostrar el código.",
+    "Revisar las alimentaciones de la hoja del driver.",
+    "Comparar orden PWM y respuesta del banco o del caso sintético.",
+    "Identificar qué falta para hablar de RPM medidas."
+  ],
+  "qas": [
+    [
+      "¿PWM es una lectura de velocidad?",
+      "No. Es un mando; la velocidad requiere un método de observación."
+    ],
+    [
+      "¿Dos fuentes implican aislamiento galvánico?",
+      "No. Depende de las conexiones y de la arquitectura de interfaz."
+    ],
+    [
+      "¿El L293D se alimenta lógicamente a 3,3 V por usar ESP32?",
+      "No. Se respeta la condición de VCC1 del fabricante y se revisan las entradas por separado."
+    ]
+  ],
+  "delivery": "Esquema de potencia, registro de mando y explicación de la medida que falta.",
+  "refs": [
+    "MECRO",
+    "L293",
+    "PWM",
+    "MIT"
+  ],
+  "hours": 2,
+  "mode": "En línea",
+  "opening": "Separar señal, fuente y carga en el esquema antes de mostrar el código.",
+  "references": {
+    "MECRO": [
+      "MECRO",
+      "Laboratorio Electrónica con ESP32: veinte proyectos",
+      "https://mecrodrone.github.io/mecro.github.io/laboratorio.html"
+    ],
+    "L293": [
+      "Texas Instruments",
+      "L293/L293D: hoja de datos SLRS008D",
+      "https://www.ti.com/lit/ds/symlink/l293.pdf"
+    ],
+    "PWM": [
+      "Espressif Systems",
+      "Arduino-ESP32: LEDC",
+      "https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html"
+    ],
+    "MIT": [
+      "Agarwal y Lang / MIT OpenCourseWare",
+      "6.002 Circuits and Electronics; texto: Foundations of Analog and Digital Electronic Circuits (2005)",
+      "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/"
+    ]
+  },
+  "assetMap": {
+    "adc_ideal": "assets/adc_ideal.png",
+    "control_comparacion": "assets/control_comparacion.png",
+    "encoder_ventana": "assets/encoder_ventana.png",
+    "eq_01_1_1": "assets/eq_01_1_1.png",
+    "eq_01_2_1": "assets/eq_01_2_1.png",
+    "eq_03_1_1": "assets/eq_03_1_1.png",
+    "eq_04_1_0": "assets/eq_04_1_0.png",
+    "eq_04_5_1": "assets/eq_04_5_1.png",
+    "eq_05_1_0": "assets/eq_05_1_0.png",
+    "eq_06_2_1": "assets/eq_06_2_1.png",
+    "eq_07_1_0": "assets/eq_07_1_0.png",
+    "eq_07_2_1": "assets/eq_07_2_1.png",
+    "eq_08_1_0": "assets/eq_08_1_0.png",
+    "eq_10_1_0": "assets/eq_10_1_0.png",
+    "eq_10_2_0": "assets/eq_10_2_0.png",
+    "eq_11_1_0": "assets/eq_11_1_0.png",
+    "eq_11_1_1": "assets/eq_11_1_1.png",
+    "eq_11_2_0": "assets/eq_11_2_0.png",
+    "eq_12_1_0": "assets/eq_12_1_0.png",
+    "eq_12_5_1": "assets/eq_12_5_1.png",
+    "eq_13_1_1": "assets/eq_13_1_1.png",
+    "eq_13_2_1": "assets/eq_13_2_1.png",
+    "imu_comparacion": "assets/imu_comparacion.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "motor_didactico": "assets/motor_didactico.png",
+    "proyecto1": "assets/proyecto1.png",
+    "proyecto11": "assets/proyecto11.png",
+    "proyecto12": "assets/proyecto12.png",
+    "proyecto13": "assets/proyecto13.png",
+    "proyecto14": "assets/proyecto14.png",
+    "proyecto16": "assets/proyecto16.png",
+    "proyecto17": "assets/proyecto17.png",
+    "proyecto18": "assets/proyecto18.png",
+    "proyecto19": "assets/proyecto19.png",
+    "proyecto2": "assets/proyecto2.png",
+    "proyecto20": "assets/proyecto20.png",
+    "proyecto3": "assets/proyecto3.png",
+    "proyecto4": "assets/proyecto4.png",
+    "proyecto5": "assets/proyecto5.png",
+    "proyecto6": "assets/proyecto6.png",
+    "proyecto7": "assets/proyecto7.png",
+    "proyecto8": "assets/proyecto8.png",
+    "proyecto9": "assets/proyecto9.png"
+  }
+}

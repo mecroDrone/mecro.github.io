@@ -1,0 +1,701 @@
+{
+  "week": 1,
+  "slides": [
+    {
+      "n": 1,
+      "text": [
+        "Tu primer cohete",
+        "Piezas, medidas y primer modelo en OpenRocket",
+        "COHETERÍA BÁSICA E INTERMEDIA",
+        "CLASE 1"
+      ],
+      "image": "assets/slide-01-01.jpg"
+    },
+    {
+      "n": 2,
+      "text": [
+        "Lo que tendrá tu equipo al terminar hoy",
+        "1. Un mapa de las piezas y su función.",
+        "",
+        "2. Una ficha de medidas que distingue datos reales y datos de ejercicio.",
+        "",
+        "3. Un archivo de OpenRocket con nariz, cuerpo y aletas.",
+        "MECRO   CLASE 1   02/25"
+      ],
+      "image": "assets/slide-01-02.jpg"
+    },
+    {
+      "n": 3,
+      "text": [
+        "Un cohete desarmado sobre la mesa",
+        "Observa el interior. ¿Dónde están el cuerpo, la recuperación y el soporte del motor?",
+        "Ilustración de NASA Glenn. Los componentes y el motor pertenecen a su ejemplo.",
+        "MECRO   CLASE 1   03/25"
+      ],
+      "image": "assets/slide-01-03.jpg"
+    },
+    {
+      "n": 4,
+      "text": [
+        "Cada pieza resuelve una necesidad",
+        "Pieza",
+        "Función",
+        "Dato inicial",
+        "Nariz",
+        "Frente y cierre",
+        "Forma y encaje",
+        "Cuerpo",
+        "Alineación y volumen",
+        "Longitud y diámetros",
+        "Aletas",
+        "Orientación",
+        "Contorno y posición",
+        "Recuperación",
+        "Descenso",
+        "Espacio y sujeción",
+        "MECRO   CLASE 1   04/25"
+      ],
+      "image": "assets/slide-01-04.jpg"
+    },
+    {
+      "n": 5,
+      "text": [
+        "Actividad: ¿qué ocurriría si faltara?",
+        "Cada equipo elige una pieza y explica qué problema aparecería sin ella.",
+        "1. Nombra la pieza.",
+        "",
+        "2. Describe un problema físico concreto.",
+        "",
+        "3. Indica qué comprobarías al recibirla.",
+        "MECRO   CLASE 1   05/25"
+      ],
+      "image": "assets/slide-01-05.jpg"
+    },
+    {
+      "n": 6,
+      "text": [
+        "La nariz tiene dos zonas diferentes",
+        "Parte visible: forma exterior.",
+        "Hombro: tramo que entra en el tubo.",
+        "Captura del manual de OpenRocket. Los valores de la imagen no son los del ejercicio.",
+        "MECRO   CLASE 1   06/25"
+      ],
+      "image": "assets/slide-01-06.jpg"
+    },
+    {
+      "n": 7,
+      "text": [
+        "Formas de nariz que vamos a comparar",
+        "Forma",
+        "Cómo reconocerla",
+        "Qué tendremos que decidir",
+        "Cónica",
+        "Perfil recto",
+        "Punta, pared y encaje",
+        "Ojival",
+        "Perfil curvo hasta la punta",
+        "Continuidad con el cuerpo",
+        "Elipsoidal",
+        "Perfil redondeado",
+        "Masa y volumen de la pieza",
+        "MECRO   CLASE 1   07/25"
+      ],
+      "image": "assets/slide-01-07.jpg"
+    },
+    {
+      "n": 8,
+      "text": [
+        "El tubo que tenemos define varias decisiones",
+        "El espacio interior debe alojar el conjunto comercial y la recuperación.",
+        "Mide primero el tubo disponible. Después adapta las piezas.",
+        "Vista 3D Unfinished del ejemplo oficial de OpenRocket. Permite ver la relación entre piezas.",
+        "MECRO   CLASE 1   08/25"
+      ],
+      "image": "assets/slide-01-08.jpg"
+    },
+    {
+      "n": 9,
+      "text": [
+        "Diámetro exterior, interior y espesor",
+        "Un tubo del ejercicio mide 32,0 mm por fuera y 30,0 mm por dentro.",
+        "Espesor de una pared: 1,0 mm",
+        "MECRO   CLASE 1   09/25"
+      ],
+      "image": "assets/slide-01-09.jpg"
+    },
+    {
+      "n": 10,
+      "text": [
+        "Actividad: medir sin inventar datos",
+        "Completa la ficha de piezas con el tubo del equipo o con la demostración del docente.",
+        "1. Longitud del cuerpo.",
+        "",
+        "2. Diámetro exterior e interior.",
+        "",
+        "3. Instrumento y unidad.",
+        "",
+        "4. Dato medido o dato pendiente.",
+        "MECRO   CLASE 1   10/25"
+      ],
+      "image": "assets/slide-01-10.jpg"
+    },
+    {
+      "n": 11,
+      "text": [
+        "El encaje se prueba antes de imprimir todo",
+        "Abertura medida: 30,0 mm.",
+        "Muestra impresa: 29,8 mm.",
+        "Diferencia diametral: 0,2 mm.",
+        "Con centrado ideal: 0,1 mm por lado.",
+        "MECRO   CLASE 1   11/25"
+      ],
+      "image": "assets/slide-01-11.jpg"
+    },
+    {
+      "n": 12,
+      "text": [
+        "Las aletas deben repetirse y quedar alineadas",
+        "1. Una forma igual en todas las piezas.",
+        "",
+        "2. Una posición definida en la zona posterior.",
+        "",
+        "3. Separación regular alrededor del tubo.",
+        "",
+        "4. Una unión y orientación que puedan comprobarse.",
+        "MECRO   CLASE 1   12/25"
+      ],
+      "image": "assets/slide-01-12.jpg"
+    },
+    {
+      "n": 13,
+      "text": [
+        "Los nombres de una aleta trapezoidal",
+        "Root: raíz.",
+        "Tip: borde exterior.",
+        "S: semienvergadura.",
+        "Barrido: desplazamiento de la punta hacia atrás.",
+        "Esquema de Richard Nakka. Las proporciones D de la figura no son medidas del proyecto.",
+        "MECRO   CLASE 1   13/25"
+      ],
+      "image": "assets/slide-01-13.jpg"
+    },
+    {
+      "n": 14,
+      "text": [
+        "Qué imprimir y qué comprar",
+        "Componente",
+        "Opción inicial que estudiar",
+        "Comprobación",
+        "Cuerpo",
+        "Tubo ligero disponible",
+        "Diámetros y masa",
+        "Nariz",
+        "Impresión 3D o pieza compatible",
+        "Encaje y masa",
+        "Aletas",
+        "Madera o impresión revisada",
+        "Repetición y alineación",
+        "Útil de montaje",
+        "Impresión 3D",
+        "Posición que deja a las piezas",
+        "MECRO   CLASE 1   14/25"
+      ],
+      "image": "assets/slide-01-14.jpg"
+    },
+    {
+      "n": 15,
+      "text": [
+        "El nombre del material no basta",
+        "1. PLA: prototipos de geometría y ajuste, con límites térmicos y de fragilidad.",
+        "",
+        "2. PETG: estudiar pieza, deformación y condiciones de impresión.",
+        "",
+        "3. Vidrio y carbono: comparar el refuerzo y el proceso de la muestra real.",
+        "",
+        "4. Filamento con fibra corta y tejido con resina tienen estructuras diferentes.",
+        "MECRO   CLASE 1   15/25"
+      ],
+      "image": "assets/slide-01-15.jpg"
+    },
+    {
+      "n": 16,
+      "text": [
+        "Ocho gramos pueden importar mucho",
+        "Subtotal sin motor: nariz 8 g + cuerpo 12 g + aletas 6 g + otros 9 g = 35 g.",
+        "Otra nariz pesa 16 g.",
+        "Nuevo subtotal: 43 g.",
+        "Aumento aproximado: 22,9%.",
+        "MECRO   CLASE 1   16/25"
+      ],
+      "image": "assets/slide-01-16.jpg"
+    },
+    {
+      "n": 17,
+      "text": [
+        "OpenRocket: árbol, componentes y vista",
+        "Izquierda: lo que ya existe.",
+        "Derecha: lo que puedes añadir.",
+        "Abajo: el resultado que debes revisar.",
+        "Captura oficial. La distribución puede variar con la versión o el idioma.",
+        "MECRO   CLASE 1   17/25"
+      ],
+      "image": "assets/slide-01-17.jpg"
+    },
+    {
+      "n": 18,
+      "text": [
+        "El modelo de aula mide 35 cm",
+        "Dato de ejercicio",
+        "Valor",
+        "Referencia",
+        "Nariz visible",
+        "70 mm",
+        "Punta a inicio del cuerpo",
+        "Cuerpo",
+        "280 mm",
+        "Longitud del tubo",
+        "Diámetro exterior",
+        "32 mm",
+        "Exterior del cuerpo",
+        "Espesor",
+        "1 mm",
+        "Una pared",
+        "Longitud total",
+        "350 mm",
+        "70 + 280 mm",
+        "MECRO   CLASE 1   18/25"
+      ],
+      "image": "assets/slide-01-18.jpg"
+    },
+    {
+      "n": 19,
+      "text": [
+        "Práctica 1: crear y guardar la nariz",
+        "1. File > New. Guarda EQUIPO_01_v00.ork.",
+        "",
+        "2. Selecciona Stage y añade Nose Cone.",
+        "",
+        "3. Nombra Nariz. Elige Conical.",
+        "",
+        "4. Introduce 70 mm de longitud visible y 32 mm de diámetro de base.",
+        "",
+        "5. Comprueba las unidades y guarda.",
+        "MECRO   CLASE 1   19/25"
+      ],
+      "image": "assets/slide-01-19.jpg"
+    },
+    {
+      "n": 20,
+      "text": [
+        "Práctica 2: añadir un cuerpo hueco",
+        "Introduce en tu archivo: 280 mm de longitud, 32 mm de diámetro exterior y 1 mm de pared.",
+        "Comprueba que el interior resulte 30 mm y que Filled esté desactivado.",
+        "La captura oficial muestra pulgadas. Cambia las unidades del ejercicio a mm.",
+        "MECRO   CLASE 1   20/25"
+      ],
+      "image": "assets/slide-01-20.jpg"
+    },
+    {
+      "n": 21,
+      "text": [
+        "Práctica 3: añadir las aletas",
+        "1. Selecciona Cuerpo y añade Trapezoidal Fin Set.",
+        "",
+        "2. Introduce tres aletas. Raíz 50 mm y punta 25 mm.",
+        "",
+        "3. Semienvergadura 22 mm, barrido 20 mm y espesor 2 mm.",
+        "",
+        "4. Ubica la raíz en los últimos 50 mm del tubo.",
+        "",
+        "5. Comprueba posición en la vista lateral y guarda v01.",
+        "MECRO   CLASE 1   21/25"
+      ],
+      "image": "assets/slide-01-21.jpg"
+    },
+    {
+      "n": 22,
+      "text": [
+        "Actividad: revisar lateral y vista posterior",
+        "¿El cuerpo está hueco?",
+        "¿Las aletas están atrás?",
+        "¿Son tres y están repartidas regularmente?",
+        "¿El nombre del equipo y la versión están guardados?",
+        "Ejemplo del manual. Entrega capturas de tu propio archivo.",
+        "MECRO   CLASE 1   22/25"
+      ],
+      "image": "assets/slide-01-22.jpg"
+    },
+    {
+      "n": 23,
+      "text": [
+        "Los indicadores CG y CP aparecerán en pantalla",
+        "1. CG se relaciona con la distribución de masa.",
+        "",
+        "2. CP es un resultado del modelo aerodinámico.",
+        "",
+        "3. Hoy debes ubicarlos y reconocer que representan cosas diferentes.",
+        "",
+        "4. En clase 7 los relacionaremos con una maqueta inerte y el modelo actualizado.",
+        "MECRO   CLASE 1   23/25"
+      ],
+      "image": "assets/slide-01-23.jpg"
+    },
+    {
+      "n": 24,
+      "text": [
+        "CAD, OpenRocket, openMotor y RockSim",
+        "Herramienta",
+        "Qué trabajaremos",
+        "Primera aplicación",
+        "CAD y laminador",
+        "Detalle de pieza e impresión",
+        "Nariz y útil de montaje",
+        "OpenRocket",
+        "Vehículo completo",
+        "Geometría desde hoy",
+        "openMotor",
+        "Conceptos del motor",
+        "Presión y empuje, clase 8",
+        "RockSim",
+        "Otra representación del vehículo",
+        "Comparación, clase 13",
+        "MECRO   CLASE 1   24/25"
+      ],
+      "image": "assets/slide-01-24.jpg"
+    },
+    {
+      "n": 25,
+      "text": [
+        "Entrega del equipo y siguiente clase",
+        "Entrega v00 y v01, ficha de piezas, dos capturas y una decisión de material.",
+        "1. Explica la diferencia entre base y hombro de la nariz.",
+        "",
+        "2. Explica por qué el espesor aparece dos veces al calcular el diámetro interior.",
+        "",
+        "3. Identifica qué pieza o dato todavía falta en tu modelo.",
+        "MECRO   CLASE 1   25/25"
+      ],
+      "image": "assets/slide-01-25.jpg"
+    },
+    {
+      "n": 26,
+      "text": [
+        "Qué cohete necesitamos y qué nariz elegimos",
+        "MECRO   SEMANA 1   CLASE 02   01/24",
+        "Elegir una nariz con una misión concreta, comparar alternativas y preparar una muestra de encaje.",
+        "Aprender a fabricar y recuperar un modelo pequeño por equipos. La carga científica corresponde al demostrador docente.",
+        "EN LÍNEA   2 HORAS"
+      ],
+      "image": "assets/slide-01-26.jpg"
+    },
+    {
+      "n": 27,
+      "text": [
+        "Antes de elegir una forma, define la misión",
+        "MECRO   SEMANA 1   CLASE 02   02/24",
+        "Un cohete puede parecerse a otro y tener un propósito diferente. En nuestro proyecto importa aprender a construir, revisar y recuperar el conjunto. Una demostración científica añade sensores y datos. Un cohete de sondeo es un vehículo de investigación de trayectoria suborbital; no debe confundirse con un lanzador que coloca una carga en órbita. Llevar electrónica tampoco convierte automáticamente un modelo de aula en un vehículo espacial."
+      ],
+      "image": "assets/slide-01-27.jpg"
+    },
+    {
+      "n": 28,
+      "text": [
+        "Tres formas de ordenar el rubro",
+        "MECRO   SEMANA 1   CLASE 02   03/24",
+        "Criterio",
+        "Ejemplos",
+        "En nuestro curso",
+        "Propósito",
+        "Aprendizaje, recreación, instrumentación",
+        "Aprendizaje; CanSat docente",
+        "Arquitectura",
+        "Una etapa, varias etapas, varios motores",
+        "Una etapa y un motor comercial",
+        "Clases de motor",
+        "Letras de impulso total",
+        "Leer la ficha del motor elegido",
+        "Material y tamaño",
+        "Tubos, piezas impresas y dimensiones",
+        "Modelo pequeño y ligero"
+      ],
+      "image": "assets/slide-01-28.jpg"
+    },
+    {
+      "n": 29,
+      "text": [
+        "Antes de elegir una forma, define la misión",
+        "MECRO   SEMANA 1   CLASE 02   04/24",
+        "Una misión se puede escribir como una tarea observable. “Aprender cohetería” es una intención amplia. “Construir en equipo, desmontar la nariz y explicar dónde se guarda la recuperación” permite decidir qué se necesita. El equipo puede dibujar esas funciones junto a una vista del cohete. Si una forma exterior deja de permitir una de ellas, hay una incompatibilidad que resolver antes de discutir cuál parece más moderna. El tamaño pequeño facilita la fabricación, pero no sustituye esta definición de la misión."
+      ],
+      "image": "assets/slide-01-29.jpg"
+    },
+    {
+      "n": 30,
+      "text": [
+        "Reconocer narices sin buscar una ganadora universal",
+        "MECRO   SEMANA 1   CLASE 02   05/24",
+        "La cónica tiene un perfil lateral recto. La ojival usa una curva que se estrecha hacia la punta. La elipsoidal es más redondeada. Podemos reconocerlas sosteniendo piezas, viendo su silueta o cambiando Shape en OpenRocket. La fotografía reúne piezas de tamaños distintos: no sería justo atribuir una diferencia de masa solo a su forma si también cambian diámetro, longitud o espesor."
+      ],
+      "image": "assets/slide-01-30.jpg"
+    },
+    {
+      "n": 31,
+      "text": [
+        "Reconocer narices sin buscar una ganadora universal",
+        "MECRO   SEMANA 1   CLASE 02   06/24",
+        "¿Las piezas de la fotografía son comparables por masa?",
+        "Fotografía de catálogo reproducida en Apogee, Peak of Flight 629. Sirve para reconocer perfiles y tamaños, no para comparar rendimientos ni recomendar un proveedor."
+      ],
+      "image": "assets/slide-01-31.jpg"
+    },
+    {
+      "n": 32,
+      "text": [
+        "Primera comparación para nuestro taller",
+        "MECRO   SEMANA 1   CLASE 02   07/24",
+        "Forma",
+        "Qué facilita observar",
+        "Qué revisar",
+        "Cónica",
+        "Relación clara entre punta, base y hombro",
+        "Punta real, pared y acabado",
+        "Ojival",
+        "Continuidad de la curva con el cuerpo",
+        "Parámetro de forma y masa fabricada",
+        "Elipsoidal",
+        "Volumen del frente y contorno redondeado",
+        "Longitud, acceso y espacio interior"
+      ],
+      "image": "assets/slide-01-32.jpg"
+    },
+    {
+      "n": 33,
+      "text": [
+        "Comparar dos preguntas diferentes",
+        "MECRO   SEMANA 1   CLASE 02   08/24",
+        "La primera pregunta es geométrica: ¿qué cambia al sustituir solo la forma? Conservamos base y longitud visible, además de cuerpo y aletas. La segunda es de fabricación: ¿qué pieza conviene construir? Entonces cuentan masa impresa, tiempo, soportes, encaje y acabado. Una comparación geométrica y otra de piezas reales pueden conducir a decisiones diferentes sin contradecirse."
+      ],
+      "image": "assets/slide-01-33.jpg"
+    },
+    {
+      "n": 34,
+      "text": [
+        "Qué conservar y qué registrar",
+        "MECRO   SEMANA 1   CLASE 02   09/24",
+        "Comparación",
+        "Mantener",
+        "Registrar como resultado",
+        "Solo forma",
+        "Base, longitud, cuerpo y aletas",
+        "Cambio de geometría y resultados del modelo",
+        "Fabricación real",
+        "Impresora y criterio de aceptación",
+        "Masa, tiempo y encaje",
+        "Cambio completo",
+        "Misión y requisitos del conjunto",
+        "Todo lo que cambió entre versiones"
+      ],
+      "image": "assets/slide-01-34.jpg"
+    },
+    {
+      "n": 35,
+      "text": [
+        "Dos narices del ejercicio de aula",
+        "MECRO   SEMANA 1   CLASE 02   10/24",
+        "Datos didácticos de fabricación. No son medidas de MECRO ni resultados de vuelo."
+      ],
+      "image": "assets/slide-01-35.jpg"
+    },
+    {
+      "n": 36,
+      "text": [
+        "Práctica en OpenRocket: tres versiones de nariz",
+        "MECRO   SEMANA 1   CLASE 02   11/24",
+        "Cuando el programa estima masa a partir de una envolvente uniforme, puede representar de forma imperfecta una pieza impresa. Conserva esa estimación como tal. La comparación con la pieza pesada se realizará al tener el prototipo. [OR1, BODY]"
+      ],
+      "image": "assets/slide-01-36.jpg"
+    },
+    {
+      "n": 37,
+      "text": [
+        "Pregunta del equipo",
+        "MECRO   SEMANA 1   CLASE 02   12/24",
+        "¿Qué conservarás al cambiar Conical por Ogive?",
+        "La captura lateral ayuda a reconocer lo que cambió. Superponer mentalmente las bases permite comprobar si las tres narices conservan longitud y diámetro. El hombro pertenece a la unión interior y no debe añadirse a la longitud visible. Si una opción aumenta la longitud visible, el modelo ya no está comparando únicamente la curvatura. El registro de medidas hace explícita esa diferencia y permite al docente explicar una comparación honesta con pocos conceptos."
+      ],
+      "image": "assets/slide-01-37.jpg"
+    },
+    {
+      "n": 38,
+      "text": [
+        "Práctica en OpenRocket: tres versiones de nariz",
+        "MECRO   SEMANA 1   CLASE 02   13/24",
+        "1. Abre la versión del equipo y guarda una copia con sufijo NARIZ_A. En Nose Cone conserva el diámetro de base y la longitud visible que has declarado.",
+        "",
+        "2. Selecciona Conical y anota el nombre del material, espesor y masa calculada. El hombro sigue la medida real del interior del tubo.",
+        "",
+        "3. Guarda NARIZ_B y cambia a Ogive. Revisa el parámetro de forma. Anota lo que cambiaste y lo que quedó igual.",
+        "",
+        "4. Crea NARIZ_C con Ellipsoid. Obtén una captura lateral de cada alternativa con la misma escala.",
+        "",
+        "5. Compara dimensiones y masas. Todavía no atribuyas una altura de vuelo a estas piezas si falta completar el vehículo y seleccionar su conjunto comercial."
+      ],
+      "image": "assets/slide-01-38.jpg"
+    },
+    {
+      "n": 39,
+      "text": [
+        "Práctica de fabricación: primero el encaje",
+        "MECRO   SEMANA 1   CLASE 02   14/24",
+        "La nariz tiene una interfaz con el cuerpo: su hombro debe entrar en la abertura disponible. El equipo puede dibujar la forma exterior en CAD, pero la medida del tubo decide el encaje. Antes de imprimir una pieza completa, el docente agrupa muestras cortas que permiten estudiar ese ajuste sin consumir todo el tiempo de la máquina."
+      ],
+      "image": "assets/slide-01-39.jpg"
+    },
+    {
+      "n": 40,
+      "text": [
+        "Ficha de comparación de narices",
+        "MECRO   SEMANA 1   CLASE 02   15/24",
+        "Dato",
+        "A",
+        "B",
+        "Forma y longitud",
+        "Por registrar",
+        "Por registrar",
+        "Masa real / g",
+        "Por pesar",
+        "Por pesar",
+        "Tiempo / min",
+        "Del laminador y del registro",
+        "Del laminador y del registro",
+        "Encaje en el tubo identificado",
+        "Observación",
+        "Observación",
+        "Cambio pendiente",
+        "Describir",
+        "Describir"
+      ],
+      "image": "assets/slide-01-40.jpg"
+    },
+    {
+      "n": 41,
+      "text": [
+        "Práctica de fabricación: primero el encaje",
+        "MECRO   SEMANA 1   CLASE 02   16/24",
+        "1. Registra diámetro interior, ovalidad observable y longitud disponible de encaje del tubo real.",
+        "",
+        "2. Prepara en CAD muestras identificadas que varíen solo la dimensión de encaje. El docente revisa la serie antes de imprimir.",
+        "",
+        "3. Mide las piezas obtenidas y diferencia la dimensión dibujada de la dimensión impresa.",
+        "",
+        "4. Prueba la unión sin forzar el tubo. Describe si entra, se traba o tiene juego apreciable.",
+        "",
+        "5. Conserva la muestra elegida con el identificador del tubo y el perfil de impresión. No traslades automáticamente el resultado a otro material o impresora."
+      ],
+      "image": "assets/slide-01-41.jpg"
+    },
+    {
+      "n": 42,
+      "text": [
+        "La elección cambia con la misión",
+        "MECRO   SEMANA 1   CLASE 02   17/24",
+        "Para el modelo del alumno se puede elegir una forma sencilla que el equipo sea capaz de fabricar y revisar. Para el vehículo docente con CanSat puede ser más importante el acceso a la carga que reducir unos minutos de impresión. Eso no autoriza trasladar la nariz del demostrador al cohete pequeño sin revisar dimensiones y masa."
+      ],
+      "image": "assets/slide-01-42.jpg"
+    },
+    {
+      "n": 43,
+      "text": [
+        "Cómo justificar la misma forma en misiones distintas",
+        "MECRO   SEMANA 1   CLASE 02   18/24",
+        "Misión",
+        "Prioridad",
+        "Prueba antes de elegir",
+        "Primer montaje",
+        "Encaje y facilidad de fabricación",
+        "Muestras, masa y repetición",
+        "Reutilización",
+        "Acceso, reparación y repuestos",
+        "Montajes repetidos y revisión del borde",
+        "Carga docente",
+        "Espacio útil y acceso a electrónica",
+        "Maqueta de carga y comprobación de interfaces"
+      ],
+      "image": "assets/slide-01-43.jpg"
+    },
+    {
+      "n": 44,
+      "text": [
+        "Qué conclusión sí podemos defender",
+        "MECRO   SEMANA 1   CLASE 02   19/24",
+        "¿Podemos anunciar que la nariz más liviana “es la más aerodinámica”?",
+        "¿Cambiaría tu elección para transportar la carga docente?"
+      ],
+      "image": "assets/slide-01-44.jpg"
+    },
+    {
+      "n": 45,
+      "text": [
+        "Trabajo guiado del equipo",
+        "MECRO   SEMANA 1   CLASE 02   20/24",
+        "1. Definir la misión del equipo en una frase.",
+        "",
+        "2. Crear las tres copias de nariz en OpenRocket manteniendo las dimensiones declaradas.",
+        "",
+        "3. Completar la ficha con datos de modelo y separar lo que falta medir.",
+        "",
+        "4. Preparar la solicitud de muestras de encaje para el taller 1."
+      ],
+      "image": "assets/slide-01-45.jpg"
+    },
+    {
+      "n": 46,
+      "text": [
+        "Decisión según la misión",
+        "MECRO   SEMANA 1   CLASE 02   21/24",
+        "Aprender a fabricar y recuperar un modelo pequeño por equipos. La carga científica corresponde al demostrador docente.",
+        "¿Cambiaría tu elección para transportar la carga docente?",
+        "Explica tu elección con una pieza, un archivo o un dato de la clase."
+      ],
+      "image": "assets/slide-01-46.jpg"
+    },
+    {
+      "n": 47,
+      "text": [
+        "Tres preguntas para cerrar",
+        "MECRO   SEMANA 1   CLASE 02   22/24",
+        "1. ¿Un cohete de 35 cm es automáticamente de clase A?",
+        "",
+        "2. ¿Qué se conserva para comparar solo la forma?",
+        "",
+        "3. ¿Una nariz que pesa menos tiene menor arrastre?"
+      ],
+      "image": "assets/slide-01-47.jpg"
+    },
+    {
+      "n": 48,
+      "text": [
+        "Cómo explicar las respuestas",
+        "MECRO   SEMANA 1   CLASE 02   23/24",
+        "1. No. La letra corresponde al intervalo de impulso del motor, no a la longitud.",
+        "",
+        "2. Base, longitud visible y el resto del modelo; además se documentan material y masa.",
+        "",
+        "3. El peso no demuestra el arrastre. Son comparaciones diferentes."
+      ],
+      "image": "assets/slide-01-48.jpg"
+    },
+    {
+      "n": 49,
+      "text": [
+        "Entrega de la clase",
+        "MECRO   SEMANA 1   CLASE 02   24/24",
+        "Tres archivos .ork, ficha comparativa y decisión provisional según misión.",
+        "Conserva la revisión del equipo y señala qué comprobación sigue pendiente."
+      ],
+      "image": "assets/slide-01-49.jpg"
+    }
+  ],
+  "pdf": "presentaciones/semana-01.pdf",
+  "ppt": "descargas/MECRO_Coheteria_Semana_01.pptx"
+}

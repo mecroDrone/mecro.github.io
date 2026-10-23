@@ -1,0 +1,383 @@
+{
+  "n": 3,
+  "week": 2,
+  "title": "Cuerpo, dimensiones y espacio interior",
+  "goal": "Elegir un tubo disponible y distribuir componentes sin confundir longitud exterior con espacio útil.",
+  "mission": "Construir un modelo compacto que pueda montarse, inspeccionarse y recuperarse.",
+  "pages": [
+    {
+      "title": "El cuerpo organiza el proyecto",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Elegir la longitud del cuerpo no consiste en copiar una fotografía. Debe haber lugar para el conjunto comercial previsto, sus interfaces y el sistema de recuperación. El tamaño también determina qué herramientas permiten trabajar dentro y cómo se sostiene el modelo durante el montaje. En un proyecto pequeño, unos centímetros pueden facilitar el acceso o dejar un espacio que no se puede aprovechar."
+        },
+        {
+          "type": "image",
+          "name": "or_interior",
+          "caption": "Vista interior del ejemplo de OpenRocket. Muestra relaciones entre piezas, no las dimensiones del proyecto MECRO.",
+          "width": 105
+        },
+        {
+          "type": "table",
+          "title": "Cuatro preguntas antes de cortar",
+          "headers": [
+            "Pregunta",
+            "Qué comprobar"
+          ],
+          "rows": [
+            [
+              "¿Qué tubo tenemos?",
+              "Diámetros, longitud, estado y masa"
+            ],
+            [
+              "¿Qué debe alojar?",
+              "Lista y envolvente de los componentes"
+            ],
+            [
+              "¿Cómo se conecta?",
+              "Nariz, uniones y conjunto comercial"
+            ],
+            [
+              "¿Cómo se revisa?",
+              "Acceso, desmontaje y recuperación"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El plano de distribución comienza con la longitud real del tubo y con bloques que representan componentes. No hace falta diseñar cada detalle desde el principio. Sí hace falta que cada bloque tenga un tamaño y una función reconocibles."
+        },
+        {
+          "type": "p",
+          "text": "El cuerpo cumple varias funciones a la vez. Mantiene una referencia longitudinal, conecta el frente con la zona posterior y ofrece volumen para componentes. Su pared separa el diámetro exterior del espacio disponible. Al sostener un tubo, busca su eje imaginario y observa si los bordes son razonablemente perpendiculares a él. Un dibujo puede mostrar un cilindro perfecto mientras el tubo real presenta un borde inclinado o una sección deformada. Reconocer esa diferencia forma parte de aprender a fabricar."
+        }
+      ]
+    },
+    {
+      "title": "Diámetro y longitud cumplen funciones diferentes",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Aumentar el diámetro abre más espacio transversal y cambia el contorno exterior del vehículo. Aumentar longitud añade espacio a lo largo del eje, pero no ayuda a que entre una pieza demasiado ancha. Una tarjeta electrónica puede caber por volumen total y aun así no pasar por la abertura. Por eso probaremos envolventes o maquetas simples en lugar de decidir solo con litros o centímetros cúbicos."
+        },
+        {
+          "type": "table",
+          "title": "Qué sucede al modificar el cuerpo",
+          "headers": [
+            "Cambio",
+            "Lo que puede resolver",
+            "Qué vuelve a revisarse"
+          ],
+          "rows": [
+            [
+              "Mayor diámetro",
+              "Paso de una pieza más ancha",
+              "Nariz, aletas, masa y modelo"
+            ],
+            [
+              "Mayor longitud",
+              "Separar zonas interiores",
+              "Masa, distribución y acceso"
+            ],
+            [
+              "Mayor espesor",
+              "Cambiar rigidez y fabricación",
+              "Interior útil y masa"
+            ],
+            [
+              "Otra sección de tubo",
+              "Facilitar recambio o unión",
+              "Alineación y continuidad"
+            ]
+          ]
+        },
+        {
+          "type": "case",
+          "title": "La pieza cabe en el dibujo, pero no entra",
+          "problem": "Una maqueta de carga tiene 31 mm de ancho y el tubo tiene 30 mm de diámetro interior. Alargar el tubo 40 mm aumenta el espacio disponible.",
+          "answer": "La modificación no resuelve el paso transversal de la carga. Hay que revisar su envolvente, su orientación o el diámetro útil. La conclusión sale de la pieza real y de dos medidas, sin calcular un volumen complicado."
+        },
+        {
+          "type": "p",
+          "text": "Esta misma idea sirve para el sistema de recuperación plegado. Debe poder entrar y salir según el conjunto elegido. Un dibujo con espacio aparente puede ocultar cordones, uniones o rebordes impresos."
+        },
+        {
+          "type": "p",
+          "text": "El espacio útil incluye la posibilidad de trabajar. Una conexión puede caber después de montada y aun así requerir un acceso que el cuerpo no ofrece durante la fabricación. Por eso la distribución se revisa también siguiendo el orden de montaje. Pregunta qué pieza entra primero, cuál debe quedar accesible y qué información tendrás que fotografiar antes de cerrar. Dibujar el orden junto a la vista lateral ayuda a resolverlo sin un modelo tridimensional complejo."
+        },
+        {
+          "type": "p",
+          "text": "El diámetro se mide atravesando la sección del tubo, mientras la longitud se sigue a lo largo de su eje. Dos tubos de igual diámetro exterior pueden tener interiores diferentes si cambia el espesor. Para visualizarlo, coloca uno junto a otro y compara sus aberturas. La elección del cuerpo afecta a otras piezas porque la nariz debe relacionarse con esa abertura y la recuperación necesita espacio y acceso. Por eso el diámetro del tubo se decide con componentes presentes o representados por envolventes identificadas."
+        }
+      ]
+    },
+    {
+      "title": "Un plano sencillo que sí ayuda a fabricar",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El plano del equipo debe tener vista lateral, una referencia de inicio y cotas legibles. Identifica qué longitud es de una pieza suelta y cuál corresponde al conjunto ensamblado. Si el hombro de la nariz entra en el cuerpo, esa parte queda superpuesta. Sumar todas las longitudes de piezas sin considerar los encajes produce un cohete más corto de lo que se esperaba."
+        },
+        {
+          "type": "case",
+          "title": "Longitud ensamblada",
+          "problem": "Nariz visible de 70 mm, cuerpo de 280 mm y hombro de 20 mm que queda completamente dentro del cuerpo.",
+          "answer": "La longitud exterior es 350 mm. El hombro permite unir las piezas y no añade otros 20 mm al exterior. Si una parte queda expuesta por otro diseño, debe representarse y medirse explícitamente."
+        },
+        {
+          "type": "table",
+          "title": "Información mínima del plano",
+          "headers": [
+            "Elemento",
+            "Dato que debe aparecer"
+          ],
+          "rows": [
+            [
+              "Nariz",
+              "Longitud visible, base y hombro"
+            ],
+            [
+              "Cuerpo",
+              "Longitud y diámetros"
+            ],
+            [
+              "Aletas",
+              "Zona de unión y posición longitudinal"
+            ],
+            [
+              "Recuperación",
+              "Zona reservada y acceso"
+            ],
+            [
+              "Conjunto comercial",
+              "Referencia de componente y envolvente"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "No dibujes conexiones internas por intuición si vas a usar un conjunto comercial. Usa sus dimensiones y documentación. Si todavía no se ha seleccionado, representa la zona como pendiente y evita cerrar detalles que dependan de ella. Un plano preliminar puede estar incompleto y seguir siendo útil si lo declara."
+        },
+        {
+          "type": "p",
+          "text": "En una unión entre tramos de cuerpo se diferencia la longitud de cada pieza y el solapamiento del conjunto. La referencia de una aleta tampoco se toma desde un borde que vaya a cambiar en el acabado. El plano debe permitir reconstruir el objeto ensamblado. Si al presentarlo aparece una diferencia, mide dónde comienza y termina; no distribuyas el error moviendo varias piezas a la vez, porque perderías la causa de la discrepancia."
+        }
+      ]
+    },
+    {
+      "title": "OpenRocket: representar el tubo real",
+      "blocks": [
+        {
+          "type": "image",
+          "name": "or_tubo",
+          "caption": "Configuración de cuerpo del manual de OpenRocket. Revisa unidades, diámetro exterior, interior, pared y casilla Filled.",
+          "width": 100
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Abre el archivo del equipo y guarda una revisión CUERPO_v02. Selecciona Body Tube.",
+            "Sustituye longitud y diámetros por las medidas disponibles. Conserva una tabla con el dato anterior y el nuevo.",
+            "Comprueba que Filled esté desactivado si el tubo es hueco. Revisa cómo se relacionan espesor e interior.",
+            "Añade los componentes interiores que ya tienen referencia y dimensiones conocidas. Nómbralos según su función.",
+            "Usa la vista interior para revisar interferencias. Guarda una captura y anota lo que todavía no puede comprobarse."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El modelo facilita ver posiciones, pero no representa automáticamente todos los cables, pliegues y detalles de una pieza impresa. El plano de fabricación y la prueba física siguen siendo necesarios. [OR1, OR2]"
+        },
+        {
+          "type": "p",
+          "text": "Body Tube representa una pared cilíndrica con dimensiones y propiedades. El programa puede calcular una masa a partir de geometría y material, pero el tubo del taller puede incluir variación de espesor, uniones y acabado. Primero se comprueba que la geometría sea la que se pretendía introducir. Después, cuando exista una medida real, se compara la masa bajo la misma condición. Corregir un campo de masa no debe esconder que se dibujó un diámetro equivocado."
+        }
+      ]
+    },
+    {
+      "title": "Del tubo disponible al corte y al montaje",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Antes de modificar el cuerpo, el equipo comprueba que el tubo no esté aplastado y define desde qué extremo medirá. Una marca de longitud requiere una referencia clara. Repetir la medición desde un borde irregular puede producir diferencias que después se interpretan como errores de la pieza impresa."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Identifica cada tubo con equipo y revisión. Mide en más de una orientación y anota si el borde está deformado.",
+            "Traza la longitud de acuerdo con el plano revisado. El docente valida el método de corte y acabado adecuado al material y a las herramientas del taller.",
+            "Comprueba el borde y la continuidad de la sección antes de intentar un encaje. No ocultes una deformación aumentando a la fuerza el tamaño de la unión.",
+            "Presenta las piezas sin pegarlas y verifica longitud ensamblada y acceso.",
+            "Pesa el cuerpo preparado. Si se añadieron uniones o acabado, conserva la diferencia respecto a la pieza inicial."
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Registro del cuerpo",
+          "headers": [
+            "Momento",
+            "Dato a conservar"
+          ],
+          "rows": [
+            [
+              "Al recibir",
+              "Medidas y masa"
+            ],
+            [
+              "Después de preparar",
+              "Longitud y estado del borde"
+            ],
+            [
+              "Con piezas presentadas",
+              "Longitud total y acceso"
+            ],
+            [
+              "Antes de montar",
+              "Referencia del plano aceptado"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La presentación en seco permite descubrir interferencias cuando todavía es fácil corregirlas. Pegar primero y medir después convierte un problema de diseño en una reparación."
+        }
+      ]
+    },
+    {
+      "title": "Elegir un cuerpo para la misión del equipo",
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Comparativa según uso",
+          "headers": [
+            "Misión",
+            "Qué priorizar",
+            "Evidencia útil"
+          ],
+          "rows": [
+            [
+              "Aprender a montar",
+              "Disponibilidad y acceso",
+              "Plano y presentación en seco"
+            ],
+            [
+              "Reutilizar",
+              "Recambio y revisión de uniones",
+              "Desmontajes y estado del tubo"
+            ],
+            [
+              "Carga docente",
+              "Envolvente y conexiones",
+              "Maqueta de carga y acceso a datos"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El cuerpo más corto no es necesariamente el más fácil de construir. El más largo tampoco es automáticamente el más estable. En esta etapa elegimos una distribución que pueda montarse y reservar el espacio necesario. La estabilidad y el comportamiento del conjunto se revisarán cuando el modelo tenga sus piezas y masas."
+        },
+        {
+          "type": "case",
+          "title": "Decisión antes de fabricar",
+          "problem": "El plano solo cabe si el paracaídas ocupa exactamente el hueco dibujado, pero todavía no se ha plegado ni probado con sus cordones.",
+          "answer": "La distribución sigue pendiente. Conviene comprobar una muestra real y revisar el acceso antes de congelar la longitud. La evidencia que falta es una presentación del conjunto de recuperación, no una ecuación más detallada del tubo."
+        },
+        {
+          "type": "p",
+          "text": "Entrega una vista lateral acotada y una fotografía o captura de la presentación. Señala una interferencia que hayas resuelto y una comprobación que quede pendiente. El diseño mejora cuando las decisiones se relacionan con objetos que puedes medir."
+        }
+      ]
+    }
+  ],
+  "lab": [
+    "Medir e identificar el tubo disponible.",
+    "Preparar una distribución con componentes reales o envolventes identificadas.",
+    "Actualizar Body Tube y revisar el interior en OpenRocket.",
+    "Preparar el plano de corte y una presentación en seco."
+  ],
+  "qas": [
+    [
+      "¿Alargar el cuerpo permite introducir una pieza demasiado ancha?",
+      "No. Hay que revisar el paso transversal."
+    ],
+    [
+      "¿Se suma dos veces la zona de un encaje?",
+      "No. Debe distinguirse longitud de pieza y longitud visible ensamblada."
+    ],
+    [
+      "¿Qué falta si solo tenemos el volumen del paracaídas?",
+      "Su envolvente plegada, cordones, acceso y comprobación de movimiento."
+    ]
+  ],
+  "delivery": "Plano de distribución, archivo actualizado y ficha del cuerpo.",
+  "refs": [
+    "NASA",
+    "OR1",
+    "OR2",
+    "BODY"
+  ],
+  "opening": "Muestra un tubo y una pieza que no pase por su abertura: pregunta si alargar el tubo lo resolvería.",
+  "hours": 2,
+  "mode": "En línea",
+  "references": {
+    "NASA": [
+      "NASA Glenn",
+      "Model Rockets",
+      "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/model-rockets/"
+    ],
+    "OR1": [
+      "OpenRocket",
+      "Basic Rocket Design",
+      "https://openrocket.readthedocs.io/en/latest/user_guide/basic_rocket_design.html"
+    ],
+    "OR2": [
+      "OpenRocket",
+      "Getting Started",
+      "https://openrocket.readthedocs.io/en/latest/setup/getting_started.html"
+    ],
+    "BODY": [
+      "OpenRocket",
+      "Body Components Basics",
+      "https://wiki.openrocket.info/Body_Components_Basics"
+    ]
+  },
+  "assetMap": {
+    "aleta_nakka": "assets/aleta_nakka.png",
+    "anatomia": "assets/anatomia.png",
+    "balsa_catalogo": "assets/balsa_catalogo.png",
+    "cansat": "assets/cansat.png",
+    "eq1": "assets/eq1.png",
+    "eq2": "assets/eq2.png",
+    "eq3": "assets/eq3.png",
+    "estabilidad_nasa": "assets/estabilidad_nasa.png",
+    "logo_mecro": "assets/logo_mecro.png",
+    "narices_catalogo": "assets/narices_catalogo.png",
+    "nasa_cg": "assets/nasa_cg.png",
+    "nasa_cp": "assets/nasa_cp.png",
+    "nasa_flight": "assets/nasa_flight.png",
+    "nasa_thrust": "assets/nasa_thrust.png",
+    "or_aletas": "assets/or_aletas.png",
+    "or_back": "assets/or_back.png",
+    "or_componentes": "assets/or_componentes.png",
+    "or_cord": "assets/or_cord.png",
+    "or_example": "assets/or_example.png",
+    "or_flighttab": "assets/or_flighttab.png",
+    "or_interior": "assets/or_interior.png",
+    "or_motorselect": "assets/or_motorselect.png",
+    "or_mount": "assets/or_mount.png",
+    "or_nariz": "assets/or_nariz.png",
+    "or_override": "assets/or_override.png",
+    "or_parts": "assets/or_parts.png",
+    "or_plot": "assets/or_plot.png",
+    "or_plot_button": "assets/or_plot_button.png",
+    "or_plot_export": "assets/or_plot_export.png",
+    "or_recovery": "assets/or_recovery.png",
+    "or_recuperacion": "assets/or_recuperacion.png",
+    "or_tubo": "assets/or_tubo.png",
+    "or_ventana": "assets/or_ventana.png",
+    "print_layers": "assets/print_layers.png",
+    "print_orient": "assets/print_orient.png",
+    "print_overhang": "assets/print_overhang.png",
+    "print_perimeters": "assets/print_perimeters.png"
+  }
+}
