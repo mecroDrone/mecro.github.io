@@ -1,4 +1,5 @@
 import {cleanProgress,filterLessons,materialPath} from './campus-model.js';
+import {embedUrl} from './api.js';
 const root=document.getElementById('campus');
 let account,course,lesson,reading,tab='reading',revision=0,renderVersion=0,content,lessonNav,courseSelect,search,heading,toast,progressLabel,progressBar,notesInput,completionButton;
 let memory={},storageOK=true;
@@ -49,15 +50,16 @@ function renderNav(){
  if(!visible.length)lessonNav.append(el('p','small muted','No hay clases con ese término.'));
 }
 async function selectLesson(value){
+ const restoreFocus=lessonNav.contains(document.activeElement);
  lesson=value;reading=null;tab='reading';const generation=++revision;
  progress().last=lesson.n;save();renderNav();
+ if(restoreFocus)lessonNav.querySelector('[aria-current]')?.focus();
  const url=new URL(location.href);url.searchParams.set('curso',course.id);url.searchParams.set('clase',lesson.n);history.replaceState(null,'',url);
  heading.replaceChildren(el('span','eyebrow',`SEMANA ${lesson.week} / CLASE ${String(lesson.n).padStart(2,'0')}`),el('h2','',lesson.title),el('p','',lesson.goal));
  const meta=el('div','lesson-meta');meta.append(el('span','',lesson.mode),el('span','',`${lesson.hours} horas`),el('span','','Lectura + práctica'));heading.append(meta);
  renderTools();selectTab('reading');
  try{const key=material(lesson.reading);const loaded=cache.get(key)||await get(key);if(generation!==revision)return;reading=loaded;cache.set(key,reading);renderTools();renderTab();}
  catch(error){if(generation!==revision)return;if(error.expired)return unavailable(error);content.replaceChildren(el('h3','','Material no disponible'),el('p','',error.message),btn('Volver a intentar',()=>selectLesson(lesson)));content.setAttribute('aria-busy','false');}
- const current=lessonNav.querySelector('[aria-current]');if(lessonNav.contains(document.activeElement))current?.focus();
 }
 function renderTools(){
  const rail=root.querySelector('.campus-tools');rail.replaceChildren();rail.append(el('span','eyebrow','Mesa de trabajo'),el('h2','','El resultado de esta clase'),el('p','',lesson.delivery));
@@ -65,12 +67,32 @@ function renderTools(){
  const notes=el('section','campus-notes');const label=el('label','','Tu bitácora');label.htmlFor='lesson-notes';notesInput=el('textarea');notesInput.id=label.htmlFor;notesInput.rows=7;notesInput.maxLength=12000;notesInput.placeholder='Ideas, medidas, dudas y resultados…';notesInput.value=progress().notes[lesson.n]||'';
  const noteStatus=el('p','small muted','Se guarda en este navegador, para esta cuenta.');noteStatus.setAttribute('role','status');notesInput.addEventListener('input',()=>{progress().notes[lesson.n]=notesInput.value;save();noteStatus.textContent=storageOK?'Bitácora guardada en este navegador.':'Solo guardado durante esta visita.';});
  notes.append(label,notesInput,noteStatus,btn('Exportar mis notas ↓',()=>{const text=`# ${course.title}\n\n## Clase ${lesson.n}: ${lesson.title}\n\n${notesInput.value}\n`;const url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));const a=link('',url);a.download=`MECRO-${course.id}-clase-${lesson.n}-notas.md`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},'campus-button subtle'));rail.append(notes);
- rail.append(el('h3','','Sigue explorando'),link('Sílabo del programa ↗',course.syllabusPdf,'tool-link'),link('Sesiones y enlaces de mi grupo ↗','portal.html','tool-link'));
+ rail.append(el('h3','','Sigue explorando'),btn('Grabaciones de mi grupo',renderRecordings,'campus-button subtle'),link('Sílabo del programa ↗',course.syllabusPdf,'tool-link'),link('Sesiones y enlaces de mi grupo ↗','portal.html','tool-link'));
  const route=course.id==='uav'?'drones':course.id==='cohetes'?'coheteria':'esp32';rail.append(link('Mesa interactiva de hardware ↗',`kits.html?ruta=${route}#explorar`,'tool-link'));
  if(reading?.projects?.length)for(const n of reading.projects)rail.append(link(`Laboratorio ESP32 · Proyecto ${n} ↗`,`laboratorio.html?proyecto=${n}`,'tool-link'));
  updateProgress();
 }
-function selectTab(id){tab=id;root.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===id;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});content.setAttribute('aria-labelledby','campus-tab-'+id);renderTab();}
+async function renderRecordings(){
+ const version=++renderVersion;tab='recordings';
+ root.querySelectorAll('[data-tab]').forEach(b=>{b.setAttribute('aria-selected','false');b.tabIndex=0;});
+ content.removeAttribute('aria-labelledby');content.setAttribute('aria-label','Grabaciones de mi grupo');content.setAttribute('aria-busy','true');
+ content.replaceChildren(sectionTitle('Grabaciones de tu grupo'),el('p','','Conservamos las sesiones de tu programa original. Los materiales actualizados son una ruta complementaria; su numeración y el hardware pueden ser diferentes.'),el('p','','Buscando tus sesiones…'));
+ try{
+  const data=await get(`api/campus/recordings?curso=${encodeURIComponent(course.id)}`);if(version!==renderVersion)return;
+  content.lastChild.remove();
+  if(data.preview){content.append(el('p','notice','La vista previa no representa una matrícula. Inicia sesión con una cuenta de alumno para comprobar sus grabaciones reales.'));return;}
+  if(!data.recordings.length)content.append(el('p','','No hay sesiones asociadas a tu curso y grupo. Contacta con MECRO para revisar tu matrícula.'));
+  for(const item of data.recordings){
+   const row=el('section','reading-case');row.append(el('span','eyebrow',`${item.group} · ${item.code}`),el('h3','',item.title));
+   if(!item.video){row.append(el('p','','Grabación pendiente de publicación.'));}
+   else {const target=link('Abrir grabación ↗',item.video,'campus-button subtle');target.target='_blank';target.rel='noopener';const embed=embedUrl(item.video);if(embed)row.append(btn('Reproducir aquí',()=>{const frame=el('iframe','presentation-frame');frame.title=item.title;frame.src=embed;frame.allow='fullscreen';row.querySelector('iframe')?.remove();row.append(frame);},'campus-button'));row.append(target);}
+   content.append(row);
+  }
+  content.append(el('p','small muted','El video conserva los permisos de acceso de Google Drive. Si Google solicita acceso, comunícalo al instructor.'));
+ }catch(error){if(version===renderVersion){if(error.expired)return unavailable(error);content.append(el('p','notice',error.message),btn('Reintentar',renderRecordings));}}
+ finally{if(version===renderVersion)content.setAttribute('aria-busy','false');}
+}
+function selectTab(id){tab=id;content.removeAttribute('aria-label');root.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===id;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});content.setAttribute('aria-labelledby','campus-tab-'+id);renderTab();}
 function sectionTitle(text){return el('h3','',text);}
 function disclosure(title,answer){const d=el('details','practice-answer');d.append(el('summary','',title),el('p','',answer));return d;}
 function renderBlock(block,parent){
@@ -107,8 +129,18 @@ async function renderSlides(viewVersion){
  try{const data=await get(material(lesson.presentation));if(viewVersion!==renderVersion||tab!=='slides')return;
  const pdf=material(data.pdf),a=link('Abrir presentación en otra pestaña ↗',pdf,'campus-button subtle');a.target='_blank';a.rel='noopener';tools.append(a);
  content.append(el('p','small muted',`${data.slides.length} diapositivas · Semana ${data.week}`));
- const frame=el('iframe','presentation-frame');frame.src=pdf+'#view=FitH';frame.title=`Diapositivas de ${course.title}, semana ${lesson.week}`;content.append(frame);
- content.append(el('p','small muted','Si tu navegador móvil no muestra el PDF, utiliza «Abrir presentación en otra pestaña».'));
+ if(data.slides.every(slide=>slide.image)){
+  let index=0;const viewer=el('section','slide-viewer');viewer.setAttribute('aria-label','Visor de diapositivas');viewer.tabIndex=0;
+  const picture=el('img'),bar=el('div','slide-controls'),counter=el('span');counter.setAttribute('role','status');
+  const previous=btn('← Anterior',()=>show(index-1),'campus-button subtle'),next=btn('Siguiente →',()=>show(index+1),'campus-button subtle');
+  const choose=el('select');choose.setAttribute('aria-label','Ir a diapositiva');data.slides.forEach((slide,i)=>{const option=el('option','',`${i+1} · ${slide.text[0]||'Diapositiva'}`);option.value=i;choose.append(option);});choose.addEventListener('change',()=>show(Number(choose.value)));
+  function show(value){index=Math.max(0,Math.min(value,data.slides.length-1));const slide=data.slides[index];picture.src=material(slide.image);picture.alt=`Diapositiva ${index+1}: ${slide.text.join(' · ')}`;counter.textContent=`${index+1} / ${data.slides.length}`;choose.value=index;previous.disabled=index===0;next.disabled=index===data.slides.length-1;}
+  viewer.addEventListener('keydown',event=>{if(event.target===choose)return;if(event.key==='ArrowRight'){event.preventDefault();show(index+1);}else if(event.key==='ArrowLeft'){event.preventDefault();show(index-1);}});
+  bar.append(previous,counter,next);viewer.append(picture,bar,choose);content.append(viewer);show(0);
+ }else{
+  const frame=el('iframe','presentation-frame');frame.src=pdf+'#view=FitH';frame.title=`Diapositivas de ${course.title}, semana ${lesson.week}`;content.append(frame);
+  content.append(el('p','small muted','Si tu navegador no muestra el PDF, utiliza «Abrir presentación en otra pestaña» o consulta el texto de las diapositivas.'));
+ }
  const transcript=el('details','slide-transcript');transcript.append(el('summary','','Leer texto de las diapositivas'));
  data.slides.forEach(slide=>{const page=el('section');page.append(el('h4','',`Diapositiva ${slide.n}`));slide.text.forEach(text=>page.append(el('p','',text)));transcript.append(page);});content.append(transcript);
  }catch(error){if(viewVersion===renderVersion&&tab==='slides')content.append(el('p','notice',error.message));}
@@ -122,5 +154,5 @@ async function renderResources(viewVersion){
  }catch(error){if(viewVersion===renderVersion&&tab==='resources')content.append(el('p','notice',error.message));}
 }
 function renderPager(){const index=course.lessons.indexOf(lesson),nav=el('nav','campus-pager');nav.setAttribute('aria-label','Continuar el curso');const previous=btn('← Clase anterior',()=>selectLesson(course.lessons[index-1])),next=btn('Siguiente clase →',()=>selectLesson(course.lessons[index+1]));previous.disabled=index===0;next.disabled=index===course.lessons.length-1;nav.append(previous,next);content.append(nav);}
-function renderTab(){const viewVersion=++renderVersion;content.replaceChildren();content.setAttribute('aria-busy',String(!reading));if(!reading){content.append(el('p','campus-loading-inline','Preparando el material de la clase…'));return;}if(tab==='reading')renderReading();else if(tab==='practice')renderPractice();else if(tab==='slides')renderSlides(viewVersion);else renderResources(viewVersion);}
+function renderTab(){if(tab==='recordings'){renderRecordings();return;}const viewVersion=++renderVersion;content.replaceChildren();content.setAttribute('aria-busy',String(!reading));if(!reading){content.append(el('p','campus-loading-inline','Preparando el material de la clase…'));return;}if(tab==='reading')renderReading();else if(tab==='practice')renderPractice();else if(tab==='slides')renderSlides(viewVersion);else renderResources(viewVersion);}
 init();

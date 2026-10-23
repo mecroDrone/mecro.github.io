@@ -31,7 +31,14 @@ function state(title,description,retry=false){
   box.append(link('Contactar al equipo','contacto.html','text-link'));
   view.append(box);
 }
-function group(){return normalizeGroup(user.grupos[activeCourse.id]||user.grupo);}
+function group(){return normalizeGroup(user.grupos[activeCourse.id]||user.grupos.DRONES_102||user.grupo);}
+function updatedProgram(courseId){
+  const id=String(courseId||'').toUpperCase();
+  if(id.includes('DRONE')||id==='UAV')return {campus:'uav',syllabus:'assets/programas/silabo-uav.pdf',route:'drones',label:'Ingeniería y Ensamblaje de Drones (Edición actualizada)'};
+  if(id.includes('ES32')||id.includes('ESP32'))return {campus:'esp32',syllabus:'assets/programas/silabo-esp32.pdf',route:'esp32',label:'Electrónica, Control y Automatización con ESP32 (Edición actualizada)'};
+  if(id.includes('COHETE'))return {campus:'cohetes',syllabus:'assets/programas/silabo-cohetes.pdf',route:'coheteria',label:'Cohetería Básica e Intermedia (Edición actualizada)'};
+  return {campus:'',syllabus:'',route:'esp32',label:'Material complementario actualizado'};
+}
 function consult(text){return 'https://wa.me/51918389333?text='+encodeURIComponent(text);}
 function supportText(topic=''){
   return `Hola MECRO, necesito ayuda con ${activeCourse?.nombre||'mi programa'}${group()?' (grupo '+group()+')':''}.${topic?' '+topic:''}`;
@@ -46,6 +53,7 @@ async function init(){
     if(!readSession()){leave();return;}
     if(data.success!==true)throw new Error('El material no está disponible en este momento. Inténtalo de nuevo o contacta al equipo.');
     const assigned=new Set(user.cursosInscritos);
+    if(assigned.has('DRONES_102')&&!(Array.isArray(data.cursos)&&data.cursos.some(c=>c&&String(c.id).trim()==='DRONES_102')))assigned.add('DRONES_101');
     courses=(Array.isArray(data.cursos)?data.cursos:[])
       .filter(c=>c&&typeof c==='object'&&c.id!=null&&assigned.has(String(c.id).trim()))
       .map(c=>({...c,id:String(c.id).trim(),nombre:typeof c.nombre==='string'?c.nombre:'Programa MECRO'}));
@@ -90,8 +98,16 @@ function heading(title,subtitle=''){
   view.append(box);return box;
 }
 function overview(){
-  heading('Todo tu programa, en un lugar.','Consulta el material y las sesiones disponibles para tu matrícula.');
-  const campus=el('section','resource-card');campus.append(el('h3','','Tu mesa de trabajo MECRO'),el('p','','Lecturas completas, presentaciones, prácticas y bitácora personal, dentro del aula.'),link('Abrir el campus integrado ↗','aula.html','btn'));view.append(campus);
+  heading('Todo tu programa, en un lugar.','Conservas todas las grabaciones de tu grupo y tienes acceso completo a los materiales actualizados de MECRO.');
+  const updated=updatedProgram(activeCourse.id);
+  const campus=el('section','resource-card');
+  campus.append(el('h3','','Materiales nuevos incluidos en tu matrícula'),el('p','',`Por haber confiado en MECRO, tu cuenta activa incluye acceso a ${updated.label}: lecturas completas, diapositivas actualizadas, prácticas guiadas y mesa interactiva, además de las grabaciones históricas de tu grupo.`));
+  const actions=el('div','actions');
+  actions.append(link('Abrir campus actualizado ↗',updated.campus?`aula.html?curso=${updated.campus}`:'aula.html','btn'));
+  if(updated.syllabus)actions.append(link('Sílabo actualizado (PDF) ↗',updated.syllabus,'btn btn-secondary',true));
+  actions.append(link('Mesa interactiva de hardware ↗',`kits.html?ruta=${updated.route}#explorar`,'btn btn-secondary'));
+  campus.append(actions);
+  view.append(campus);
   const grid=el('div','course-overview');const copy=el('div');
   copy.append(el('h3','',activeCourse.nombre));
   if(typeof activeCourse.instructor==='string')copy.append(el('p','',`Instructor: ${activeCourse.instructor}`));

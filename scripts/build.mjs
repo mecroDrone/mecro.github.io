@@ -1,5 +1,5 @@
 import {courseCard as card,courseBody} from './course-page.mjs';
-import {readFileSync,writeFileSync,readdirSync} from 'node:fs';
+import {readFileSync,writeFileSync,readdirSync,mkdirSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -23,4 +23,8 @@ for(const name of readdirSync(path.join(root,'content')).filter(n=>n.endsWith('.
  writeFileSync(path.join(root,name),page(meta.title,meta.description,body,meta.active||name,meta.scripts||''));
 }
 for(const c of courses){writeFileSync(path.join(root,c.file),page(c.title,c.description,courseBody(c),'cursos.html'));}
-console.log('Páginas estáticas generadas.');
+const adminHtml=readFileSync(path.join(root,'apps-script/Admin.html'),'utf8');
+const combinedGs=readFileSync(path.join(root,'apps-script/Original.gs'),'utf8')+'\n'+readFileSync(path.join(root,'apps-script/Admin.gs'),'utf8').replace("HtmlService.createHtmlOutputFromFile('Admin')","HtmlService.createHtmlOutput(ADMIN_PAGE_HTML_)")+'\nvar ADMIN_PAGE_HTML_ = '+JSON.stringify(adminHtml)+';\n';
+mkdirSync(path.join(root,'.course-work/deploy'),{recursive:true});
+writeFileSync(path.join(root,'.course-work/deploy/Code.gs'),combinedGs);
+console.log('Páginas estáticas y paquete Apps Script generados.');

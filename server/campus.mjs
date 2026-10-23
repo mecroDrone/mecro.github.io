@@ -4,6 +4,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomBytes,createHash,timingSafeEqual} from 'node:crypto';
 import {API_URL,normalizeUser} from '../assets/js/api.js';
+import {loadLegacyClasses,recordingsFor} from './recordings.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.pdf':'application/pdf','.pptx':'application/vnd.openxmlformats-officedocument.presentationml.presentation','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.csv':'text/csv; charset=utf-8','.zip':'application/zip','.md':'text/plain; charset=utf-8','.cpp':'text/plain; charset=utf-8','.ico':'image/x-icon'};
@@ -28,7 +29,7 @@ export async function authenticateWithMecro(email,password){
  const user=normalizeUser(data,email);
  return user.email&&user.cursosInscritos.length?user:null;
 }
-export function createCampusServer({directory=root,authenticate=authenticateWithMecro,preview=false,previewToken=randomBytes(32).toString('hex'),secure=false,origin=''}={}){
+export function createCampusServer({directory=root,authenticate=authenticateWithMecro,loadRecordings=loadLegacyClasses,preview=false,previewToken=randomBytes(32).toString('hex'),secure=false,origin=''}={}){
  const catalog=JSON.parse(fs.readFileSync(path.join(directory,'data/campus.json'),'utf8'));
  const sessions=new Map(),attempts=new Map();
  const json=(res,code,value)=>{res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(value));};
@@ -104,6 +105,12 @@ export function createCampusServer({directory=root,authenticate=authenticateWith
      if(pathname.startsWith('/api/campus/')){
        const session=sessionFor(req);if(!session)return json(res,401,{error:'Inicia sesión para acceder a tus materiales.'});
        if(!['GET','HEAD'].includes(req.method))return json(res,405,{error:'Método no permitido.'});
+       if(pathname==='/api/campus/recordings'){
+         const courseId=url.searchParams.get('curso');
+         if(!session.courseIds.includes(courseId))return json(res,403,{error:'Curso no autorizado.'});
+         if(session.preview)return json(res,200,{preview:true,recordings:[]});
+         return json(res,200,{preview:false,recordings:recordingsFor(session.user,courseId,aliases,await loadRecordings(session.user))});
+       }
        if(pathname==='/api/campus/courses')return json(res,200,{name:session.user.nombre,profileId:createHash('sha256').update(session.user.email).digest('hex').slice(0,20),preview:session.preview,courses:catalog.courses.filter(c=>session.courseIds.includes(c.id))});
        const match=pathname.match(/^\/api\/campus\/materiales\/([a-z0-9-]+)\/(.+)$/);
        if(match){

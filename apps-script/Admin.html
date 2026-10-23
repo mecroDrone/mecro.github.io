@@ -1,0 +1,366 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MECRO · Panel de Administración</title><style>
+*{box-sizing:border-box}body{margin:0;background:#0a1011;color:#e3eee7;font:16px/1.55 system-ui,-apple-system,sans-serif}main{max-width:1240px;margin:auto;padding:28px}h1{font-size:34px;line-height:1.15;margin:6px 0 10px}h2{font-size:22px;margin:0 0 10px}h3{font-size:18px;margin:0 0 8px}small,p{color:#a8bdb1;margin:6px 0}section{background:#121e19;border:1px solid #30483a;border-radius:12px;padding:22px;margin:20px 0}input,select,button,textarea{font:inherit;padding:10px 12px;border-radius:6px;border:1px solid #486451;background:#0b1510;color:#e3eee7;max-width:100%}label{display:block;margin:12px 0;font-size:14px;color:#cfe2d6}label input:not([type=checkbox]),select{display:block;width:100%;margin-top:4px}button{cursor:pointer;background:#b7edc0;color:#122818;font-weight:600;border-color:#b7edc0;margin:6px 6px 6px 0}button.secondary{background:#182a21;color:#d6ebe0;border-color:#486451}button.small{padding:5px 10px;font-size:13px;margin:2px}button:disabled{opacity:.5;cursor:wait}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;margin:14px 0}.card-stat{background:#0b1510;border:1px solid #30483a;border-radius:10px;padding:12px;cursor:pointer;text-align:left;color:#e3eee7}.card-stat.active{border-color:#b7edc0;background:#172b20}.card-stat strong{display:block;font-size:18px;color:#b7edc0}table{width:100%;border-collapse:collapse;font-size:14px}td,th{text-align:left;border-bottom:1px solid #263b2f;padding:10px 8px;vertical-align:middle}th{color:#b7edc0;font-weight:600;background:#0d1813}.badge-ok{display:inline-block;padding:2px 8px;border-radius:99px;background:#193d26;color:#9ef2b0;font-size:12px;font-weight:600}.badge-pending{display:inline-block;padding:2px 8px;border-radius:99px;background:#443014;color:#ffd48a;font-size:12px;font-weight:600}.scroll{overflow:auto;max-height:480px}a{color:#b7edc0}textarea{width:100%;min-height:165px}#status{position:sticky;top:0;background:#1f3829;border:1px solid #486451;border-radius:8px;padding:12px 16px;z-index:5;color:#e3eee7;font-weight:500}.inline-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}.inline-row>*{flex:1;min-width:140px}[hidden]{display:none!important}@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:14px}h1{font-size:26px}}
+</style></head><body><main>
+<small>MECRO / PANEL DE ADMINISTRACIÓN DOCENTE</small>
+<h1>Control de Grabaciones y Matrículas</h1>
+<p>Verifica de un vistazo qué clases ya tienen grabación subida por grupo, publica videos desde Google Meet/Drive y genera accesos de alumnos para WhatsApp.</p>
+<p id="status" role="status">Inicia sesión con tu cuenta de administrador.</p>
+
+<section id="login">
+  <h2>Acceso del administrador</h2>
+  <form id="loginForm">
+    <div class="grid">
+      <label>Usuario administrador
+        <input id="adminUser" type="email" value="admin@macro.pe" autocomplete="username" required>
+      </label>
+      <label>Clave de administrador
+        <input id="secret" type="password" autocomplete="current-password" placeholder="Clave generada en Apps Script" required>
+      </label>
+    </div>
+    <button type="submit">Entrar al panel</button>
+  </form>
+  <small>La clave se genera ejecutando <code>configurarAdministrador</code> (o <code>regenerarClaveAdministrador</code>) desde el editor de Google Apps Script.</small>
+</section>
+
+<div id="panel" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div>
+      <button id="refresh" type="button">↻ Actualizar datos de Sheets</button>
+      <a href="https://docs.google.com/spreadsheets/d/1h3M5PwykMt1g3JYuRATcrONLGUs3ngdoXKJwGs4bOYc/edit" target="_blank" rel="noopener" style="margin-left:10px;font-size:14px">Abrir hoja de Google Sheets ↗</a>
+    </div>
+    <button id="logout" type="button" class="secondary">Cerrar sesión</button>
+  </div>
+
+  <section>
+    <h2>1. Estado de clases y grabaciones por grupo</h2>
+    <p>Revisa qué sesiones ya fueron subidas y cuáles están pendientes en cada grupo. Haz clic en <strong>“Subir aquí”</strong> en cualquier clase pendiente para cargarla directamente en el formulario.</p>
+    <div class="inline-row">
+      <label>Programa a verificar
+        <select id="course"></select>
+      </label>
+      <label>Grupo activo para publicar
+        <input id="group" value="G1" pattern="G[1-9][0-9]*" required>
+      </label>
+      <label>Filtrar tabla
+        <select id="sessionFilter">
+          <option value="all">Ver todas las sesiones</option>
+          <option value="pending">Solo sesiones con grabación pendiente en este grupo</option>
+        </select>
+      </label>
+    </div>
+    <div id="groupSummary" class="cards" aria-label="Resumen de grabaciones por grupo"></div>
+    <div id="sessions" class="scroll"></div>
+  </section>
+
+  <div class="grid">
+    <section>
+      <h2>2. Publicar o actualizar grabación</h2>
+      <p>Elige un video de tu bandeja de Meet abajo o pega directamente el enlace de Google Drive que te llegó al Gmail.</p>
+      <form id="publishForm">
+        <div class="inline-row">
+          <label>Clase seleccionada
+            <select id="lesson"></select>
+          </label>
+        </div>
+        <p id="current" style="font-weight:600"></p>
+        <label>Enlace del video en Google Drive
+          <input id="videoUrl" type="url" placeholder="https://drive.google.com/file/d/.../view" required>
+        </label>
+        <label><input id="replace" type="checkbox"> Confirmo reemplazar el enlace anterior si esta clase ya tenía video.</label>
+        <button type="submit">Publicar grabación para este grupo</button>
+      </form>
+
+      <hr style="border:0;border-top:1px solid #30483a;margin:18px 0">
+      <h3>Bandeja de Google Meet (Drive)</h3>
+      <p>Videos detectados en tu carpeta de grabaciones de Meet. Te indicamos cuáles son nuevos y aún no se han publicado.</p>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">
+        <button id="loadVideos" type="button">Buscar grabaciones en Drive</button>
+        <button id="more" type="button" class="secondary" hidden>Cargar más videos</button>
+        <label style="margin:0"><input id="onlyUnassigned" type="checkbox"> Mostrar solo videos sin publicar</label>
+      </div>
+      <div id="videos" class="scroll" style="max-height:290px"></div>
+    </section>
+
+    <section>
+      <h2>3. Matricular alumno nuevo (tras pago Yape / Transferencia)</h2>
+      <p>Escribe el nombre del alumno y se generará automáticamente su usuario institucional y su contraseña segura, con el mensaje listo para enviarle por WhatsApp.</p>
+      <form id="enrollForm">
+        <label>Nombre completo del alumno
+          <input id="name" maxlength="150" placeholder="Ej. Carlos Alberto Rojas" required>
+        </label>
+        <div class="inline-row">
+          <label style="flex:2">Correo / usuario de acceso (editable)
+            <input id="email" type="email" placeholder="carlos.rojas@macro.pe" required>
+          </label>
+          <label style="flex:1">Dominio rápido
+            <select id="emailDomain">
+              <option value="macro.pe">@macro.pe</option>
+              <option value="mecro.com">@mecro.com</option>
+            </select>
+          </label>
+        </div>
+        <div class="inline-row">
+          <label>Curso
+            <select id="enrollCourse"></select>
+          </label>
+          <label>Grupo
+            <input id="enrollGroup" value="G1" pattern="G[1-9][0-9]*" required>
+          </label>
+          <label>WhatsApp (opcional)
+            <input id="studentPhone" type="tel" placeholder="Ej. 999888777">
+          </label>
+        </div>
+        <label><input id="paid" type="checkbox" required> He confirmado el pago por Yape, Plin o transferencia.</label>
+        <button type="submit">Crear matrícula y generar acceso</button>
+      </form>
+
+      <div id="credentials" hidden style="margin-top:16px;padding:14px;background:#0b1510;border:1px solid #b7edc0;border-radius:8px">
+        <h3 style="color:#b7edc0;margin-top:0">✅ Acceso listo para enviar al alumno</h3>
+        <p>Envía este mensaje ahora por WhatsApp (por seguridad la contraseña se guarda cifrada y no vuelve a mostrarse):</p>
+        <textarea id="message" readonly aria-label="Datos de acceso del alumno"></textarea>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+          <button id="copy" type="button">📋 Copiar mensaje</button>
+          <a id="waLink" href="https://wa.me/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 14px;border-radius:6px;background:#25d366;color:#082010;font-weight:700;text-decoration:none">💬 Enviar por WhatsApp ↗</a>
+          <button id="hideCredentials" type="button" class="secondary">Ocultar</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid">
+    <section>
+      <h2>4. Asignar otro curso o cambiar grupo a alumno existente</h2>
+      <p>Conserva su contraseña actual. Todos los alumnos activos reciben además acceso a los materiales actualizados.</p>
+      <form id="assignForm">
+        <label>Buscar alumno existente
+          <input id="assignEmail" type="email" list="studentEmails" placeholder="Escribe nombre o correo..." required>
+        </label>
+        <datalist id="studentEmails"></datalist>
+        <div class="inline-row">
+          <label>Curso
+            <select id="assignCourse"></select>
+          </label>
+          <label>Grupo
+            <input id="assignGroup" value="G1" pattern="G[1-9][0-9]*" required>
+          </label>
+        </div>
+        <p id="assignment"></p>
+        <label><input id="assignPaid" type="checkbox" required> Confirmo que la matrícula está pagada.</label>
+        <label><input id="assignChange" type="checkbox"> Confirmo cambiar el grupo si ya tenía uno asignado en este curso.</label>
+        <button type="submit">Guardar asignación</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>5. Renovar contraseña de un alumno</h2>
+      <p>Si un alumno olvidó su clave, genera una nueva aquí sin perder sus cursos ni su grupo.</p>
+      <form id="resetForm">
+        <label>Usuario del alumno
+          <input id="resetEmail" type="email" list="studentEmails" required>
+        </label>
+        <label><input id="resetConfirm" type="checkbox" required> Confirmo generar una nueva contraseña e invalidar la anterior.</label>
+        <button type="submit">Generar nueva contraseña</button>
+      </form>
+      <small>El mensaje listo para WhatsApp aparecerá en el recuadro verde de arriba.</small>
+    </section>
+  </div>
+
+  <section>
+    <h2>6. Directorio de alumnos registrados (<span id="studentCount">0</span>)</h2>
+    <label>Buscar por nombre, correo, curso o grupo
+      <input id="search" type="search" placeholder="Ej. G4, DRONES_101, Juan...">
+    </label>
+    <div id="students" class="scroll"></div>
+  </section>
+
+  <section>
+    <h2>7. Ampliar programas y sesiones</h2>
+    <p>Para abrir un grupo nuevo (ej. <code>G5</code>, <code>G6</code>) basta con escribir ese código al matricular o publicar una grabación. Aquí puedes agregar nuevas sesiones o cursos al catálogo.</p>
+    <div class="grid">
+      <form id="classForm">
+        <h3>Añadir nueva sesión</h3>
+        <label>Curso<select id="classCourse"></select></label>
+        <label>Código de sesión<input id="classCode" placeholder="Ej. S9 o S18" pattern="[A-Za-z0-9_-]+" required></label>
+        <label>Título de la clase<input id="classTitle" maxlength="180" required></label>
+        <button type="submit">Crear clase pendiente</button>
+      </form>
+      <form id="courseForm">
+        <h3>Añadir nuevo curso en Sheets</h3>
+        <label>ID único<input id="newCourseId" placeholder="COHETES_101" pattern="[A-Z0-9_-]+" required></label>
+        <label>Nombre del programa<input id="newCourseName" maxlength="180" required></label>
+        <button type="submit">Crear curso</button>
+      </form>
+    </div>
+  </section>
+</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let token='',snapshot=null,cursor=null,previous='',loadedFiles=[],emailTouched=false;
+function text(tag,value,cls=''){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=value;return e;}
+function rpc(name,...args){return new Promise((resolve,reject)=>google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[name](...args));}
+async function work(fn){document.querySelectorAll('button').forEach(b=>b.disabled=true);try{await fn();}catch(e){$('status').textContent='⚠️ '+(e.message||String(e));}finally{document.querySelectorAll('button').forEach(b=>b.disabled=false);}}
+function table(target,headers,rows){const t=document.createElement('table'),head=document.createElement('tr');headers.forEach(h=>head.append(text('th',h)));t.append(head);rows.forEach(row=>{const tr=document.createElement('tr');row.forEach(value=>{const td=document.createElement('td');td.append(value instanceof Node?value:document.createTextNode(String(value)));tr.append(td);});t.append(tr);});$(target).replaceChildren(t);}
+function slugifyName(name,domain){
+  const parts=String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length)return '';
+  const user=parts.length===1?parts[0]:`${parts[0]}.${parts[parts.length-1]}`;
+  return `${user}@${domain||'macro.pe'}`;
+}
+function updateSuggestedEmail(){
+  if(emailTouched&&$('email').value.trim())return;
+  const suggested=slugifyName($('name').value,$('emailDomain').value);
+  if(suggested)$('email').value=suggested;
+}
+$('name').addEventListener('input',updateSuggestedEmail);
+$('emailDomain').addEventListener('change',()=>{emailTouched=false;updateSuggestedEmail();});
+$('email').addEventListener('input',()=>{emailTouched=Boolean($('email').value.trim());});
+
+function selected(){return (snapshot?.classes||[]).filter(c=>c.cursoId===$('course').value);}
+function courseGroups(){
+  const set=new Set(['G1','G2','G3','G4']);
+  const current=($('group').value||'').trim().toUpperCase();
+  if(/^G[1-9][0-9]*$/.test(current))set.add(current);
+  for(const c of selected()){
+    Object.keys(c.videoLinks||{}).forEach(g=>{if(/^G[1-9][0-9]*$/.test(g))set.add(g);});
+    Object.keys(c.meetLinks||{}).forEach(g=>{if(/^G[1-9][0-9]*$/.test(g))set.add(g);});
+  }
+  for(const s of snapshot?.students||[]){
+    const g=s.groups?.[$('course').value];
+    if(g&&/^G[1-9][0-9]*$/.test(g))set.add(g);
+  }
+  return [...set].sort((a,b)=>Number(a.slice(1))-Number(b.slice(1)));
+}
+function selectTargetForUpload(group,code){
+  $('group').value=group;
+  $('lesson').value=code;
+  showCurrent();
+  $('videoUrl').focus();
+  $('status').textContent=`Listo para subir grabación en ${$('course').value} · ${group} · ${code}. Pega el enlace o elige un video de Drive.`;
+}
+function showCurrent(){
+  const classes=selected(),activeGroup=($('group').value||'G1').trim().toUpperCase();
+  const item=classes.find(c=>c.code===$('lesson').value);
+  previous=item?.videoLinks?.[activeGroup]||'';
+  $('current').textContent=previous?`Estado actual (${activeGroup} · ${item.code}): ✅ Ya tiene grabación publicada. Si subes otra, marca la casilla de reemplazo.`:`Estado actual (${activeGroup} · ${item?.code||''}): ⏳ Grabación pendiente de subir.`;
+  $('replace').checked=false;
+  const groups=courseGroups();
+  const summary=$('groupSummary');summary.replaceChildren();
+  for(const g of groups){
+    const done=classes.filter(c=>Boolean(c.videoLinks?.[g])).length;
+    const pending=classes.length-done;
+    const card=document.createElement('button');card.type='button';
+    card.className='card-stat'+(g===activeGroup?' active':'');
+    card.append(text('strong',`${g}: ${done}/${classes.length} subidas`),text('small',pending?`⏳ ${pending} pendiente${pending===1?'':'s'}`:'✅ Grupo al día'));
+    card.onclick=()=>{$('group').value=g;showCurrent();};
+    summary.append(card);
+  }
+  const onlyPending=$('sessionFilter').value==='pending';
+  const visible=onlyPending?classes.filter(c=>!c.videoLinks?.[activeGroup]):classes;
+  table('sessions',['Código','Título de la clase',`Estado en ${activeGroup}`,'Otros grupos','Acción rápida'],visible.map(c=>{
+    const url=c.videoLinks?.[activeGroup]||'';
+    const stateCell=document.createElement('span');
+    if(url){
+      stateCell.append(text('span','✓ Subida ','badge-ok'));
+      const a=text('a','Ver video ↗');a.href=url;a.target='_blank';a.rel='noopener';
+      stateCell.append(document.createTextNode(' '),a);
+    }else{
+      stateCell.append(text('span','⏳ Falta subir','badge-pending'));
+    }
+    const other=document.createElement('span');
+    groups.filter(g=>g!==activeGroup).forEach(g=>{
+      const has=Boolean(c.videoLinks?.[g]);
+      const pill=text('button',`${g}:${has?'✓':'⏳'}`,'small '+(has?'secondary':''));
+      pill.title=has?`${g} ya tiene grabación (clic para revisar)`:`${g} pendiente (clic para subir)`;
+      pill.onclick=()=>selectTargetForUpload(g,c.code);
+      other.append(pill);
+    });
+    const act=text('button',url?'Cambiar video':'Subir aquí','small '+(url?'secondary':''));
+    act.onclick=()=>selectTargetForUpload(activeGroup,c.code);
+    return [c.code,c.title,stateCell,other,act];
+  }));
+}
+function showClasses(){
+  const select=$('lesson');select.replaceChildren();
+  selected().forEach(c=>{const o=text('option',c.code+' · '+c.title);o.value=c.code;select.append(o);});
+  showCurrent();
+}
+function showStudents(){
+  const q=$('search').value.toLowerCase();
+  const list=(snapshot?.students||[]).filter(s=>(s.name+' '+s.email+' '+Object.entries(s.groups||{}).map(([id,g])=>id+' '+g).join(' ')).toLowerCase().includes(q));
+  $('studentCount').textContent=String((snapshot?.students||[]).length);
+  table('students',['Nombre','Usuario / Correo','Cursos y grupos','Estado'],list.map(s=>[s.name,s.email,Object.entries(s.groups||{}).map(([id,g])=>id+' · '+g).join(' / '),s.status]));
+}
+function selectedStudent(){const email=$('assignEmail').value.trim().toLowerCase(),matches=(snapshot?.students||[]).filter(s=>s.email.trim().toLowerCase()===email);return matches.length===1?matches[0]:null;}
+function showAssignment(){const s=selectedStudent(),group=s?.groups?.[$('assignCourse').value]||'';$('assignment').textContent=s?(group?'Grupo actual en este curso: '+group:'El alumno aún no tiene este curso asignado.'):'Selecciona un usuario único existente de la lista.';$('assignChange').checked=false;}
+function assignedVideoMap(){
+  const map=new Map();
+  for(const c of snapshot?.classes||[]){
+    for(const [g,url] of Object.entries(c.videoLinks||{})){
+      const m=String(url||'').match(/\/file\/d\/([\w-]+)/);
+      if(m){const list=map.get(m[1])||[];list.push(`${c.cursoId}·${c.code}·${g}`);map.set(m[1],list);}
+    }
+  }
+  return map;
+}
+function renderVideos(){
+  const container=$('videos');container.replaceChildren();
+  const used=assignedVideoMap(),onlyNew=$('onlyUnassigned').checked;
+  const visible=loadedFiles.filter(f=>!onlyNew||!used.has(f.id));
+  for(const file of visible){
+    const row=document.createElement('div');
+    row.style.cssText='padding:8px 0;border-bottom:1px solid #263b2f;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap';
+    const info=document.createElement('div');
+    const a=text('a',file.name);a.href=file.url;a.target='_blank';a.rel='noopener';
+    const where=used.get(file.id);
+    const badge=where?text('span','Ya en '+where.join(', '),'badge-ok'):text('span','🟢 Nuevo · Sin publicar','badge-pending');
+    info.append(badge,document.createTextNode(' '),a,document.createTextNode(' · '+file.created.slice(0,10)));
+    const b=text('button','Usar este video','small');
+    b.onclick=()=>{$('videoUrl').value=file.url;$('videoUrl').focus();$('status').textContent=`Video "${file.name}" cargado. Confirma curso (${$('course').value}), grupo (${$('group').value}) y clase (${$('lesson').value}) y pulsa Publicar.`;};
+    row.append(info,b);container.append(row);
+  }
+  if(!visible.length)container.append(text('p',loadedFiles.length?'Todos los videos cargados ya fueron publicados en algún grupo.':'No se encontraron videos en esta carpeta.'));
+}
+async function refresh(){
+  const controls=['course','enrollCourse','assignCourse','classCourse'],old=Object.fromEntries(controls.map(id=>[id,$(id).value]));
+  snapshot=await rpc('adminSnapshot',token);
+  for(const id of controls){$(id).replaceChildren();snapshot.courses.forEach(c=>{const o=text('option',`${c.nombre} (${c.id})`);o.value=c.id;$(id).append(o);});if(snapshot.courses.some(c=>c.id===old[id]))$(id).value=old[id];}
+  const oldLesson=$('lesson').value;showClasses();
+  if(selected().some(c=>c.code===oldLesson)){$('lesson').value=oldLesson;showCurrent();}
+  showStudents();showAssignment();
+  if(loadedFiles.length)renderVideos();
+  $('studentEmails').replaceChildren();
+  [...new Set(snapshot.students.map(s=>s.email.trim()))].forEach(email=>{const o=document.createElement('option');o.value=email;$('studentEmails').append(o);});
+  $('status').textContent='✅ Información sincronizada con Google Sheets.';
+}
+$('loginForm').onsubmit=e=>{e.preventDefault();work(async()=>{const result=await rpc('adminLogin',$('secret').value);token=result.token;$('secret').value='';await refresh();$('login').hidden=true;$('panel').hidden=false;});};
+$('logout').onclick=()=>work(async()=>{await rpc('adminLogout',token);token='';snapshot=null;loadedFiles=[];$('message').value='';$('videos').replaceChildren();$('students').replaceChildren();$('panel').hidden=true;$('login').hidden=false;$('status').textContent='Sesión cerrada.';});
+$('refresh').onclick=()=>work(refresh);
+$('course').onchange=showClasses;$('lesson').onchange=showCurrent;$('group').oninput=showCurrent;$('sessionFilter').onchange=showCurrent;$('search').oninput=showStudents;$('onlyUnassigned').onchange=renderVideos;
+async function videos(more){
+  const result=await rpc('adminRecordings',token,more?cursor:null);
+  if(!more)loadedFiles=[];
+  loadedFiles.push(...(result.files||[]));
+  cursor=result.cursor;$('more').hidden=!cursor;
+  renderVideos();
+}
+$('loadVideos').onclick=()=>work(()=>videos(false));$('more').onclick=()=>work(()=>videos(true));
+$('publishForm').onsubmit=e=>{e.preventDefault();work(async()=>{if(previous&&!$('replace').checked)throw new Error('Marca la casilla para confirmar el reemplazo de la grabación existente.');await rpc('adminPublish',token,{course:$('course').value,group:$('group').value.trim().toUpperCase(),code:$('lesson').value,url:$('videoUrl').value,previous});$('videoUrl').value='';await refresh();$('status').textContent=`✅ Grabación publicada en ${$('course').value} · ${$('group').value.trim().toUpperCase()} · ${$('lesson').value}.`;});};
+function showCredentials(result,studentName='',phone=''){
+  const greeting=studentName?`¡Hola, ${studentName}!`:'¡Hola!';
+  const msg=`${greeting} Bienvenido(a) a MECRO 🚀\nTu matrícula ha sido confirmada.\n\n📚 Curso: ${result.course} · Grupo: ${result.group}\n👤 Usuario: ${result.email}\n🔑 Contraseña: ${result.password}\n🔗 Aula virtual: https://mecrodrone.github.io/mecro.github.io/login.html\n\nAdemás de las sesiones y grabaciones de tu grupo, tienes acceso a todos los materiales actualizados del programa.`;
+  $('message').value=msg;
+  const cleanPhone=String(phone||'').replace(/\D/g,'');
+  const waNumber=cleanPhone?(cleanPhone.length===9?'51'+cleanPhone:cleanPhone):'';
+  $('waLink').href=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+  $('credentials').hidden=false;
+}
+$('enrollForm').onsubmit=e=>{e.preventDefault();work(async()=>{const studentName=$('name').value.trim(),phone=$('studentPhone').value.trim();const result=await rpc('adminEnroll',token,{name:studentName,email:$('email').value,course:$('enrollCourse').value,group:$('enrollGroup').value.trim().toUpperCase(),paid:$('paid').checked});showCredentials(result,studentName,phone);$('enrollForm').reset();emailTouched=false;await refresh();$('status').textContent='✅ Matrícula creada. Envía el acceso por WhatsApp con el botón verde.';});};
+$('assignEmail').oninput=showAssignment;$('assignCourse').onchange=showAssignment;
+$('assignForm').onsubmit=e=>{e.preventDefault();work(async()=>{const student=selectedStudent();if(!student)throw new Error('Selecciona un alumno sin registros duplicados.');await rpc('adminAssign',token,{email:$('assignEmail').value,course:$('assignCourse').value,group:$('assignGroup').value.trim().toUpperCase(),paid:$('assignPaid').checked,confirmChange:$('assignChange').checked,previousGroup:student.groups?.[$('assignCourse').value]||''});await refresh();$('status').textContent='✅ Curso y grupo asignados. La contraseña del alumno se conserva.';});};
+$('resetForm').onsubmit=e=>{e.preventDefault();work(async()=>{const result=await rpc('adminResetAccess',token,{email:$('resetEmail').value,confirm:$('resetConfirm').checked});showCredentials(result);$('message').focus();$('resetForm').reset();$('status').textContent='✅ Acceso renovado. Copia o envía por WhatsApp los datos nuevos.';});};
+$('classForm').onsubmit=e=>{e.preventDefault();work(async()=>{await rpc('adminCreateClass',token,{course:$('classCourse').value,code:$('classCode').value,title:$('classTitle').value});await refresh();$('classForm').reset();$('status').textContent='✅ Clase creada, pendiente de grabación.';});};
+$('courseForm').onsubmit=e=>{e.preventDefault();work(async()=>{await rpc('adminCreateCourse',token,{id:$('newCourseId').value,name:$('newCourseName').value});await refresh();$('courseForm').reset();$('status').textContent='✅ Curso creado en el portal de sesiones.';});};
+$('copy').onclick=()=>work(async()=>{await navigator.clipboard.writeText($('message').value);$('status').textContent='📋 Mensaje copiado al portapapeles. Pégalo en el WhatsApp del alumno.';});
+$('hideCredentials').onclick=()=>{$('message').value='';$('credentials').hidden=true;};
+</script></body></html>

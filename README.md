@@ -1,6 +1,6 @@
 # MECRO · Sitio web
 
-Sitio estático compatible con GitHub Pages. No necesita servidor Node en producción.
+La web pública es compatible con GitHub Pages. El nuevo campus con materiales exclusivos requiere el servidor Node incluido: consulta [instalación y acceso del campus](docs/campus.md).
 
 ## Edición y construcción
 
@@ -24,7 +24,7 @@ Publicar los archivos HTML finales y las carpetas `assets/`, `images/` y **`data
 
 Los cambios en `content/`, `data/cursos.json` o el generador requieren `npm run build`. El contenido de `data/hardware-guides.js` se lee directamente; para agregar una guía a una ruta existente no hace falta regenerar HTML. Para cambiar únicamente el estilo general, editar `assets/css/site.css`. El laboratorio usa Tailwind 3 compilado en `assets/css/lab-utilities.css`, sin compilación en el navegador.
 
-Para revisar los módulos ES localmente, sirve la carpeta por HTTP; no abras `kits.html` con `file://`. Por ejemplo, ejecuta `python -m http.server 8765 --bind 127.0.0.1` desde esta carpeta y visita `http://127.0.0.1:8765/kits.html`.
+Para revisar la web localmente, ejecuta `npm run preview:campus` y abre la dirección que muestra la terminal. No abras los HTML con `file://`. Usa el servidor incluido, que impide servir directamente `materiales/` y `.course-work/`; un servidor estático genérico en la raíz expondría esos archivos.
 
 Las copias optimizadas se entregan en el repositorio; los originales se conservaron. `scripts/optimize-images.mjs` es una utilidad opcional y requiere Sharp (o la ruta del módulo en `SHARP_PATH`), pero no forma parte de la construcción normal.
 
@@ -53,7 +53,7 @@ La sesión del navegador se guarda por pestaña durante un máximo de ocho horas
 
 ## Contenido comercial a confirmar
 
-Se conservaron los precios existentes y se unificó UAV a la ficha detallada: S/349, 36 horas, 12 sesiones y 6 semanas. Confirmar estas condiciones con el equipo antes de publicar. Se retiraron estadísticas sin respaldo, rebajas, promesas de disponibilidad y enlaces de ejemplo. No se inventaron fechas, testimonios ni resultados de vuelo. Las imágenes conceptuales se identifican como tales.
+Los sílabos suministrados definen Drones: 20 horas, 8 clases, 4 semanas; Cohetería: 42 horas, 16 clases, 8 semanas; ESP32: 36 horas, 16 clases, 8 semanas. Se conservaron los precios anteriores: S/349, S/450 y S/250, respectivamente; confirmar su vigencia comercial antes de publicar. Telemetría figura como próximamente, sin inscripción ni precio visible. No se inventaron fechas, testimonios ni resultados de vuelo. Las imágenes conceptuales se identifican como tales.
 
 La página de privacidad describe el comportamiento de los formularios y del navegador implementado. El responsable debe completarla con su política real de tratamiento de datos y las condiciones comerciales correspondientes.
 

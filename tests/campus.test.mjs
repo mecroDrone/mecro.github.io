@@ -16,6 +16,9 @@ test('campus: progress drops obsolete classes and isolates valid notes',()=>{
  for(const p of ['../secret','assets/../../secret','assets\\secret','https://a.test','assets/a?x=1','assets/%2e%2e/a'])assert.throws(()=>materialPath('uav',p));
 });
 test('campus: instructor files and source archives never pass the resource policy',()=>{
+ assert.deepEqual(allowedCourses({cursosInscritos:['DRONES_101','ES32_AUTOMATION']},catalog.courses).map(c=>c.id),['uav','esp32']);
+ assert.deepEqual(allowedCourses({cursosInscritos:['DRONES_102']},catalog.courses).map(c=>c.id),['uav']);
+ assert.deepEqual(allowedCourses({cursosInscritos:['COHETES_101']},catalog.courses).map(c=>c.id),['cohetes']);
  for(const p of ['descargas/MECRO_Guia_Docente_Drones.pdf','descargas/MECRO_Diagnostico_y_Rediseno_Drones.pdf','fuentes/curso.json','../data/cursos.json','assets/a.html','presentaciones/../secreto.pdf'])assert.equal(allowedMaterial(p),false,p);
  assert.equal(allowedMaterial('presentaciones/semana-01.pdf'),true);
  assert.deepEqual(allowedCourses({cursosInscritos:['uav-otro']},catalog.courses),[]);

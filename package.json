@@ -6,6 +6,7 @@
   "scripts":{
     "campus":"node server/campus.mjs",
     "preview:campus":"node server/campus.mjs --preview",
+    "preview:admin":"node scripts/preview-admin.mjs",
     "build":"node scripts/build.mjs && tailwindcss -i assets/css/lab-source.css -o assets/css/lab-utilities.css --minify",
     "check":"node scripts/check.mjs",
     "test":"node --test tests/*.test.mjs"

@@ -15,6 +15,12 @@ form.addEventListener('submit',async event=>{
   try{
     clearSession();
     const email=document.getElementById('login-email').value.trim();
+    if(['admin@macro.pe','admin@mecro.pe','admin@mecro.com'].includes(email.toLowerCase())){
+      const adminData=await request('adminLogin',{secret:password.value});
+      if(adminData.success!==true||!adminData.result?.token)throw new Error(typeof adminData.message==='string'?adminData.message:'Clave de administrador incorrecta o pendiente de activación en Apps Script.');
+      try{sessionStorage.setItem('mecro_admin_session',JSON.stringify({token:adminData.result.token,email:email.toLowerCase(),expiresAt:Date.now()+2*60*60*1000}));}catch{throw new Error('Permite el almacenamiento de sesión en tu navegador.');}
+      password.value='';location.assign('admin.html');return;
+    }
     let integrated=false;
     try{const status=await fetch('api/campus/status',{signal:AbortSignal.timeout(3000)});integrated=status.ok&&(await status.json()).available===true;}catch{}
     if(!integrated&&new URLSearchParams(location.search).get('next')==='aula')throw new Error('El campus privado todavía no está conectado en esta dirección. Contacta a MECRO para obtener el acceso al aula.');

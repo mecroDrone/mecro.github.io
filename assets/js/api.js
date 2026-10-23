@@ -14,11 +14,13 @@ export function normalizeUser(data,email=''){
   if(user.grupos&&typeof user.grupos==='object'&&!Array.isArray(user.grupos)){
     for(const [id,group] of Object.entries(user.grupos)){if(normalizeGroup(group))groups[id]=normalizeGroup(group);}
   }
-  return {nombre:typeof user.nombre==='string'?user.nombre:'Estudiante',email:typeof user.email==='string'?user.email:email,cursosInscritos:normalizeIds(user.cursosInscritos),grupo:normalizeGroup(user.grupo),grupos:groups};
+  const profile={nombre:typeof user.nombre==='string'?user.nombre:'Estudiante',email:typeof user.email==='string'?user.email:email,cursosInscritos:normalizeIds(user.cursosInscritos),grupo:normalizeGroup(user.grupo),grupos:groups};
+  if(typeof user.catalogToken==='string'&&/^[a-f0-9]{64}$/.test(user.catalogToken))profile.catalogToken=user.catalogToken;
+  return profile;
 }
 export function saveSession(user){
   // Store a deliberately narrow profile, never the complete login response.
-  sessionStorage.setItem(SESSION_KEY,JSON.stringify({user:normalizeUser(user),expiresAt:Date.now()+8*60*60*1000}));
+  sessionStorage.setItem(SESSION_KEY,JSON.stringify({user:normalizeUser(user),expiresAt:Date.now()+2*60*60*1000}));
   localStorage.removeItem('mecro_user');
 }
 export function readSession(){
@@ -33,8 +35,10 @@ export async function request(action,payload={}){
   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),20000);
   try{
     const options={signal:controller.signal,cache:'no-store'};
-    const url=action==='catalog'?API_URL+'?t='+Date.now():API_URL;
-    if(action!=='catalog'){options.method='POST';options.body=JSON.stringify({action,...payload});}
+    const url=API_URL;
+    const catalogToken=action==='catalog'?readSession()?.catalogToken:undefined;
+    if(action==='catalog'&&!catalogToken)throw new Error('Inicia sesión de nuevo para acceder al catálogo protegido.');
+    options.method='POST';options.body=JSON.stringify(action==='catalog'?{action,token:catalogToken}:{action,...payload});
     const response=await fetch(url,options);
     if(!response.ok)throw new Error('No se pudo completar la conexión. Inténtalo de nuevo.');
     let data;

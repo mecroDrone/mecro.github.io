@@ -1,5 +1,5 @@
 {
-  "uav": ["uav"],
-  "cohetes": ["cohetes"],
-  "esp32": ["esp32"]
+  "uav": ["uav", "DRONES_101", "DRONES_102"],
+  "cohetes": ["cohetes", "COHETES_101"],
+  "esp32": ["esp32", "ES32_AUTOMATION"]
 }

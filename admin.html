@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a0d10"><title>Panel de Administración | MECRO</title><meta name="description" content="Control de grabaciones por grupo, validación de clases subidas y matrícula rápida de alumnos MECRO."><link rel="icon" href="images/favicon.png" type="image/png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="assets/css/site.css"><script src="assets/js/site.js" defer></script><script type="module" src="assets/js/admin.js"></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a><header class="site-header"><div class="wrap header-row"><a class="brand" href="index.html" aria-label="MECRO, inicio"><img class="brand-symbol" src="images/brand-mark.png" width="34" height="42" alt=""><span><span class="brand-name">MECRO</span><span class="brand-caption">TECNOLOGÍA AEROESPACIAL</span></span></a><button type="button" class="menu-toggle" aria-label="Abrir o cerrar navegación" aria-controls="navegacion" aria-expanded="false">Menú <span aria-hidden="true">☰</span></button><nav class="site-nav" id="navegacion" aria-label="Navegación principal"><a href="cursos.html">Cursos</a><a href="kits.html">Hardware & Kits</a><a href="proyectos.html">I+D</a><a href="nosotros.html">Nosotros</a><a href="contacto.html">Contacto</a><a class="nav-portal" href="login.html" aria-current="page">Aula virtual <span aria-hidden="true">↗</span></a></nav></div></header>
+<main id="contenido"><style>
+.admin-wrap{padding:36px 0 64px}
+.admin-status{position:sticky;top:72px;background:#16291f;border:1px solid #3c684e;border-radius:10px;padding:12px 16px;z-index:10;margin:14px 0;color:#e5f5eb;font-weight:500}
+.admin-section{background:#11181d;border:1px solid #24323d;border-radius:14px;padding:24px;margin:20px 0}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.admin-inline{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.admin-inline>*{flex:1;min-width:150px}
+.admin-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:16px 0}
+.admin-stat{background:#0b1014;border:1px solid #263540;border-radius:10px;padding:12px 14px;text-align:left;color:#e7eef4;cursor:pointer}
+.admin-stat.is-active{border-color:#ff6b2c;background:#1b1614}
+.admin-stat strong{display:block;font-size:17px;color:#fff}
+.admin-table-wrap{overflow:auto;max-height:480px;margin-top:12px}
+.admin-table{width:100%;border-collapse:collapse;font-size:14px}
+.admin-table th,.admin-table td{text-align:left;border-bottom:1px solid #1f2b33;padding:10px 8px;vertical-align:middle}
+.admin-table th{color:#9fb2c1;font-weight:600;background:#0c1115}
+.pill-ok{display:inline-block;padding:3px 9px;border-radius:99px;background:#143824;color:#8ef0b1;font-size:12px;font-weight:600}
+.pill-pending{display:inline-block;padding:3px 9px;border-radius:99px;background:#3f2c11;color:#ffd089;font-size:12px;font-weight:600}
+.btn-xs{padding:5px 10px;font-size:12px;border-radius:6px;border:1px solid #344654;background:#162028;color:#e7eef4;cursor:pointer;margin:2px}
+.btn-xs.primary{background:#ff6b2c;border-color:#ff6b2c;color:#0c1014;font-weight:600}
+@media(max-width:780px){.admin-grid{grid-template-columns:1fr}}
+</style>
+<section class="admin-wrap wrap">
+  <span class="eyebrow">MECRO / Control Académico</span>
+  <h1>Panel de Administración</h1>
+  <p class="lead">Verifica qué clases ya tienen grabación subida por grupo, publica los videos de Google Meet y genera accesos de alumnos listos para WhatsApp.</p>
+  <p id="status" class="admin-status" role="status">Inicia sesión con tu cuenta de administrador.</p>
+
+  <section id="login" class="admin-section">
+    <h2>Acceso del administrador</h2>
+    <p class="small">Ingresa con tu usuario administrativo (ej. <code>admin@macro.pe</code>) y tu clave de administrador configurada en Google Apps Script.</p>
+    <form id="loginForm">
+      <div class="admin-grid">
+        <div class="field">
+          <label for="adminUser">Usuario administrador</label>
+          <input id="adminUser" type="email" value="admin@macro.pe" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="secret">Clave de administrador</label>
+          <input id="secret" type="password" autocomplete="current-password" placeholder="Clave generada en Apps Script" required>
+        </div>
+      </div>
+      <div class="actions" style="margin-top:14px">
+        <button type="submit" class="btn">Entrar al panel ↗</button>
+        <a class="text-link small" href="login.html">Volver al acceso de alumnos</a>
+      </div>
+    </form>
+  </section>
+
+  <div id="panel" hidden>
+    <div class="actions" style="justify-content:space-between;margin-bottom:14px">
+      <div class="actions">
+        <button id="refresh" type="button" class="btn btn-secondary">↻ Sincronizar con Google Sheets</button>
+        <a class="text-link small" href="https://docs.google.com/spreadsheets/d/1h3M5PwykMt1g3JYuRATcrONLGUs3ngdoXKJwGs4bOYc/edit" target="_blank" rel="noopener noreferrer">Abrir hoja de Google Sheets ↗</a>
+      </div>
+      <button id="logout" type="button" class="btn btn-secondary">Cerrar sesión</button>
+    </div>
+
+    <section class="admin-section">
+      <h2>1. Matriz de verificación de clases y grabaciones</h2>
+      <p class="small">Revisa de un vistazo qué clases ya fueron subidas y cuáles faltan en cada grupo (<code>G1</code>, <code>G2</code>, <code>G3</code>, <code>G4</code>, <code>G5</code>…). Pulsa <strong>“Subir aquí”</strong> en cualquier fila pendiente para cargarla directamente en el formulario.</p>
+      <div class="admin-inline" style="margin-top:14px">
+        <div class="field">
+          <label for="course">Programa</label>
+          <select id="course"></select>
+        </div>
+        <div class="field">
+          <label for="group">Grupo activo</label>
+          <input id="group" value="G1" pattern="G[1-9][0-9]*" required>
+        </div>
+        <div class="field">
+          <label for="sessionFilter">Mostrar</label>
+          <select id="sessionFilter">
+            <option value="all">Todas las sesiones del programa</option>
+            <option value="pending">Solo sesiones pendientes en este grupo</option>
+          </select>
+        </div>
+      </div>
+      <div id="groupSummary" class="admin-cards" aria-label="Avance de grabaciones por grupo"></div>
+      <div id="sessions" class="admin-table-wrap"></div>
+    </section>
+
+    <div class="admin-grid">
+      <section class="admin-section">
+        <h2>2. Publicar grabación de clase</h2>
+        <p class="small">Selecciona un video de la bandeja de Google Meet o pega el enlace de Drive recibido en tu Gmail.</p>
+        <form id="publishForm">
+          <div class="field">
+            <label for="lesson">Clase seleccionada</label>
+            <select id="lesson"></select>
+          </div>
+          <p id="current" class="small" style="font-weight:600;margin:10px 0"></p>
+          <div class="field">
+            <label for="videoUrl">Enlace del video en Google Drive</label>
+            <input id="videoUrl" type="url" placeholder="https://drive.google.com/file/d/.../view" required>
+          </div>
+          <label class="small" style="display:block;margin:12px 0"><input id="replace" type="checkbox"> Confirmo reemplazar el enlace anterior si esta sesión ya tenía video.</label>
+          <button type="submit" class="btn">Publicar grabación para este grupo</button>
+        </form>
+
+        <hr style="border:0;border-top:1px solid #24323d;margin:20px 0">
+        <h3>Bandeja de Google Meet (Drive)</h3>
+        <p class="small">Detecta automáticamente qué grabaciones de tu carpeta de Meet son nuevas y aún no se han asignado.</p>
+        <div class="actions" style="margin:12px 0">
+          <button id="loadVideos" type="button" class="btn btn-secondary">Buscar grabaciones en Drive</button>
+          <button id="more" type="button" class="btn btn-secondary" hidden>Cargar más</button>
+          <label class="small"><input id="onlyUnassigned" type="checkbox"> Solo videos sin publicar</label>
+        </div>
+        <div id="videos" class="admin-table-wrap" style="max-height:280px"></div>
+      </section>
+
+      <section class="admin-section">
+        <h2>3. Matricular alumno nuevo (Yape / Transferencia)</h2>
+        <p class="small">Al escribir el nombre del alumno se sugiere automáticamente su usuario institucional y se genera su clave con el mensaje listo para WhatsApp.</p>
+        <form id="enrollForm">
+          <div class="field">
+            <label for="name">Nombre completo del alumno</label>
+            <input id="name" maxlength="150" placeholder="Ej. Carlos Alberto Rojas" required>
+          </div>
+          <div class="admin-inline">
+            <div class="field" style="flex:2">
+              <label for="email">Usuario / correo de acceso</label>
+              <input id="email" type="email" placeholder="carlos.rojas@macro.pe" required>
+            </div>
+            <div class="field" style="flex:1">
+              <label for="emailDomain">Dominio</label>
+              <select id="emailDomain">
+                <option value="macro.pe">@macro.pe</option>
+                <option value="mecro.com">@mecro.com</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-inline">
+            <div class="field">
+              <label for="enrollCourse">Curso</label>
+              <select id="enrollCourse"></select>
+            </div>
+            <div class="field">
+              <label for="enrollGroup">Grupo</label>
+              <input id="enrollGroup" value="G1" pattern="G[1-9][0-9]*" required>
+            </div>
+            <div class="field">
+              <label for="studentPhone">WhatsApp (opcional)</label>
+              <input id="studentPhone" type="tel" placeholder="999888777">
+            </div>
+          </div>
+          <label class="small" style="display:block;margin:12px 0"><input id="paid" type="checkbox" required> He confirmado el pago por Yape, Plin o transferencia.</label>
+          <button type="submit" class="btn">Crear matrícula y generar acceso</button>
+        </form>
+
+        <div id="credentials" hidden style="margin-top:18px;padding:16px;background:#0c1812;border:1px solid #3c684e;border-radius:10px">
+          <h3 style="margin-top:0">✅ Credenciales listas para enviar</h3>
+          <p class="small">Envía este mensaje al alumno por WhatsApp:</p>
+          <textarea id="message" readonly aria-label="Datos de acceso del alumno" rows="7" style="width:100%;margin:8px 0"></textarea>
+          <div class="actions">
+            <button id="copy" type="button" class="btn">📋 Copiar mensaje</button>
+            <a id="waLink" class="btn btn-secondary" href="https://wa.me/" target="_blank" rel="noopener noreferrer">💬 Enviar por WhatsApp ↗</a>
+            <button id="hideCredentials" type="button" class="btn btn-secondary">Ocultar</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="admin-grid">
+      <section class="admin-section">
+        <h2>4. Asignar otro curso o cambiar grupo</h2>
+        <p class="small">Para alumnos que ya tienen cuenta en MECRO. Conserva su contraseña actual.</p>
+        <form id="assignForm">
+          <div class="field">
+            <label for="assignEmail">Usuario existente</label>
+            <input id="assignEmail" type="email" list="studentEmails" placeholder="Busca por correo..." required>
+          </div>
+          <datalist id="studentEmails"></datalist>
+          <div class="admin-inline">
+            <div class="field">
+              <label for="assignCourse">Curso</label>
+              <select id="assignCourse"></select>
+            </div>
+            <div class="field">
+              <label for="assignGroup">Grupo</label>
+              <input id="assignGroup" value="G1" pattern="G[1-9][0-9]*" required>
+            </div>
+          </div>
+          <p id="assignment" class="small"></p>
+          <label class="small" style="display:block;margin:10px 0"><input id="assignPaid" type="checkbox" required> Confirmo que la matrícula está pagada.</label>
+          <label class="small" style="display:block;margin:10px 0"><input id="assignChange" type="checkbox"> Confirmo cambiar el grupo si ya tenía uno en este curso.</label>
+          <button type="submit" class="btn btn-secondary">Guardar asignación</button>
+        </form>
+      </section>
+
+      <section class="admin-section">
+        <h2>5. Renovar contraseña de alumno</h2>
+        <p class="small">Genera una nueva clave si el alumno olvidó la anterior. Sus cursos y grabaciones se conservan.</p>
+        <form id="resetForm">
+          <div class="field">
+            <label for="resetEmail">Usuario del alumno</label>
+            <input id="resetEmail" type="email" list="studentEmails" required>
+          </div>
+          <label class="small" style="display:block;margin:12px 0"><input id="resetConfirm" type="checkbox" required> Confirmo invalidar la contraseña anterior y generar una nueva.</label>
+          <button type="submit" class="btn btn-secondary">Generar nueva contraseña</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="admin-section">
+      <h2>6. Alumnos registrados (<span id="studentCount">0</span>)</h2>
+      <div class="field">
+        <label for="search">Buscar por nombre, correo, curso o grupo</label>
+        <input id="search" type="search" placeholder="Ej. G4, DRONES_101, nombre...">
+      </div>
+      <div id="students" class="admin-table-wrap"></div>
+    </section>
+
+    <section class="admin-section">
+      <h2>7. Ampliar cursos y sesiones en Sheets</h2>
+      <div class="admin-grid">
+        <form id="classForm">
+          <h3>Añadir nueva sesión</h3>
+          <div class="field"><label for="classCourse">Curso</label><select id="classCourse"></select></div>
+          <div class="field"><label for="classCode">Código único</label><input id="classCode" placeholder="S9 o S18" pattern="[A-Za-z0-9_-]+" required></div>
+          <div class="field"><label for="classTitle">Título de la sesión</label><input id="classTitle" maxlength="180" required></div>
+          <button type="submit" class="btn btn-secondary" style="margin-top:10px">Crear clase pendiente</button>
+        </form>
+        <form id="courseForm">
+          <h3>Añadir nuevo curso</h3>
+          <div class="field"><label for="newCourseId">ID único</label><input id="newCourseId" placeholder="COHETES_101" pattern="[A-Z0-9_-]+" required></div>
+          <div class="field"><label for="newCourseName">Nombre del curso</label><input id="newCourseName" maxlength="180" required></div>
+          <button type="submit" class="btn btn-secondary" style="margin-top:10px">Crear curso</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</section>
+</main>
+<footer class="site-footer"><div class="wrap"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="index.html" aria-label="MECRO, inicio"><img class="brand-symbol" src="images/brand-mark.png" width="34" height="42" alt=""><span><span class="brand-name">MECRO</span><span class="brand-caption">TECNOLOGÍA AEROESPACIAL</span></span></a><p>Diseña, construye y vuela.<br>Laboratorio de I+D y academia de hardware aeroespacial.</p></div><div><h2 class="footer-title">Explora MECRO</h2><div class="footer-links"><a href="cursos.html">Programas de formación</a><a href="kits.html">Hardware & guías</a><a href="proyectos.html">Investigación y desarrollo</a><a href="laboratorio.html">Laboratorio ESP32</a></div></div><div><h2 class="footer-title">Conversemos</h2><div class="footer-links"><a href="contacto.html">Admisiones y soporte</a><a href="mailto:contacto@mecro.com">contacto@mecro.com</a><a href="nosotros.html">Conoce al equipo</a><span>Lima, Perú</span></div></div></div><div class="footer-bottom"><span>© <span data-year>2026</span> MECRO. Diseñado y ensamblado en Perú.</span><a href="privacidad.html">Privacidad y uso del sitio</a></div></div></footer></body></html>
