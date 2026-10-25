@@ -11,7 +11,7 @@
     "units": 4,
     "sessions": 8,
     "weeks": 4,
-    "price": 349,
+    "price": 79,
     "image": "images/curso-drones.jpg",
     "imageLabel": "Modelo de referencia",
     "featured": true,
@@ -111,7 +111,31 @@
       }
     ],
     "status": "available",
-    "syllabusPdf": "assets/programas/silabo-uav.pdf"
+    "syllabusPdf": "assets/programas/silabo-uav.pdf",
+    "priceUsd": 29.94,
+    "regularPrice": 160,
+    "regularPriceUsd": 59.9,
+    "discountLabel": "Oferta de lanzamiento · Hasta 50% dscto.",
+    "options": [
+      {
+        "name": "Drones · Virtual",
+        "badge": "100% Online + Certificado",
+        "pen": 79,
+        "usd": 29.94,
+        "regularPen": 160,
+        "regularUsd": 59.9,
+        "detail": "Clases en vivo por Google Meet, grabaciones, lecturas, diapositivas y certificado oficial a nombre de MECRO."
+      },
+      {
+        "name": "Drones · Híbrido",
+        "badge": "Online + Talleres Presenciales + Certificado",
+        "pen": 149,
+        "usd": 56.47,
+        "regularPen": 299,
+        "regularUsd": 112.9,
+        "detail": "Incluye todo el acceso virtual más los 2 talleres presenciales demostrativos en Lima y certificado oficial."
+      }
+    ]
   },
   {
     "id": "cohetes",
@@ -123,7 +147,7 @@
     "level": "Intermedio",
     "hours": 42,
     "units": 8,
-    "price": 450,
+    "price": 89,
     "image": "images/laboratorio.webp",
     "imageLabel": "Laboratorio MECRO",
     "featured": true,
@@ -309,7 +333,58 @@
     "status": "available",
     "sessions": 16,
     "weeks": 8,
-    "syllabusPdf": "assets/programas/silabo-cohetes.pdf"
+    "syllabusPdf": "assets/programas/silabo-cohetes.pdf",
+    "priceUsd": 33.73,
+    "regularPrice": 180,
+    "regularPriceUsd": 67.5,
+    "discountLabel": "Oferta de lanzamiento · Hasta 50% dscto.",
+    "options": [
+      {
+        "name": "Cohetería · Virtual",
+        "badge": "100% Online + Certificado",
+        "pen": 89,
+        "usd": 33.73,
+        "regularPen": 180,
+        "regularUsd": 67.5,
+        "detail": "Clases en vivo, simulaciones en OpenRocket y RockSim, material completo y certificado oficial MECRO."
+      },
+      {
+        "name": "Cohetería · Híbrido",
+        "badge": "Online + Talleres + Certificado",
+        "pen": 190,
+        "usd": 72.01,
+        "regularPen": 320,
+        "regularUsd": 120.9,
+        "detail": "Clases online, talleres presenciales y jornada de lanzamiento + certificado oficial MECRO."
+      },
+      {
+        "name": "Cohetería · Híbrido + kit individual",
+        "badge": "Programa completo + Kit propio",
+        "pen": 390,
+        "usd": 147.81,
+        "regularPen": 520,
+        "regularUsd": 196.9,
+        "detail": "Modalidad híbrida con kit individual de cohetería para ensamblaje y lanzamiento + certificado."
+      },
+      {
+        "name": "Cohetería · En pareja, por persona",
+        "badge": "Tarifa por participante",
+        "pen": 290,
+        "usd": 109.91,
+        "regularPen": 390,
+        "regularUsd": 147.8,
+        "detail": "Inscripción en dúo (precio por persona) para trabajar en equipo con kit compartido + certificado individual."
+      },
+      {
+        "name": "Cohetería · Total por pareja",
+        "badge": "Pack 2 participantes + Kit",
+        "pen": 580,
+        "usd": 219.83,
+        "regularPen": 780,
+        "regularUsd": 295.6,
+        "detail": "Pago total por 2 participantes en modalidad híbrida con kit y 2 certificados oficiales."
+      }
+    ]
   },
   {
     "id": "esp32",
@@ -321,7 +396,7 @@
     "level": "Principiante",
     "hours": 36,
     "units": 8,
-    "price": 250,
+    "price": 79,
     "image": "images/curso-esp32.jpg",
     "imageLabel": "Plataforma ESP32",
     "featured": true,
@@ -508,7 +583,49 @@
     "status": "available",
     "sessions": 16,
     "weeks": 8,
-    "syllabusPdf": "assets/programas/silabo-esp32.pdf"
+    "syllabusPdf": "assets/programas/silabo-esp32.pdf",
+    "priceUsd": 29.94,
+    "regularPrice": 160,
+    "regularPriceUsd": 59.9,
+    "discountLabel": "Oferta de lanzamiento · Hasta 50% dscto.",
+    "options": [
+      {
+        "name": "ESP32 · Virtual",
+        "badge": "100% Online + Certificado",
+        "pen": 79,
+        "usd": 29.94,
+        "regularPen": 160,
+        "regularUsd": 59.9,
+        "detail": "16 sesiones online, simulador, lecturas, laboratorio de 20 proyectos y certificado oficial MECRO."
+      },
+      {
+        "name": "ESP32 · Híbrido",
+        "badge": "Online + Talleres + Certificado",
+        "pen": 150,
+        "usd": 56.85,
+        "regularPen": 250,
+        "regularUsd": 94.9,
+        "detail": "Clases online más talleres presenciales de laboratorio con banco compartido y certificado oficial."
+      },
+      {
+        "name": "ESP32 · Híbrido + kit",
+        "badge": "El más elegido · Incluye Hardware",
+        "pen": 269,
+        "usd": 101.95,
+        "regularPen": 385,
+        "regularUsd": 145.9,
+        "detail": "Curso completo en modalidad híbrida + Kit físico MECRO ESP32 para llevarte a casa + certificado."
+      },
+      {
+        "name": "Kit ESP32 por separado",
+        "badge": "Solo Hardware",
+        "pen": 135,
+        "usd": 51.17,
+        "regularPen": 180,
+        "regularUsd": 68.2,
+        "detail": "Adquiere el kit de componentes MECRO ESP32 de forma independiente."
+      }
+    ]
   },
   {
     "id": "telemetria",

@@ -25,7 +25,7 @@ test('combina búsqueda, nivel y especialidad; ordena y restablece resultados',(
   assert.equal(els['catalog-empty'].hidden,false);
   els['clear-filters'].events.click();assert.equal(cards.filter(c=>!c.hidden).length,4);assert.ok(els['course-search'].focused);
   els['course-order'].value='price-asc';els['catalog-filters'].events.change();
-  assert.deepEqual(els['course-grid'].children.map(c=>Number(c.dataset.price)),[250,349,450,380]);
+  assert.deepEqual(els['course-grid'].children.map(c=>Number(c.dataset.price)),[79,79,89,380]);
   assert.equal(els['course-grid'].children.at(-1).dataset.status,'coming-soon');
   els['course-category'].value='drones';els['course-level'].value='Intermedio';els['catalog-filters'].events.change();
   assert.equal(els['result-count'].textContent,'1 programa');assert.equal(cards[0].hidden,false);
